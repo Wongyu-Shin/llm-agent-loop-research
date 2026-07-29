@@ -233,7 +233,7 @@ test("자기수정 deck은 논문에서 실무 loop까지 8개 인터랙티브 S
   expect(renderedText).not.toMatch(
     /(^|[\s([{:])(R|I_t|C_t|L_t|M_t|O_t|V_t)(?=$|[\s)\]},.:])/m,
   );
-  await expect(deck.locator(".scene-formula .katex")).toHaveCount(9);
+  await expect(deck.locator(".scene-formula .katex")).toHaveCount(6);
   const svgText = (await deck.locator("svg").allTextContents()).join(" ");
   expect(svgText).toContain("Accₜ");
   expect(svgText).toContain("CLₜ");
@@ -317,48 +317,66 @@ test("전이 lab은 100개 점을 네 셀로 회계하고 population을 바꿔�
   );
 });
 
-test("손익 lab은 99% preset에서 손익분기 CLₜ를 계산하고 훼손 preset은 HARMFUL로 판정한다", async ({
+test("수렴 지도는 실측 8점의 방향을 Acc₀에 따라 뒤집고 개선 넓이를 갱신한다", async ({
   page,
 }) => {
   await page.goto("/self-correction-scaling/");
   const lab = page.locator("[data-scene-id='scene-03'] .lab");
   const fallback = lab.locator("[data-visual-fallback]");
 
-  await lab.getByRole("button", { name: "99% 정확도" }).click();
-  await expect(lab.getByLabel("Accₜ · 현재 정확도")).toHaveValue("0.99");
-  await lab.getByRole("button", { name: "손익분기 CLₜ 계산" }).click();
-  await expect(fallback.locator("[data-break-even-output]")).toContainText(
-    "99.49",
-  );
-  await expect(fallback).toContainText("0.994949");
-  await expect(lab.locator(".lab-statusbar")).toContainText("BREAK-EVEN");
+  await expect(fallback.locator("[data-grid-points] tbody tr")).toHaveCount(8);
+  await expect(fallback.locator("[data-area-table]")).toContainText("5.6%");
 
-  await lab.getByRole("button", { name: "복구보다 훼손이 큰 사례" }).click();
-  await expect(fallback).toContainText("HARMFUL");
-  await expect(lab.locator(".lab-statusbar")).toContainText("HARMFUL");
+  await lab.getByRole("button", { name: "관측 배치 (Acc₀ 70%)" }).click();
+  await expect(fallback.locator("[data-grid-points]")).toContainText("GSM8k");
+  await expect(
+    fallback.locator("[data-grid-points] tbody tr", { hasText: "GSM8k" }),
+  ).toContainText("개선");
+
+  await lab.getByRole("button", { name: "시작 99%" }).click();
+  await expect(fallback.locator("[data-improvement-area]")).toContainText(
+    "0.5%",
+  );
+  await expect(
+    fallback.locator("[data-grid-points] tbody tr", { hasText: "GSM8k" }),
+  ).toContainText("훼손");
+  await expect(
+    page.locator("[data-scene-id='scene-03'] [data-convergence-map]"),
+  ).toHaveAttribute("data-lit-count", "0");
+
+  await lab
+    .getByRole("button", { name: /HotpotQA/ })
+    .first()
+    .click();
+  await expect(lab.locator(".lab-statusbar")).toContainText("47.5");
 });
 
-test("궤적 explorer는 세 view를 전환하며 6라운드 × 3곡선 표를 제공한다", async ({
+test("예측 리플레이는 선반 40케이스를 전환하고 보정·예측 구분과 주장 경계를 제공한다", async ({
   page,
 }) => {
   await page.goto("/self-correction-scaling/");
   const lab = page.locator("[data-scene-id='scene-04'] .lab");
   const fallback = lab.locator("[data-visual-fallback]");
 
-  await expect(
-    fallback.locator("[data-trajectory-table] tbody tr"),
-  ).toHaveCount(6);
-  await expect(fallback.locator("[data-trajectory-table] caption")).toContainText(
-    "Upp",
-  );
+  await expect(lab.locator("[data-case-id]")).toHaveCount(40);
+  await expect(lab.locator(".lab-statusbar")).toContainText("GSM8k");
+  await expect(fallback.locator("[data-replay-table] tbody tr")).toHaveCount(2);
+  await expect(fallback).toContainText("79.3");
+  await expect(fallback).toContainText("근사");
+  await expect(lab.locator("svg.viz-svg")).toContainText("보정");
+  await expect(lab.locator("svg.viz-svg")).toContainText("예측");
 
-  await lab.getByRole("button", { name: "claim-boundary" }).click();
-  await expect(lab.locator(".lab-stage svg")).toContainText("아직 미검증");
+  await lab.locator("[data-case-id='are-you-sure-gsm8k']").click();
+  await expect(lab.locator(".lab-statusbar")).toContainText("하락");
+  await expect(fallback).toContainText("60.2");
 
-  await lab.getByRole("button", { name: "experiment" }).click();
-  await expect(lab.locator(".lab-stage svg")).toContainText("2~5라운드");
-  await expect(fallback.locator("[data-experiment-table]")).toContainText(
-    "64개 조합 전체는 아님",
+  await lab.locator("[data-case-id='fan-gsm8k']").click();
+  await expect(fallback.locator("[data-replay-table] tbody tr")).toHaveCount(6);
+
+  await lab.getByRole("button", { name: "주장 경계 3열 보기" }).click();
+  await expect(lab.locator("[data-claim-overlay]")).toContainText("아직 미검증");
+  await expect(fallback.locator("[data-claim-boundary]")).toContainText(
+    "RMSE·R²·신뢰구간",
   );
 });
 
