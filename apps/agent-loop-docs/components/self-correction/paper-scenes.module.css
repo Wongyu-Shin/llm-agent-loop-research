@@ -352,223 +352,287 @@
   background: color-mix(in srgb, var(--fg-default) 9%, transparent);
 }
 
-.presetButton[data-action="break-even"] {
+.presetButton[data-action="claim-boundary"] {
   border-color: color-mix(in srgb, var(--fg-accent) 55%, transparent);
   color: var(--fg-accent);
 }
 
-.barRowLabel {
-  fill: var(--fg-default);
-  font-family: var(--font-mono);
-  font-size: 13px;
-  font-weight: 720;
+.presetButton[aria-pressed="true"] {
+  border-color: var(--fg-accent);
+  background: color-mix(in srgb, var(--fg-accent) 12%, transparent);
 }
 
-.barRowValue {
-  font-family: var(--font-mono);
-  font-size: 13.5px;
-  font-weight: 730;
+/* 수렴 지도: 소등 바탕(빗금) 위에 개선 영역만 점등한다 */
+.mapField {
+  fill: color-mix(in srgb, var(--fg-default) 5%, transparent);
+  stroke: color-mix(in srgb, var(--fg-default) 20%, transparent);
+  stroke-width: 1.2;
 }
 
-.barRowValue[data-tone="good"] {
-  fill: var(--viz-correct);
+.mapHatchLine {
+  stroke: color-mix(in srgb, var(--fg-default) 16%, transparent);
+  stroke-width: 1;
 }
 
-.barRowValue[data-tone="danger"] {
-  fill: var(--viz-incorrect);
+.mapGainRegion {
+  fill: color-mix(in srgb, var(--viz-correct) 9%, transparent);
+  stroke: none;
+  transition: opacity 0.4s ease;
 }
 
-.barTrack {
-  fill: color-mix(in srgb, var(--fg-default) 7%, transparent);
+.mapContour {
+  fill: none;
+  stroke: color-mix(in srgb, var(--fg-attention) 70%, transparent);
+  stroke-width: 1.4;
+  stroke-dasharray: 6 6;
+  animation: contour-drift 14s linear infinite;
 }
 
-.gainBar {
-  fill: color-mix(in srgb, var(--viz-correct) 75%, transparent);
-  transition: width 0.35s ease, x 0.35s ease;
-}
-
-.lossBar {
-  fill: color-mix(in srgb, var(--viz-incorrect) 72%, transparent);
-  transition: width 0.35s ease, x 0.35s ease;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .gainBar,
-  .lossBar {
-    transition: none;
+@keyframes contour-drift {
+  to {
+    stroke-dashoffset: -120;
   }
 }
 
-.verdictText {
-  font-family: var(--font-mono);
-  font-size: 13.5px;
-  font-weight: 740;
-}
-
-.verdictText[data-verdict="BENEFICIAL"] {
-  fill: var(--viz-correct);
-}
-
-.verdictText[data-verdict="BREAK_EVEN"] {
+.mapContourLabel {
   fill: var(--fg-attention);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
 }
 
-.verdictText[data-verdict="HARMFUL"] {
-  fill: var(--viz-incorrect);
+.mapBoundary {
+  stroke: var(--viz-correct);
+  stroke-width: 2.4;
+  stroke-linecap: round;
 }
 
-.netAxis {
-  stroke: color-mix(in srgb, var(--fg-default) 45%, transparent);
-  stroke-dasharray: 2 4;
-  stroke-width: 1.4;
+.mapBoundaryLabel {
+  fill: var(--viz-correct);
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  font-weight: 720;
 }
 
-.stripAxis {
-  stroke: color-mix(in srgb, var(--fg-default) 30%, transparent);
+.mapOracleEdge {
+  stroke: color-mix(in srgb, var(--fg-attention) 35%, transparent);
   stroke-width: 2;
 }
 
-.stripTick {
+.mapOracleEdge[data-active] {
+  stroke: var(--fg-attention);
+  stroke-width: 3;
+}
+
+.mapOracleLabel {
+  fill: var(--fg-attention);
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  font-weight: 720;
+}
+
+.mapPoint {
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.mapPoint[data-visible="true"] {
+  opacity: 1;
+}
+
+.mapPointDot {
+  fill: color-mix(in srgb, var(--fg-default) 12%, transparent);
+  stroke: color-mix(in srgb, var(--fg-default) 55%, transparent);
+  stroke-width: 1.6;
+  stroke-dasharray: 2 2;
+}
+
+.mapPoint[data-lit="true"] .mapPointDot {
+  fill: color-mix(in srgb, var(--fg-accent) 30%, transparent);
+  stroke: var(--fg-accent);
+  stroke-dasharray: none;
+}
+
+.mapPoint[data-selected] .mapPointDot {
+  stroke-width: 2.6;
+}
+
+.mapPointGlow {
+  fill: none;
+  stroke: var(--fg-accent);
+  stroke-width: 1.4;
+}
+
+.mapPointHit {
+  fill: transparent;
+  cursor: pointer;
+}
+
+.mapPointHit:focus-visible {
+  outline: 2px solid var(--fg-accent);
+  outline-offset: 2px;
+}
+
+.mapAxisLabel {
+  fill: var(--fg-muted);
+  font-size: 12px;
+}
+
+.mapAxisTick {
   fill: var(--fg-muted);
   font-family: var(--font-mono);
   font-size: 11px;
 }
 
-.breakEvenMarker line {
-  stroke: var(--fg-attention);
-  stroke-dasharray: 3 3;
+.gaugeTrack {
+  stroke: color-mix(in srgb, var(--fg-default) 30%, transparent);
   stroke-width: 2;
 }
 
-.breakEvenMarker text {
-  fill: var(--fg-attention);
+.gaugeAccMarker {
+  stroke: var(--fg-accent);
+  stroke-width: 2.4;
+}
+
+.gaugeAccLabel {
+  fill: var(--fg-accent);
   font-family: var(--font-mono);
-  font-size: 11.5px;
-  font-weight: 700;
-}
-
-.stripCurrent {
-  stroke-width: 2;
-  transition: cx 0.2s linear;
-}
-
-.stripCurrent[data-verdict="BENEFICIAL"] {
-  fill: color-mix(in srgb, var(--viz-correct) 60%, transparent);
-  stroke: var(--viz-correct);
-}
-
-.stripCurrent[data-verdict="BREAK_EVEN"] {
-  fill: color-mix(in srgb, var(--fg-attention) 60%, transparent);
-  stroke: var(--fg-attention);
-}
-
-.stripCurrent[data-verdict="HARMFUL"] {
-  fill: color-mix(in srgb, var(--viz-incorrect) 60%, transparent);
-  stroke: var(--viz-incorrect);
-}
-
-.stripCurrentLabel {
-  fill: var(--fg-default);
-  font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 720;
 }
 
-/* ---------- Scene 4 · ScalingEvidenceExplorer ---------- */
+.gaugeUppMarker {
+  stroke: var(--fg-attention);
+  stroke-width: 2.4;
+}
 
-.chartAxis {
+.gaugeUppLabel {
+  fill: var(--fg-attention);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 720;
+}
+
+.gaugePulse {
+  fill: color-mix(in srgb, var(--fg-attention) 70%, transparent);
+  animation: gauge-pulse 2.4s ease-in-out infinite;
+}
+
+@keyframes gauge-pulse {
+  0% {
+    transform: translateY(var(--pulse-from));
+    opacity: 0;
+  }
+
+  25% {
+    opacity: 1;
+  }
+
+  85% {
+    transform: translateY(var(--pulse-to));
+    opacity: 0.9;
+  }
+
+  100% {
+    transform: translateY(var(--pulse-to));
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mapContour {
+    animation: none;
+  }
+
+  .mapPoint {
+    opacity: 1;
+    transition: none;
+  }
+
+  .gaugePulse {
+    animation: none;
+    transform: translateY(var(--pulse-to));
+    opacity: 0.9;
+  }
+}
+
+/* ---------- Scene 4 · PredictionReplayLab ---------- */
+
+.replayCalibration {
+  fill: color-mix(in srgb, var(--fg-default) 6%, transparent);
+}
+
+.replayZoneLabel {
+  fill: var(--fg-muted);
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  font-weight: 720;
+  letter-spacing: 0.08em;
+}
+
+.replayZoneLabel[data-zone="prediction"] {
+  fill: var(--fg-accent);
+}
+
+.replayAxis {
   stroke: color-mix(in srgb, var(--fg-default) 32%, transparent);
   stroke-width: 1.6;
 }
 
-.chartTick {
-  fill: var(--fg-muted);
-  font-family: var(--font-mono);
-  font-size: 11.5px;
-}
-
-.chartAxisLabel {
-  fill: var(--fg-muted);
-  font-size: 12px;
-}
-
-.uppLine {
+.replayUpp {
   stroke: var(--fg-attention);
   stroke-dasharray: 6 5;
   stroke-width: 1.8;
 }
 
-.uppLabel {
+.replayUppLabel {
   fill: var(--fg-attention);
   font-family: var(--font-mono);
-  font-size: 12.5px;
+  font-size: 12px;
   font-weight: 720;
 }
 
-.trajectoryLine {
+/* 이론 곡선은 pathLength=1로 정규화해 그리기 애니메이션을 건다 */
+.replayLine {
   fill: none;
   stroke-linecap: round;
   stroke-linejoin: round;
-  stroke-width: 2.4;
+  stroke-width: 2;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
 }
 
-.trajectoryLine[data-tone="good"] {
-  stroke: var(--viz-correct);
+.replaySeries[data-role="theory"] .replayLine {
+  stroke: var(--fg-done);
+  stroke-dashoffset: 1;
+  animation: line-draw 1.4s ease-out 0.2s forwards;
 }
 
-.trajectoryLine[data-tone="neutral"] {
-  stroke: color-mix(in srgb, var(--fg-default) 55%, transparent);
+.replaySeries[data-role="empirical"] .replayLine {
+  stroke: color-mix(in srgb, var(--fg-accent) 55%, transparent);
+  stroke-width: 1.4;
 }
 
-.trajectoryLine[data-tone="danger"] {
-  stroke: var(--viz-incorrect);
+.replaySeries[data-role="empirical-alt"] .replayLine {
+  stroke: color-mix(in srgb, var(--fg-default) 45%, transparent);
+  stroke-width: 1.4;
 }
 
-.trajectoryDot[data-tone="good"] {
-  fill: var(--viz-correct);
+@keyframes line-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
 }
 
-.trajectoryDot[data-tone="neutral"] {
-  fill: color-mix(in srgb, var(--fg-default) 60%, transparent);
+.replayDot {
+  opacity: 0;
+  animation: dot-land 0.5s ease-out forwards;
 }
 
-.trajectoryDot[data-tone="danger"] {
-  fill: var(--viz-incorrect);
-}
-
-.curveLabel {
-  font-family: var(--font-mono);
-  font-size: 11.5px;
-  font-weight: 700;
-}
-
-.curveLabel[data-tone="good"] {
-  fill: var(--viz-correct);
-}
-
-.curveLabel[data-tone="neutral"] {
-  fill: var(--fg-muted);
-}
-
-.curveLabel[data-tone="danger"] {
-  fill: var(--viz-incorrect);
-}
-
-.alphaNote {
-  fill: var(--fg-muted);
-  font-family: var(--font-mono);
-  font-size: 11.5px;
-  font-style: italic;
-}
-
-.procedureStage {
-  animation: stage-in 0.7s ease both;
-}
-
-@keyframes stage-in {
+@keyframes dot-land {
   from {
     opacity: 0;
-    transform: translateY(8px);
+    transform: translateY(-6px);
   }
 
   to {
@@ -577,85 +641,175 @@
   }
 }
 
+.replayHalo {
+  fill: none;
+  stroke: color-mix(in srgb, var(--fg-accent) 40%, transparent);
+  stroke-width: 1.2;
+}
+
+.replayMark {
+  fill: var(--fg-accent);
+}
+
+.replaySeries[data-role="empirical-alt"] .replayMark {
+  fill: color-mix(in srgb, var(--fg-default) 60%, transparent);
+}
+
+.replaySeries[data-role="empirical-alt"] .replayHalo {
+  stroke: color-mix(in srgb, var(--fg-default) 35%, transparent);
+}
+
+.replaySeriesLabel {
+  fill: var(--fg-muted);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.replayInset .insetPoint {
+  fill: var(--fg-accent);
+  animation: inset-pulse 2s ease-in-out infinite;
+}
+
+@keyframes inset-pulse {
+  0%,
+  100% {
+    opacity: 0.5;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+.replayProvenance {
+  fill: var(--fg-muted);
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  font-style: italic;
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .procedureStage {
+  .replaySeries[data-role="theory"] .replayLine {
+    animation: none;
+    stroke-dashoffset: 0;
+  }
+
+  .replayDot {
+    animation: none;
+    opacity: 1;
+  }
+
+  .replayInset .insetPoint {
     animation: none;
   }
 }
 
-.procedureStage rect {
-  fill: color-mix(in srgb, var(--fg-default) 5%, transparent);
-  stroke: color-mix(in srgb, var(--fg-accent) 45%, transparent);
-  stroke-width: 1.3;
+.claimBoundary {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin-top: 12px;
 }
 
-.procedureIndex {
-  fill: var(--fg-accent);
-  font-family: var(--font-mono);
-  font-size: 15px;
-  font-weight: 740;
+.claimBoundary > div {
+  border: 1px solid color-mix(in srgb, var(--fg-default) 16%, transparent);
+  border-radius: var(--radius-md);
+  padding: 10px 12px;
 }
 
-.procedureTitle {
-  fill: var(--fg-default);
-  font-size: 14px;
-  font-weight: 720;
+.claimBoundary > div[data-claim-column="direct"] {
+  border-color: color-mix(in srgb, var(--fg-accent) 55%, transparent);
 }
 
-.procedureDetail {
+.claimBoundary > div[data-claim-column="supported"] {
+  border-color: color-mix(in srgb, var(--viz-correct) 50%, transparent);
+}
+
+.claimBoundary > div[data-claim-column="unverified"] {
+  border-color: color-mix(in srgb, var(--fg-attention) 55%, transparent);
+}
+
+.claimBoundary h4 {
+  margin: 0 0 4px;
+  font-size: 0.82rem;
+}
+
+.claimBoundary p {
   margin: 0;
   color: var(--fg-muted);
-  font-size: 10.5px;
-  line-height: 1.45;
+  font-size: 0.76rem;
+  line-height: 1.5;
 }
 
-.procedureArrow {
+/* 데이터 선반: 그룹별 스파크라인 칩, 자체 가로 스크롤 */
+.shelf {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.shelfGroup h4 {
+  margin: 0 0 6px;
+  color: var(--fg-muted);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+
+.shelfChips {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+
+.shelfChip {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  border: 1px solid color-mix(in srgb, var(--fg-default) 16%, transparent);
+  border-radius: var(--radius-md);
+  background: color-mix(in srgb, var(--fg-default) 4%, transparent);
+  padding: 0 12px;
+  color: var(--fg-default);
+  font-size: 0.78rem;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.shelfChip:hover {
+  background: color-mix(in srgb, var(--fg-default) 9%, transparent);
+}
+
+.shelfChip[aria-pressed="true"] {
+  border-color: var(--fg-accent);
+  background: color-mix(in srgb, var(--fg-accent) 12%, transparent);
+}
+
+.shelfChip svg {
+  width: 40px;
+  height: 16px;
+}
+
+.shelfChip polyline {
   fill: none;
-  stroke: color-mix(in srgb, var(--fg-default) 45%, transparent);
-  stroke-width: 1.6;
+  stroke: var(--fg-accent);
+  stroke-width: 1.5;
 }
 
-.procedureCaveat {
-  fill: var(--fg-attention);
-  font-size: 12.5px;
-  font-style: italic;
-}
+@media (width < 640px) {
+  .replayInset {
+    display: none;
+  }
 
-.claimColumn rect {
-  fill: color-mix(in srgb, var(--fg-default) 4%, transparent);
-  stroke-width: 1.4;
-}
-
-.claimColumn[data-column="derived"] rect {
-  stroke: color-mix(in srgb, var(--fg-accent) 55%, transparent);
-}
-
-.claimColumn[data-column="supported"] rect {
-  stroke: color-mix(in srgb, var(--viz-correct) 50%, transparent);
-}
-
-.claimColumn[data-column="unverified"] rect {
-  stroke: color-mix(in srgb, var(--fg-attention) 55%, transparent);
-}
-
-.claimTitle {
-  fill: var(--fg-default);
-  font-size: 15px;
-  font-weight: 740;
-}
-
-.claimProvenance {
-  fill: var(--fg-muted);
-  font-family: var(--font-mono);
-  font-size: 10.5px;
-  letter-spacing: 0.08em;
-}
-
-.claimItem {
-  margin: 0;
-  color: var(--fg-muted);
-  font-size: 10.5px;
-  line-height: 1.45;
+  .claimBoundary {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* <768px: SVG는 가로 스크롤을 유지하되 표 형태 대체 자료를 세로 스테퍼로
