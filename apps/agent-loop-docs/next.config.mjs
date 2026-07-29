@@ -27,6 +27,10 @@ const withMDX = createMDX({
 const nextConfig = {
   basePath,
   output: "export",
+  // dev 전용: localhost와 127.0.0.1 어느 쪽으로 접속해도 Next 16이
+  // /_next/* dev 리소스를 cross-origin으로 차단하지 않게 한다.
+  // 차단되면 hydration이 안 돼 애니메이션·모드 토글이 모두 죽는다.
+  allowedDevOrigins: ["localhost", "127.0.0.1"],
   turbopack: {
     root: process.cwd(),
   },
