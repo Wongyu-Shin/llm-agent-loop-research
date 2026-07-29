@@ -1,0 +1,92 @@
+{
+  "claim_boundary": {
+    "evidence_boundary": "Provider-check and dry-run outputs are not empirical LLM evidence. Only mode=run outputs with a real provider count as pilot evidence.",
+    "not_sufficient_for_publication_claim": "This pilot is too small to establish the thesis. It is a smoke test for the preregistered protocol and runner.",
+    "purpose": "Tiny empirical pilot for checking whether loop policies improve selected deterministic tasks under a real LLM provider."
+  },
+  "condition_count": 1,
+  "generated_at": "2026-05-27T08:30:42+00:00",
+  "id": "M4b-agent-loop-necessity-tiny-pilot-run",
+  "mode": "run",
+  "model": "gpt-5.4-mini",
+  "provider": "https://api.openai.com",
+  "results": [
+    {
+      "candidates": [
+        {
+          "answer": "47",
+          "call_index": 1,
+          "latency_seconds": 1.422,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"47\"}",
+          "selected_by": "single",
+          "strong_verifier": {
+            "answer": "47",
+            "expected_normalized": [
+              "47"
+            ],
+            "observed_normalized": "47",
+            "passed": true,
+            "reason": "exact_match"
+          },
+          "usage": {
+            "completion_tokens": 8,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 58,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 66
+          },
+          "weak_verifier": {
+            "answer": "47",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        }
+      ],
+      "condition_id": "C0",
+      "condition_name": "one-shot",
+      "model_calls": 1,
+      "passed": true,
+      "selected_answer": "47",
+      "selected_call_index": 1,
+      "task_class": "short_deterministic",
+      "task_id": "S1"
+    }
+  ],
+  "source_manifest": "data/M4b-agent-loop-necessity-tiny-pilot-manifest.json",
+  "summary": {
+    "by_condition": {
+      "C0": {
+        "n": 1,
+        "success_rate": 1.0,
+        "total_model_calls": 1
+      }
+    },
+    "by_condition_and_task_class": {
+      "C0::short_deterministic": {
+        "n": 1,
+        "success_rate": 1.0,
+        "total_model_calls": 1
+      }
+    },
+    "predeclared_contrasts": {
+      "C3_minus_C0_all": null,
+      "C3_minus_C0_nonshort": null,
+      "C4_minus_C0_all": null,
+      "C6_minus_C0_all": null,
+      "C6_minus_C0_medium_reasoning": null,
+      "C6_minus_C0_tiny_symbolic": null,
+      "C7_minus_C0_all": null
+    }
+  },
+  "task_count": 1
+}

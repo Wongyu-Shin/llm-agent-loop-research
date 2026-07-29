@@ -1,0 +1,176 @@
+{
+  "generated_at": "2026-05-28T08:45:43+00:00",
+  "id": "m4b-content-judge-card_copy",
+  "input": "reports/linkedin-agent-loop-post/13-card-copy.md",
+  "mode": "card_copy",
+  "model": "gpt-5.4-mini",
+  "review_count": 5,
+  "reviews": [
+    {
+      "highest_risk_issues": [
+        "Card 2의 '외부 관찰·검증·수정·rollback이 필요한 장기 작업에서 조건부로 필요해질 수 있다'는 문장은 방향은 맞지만, 필요성의 강도가 다소 넓게 읽힌다. '필요해질 수 있다'는 조건부 표현을 유지하되, 어떤 조건에서 utility 개선이 기대되는지 더 좁혀야 한다.",
+        "Card 5의 pilot 해석은 안전하지만, '이 설정에서는 반복만으로 개선을 확인하지 못했다'가 자칫 일반적 결론처럼 읽힐 수 있다. 12개 과제, 단일 실행, 모델 1개라는 한계를 카드 본문에 더 직접적으로 박아야 한다.",
+        "Card 6-9는 control surface를 설명하지만, verifier/feedback/tool/state가 실제로 성능을 높인다는 인과를 암시할 수 있다. 현재는 설명 수준이지만, 카드 문구가 '중요하다'를 넘어 '효과적이다'로 읽히지 않도록 주의가 필요하다."
+      ],
+      "optional_revisions": [
+        "Card 3의 '그럴듯함은 성공이 아니다'는 좋지만, 수학/통계 관점에서는 'likelihood 최대화가 utility 최대화를 보장하지 않는다'를 한 번 더 명시하면 논리 연결이 더 단단해집니다.",
+        "Card 6의 'Verifier: 판정, 아니면 echo'는 기억에 남지만 다소 구어적입니다. LinkedIn 카드에서는 'Verifier: 판정 신호, 아니면 echo'처럼 약간 더 정돈해도 좋습니다.",
+        "Card 10의 stop rule 설명에 '비용'도 포함하면 원문과 더 정확히 맞습니다. 현재 success, latency, risk만 있어 utility trade-off의 일부가 빠져 보입니다."
+      ],
+      "overclaim_check": "minor overclaim",
+      "perspective": "수학/통계 리뷰어",
+      "perspective_id": "math_stats",
+      "quality_bar_check": "meets",
+      "required_revisions": [
+        "Card 2의 본문을 더 보수적으로 바꾸세요. 예: '외부 관찰·검증·수정·rollback이 과제 정의에 들어가는 장기 작업에서는 조건부로 필요해질 수 있다.'처럼 과제 정의와 연결해 causal overclaim을 줄이세요.",
+        "Card 5에 표본 한계를 더 명시하세요. 예: '12개 합성 과제, 모델 1개, 단일 실행이라 통계적 결론은 불가'처럼 숫자와 한계를 한 문장에 묶어야 합니다.",
+        "Card 6-10에서 '좋은', '중요하다' 같은 평가어는 유지하되, 성능 향상에 대한 암묵적 인과를 피하도록 문장을 점검하세요. 특히 'prevent false success', 'break internal correlation'은 메커니즘 설명으로 읽히게 보조 문구를 붙이는 편이 안전합니다."
+      ],
+      "score": 7,
+      "standalone_check": "self-contained",
+      "strongest_points": [
+        "next-token objective, sequence likelihood, task utility를 분리한 구조는 개념적으로 정확하고, 확률적 생성과 실제 성능을 혼동하지 않게 만든다.",
+        "pilot을 증거가 아니라 failure mode 관찰로 제한한 점은 통계적으로 안전하다. 표본이 작고 단일 실행이라는 한계를 명시한 것도 적절하다.",
+        "verifier, feedback, tool, state를 control surface로 나눈 프레임은 causal claim을 과장하지 않고 설계 요소로 환원하는 데 도움이 된다."
+      ],
+      "verdict": "revise"
+    },
+    {
+      "highest_risk_issues": [
+        "몇몇 카드 문구가 원문보다 더 단정적으로 읽힌다. 특히 Card 2의 ‘필요해질 수 있다’와 Card 10의 종료 정책 설명은 좋지만, 카드 전체 톤에서 ‘조건부 설계 요구’라는 제한이 충분히 드러나지 않으면 필연론처럼 보일 수 있다.",
+        "Card 6-9는 개념 정의가 맞지만, verifier/feedback/tool/state의 경계가 카드별로 약간 겹친다. 예를 들어 Card 6의 ‘판정’과 Card 7의 ‘수리’는 좋지만, 실제 시스템에서는 verifier가 diagnostic signal을 일부 포함할 수 있어 구분이 너무 절대적으로 읽히면 공학적으로 과장된다."
+      ],
+      "optional_revisions": [
+        "Card 1의 Footer ‘verifier · feedback · tools · state’는 좋지만, ‘tool’과 ‘state’의 복수/단수 표기를 통일하면 더 정돈된다. 예: ‘verifier · feedback · tool access · state control’.",
+        "Card 4의 ‘verification’과 Card 6의 ‘Verifier’가 용어상 겹치므로, Card 4는 ‘verify’보다 ‘verification signal’ 또는 ‘check’로 바꾸면 카드 간 역할 분리가 더 선명해진다.",
+        "Card 5의 ‘12개 합성 과제, 단일 실행, 통계적 결론 불가’는 정확하지만 다소 보고서체다. LinkedIn 카드 톤에서는 ‘12개 합성 과제의 단일 실행이라 통계적 결론은 불가’처럼 한 번만 더 자연화할 수 있다.",
+        "Card 8의 ‘correlated guessing’은 기술적으로 맞지만 카드 본문에서는 영어가 튄다. ‘상관된 추측’ 또는 ‘같은 오류 공간 반복’으로 통일하면 더 읽기 쉽다."
+      ],
+      "overclaim_check": "minor overclaim",
+      "perspective": "LLM 시스템 엔지니어",
+      "perspective_id": "llm_systems",
+      "quality_bar_check": "meets",
+      "required_revisions": [
+        "Card 2의 본문을 더 조건부로 다듬어라. ‘장기 작업에서 조건부로 필요해질 수 있다’는 문장은 좋지만, 두 번째 문장도 ‘내부 점수만으로는 충분하지 않은 경우가 많다’처럼 완화해 필연론을 피하는 편이 낫다.",
+        "Card 6의 ‘Verifier: 판정, 아니면 echo’는 강하지만 다소 구호형이다. ‘Verifier: 판정 신호, 아니면 echo’처럼 기술적 의미를 더 명시하거나, 본문에서 ‘독립적 판정’과 ‘diagnostic feedback’의 차이를 한 번 더 분리해라.",
+        "Card 9의 ‘정의: 보존, 폐기, rollback, stop.’은 너무 압축돼 있어 state control의 공학적 범위가 흐려진다. ownership, provenance, rollback boundary, stopping rule을 최소한 한 번은 명시적으로 적어라.",
+        "Card 10의 ‘stop rule은 success, latency, risk를 함께 보는 종료 정책이다’는 좋지만, ‘utility/cost frontier’의 핵심을 더 살리려면 비용(cost)도 포함해라. 현재는 latency와 risk는 보이지만 비용이 빠져 있다."
+      ],
+      "score": 7,
+      "standalone_check": "needs context",
+      "strongest_points": [
+        "핵심 논지를 카드 구조로 잘 분해했다: loop 일반론이 아니라 verifier, feedback, tool, state control이 무엇을 닫는지 묻는 프레이밍이 일관된다.",
+        "next-token objective, sequence likelihood, task utility의 구분이 들어가 있어 공학적 주장 골격은 탄탄하다.",
+        "pilot을 ‘증명’이 아니라 failure mode 관찰로 제한한 점은 과장 억제 측면에서 적절하다."
+      ],
+      "verdict": "revise"
+    },
+    {
+      "highest_risk_issues": [
+        "몇몇 카드가 여전히 선언형 문장에 머문다. 특히 Card 2, 3, 10은 원칙은 맞지만 실무자가 바로 적용할 설계 기준이 덜 보인다.",
+        "용어 일관성이 약하다. `observe`/`observation`, `verification`/`verifier`, `tool`/`tools`가 카드마다 조금씩 흔들리고, Footer와 Body의 용어도 완전히 정렬되지 않는다.",
+        "Card 5의 pilot은 본문에서 이미 강하게 한계가 명시되지만, 카드 문구만 보면 여전히 근거처럼 읽힐 수 있다. LinkedIn 카드에서는 숫자 제시가 과잉 확신으로 오해될 위험이 있다.",
+        "Card 6~9는 좋지만, 각 control surface의 경계가 더 명시적이어야 한다. 지금은 개념 소개는 되지만 '무엇을 판정하고 무엇을 바꾸지 않는가'가 덜 선명하다."
+      ],
+      "optional_revisions": [
+        "Card 1의 'verifier, feedback, tool, state'는 복수형/단수형이 섞여 있으니 `verifiers, feedback signals, tools, state`처럼 병렬성을 맞추면 더 깔끔합니다.",
+        "Card 5의 `small pilot`은 `small synthetic pilot` 또는 `toy pilot`처럼 더 정확한 표현이 낫습니다. 단, 과장되지 않게 유지해야 합니다.",
+        "Card 10의 마지막 질문은 좋지만, `stop rule`을 `termination policy` 또는 `stopping rule` 중 하나로 고정하면 아키텍처 문서 톤이 더 안정됩니다.",
+        "Alt text는 충분히 기능적이지만, 카드 6~9는 각각의 control surface가 무엇을 '하지 않는지'까지 포함하면 접근성과 개념 경계가 더 좋아집니다."
+      ],
+      "overclaim_check": "minor overclaim",
+      "perspective": "소프트웨어 아키텍처 리뷰어",
+      "perspective_id": "software_architecture",
+      "quality_bar_check": "near",
+      "required_revisions": [
+        "Card 2를 더 설계 지향적으로 바꾸세요. 예: '외부 관찰·검증·수정·rollback이 필요한 장기 작업에서만 loop를 붙인다'처럼 조건과 적용 범위를 더 직접적으로 써야 합니다.",
+        "Card 3에서 세 목적함수의 차이를 한 줄로 더 명확히 하세요. 지금은 나열형이라 기억에 남지만, 'local objective / sequence likelihood / task utility는 서로 다른 최적화 대상'이라는 boundary 문장을 넣는 편이 낫습니다.",
+        "Card 6~9의 Body에 각 control surface의 boundary를 한 문장씩 추가하세요. 예: verifier는 판정만 하고 repair는 하지 않는다, feedback은 수리 방향을 주고 판정은 하지 않는다 식으로 역할 분리를 더 분명히 해야 합니다.",
+        "Footer 용어를 통일하세요. `observe`와 `observation`, `tool`과 `tools`, `verification`과 `verifier`를 하나의 표기로 맞추고, 가능하면 카드 전체에서 동일한 architecture vocabulary를 유지하세요."
+      ],
+      "score": 7,
+      "standalone_check": "self-contained",
+      "strongest_points": [
+        "핵심 논지가 카드 10장에 일관되게 유지된다: loop 자체가 아니라 verifier, feedback, tool, state가 다음 행동을 바꾸는지 묻는 구조로 정리되어 있다.",
+        "Fowler식 boundary 감각이 있다. 텍스트 생성과 시스템 문제의 경계를 나누고, state ownership / provenance / rollback / stop rule을 별도 control surface로 분리한 점은 실무 설계에 유용하다.",
+        "architecture vocabulary가 비교적 정확하다. objective mismatch, task utility, false positive, correlated guessing, rollback boundary 같은 용어 선택이 카드 뉴스 수준에서는 충분히 공학적이다."
+      ],
+      "verdict": "revise"
+    },
+    {
+      "highest_risk_issues": [
+        "Card 2의 ‘조건부로 필요해질 수 있다’는 표현은 본문보다 약하다. 본문은 신뢰성, 장기 과제, 외부 관찰/검증/상태 회수가 과제 정의에 들어오면 사실상 필요해질 수 있다고 말하므로, 카드 문구도 그 조건을 더 선명하게 드러내야 한다.",
+        "Card 6~9는 개념은 맞지만 제어/RL 관점에서 ‘verifier=판정’, ‘feedback=수리 정보’, ‘tool=관찰/행동’, ‘state=보존/폐기/rollback/stop’의 경계가 다소 압축되어 있다. 특히 Card 6의 ‘utility proxy에 비춘 판정’은 proxy hacking 위험과 calibration 조건이 빠져 있어 다소 낙관적으로 읽힐 수 있다.",
+        "Card 10의 ‘stop rule은 success, latency, risk를 함께 보는 종료 정책’은 좋지만, 본문의 핵심인 cost까지 포함한 trade-off가 빠져 있다. 제어 관점에서는 종료 조건이 utility/cost frontier를 따른다는 점이 더 정확하다.",
+        "일부 alt text와 footer가 카드 본문보다 추상적이라, LinkedIn 카드뉴스에서 스캔성은 좋지만 기술적 정확성은 약간 희생된다. 특히 Card 1, 4, 10은 시각 설명이 본문 논지를 충분히 구체화하지 못한다."
+      ],
+      "optional_revisions": [
+        "Card 3의 ‘그럴듯함은 성공이 아니다’는 좋지만, 가능하면 ‘likelihood ≠ utility’처럼 수식형 축약을 한 번 더 넣어 기억성을 높여도 된다.",
+        "Card 5의 ‘작은 pilot은 증명이 아니다’는 적절하나, ‘단일 실행’이 왜 약한지 한 단어 정도 보강하면 좋다. 예: ‘표본이 작아 우열 주장 불가’.",
+        "Card 7의 ‘Feedback: 거절이 아니라 수리’는 좋지만, ‘diagnostic feedback’이라는 본문 용어를 병기하면 기술적 정합성이 더 좋아진다.",
+        "Card 8의 ‘Tool: 추측을 깨는 관찰’은 강하지만, ‘행동’까지 포함한다는 점을 더 드러내면 제어 관점에서 더 정확하다.",
+        "Card 9의 ‘State: drift를 막는 경계’는 좋지만, ‘ownership / provenance / rollback / stop’의 네 요소를 본문과 동일한 순서로 맞추면 일관성이 더 좋아진다."
+      ],
+      "overclaim_check": "minor overclaim",
+      "perspective": "제어/RL 리뷰어",
+      "perspective_id": "control_rl",
+      "quality_bar_check": "near",
+      "required_revisions": [
+        "Card 2를 ‘모든 작업에 loop가 필요하진 않다’에서 한 단계 더 나아가, ‘신뢰성·장기성·외부 관찰·검증·상태 회수가 필요한 작업에서 조건부로 필요해질 수 있다’처럼 본문과 같은 조건을 명시하라.",
+        "Card 6에 verifier의 실패 모드로 false positive뿐 아니라 calibration 실패와 proxy hacking 가능성을 짧게라도 넣어라. ‘판정’만 강조하면 verifier가 충분조건처럼 읽힌다.",
+        "Card 10의 stop rule 문구에 cost를 포함하라. 예: ‘success, latency, cost, risk를 함께 보는 종료 정책’처럼 본문과 정합시키는 것이 좋다.",
+        "Card 4의 state update 문구는 ‘update/rollback’보다 ‘state update, rollback, stop rule’처럼 상태 제어의 범위를 더 분명히 드러내라.",
+        "전체적으로 ‘loop’와 ‘closed-loop control’의 연결을 더 직접적으로 써라. 지금은 구조는 맞지만, 제어/RL 리뷰어 관점에서 폐루프의 핵심인 observation→policy→state update→termination의 연결이 카드마다 조금씩 분산되어 있다."
+      ],
+      "score": 7,
+      "standalone_check": "self-contained",
+      "strongest_points": [
+        "핵심 질문을 ‘agent가 loop인가?’에서 ‘무엇이 loop를 닫는가?’로 바꾼 점은 제어 관점에서 정확하고 기억에 남는다.",
+        "verifier, feedback, tool, state를 분리해 control surface로 제시한 구조가 좋고, 단순 반복과 폐루프 제어를 구분한다.",
+        "next-token objective, sequence likelihood, task utility의 분리를 카드 2~4에서 일관되게 압축했다.",
+        "pilot을 증거가 아니라 failure mode로 제한한 점은 과장 억제 측면에서 적절하다."
+      ],
+      "verdict": "revise"
+    },
+    {
+      "highest_risk_issues": [
+        "몇몇 카드가 여전히 에세이 내부 용어를 압축만 했지, LinkedIn 단독 소비자에게는 다소 추상적이다. 특히 Card 2, 3, 6, 9는 정의형 문장이 많아 즉시 이해되는 장면성이 약하다.",
+        "Card 5의 ‘작은 pilot’은 맥락 없이는 실험 주장처럼 읽힐 수 있다. 본문에서 이미 강하게 caveat를 달았지만, 카드에서는 표본/단일 실행/결론 불가를 더 선명하게 못 박아야 한다.",
+        "영문 기술어와 한국어가 섞인 카드들이 리듬은 좋지만, 일부는 문장 완결성이 약하다. 예: ‘objective mismatch -> control surface’, ‘proof가 아니라 failure mode’, ‘break internal correlation’은 카드 문구로는 다소 메모처럼 보인다."
+      ],
+      "optional_revisions": [
+        "Card 1의 body는 더 날카롭게 줄일 수 있다. ‘질문은 “agent가 loop인가?”가 아니다.’ 다음 줄을 ‘무엇이 다음 행동을 바꾸는가?’로 바꾸면 더 강하다.",
+        "Card 3은 세 층위를 나열하는 대신, ‘그럴듯함은 성공이 아니다’보다 더 기억나는 대비 문장을 넣을 수 있다. 예: ‘likelihood가 높아도 utility는 낮을 수 있다.’",
+        "Card 4의 ‘텍스트 문제는 시스템 문제가 된다’는 좋지만, ‘파일, source, API 상태’ 대신 ‘파일·source·API를 바꾸는 순간’처럼 동사를 살리면 더 생동감 있다.",
+        "Card 8의 footer ‘break internal correlation’은 한국어 카드 톤과 약간 어긋난다. ‘내부 추측의 반복을 깨기’처럼 바꾸면 더 자연스럽다.",
+        "Card 9의 body는 명사열이 많다. ‘보존, 폐기, rollback, stop’ 대신 ‘무엇을 남기고, 무엇을 되돌리고, 언제 멈출지’처럼 동작 중심으로 바꾸면 더 읽힌다."
+      ],
+      "overclaim_check": "minor overclaim",
+      "perspective": "기술 에세이 편집자",
+      "perspective_id": "editorial",
+      "quality_bar_check": "near",
+      "required_revisions": [
+        "Card 2는 ‘조건부로 필요해질 수 있다’보다 더 직접적으로, 어떤 조건에서 필요한지 한 문장으로 닫아야 한다. 예: ‘신뢰성·장기성·외부 검증이 들어오면 loop는 선택이 아니라 설계가 된다.’",
+        "Card 5는 실험 요약이 아니라 경고문처럼 읽히도록 수정해야 한다. ‘12개 합성 과제, 단일 실행, 통계적 결론 불가’는 유지하되, ‘이 숫자는 우열이 아니라 실패 모드만 보여준다’ 같은 문장을 카드 본문에 넣는 편이 낫다.",
+        "Card 6~9는 각 control surface의 정의/체크/실패가 너무 템플릿처럼 보인다. 각 카드마다 하나씩 더 구체적인 예시를 넣어야 기억에 남는다. 예: verifier=unit test, feedback=failing assertion, tool=browser/API, state=rollback/ledger.",
+        "Card 10의 마지막 문장은 좋지만, 앞의 두 문장이 다소 설명적이다. 결론 카드답게 한 문장으로 압축해도 된다. 지금은 ‘질문’이 두 번 반복되어 마무리의 힘이 약하다."
+      ],
+      "score": 7,
+      "standalone_check": "self-contained",
+      "strongest_points": [
+        "핵심 논지가 카드 10장에 일관되게 유지된다: loop의 본질은 반복이 아니라 verifier, feedback, tool, state control이라는 점이 분명하다.",
+        "카드 2~4가 독립 완결성을 갖는다. 특히 ‘모든 작업에 loop가 필요하진 않다’, ‘모델 점수 ≠ 실제 성공’, ‘텍스트 문제는 시스템 문제가 된다’는 문장은 기억에 남는다.",
+        "카드별로 alt text와 visual cue까지 포함해 LinkedIn 카드뉴스로서의 전달 구조가 갖춰져 있다."
+      ],
+      "verdict": "revise"
+    }
+  ],
+  "summary": {
+    "all_pass": false,
+    "average_score": 7.0,
+    "min_score": 7,
+    "verdict_counts": {
+      "revise": 5
+    }
+  }
+}

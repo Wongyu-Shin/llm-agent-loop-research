@@ -1,0 +1,93 @@
+{
+  "artifact_version": "1.0",
+  "schema_version": "1.0",
+  "skill_version": "0.1.0",
+  "run_id": "2026-07-29-163439",
+  "command": "run",
+  "workflow_preset": "full-report",
+  "quality": "strict",
+  "created_at": "2026-07-29T07:34:39.766405+00:00",
+  "status": "passed",
+  "exit_code": 0,
+  "files_changed": [],
+  "validations_run": [
+    "validation/static_check.json",
+    "validation/nav_check.json",
+    "validation/render_probe.jsonl",
+    "validation/route_manifest.json",
+    "validation/route_source_diff.json",
+    "validation/mdx_contract_check.json",
+    "validation/mdx_contract_negative_cases.json",
+    "validation/fixture_matrix.json",
+    "validation/component_inventory.json",
+    "validation/console.ndjson",
+    "validation/network.har",
+    "validation/browser_trace.zip",
+    "validation/browser_component_probe.json",
+    "validation/screenshot_manifest.json",
+    "validation/component_probe_action_matrix.json",
+    "validation/claim_trace_report.json",
+    "validation/pedagogy_judge.json",
+    "validation/visual_judge.json",
+    "validation/engineering_judge.json",
+    "validation/judge_results.json",
+    "validation/judge_decision.json",
+    "validation/judge_decision_trace.json"
+  ],
+  "gate_results": [
+    {
+      "phase": "draft",
+      "status": "started",
+      "detail": "",
+      "timestamp": "2026-07-29T07:34:42.629034+00:00"
+    },
+    {
+      "phase": "draft",
+      "status": "passed",
+      "detail": "",
+      "timestamp": "2026-07-29T07:34:42.631478+00:00"
+    },
+    {
+      "phase": "validate",
+      "status": "started",
+      "detail": "",
+      "timestamp": "2026-07-29T07:34:42.631482+00:00"
+    },
+    {
+      "phase": "validate",
+      "status": "passed",
+      "detail": "",
+      "timestamp": "2026-07-29T07:34:43.537650+00:00"
+    },
+    {
+      "phase": "polish",
+      "status": "started",
+      "detail": "",
+      "timestamp": "2026-07-29T07:34:43.537665+00:00"
+    },
+    {
+      "phase": "polish",
+      "status": "passed",
+      "detail": "",
+      "timestamp": "2026-07-29T07:34:43.547683+00:00"
+    },
+    {
+      "phase": "validate",
+      "status": "started",
+      "detail": "",
+      "timestamp": "2026-07-29T07:34:43.547687+00:00"
+    },
+    {
+      "phase": "validate",
+      "status": "passed",
+      "detail": "",
+      "timestamp": "2026-07-29T07:34:44.458944+00:00"
+    }
+  ],
+  "failed_phases": [],
+  "retried_phases": [],
+  "runtime": {
+    "started_at": "2026-07-29T07:34:39.766405+00:00",
+    "finished_at": "2026-07-29T07:34:44.460903+00:00"
+  }
+}

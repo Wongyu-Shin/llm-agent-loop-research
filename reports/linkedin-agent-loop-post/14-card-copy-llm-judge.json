@@ -1,0 +1,208 @@
+{
+  "generated_at": "2026-05-28T01:59:04+00:00",
+  "id": "m4b-content-judge-card_copy",
+  "input": "reports/linkedin-agent-loop-post/13-card-copy.md",
+  "mode": "card_copy",
+  "model": "gpt-5.4-mini",
+  "review_count": 5,
+  "reviews": [
+    {
+      "highest_risk_issues": [
+        "Card 2의 'objective mismatch가 loop 설계 필요성을 만든다'는 문장은 아직 넓게 읽힐 수 있다. 조건부 구조적 필요성이 전면에 더 강하게 와야 한다.",
+        "Card 3는 세 목적함수의 구분이 정확하지만, 카드 한 장에서는 층위가 너무 압축되어 보일 수 있다.",
+        "Card 5는 '작은 synthetic task에서 단순 loop의 개선은 관찰되지 않았다'가 여전히 실험 결과처럼 읽힐 위험이 있다.",
+        "Card 6의 verifier 조건은 맞지만, 왜 독립성·calibration·proxy 정렬이 필요한지 false positive 관점이 더 직접적으로 드러나면 좋다.",
+        "Card 9는 ownership, provenance, rollback, stop rule이 나열형으로 보일 수 있어, 각각이 무엇을 막는지 더 선명하게 연결할 필요가 있다."
+      ],
+      "optional_revisions": [
+        "Card 1의 훅은 좋지만, 제목을 더 공격적으로 줄여도 좋다. 예: '무엇이 loop를 닫는가?'",
+        "Card 4는 'feedback-control/search system'을 '폐루프 제어 시스템'으로 병기하면 제어 관점이 더 즉시 전달된다.",
+        "Card 7은 '틀렸다'보다 '틀렸다는 말만으로는 수리할 수 없다'를 넣으면 repair 가능성이 더 선명해진다.",
+        "Card 8은 correlated guessing 뒤에 '같은 오류 공간을 맴돈다'를 덧붙이면 통계적 직관이 더 강해진다.",
+        "Card 10의 체크리스트는 4개 키워드로 잘 압축되어 있으므로, 시각적으로도 네 신호를 동일한 무게로 배치하면 좋다."
+      ],
+      "overclaim_check": "minor overclaim",
+      "perspective": "수학/통계 리뷰어",
+      "perspective_id": "math_stats",
+      "quality_bar_check": "meets",
+      "required_revisions": [
+        "Card 2에서 '모든 작업에 loop가 필요한 것은 아니다'를 먼저 두고, 그 다음에 신뢰성·긴 작업·외부 상태 변경에서 조건부 구조적 필요성이 생긴다고 좁혀 써라.",
+        "Card 3는 next-token objective, sequence likelihood, task utility를 카드 수준에서 더 분리해 읽히도록 재서술하라.",
+        "Card 5는 '작은 synthetic pilot'와 'failure-mode 사례'라는 점을 더 전면에 두고, 개선 없음이 일반 결론처럼 읽히지 않게 하라.",
+        "Card 6에는 verifier의 독립성, calibration, task proxy 정렬이 왜 중요한지 false positive 위험과 함께 한 문장 더 넣어라.",
+        "Card 9는 state ownership, memory provenance, rollback semantics, stopping rule이 각각 어떤 drift를 막는지 기능적으로 더 분명히 써라.",
+        "Card 10은 '반복 횟수'보다 '조건부 구조적 필요성'과 '네 신호가 다음 행동을 바꾸는가'가 함께 읽히도록 문장을 조금 더 다듬어라."
+      ],
+      "score": 8.8,
+      "standalone_check": "self-contained",
+      "strongest_points": [
+        "핵심 프레임을 'loop 필연'이 아니라 '조건부 구조적 필요성'으로 낮춘 점이 정확하다.",
+        "next-token objective, sequence likelihood, task utility를 분리한 뒤 control surface로 연결하는 논리 구조가 일관적이다.",
+        "pilot를 증명이 아니라 failure-mode 사례로 제한한 점은 과잉 일반화를 잘 막고 있다.",
+        "verifier, feedback, tool, state의 4분해는 실무적으로도 기억하기 쉽고, 설계 질문으로 전환하기 좋다.",
+        "Card 1과 Card 10이 훅과 결론을 잘 맡고 있어 카드뉴스 전체의 메시지 응집력이 있다."
+      ],
+      "verdict": "pass"
+    },
+    {
+      "highest_risk_issues": [
+        "Card 2의 'objective mismatch가 loop 설계 필요성을 만든다'는 문장은 아직 범위가 넓다. 조건부 구조적 필요성이 왜 생기는지, 신뢰성·장기 작업·외부 상태 변경이라는 경계가 더 전면에 와야 한다.",
+        "Card 3는 세 목적함수의 구분이 정확하지만, 카드 한 장에서는 여전히 압축도가 높다. next-token objective, sequence likelihood, task utility가 서로 다른 층위라는 점을 더 즉시 읽히게 해야 한다.",
+        "Card 5는 '작은 synthetic task'와 '단순 loop의 개선은 관찰되지 않았다'가 실험 결론처럼 읽힐 수 있다. 이 카드는 증명이 아니라 failure-mode 사례라는 점을 더 강하게 못 박아야 한다.",
+        "Card 6의 verifier 조건은 맞지만, 독립성·calibration·proxy 정렬이 왜 필요한지 false positive 위험과 함께 더 직접적으로 드러내면 좋다.",
+        "Card 9는 ownership/provenance/rollback/stop rule이 나열형으로 보일 수 있다. 각 항목이 어떤 drift를 막는지 기능적으로 더 선명하게 써야 한다."
+      ],
+      "optional_revisions": [
+        "Card 1의 훅은 좋다. 다만 제목을 더 공격적으로 줄여도 된다. 예: '무엇이 loop를 닫는가?'",
+        "Card 4의 'feedback-control/search system'은 정확하지만, 'closed-loop control'을 병기하면 제어 관점이 더 즉시 전달된다.",
+        "Card 7은 '틀렸다'보다 '틀렸다는 말만으로는 수리할 수 없다'를 덧붙이면 repair 관점이 더 강해진다.",
+        "Card 8의 correlated guessing은 좋지만, '같은 오류 공간을 반복한다'는 짧은 보조 문장을 붙이면 더 직관적이다.",
+        "Card 10의 질문은 좋지만, LinkedIn 카드용으로는 '누가 판정하고, 무엇을 되돌리며, 언제 멈추는가?'처럼 더 짧게 압축해도 좋다."
+      ],
+      "overclaim_check": "minor overclaim",
+      "perspective": "LLM 시스템 엔지니어",
+      "perspective_id": "llm_systems",
+      "quality_bar_check": "meets",
+      "required_revisions": [
+        "Card 2는 '모든 작업에 loop가 필요한 것은 아니다'를 먼저 두고, 그 다음에 신뢰성·긴 작업·외부 상태 변경에서만 조건부 구조적 필요성이 생긴다고 더 좁혀 써라.",
+        "Card 3는 next-token objective / sequence likelihood / task utility를 카드 수준에서 더 분리해 써라. 한 줄 압축보다 층위 구분이 먼저 읽혀야 한다.",
+        "Card 5는 '증명이 아니라 failure-mode 사례'라는 점을 카드 문장 안에서 바로 읽히게 수정하라. underpowered, small synthetic, single-run 같은 한계도 암시하는 편이 안전하다.",
+        "Card 6에는 verifier의 독립성, calibration, task proxy 정렬이 왜 중요한지 false positive 관점으로 한 문장 더 넣어라.",
+        "Card 9는 state ownership, memory provenance, rollback semantics, stopping rule이 각각 무엇을 막는지 기능적으로 연결해 써라. 단순 용어 나열로 보이면 약하다.",
+        "Card 10은 좋지만, '반복 횟수'보다 '조건부 구조적 필요성'과 '폐루프 제어'가 함께 읽히도록 문장을 조금 더 다듬어라."
+      ],
+      "score": 8.8,
+      "standalone_check": "self-contained",
+      "strongest_points": [
+        "핵심 프레임이 정확하다. 'agent가 loop인가?'가 아니라 '무엇이 loop를 닫는가?'로 질문을 바꾼 점은 시스템 엔지니어 관점에서 유효하다.",
+        "verifier, feedback, tool, state를 네 개의 control surface로 분해한 구조가 실무적으로 쓸 수 있다. 단순 반복이 아니라 폐루프 제어라는 논지가 카드 전체에 일관되게 유지된다.",
+        "Card 3에서 next-token, sequence, task utility를 분리한 것은 좋은 방향이다. objective mismatch를 중심축으로 둔 설명도 공학적으로 타당하다.",
+        "Card 7~9는 pass/fail, tool, state control의 역할을 분리해 보여줘서 agent loop의 실패 모드를 잘 드러낸다.",
+        "LinkedIn 카드뉴스 형식에 맞게 훅, 전개, 결론이 분명하고, 카드만 봐도 본문의 구조를 대체로 복원할 수 있다."
+      ],
+      "verdict": "pass"
+    },
+    {
+      "highest_risk_issues": [
+        "Card 2의 문장은 아직 약간 넓다. 'objective mismatch가 loop 설계 필요성을 만든다'는 표현은 조건부 구조적 필요성보다 일반론처럼 읽힐 수 있다.",
+        "Card 3는 정확하지만 카드 한 장에서 세 목적함수의 층위가 한 번에 섞여 보일 수 있다. next-token, sequence likelihood, task utility를 더 분리해서 읽히게 해야 한다.",
+        "Card 5는 여전히 실험 결과처럼 읽힐 위험이 있다. '작은 synthetic task'와 'failure-mode 사례'라는 한계를 더 전면에 두지 않으면 과잉 일반화로 보일 수 있다.",
+        "Card 6의 verifier 조건은 맞지만, 독립성·calibration·proxy 정렬이 왜 필요한지 false positive 위험과 함께 더 직접적으로 드러나면 좋다.",
+        "Card 9는 용어는 좋지만, ownership/provenance/rollback/stop이 각각 어떤 실패를 막는지 한 번 더 선명하게 써야 아키텍처 경계로 읽힌다."
+      ],
+      "optional_revisions": [
+        "Card 1의 훅은 좋다. 더 공격적으로 가려면 제목을 '무엇이 loop를 닫는가?'로 올려도 된다.",
+        "Card 4는 'feedback-control/search system'이 좋지만, '폐루프 제어 문제'를 병기하면 제어 관점이 더 즉시 전달된다.",
+        "Card 7은 '틀렸다'보다 '틀렸다는 말만으로는 수리할 수 없다'를 넣으면 repair 관점이 더 강해진다.",
+        "Card 8은 correlated guessing을 '같은 오류 공간을 반복한다'로 보강하면 더 직관적이다.",
+        "Card 10은 질문을 더 압축해 '누가 판정하고, 무엇을 되돌리며, 언제 멈추는가?'처럼 바꿔도 기억성이 좋아진다."
+      ],
+      "overclaim_check": "minor overclaim",
+      "perspective": "소프트웨어 아키텍처 리뷰어",
+      "perspective_id": "software_architecture",
+      "quality_bar_check": "meets",
+      "required_revisions": [
+        "Card 2는 '모든 작업에 loop가 필요한 것은 아니다'를 더 앞에 두고, 신뢰성·장기 작업·외부 상태 변경 같은 조건에서만 구조적 필요성이 생긴다고 더 좁혀 써라.",
+        "Card 3는 next-token objective, sequence likelihood, task utility를 카드 수준에서 더 분리해라. 가능하면 'local / sequence / utility'처럼 레이블을 유지하되 각 층위의 의미를 짧게 보강해라.",
+        "Card 5는 '증명이 아니라 failure-mode 사례'라는 점을 카드 본문에서 더 강하게 못 박아라. underpowered, single-run, single-model 같은 한계 표기도 고려해라.",
+        "Card 6에는 verifier의 실무 예시를 최소 1개 더 넣고, false positive가 왜 위험한지 한 문장으로 직접 연결해라.",
+        "Card 9는 state ownership, memory provenance, rollback semantics, stopping rule이 각각 무엇을 막는지 한 줄씩 더 붙여라. 지금은 나열에 가깝다."
+      ],
+      "score": 8.8,
+      "standalone_check": "self-contained",
+      "strongest_points": [
+        "핵심 프레임이 명확하다. 'LLM agent는 loop인가?'가 아니라 '무엇이 loop를 닫는가?'로 질문을 바꾼 점은 Fowler식 boundary 질문으로도 유효하다.",
+        "verifier, feedback, tool, state를 네 개의 control surface로 분해한 구조가 실무 아키텍처 vocabulary로 잘 번역되어 있다.",
+        "Card 3에서 목적함수 층위를 분리한 뒤 Card 4에서 시스템 문제로 확장하는 흐름이 논리적으로 자연스럽다.",
+        "Card 6~9가 각각 판정, 수리, 관측, 상태 제어라는 역할을 맡아 loop를 공학적으로 해석하게 만든다.",
+        "Card 10의 결론이 단순한 반복 찬양이 아니라 신호 품질과 다음 행동의 변경으로 수렴해 있어, 카드뉴스의 마무리로 적절하다."
+      ],
+      "verdict": "pass"
+    },
+    {
+      "highest_risk_issues": [
+        "Card 2의 'objective mismatch가 loop 설계 필요성을 만든다'는 문장은 아직 넓다. 조건부 구조적 필요성이 먼저 오고, 그 다음에 objective mismatch가 이유로 붙어야 한다.",
+        "Card 3는 정확하지만 너무 압축돼 있다. next-token objective, sequence likelihood, task utility의 층위가 카드 한 장에서 즉시 분리되지 않으면 오독될 수 있다.",
+        "Card 5는 'small synthetic task'와 'improvement was not observed'가 여전히 실험 결과처럼 읽힐 수 있다. 증명이 아니라 underpowered failure-mode note라는 점을 더 전면화해야 한다.",
+        "Card 6의 verifier 조건은 맞지만, 독립성·calibration·proxy alignment가 왜 필요한지 false positive 위험과 함께 더 직접적으로 드러나면 좋다.",
+        "Card 9는 ownership/provenance/rollback/stop rule이 나열형으로 보인다. 각 항목이 어떤 drift를 막는지 한 번 더 기능적으로 연결하면 더 강해진다."
+      ],
+      "optional_revisions": [
+        "Card 1의 훅은 이미 좋다. 더 공격적으로 가려면 제목을 '무엇이 loop를 닫는가?'로 올려도 된다.",
+        "Card 4는 'feedback-control/search system'을 'closed-loop control problem'과 병기하면 제어 관점이 더 즉시 전달된다.",
+        "Card 7은 '틀렸다'보다 '틀렸다는 말만으로는 수리할 수 없다'를 넣으면 repair 가능성이 더 선명해진다.",
+        "Card 8은 correlated guessing 뒤에 '같은 오류 공간을 반복한다'를 덧붙이면 tool의 반증 역할이 더 분명해진다.",
+        "Card 10의 체크리스트는 4개 키워드로 잘 압축되어 있다. 시각적 기억성을 위해 이 리듬을 유지하는 것이 좋다."
+      ],
+      "overclaim_check": "minor overclaim",
+      "perspective": "제어/RL 리뷰어",
+      "perspective_id": "control_rl",
+      "quality_bar_check": "meets",
+      "required_revisions": [
+        "Card 2를 더 좁혀 써라. 예: '모든 작업에 loop가 필요한 것은 아니다. 신뢰성, 긴 작업, 외부 상태 변경이 걸릴 때 조건부 구조적 필요성이 생긴다.'",
+        "Card 3는 세 층위를 더 분명히 분리해라. 가능하면 'local objective / sequence likelihood / task utility'처럼 레이블을 유지하되, 각 항의 의미를 짧게 덧붙여라.",
+        "Card 5는 증명처럼 읽히지 않도록 '작은 synthetic pilot에서는 개선이 관찰되지 않았다' 수준으로 제한하고, self-reflection/weak verifier는 실패할 수 있는 사례로 낮춰 써라.",
+        "Card 6에는 verifier가 '독립적이고, calibration되어 있고, task utility proxy와 정렬되어야 한다'는 이유를 false positive 관점에서 한 문장 더 넣어라.",
+        "Card 9에는 state ownership, memory provenance, rollback semantics, stopping rule을 단순 나열하지 말고, 검증되지 않은 가정이 state에 남아 drift가 생기는 것을 막는 장치라는 점을 명시해라.",
+        "Card 10은 좋지만, '반복 횟수'와 '조건부 구조적 필요성'이 함께 읽히도록 문장을 한 번 더 다듬어라."
+      ],
+      "score": 8.8,
+      "standalone_check": "self-contained",
+      "strongest_points": [
+        "핵심 프레임이 분명하다: 'loop가 있나?'가 아니라 '무엇이 loop를 닫는가?'로 질문을 바꿔, 폐루프 제어 관점으로 논지를 일관되게 끌고 간다.",
+        "Card 2~4에서 조건부 필요성, 목적함수 분리, 시스템화로 이어지는 구조가 제어/RL 관점에서 타당하고 기억하기 쉽다.",
+        "verifier, feedback, tool, state의 4분해가 실무 설계 요소로 바로 번역 가능하다. 단순한 은유가 아니라 control surface로 읽히게 만든 점이 좋다.",
+        "Card 5에서 pilot를 증명으로 과장하지 않고 failure-mode 사례로 제한한 점은 과잉 일반화를 줄이는 데 유효하다.",
+        "Card 10의 결론은 LinkedIn 카드뉴스의 역할에 맞게 짧고 재사용 가능하다."
+      ],
+      "verdict": "pass"
+    },
+    {
+      "highest_risk_issues": [
+        "Card 2의 'objective mismatch가 loop 설계 필요성을 만든다'는 문장은 아직 넓다. 조건부 구조적 필요성이 핵심인데, 현재는 거의 일반론처럼 읽힐 수 있다.",
+        "Card 3는 정확하지만 너무 압축돼 있다. next-token objective, sequence likelihood, task utility의 층위 차이가 카드 한 장에서 즉시 분리되지 않을 수 있다.",
+        "Card 5는 여전히 실험 결과처럼 읽힐 위험이 있다. '작은 synthetic task'와 'failure-mode 사례'라는 한계가 더 전면에 와야 한다.",
+        "Card 6의 verifier 조건은 맞지만, 독립성·calibration·proxy 정렬이 왜 필요한지 false positive 위험과 함께 더 직접적으로 드러나야 한다.",
+        "Card 9는 핵심이지만 나열형이다. ownership, provenance, rollback, stop rule이 각각 어떤 실패를 막는지 한 번 더 압축해 보여줄 필요가 있다."
+      ],
+      "optional_revisions": [
+        "Card 1의 Headline을 더 공격적으로 줄여도 좋다. 예: '무엇이 loop를 닫는가?'",
+        "Card 4의 footer는 좋지만, 'feedback-control/search system'을 'closed-loop control system'으로 바꾸면 제어 관점이 더 즉시 전달될 수 있다.",
+        "Card 7은 '틀렸다'보다 '틀렸다는 말만으로는 수리할 수 없다'로 바꾸면 repair 관점이 더 강해진다.",
+        "Card 8은 correlated guessing 뒤에 '같은 오류 공간을 맴돈다'를 붙이면 직관이 더 선명해진다.",
+        "Card 9의 문장은 조금 더 자연스럽게 다듬을 수 있다. '이 없으면'보다 '이 네 가지가 없으면'이 낫다.",
+        "LinkedIn 카드뉴스용으로는 Card 3, 6, 9의 본문을 한 줄씩 더 줄여도 가독성이 좋아진다."
+      ],
+      "overclaim_check": "minor overclaim",
+      "perspective": "기술 에세이 편집자",
+      "perspective_id": "editorial",
+      "quality_bar_check": "meets",
+      "required_revisions": [
+        "Card 2는 '모든 작업에 loop가 필요한 것은 아니다'를 먼저 두고, 그 다음에 신뢰성·장기 작업·외부 상태 변경에서 조건부 구조적 필요성이 생긴다고 좁혀 써라.",
+        "Card 3는 'next-token / sequence / utility'의 세 층위를 더 읽기 쉽게 분리해라. 한 줄 수식보다 짧은 레이블형 문장이 낫다.",
+        "Card 5는 '증명이 아니라 failure-mode 사례'라는 점을 카드 문장 안에서 더 강하게 못 박아라. 과잉 일반화로 읽히지 않게 해야 한다.",
+        "Card 6에는 verifier의 독립성, calibration, task proxy 정렬이 왜 중요한지 false positive가 오답을 성공으로 저장한다는 문장과 더 밀접하게 연결해라.",
+        "Card 9는 state ownership, provenance, rollback, stop rule을 단순 나열하지 말고, 검증되지 않은 가정이 state에 남아 drift를 만든다는 기능적 의미를 더 선명하게 써라.",
+        "Card 10은 좋지만, '반복 횟수'보다 '조건부 구조적 필요성'이 더 전면에 보이도록 첫 문장을 조금 더 다듬어라."
+      ],
+      "score": 8.6,
+      "standalone_check": "self-contained",
+      "strongest_points": [
+        "카드 1의 훅이 분명하다. '무엇이 loop를 닫고 있는가?'는 프레임 전환이 즉시 읽히고 기억에 남는다.",
+        "전체 흐름이 문제 제기 → 조건부 필요성 → 목적함수 분리 → 시스템화 → 4개 control surface → 결론으로 잘 이어진다.",
+        "verifier, feedback, tool, state를 네 개의 축으로 정리한 구조는 LinkedIn 카드뉴스에서 재사용 가능한 아키텍처 언어로 기능한다.",
+        "Card 7과 Card 8은 실무 독자가 바로 이해할 수 있는 repair signal / correlated guessing의 대비가 선명하다.",
+        "Card 10은 결론 카드로서 메시지가 단단하다. '더 오래 말하지 않는다'보다 '더 좋은 신호로 행동을 바꾼다'가 본문 전체를 잘 수렴한다."
+      ],
+      "verdict": "pass"
+    }
+  ],
+  "summary": {
+    "all_pass": true,
+    "average_score": 8.76,
+    "min_score": 8.6,
+    "verdict_counts": {
+      "pass": 5
+    }
+  }
+}

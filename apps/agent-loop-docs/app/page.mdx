@@ -1,0 +1,95 @@
+import {
+  ArticlePage,
+  ComparisonTable,
+  DocHero,
+  LeadStatement,
+  Note,
+  Section,
+} from "@/components/doc-ui"
+import { AgentLoopAnatomy } from "@/components/visualizations/agent-loop-anatomy"
+import { FrameworkCompass } from "@/components/visualizations/framework-compass"
+import { IncidentEvidenceReplay } from "@/components/visualizations/incident-evidence-replay"
+
+export const metadata = {
+  title: "AI agent가 실행과 수정을 반복하는 이유",
+  description: "결제 API 버그 수정 과정을 따라가며 MDP, POMDP, OGIS, CEGIS가 agent loop의 어느 부분을 설명하는지 구분합니다.",
+}
+
+<ArticlePage>
+  <DocHero
+    index="00"
+    acronym="WEB AGENT FIELD GUIDE"
+    title="AI agent가 한 번에 답하지 않고 실행과 수정을 반복하는 이유"
+    lead="Code agent는 patch를 제안한 뒤 test를 실행하고, 실패 로그와 명세를 다음 판단에 반영합니다. 결제 API 버그 하나를 따라가며 test와 명세에서 얻은 정보가 다음 patch를 바꾸는 과정을 두 가지 의사결정 모형과 두 가지 합성 방식으로 나눠 보겠습니다."
+    context="React·TypeScript·Node.js와 CI를 다뤄 본 3~5년차 웹앱 엔지니어를 위한 문서입니다."
+  />
+
+  <Section id="incident" title="결제 금액을 0으로 보정한 patch는 단위 테스트를 통과했지만 API 계약을 어겼습니다">
+    할인액이 주문 금액보다 큰 요청을 생각해 봅시다.
+
+    ```http
+    POST /checkout/quote
+    Content-Type: application/json
+
+    { "subtotal": 10000, "discount": 12000 }
+    ```
+
+    기존 구현은 `total: -2000`을 돌려줍니다. code agent는 음수 합계를 막으려고 `Math.max(0, subtotal - discount)`를 넣었습니다. 단위 테스트는 통과했지만 계약 테스트는 실패합니다. API 명세는 이런 요청을 `400 Bad Request`로 거부하라고 정했기 때문입니다.
+
+    <IncidentEvidenceReplay />
+  </Section>
+
+  <Section id="claim" title="테스트와 명세에서 얻은 정보가 다음 행동을 바꿀 때 loop가 one-shot보다 유리합니다">
+    <LeadStatement>
+      모든 LLM 작업에 loop가 필요한 것은 아닙니다. 다만 실행해야만 얻을 수 있는 정보가 다음 행동이나 다음 후보를 바꾼다면, 그 정보를 보존하는 적응형 loop는 one-shot보다 유리할 수 있습니다.
+    </LeadStatement>
+
+    위 작업에서 두 번째 호출이 나아진 이유는 토큰을 더 많이 생성해서만은 아닙니다. contract test가 이전 context에 없던 사실을 돌려줬고, harness가 그 사실과 실패 입력을 다음 호출에 넣었습니다. 같은 모델을 호출해도 입력 history가 달라졌으므로 제안할 patch의 범위도 달라집니다.
+
+    <Note label="조건부 명제" tone="warn">
+      <p>Loop 자체는 성능 보장이 아닙니다. 새 observation이 없거나 verifier가 잘못됐거나 이전 실패를 잊는다면 반복은 비용만 늘리거나 같은 오류를 강화할 수 있습니다.</p>
+    </Note>
+  </Section>
+
+  <Section id="one-turn" title="Agent loop는 후보 생성, 실행, 관찰, 상태 갱신을 반복합니다">
+    <AgentLoopAnatomy />
+
+    <ComparisonTable
+      columns={["단계", "결제 API 사례", "다음 iteration에 남는 것"]}
+      rows={[
+        ["Action", "patch 적용, test 실행, 명세 조회", "실행한 명령과 변경 diff"],
+        ["Observation", "exit code, assertion, API response", "외부 시스템에서 돌아온 새 정보"],
+        ["Verification", "계약 위반 여부와 실패 입력 확인", "pass/fail보다 구체적인 판정 근거"],
+        ["State update", "가설과 patch 후보를 갱신", "다음 행동을 바꿀 history와 회귀 조건"],
+      ]}
+    />
+
+    추론 token도 다음 호출의 입력이 될 수 있습니다. 하지만 내부에서 만든 설명과 외부 실행에서 얻은 observation은 정보의 출처가 다릅니다. 이 문서는 둘을 한데 묶지 않고, 실제 시스템이 돌려준 신호가 의사결정을 어떻게 바꾸는지에 초점을 맞춥니다.
+  </Section>
+
+  <Section id="model-map" title="다음 행동을 고르는 문제와 다음 patch를 만드는 문제는 다릅니다">
+    <FrameworkCompass />
+
+    마르코프 의사결정 과정(MDP)과 부분 관측 마르코프 의사결정 과정(POMDP)은 agent가 환경에서 다음 행동을 고르는 문제를 다룹니다. Oracle-Guided Inductive Synthesis(OGIS)와 Counterexample-Guided Inductive Synthesis(CEGIS)는 검증 결과로 다음 후보를 좁히는 문제를 다룹니다.
+
+    네 이름은 하나의 발전 단계가 아닙니다. 같은 agent loop를 서로 다른 질문으로 잘라 보는 도구입니다.
+  </Section>
+
+  <Section id="selection" title="State, observation, candidate, verifier 중 무엇이 구현에 있는지에 따라 설명 틀이 달라집니다">
+    <ComparisonTable
+      columns={["구현에서 보이는 구조", "가까운 모형", "확인할 질문"]}
+      rows={[
+        ["state, action, transition, 장기 효용", "MDP", "현재 state가 과거 정보를 충분히 요약하는가?"],
+        ["hidden state, observation history, 정보 수집", "POMDP", "관찰 뒤에 좋은 action이 달라지는가?"],
+        ["candidate, typed query, oracle response", "OGIS", "응답이 어떤 후보를 제거하는가?"],
+        ["candidate, verifier, concrete counterexample", "CEGIS", "반례를 다음 후보의 제약으로 보존하는가?"],
+      ]}
+    />
+  </Section>
+
+  <Section id="boundary" title="Agent loop를 POMDP나 CEGIS로 설명할 수 있어도 agent가 그 알고리즘을 실행하는 것은 아닙니다">
+    agent loop를 POMDP로 표현할 수 있다는 사실만으로 LLM 순전파가 Bayesian filtering이나 online planning을 수행한다고 말할 수는 없습니다. 같은 이유로 test를 반복한다고 모두 CEGIS가 되는 것도 아닙니다. candidate, verifier, 반례 보존이 실제 구현에서 식별되어야 `CEGIS-like`라는 표현이 의미를 가집니다.
+
+    짧고 상태가 이미 주어진 작업, 실행해도 새 정보가 생기지 않는 작업, 오판 비용보다 반복 비용이 큰 작업에는 one-shot이 더 알맞을 수 있습니다. 다음 페이지부터는 결제 API 사례를 그대로 두고 각 모형의 설명 범위를 하나씩 확인합니다.
+  </Section>
+</ArticlePage>

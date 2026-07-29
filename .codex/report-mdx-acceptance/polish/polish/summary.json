@@ -1,0 +1,17 @@
+{
+  "artifact_version": "1.0",
+  "schema_version": "1.0",
+  "skill_version": "0.1.0",
+  "run_id": "2026-07-29-151626",
+  "command": "polish",
+  "workflow_preset": "full-report",
+  "quality": "strict",
+  "created_at": "2026-07-29T06:16:26.186791+00:00",
+  "verdict": "accept",
+  "protected_span_drift": 0,
+  "idempotent": true,
+  "source_mdx": "/Users/wongyushin/.codex/skills/report-mdx-publisher/fixtures/synthetic/docs-app/app/page.mdx",
+  "rewrite_span_count": 4,
+  "edit_count": 0,
+  "upstream": "https://github.com/epoko77-ai/im-not-ai"
+}

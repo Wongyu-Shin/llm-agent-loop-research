@@ -1,0 +1,29 @@
+[홈]
+한 단계를 선택해 context와 외부 작업 상태 중 무엇이 바뀌는지 확인합니다.
+선택한 단계: Observation. observation이 들어온 뒤에야 다음 candidate의 조건이 달라집니다.
+context는 기록을 담고, repository와 test runner는 실행 결과를 만듭니다.
+
+[MDP]
+구조, 확률 전이, Markov state 조건을 한 장면씩 분리해 봅니다.
+MDP는 loop 횟수가 아니라 action sequence의 기대 효용을 표현합니다.
+클릭해서 state summary를 정보 손실 상태로 바꾸기.
+
+[POMDP]
+숨은 state에서 observation이 생기고, belief가 갱신된 뒤 planning이 시작되는 순서를 봅니다.
+관찰값만이 아니라 어떤 action으로 관찰했는지가 likelihood를 정합니다.
+Posterior 하나를 계산했다고 planning이 끝난 것은 아닙니다.
+Planner는 가능한 observation 뒤의 후속 행동과 장기 value를 비교합니다.
+
+[OGIS]
+같은 oracle이라도 query와 response schema가 달라지면 candidate를 줄이는 정보가 달라집니다.
+현재 h₁과 같은 오류를 내는 후보가 다음 version space에서 빠집니다.
+query 이름보다 request와 response의 실제 type이 OGIS 대응을 결정합니다.
+
+[CEGIS]
+반례를 누적할 때와 최신 반례만 남길 때 candidate가 바뀌는 경로를 비교합니다.
+빈 evidence에서 첫 candidate를 고릅니다.
+두 반례를 만족하고 specification 검증까지 통과한 candidate를 찾았습니다.
+Eₜ를 덮어쓰면 candidate set의 단조 감소를 주장할 수 없습니다.
+다음 검증에서는 d=-1 반례가 다시 나옵니다.
+첫 candidate는 음수 할인에서 깨지고, 하한만 검사한 candidate는 subtotal보다 큰 할인에서 깨집니다.
+두 반례를 모두 보존하면 learner는 양쪽 경계를 검사하는 candidate를 선택하고, verifier는 남은 domain을 검사합니다.

@@ -1,0 +1,14 @@
+{
+  "artifact_version": "1.0",
+  "schema_version": "1.0",
+  "skill_version": "0.1.0",
+  "run_id": "2026-07-29-163444",
+  "command": "run",
+  "workflow_preset": "full-report",
+  "quality": "strict",
+  "created_at": "2026-07-29T07:34:44.527809+00:00",
+  "edits": [],
+  "protected_span_drift": 0,
+  "rewriteable_total_change_rate": 0.0,
+  "max_per_span_change_rate": 0.0
+}

@@ -1,0 +1,35 @@
+{
+  "artifact_version": "1.0",
+  "schema_version": "1.0",
+  "skill_version": "0.1.0",
+  "run_id": "2026-07-29-163458",
+  "command": "validate",
+  "workflow_preset": "full-report",
+  "quality": "fast",
+  "created_at": "2026-07-29T07:34:58.332938+00:00",
+  "status": "failed",
+  "exit_code": 3,
+  "files_changed": [],
+  "validations_run": [],
+  "gate_results": [
+    {
+      "phase": "validate",
+      "status": "failed",
+      "detail": "external_dependency_gate",
+      "timestamp": "2026-07-29T07:35:01.191667+00:00"
+    }
+  ],
+  "failed_phases": [
+    {
+      "phase": "validate",
+      "status": "failed",
+      "detail": "external_dependency_gate",
+      "timestamp": "2026-07-29T07:35:01.191667+00:00"
+    }
+  ],
+  "retried_phases": [],
+  "runtime": {
+    "started_at": "2026-07-29T07:34:58.332938+00:00",
+    "finished_at": "2026-07-29T07:35:01.193634+00:00"
+  }
+}

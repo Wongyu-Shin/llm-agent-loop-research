@@ -1,0 +1,18 @@
+{
+  "artifact_version": "1.0",
+  "schema_version": "1.0",
+  "skill_version": "0.1.0",
+  "run_id": "2026-07-29-151620",
+  "command": "run",
+  "workflow_preset": "full-report",
+  "quality": "strict",
+  "created_at": "2026-07-29T06:16:20.568094+00:00",
+  "source_mdx": "",
+  "risk_band": "low",
+  "auto_quality": "strict",
+  "change_rates": {
+    "rewriteable_total": 0.0,
+    "max_per_span": 0.0
+  },
+  "upstream_adaptation": "im-not-ai Korean humanizing references applied as deterministic span-safe rules"
+}

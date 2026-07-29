@@ -1,0 +1,26 @@
+[
+  {
+    "id": "C-11-001",
+    "category": "C-11 연결어미 뒤 쉼표",
+    "severity": "S1",
+    "span": "observation이 생기고, belief가",
+    "reason": "-고 뒤의 쉼표가 문장 흐름을 불필요하게 끊습니다.",
+    "suggested_fix": "observation이 생기고 belief가"
+  },
+  {
+    "id": "C-11-002",
+    "category": "C-11 연결어미 뒤 쉼표",
+    "severity": "S1",
+    "span": "candidate는 음수 할인에서 깨지고, 하한만",
+    "reason": "-고 뒤의 쉼표가 이어지는 두 절을 불필요하게 끊습니다.",
+    "suggested_fix": "candidate는 음수 할인에서 깨지고 하한만"
+  },
+  {
+    "id": "C-11-003",
+    "category": "C-11 연결어미 뒤 쉼표",
+    "severity": "S1",
+    "span": "candidate를 선택하고, verifier는",
+    "reason": "-고 뒤의 쉼표가 같은 문장 안의 병렬 동작을 끊습니다.",
+    "suggested_fix": "candidate를 선택하고 verifier는"
+  }
+]

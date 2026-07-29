@@ -1,0 +1,57 @@
+{
+  "artifact_version": "1.0",
+  "schema_version": "1.0",
+  "skill_version": "0.1.0",
+  "run_id": "2026-07-29-151632",
+  "command": "validate",
+  "workflow_preset": "full-report",
+  "quality": "fast",
+  "created_at": "2026-07-29T06:16:32.468564+00:00",
+  "input_paths": {
+    "config": "/Users/wongyushin/personal/llm-agent-loop-research/.codex/report-mdx-acceptance/bad.json"
+  },
+  "output_paths": {
+    "run_dir": "/Users/wongyushin/personal/llm-agent-loop-research/.codex/report-mdx-acceptance/bad-config"
+  },
+  "repo_root": "/Users/wongyushin/.codex/skills/report-mdx-publisher",
+  "repo_commit": "",
+  "upstream_manifest_version": "1.0",
+  "command_results": [
+    {
+      "phase": "validate",
+      "status": "failed",
+      "detail": "input_config_gate",
+      "timestamp": "2026-07-29T06:16:32.469206+00:00"
+    }
+  ],
+  "artifact_paths": [
+    "artifact_index.json",
+    "changed_files.json",
+    "failure_report.json",
+    "failure_report.md",
+    "run_manifest.json",
+    "run_report.json",
+    "run_report.md"
+  ],
+  "skipped_artifacts": [],
+  "skipped_artifact_reasons": {},
+  "resume_source": "",
+  "resume_source_exit_code": "",
+  "resume_source_final_status": "",
+  "resumed_artifact_count": 0,
+  "recomputed_phases": [],
+  "source_snapshot": {
+    "repo_commit": "",
+    "skill_version": "0.1.0",
+    "input_files": [
+      {
+        "path": "/Users/wongyushin/personal/llm-agent-loop-research/.codex/report-mdx-acceptance/bad.json",
+        "sha256": "92072df399cb74703f8e86f450d552bc0bb01eeeb98a90985a1b7772c8fd0016",
+        "bytes": 9
+      }
+    ],
+    "digest": "72d17b6a822915bc707cc960083fe7e1a0d1d80e8a36b591302da129fe417da6"
+  },
+  "exit_code": 2,
+  "final_status": "failed"
+}

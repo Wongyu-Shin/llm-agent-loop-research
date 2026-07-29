@@ -1,0 +1,4 @@
+{"rewrite_span_id": "span-001", "text": "  title: \"Synthetic Report Fixture\",", "context_hash": "507a023b9526e4b278fd4648130b8719c9ae15d8296d3868f262a1dabd3d7c44"}
+{"rewrite_span_id": "span-002", "text": "  group: \"Acceptance\",", "context_hash": "507a023b9526e4b278fd4648130b8719c9ae15d8296d3868f262a1dabd3d7c44"}
+{"rewrite_span_id": "span-003", "text": "  order: 1", "context_hash": "507a023b9526e4b278fd4648130b8719c9ae15d8296d3868f262a1dabd3d7c44"}
+{"rewrite_span_id": "span-004", "text": "이 페이지는 `report-mdx-publisher` 스킬의 인수 테스트용 MDX 문서입니다.", "context_hash": "507a023b9526e4b278fd4648130b8719c9ae15d8296d3868f262a1dabd3d7c44"}

@@ -1,0 +1,518 @@
+{
+  "claim_boundary": "This pilot simulation validates the analysis pipeline and expected interaction patterns. It is not empirical evidence about any real LLM.",
+  "generated_at": "2026-05-27T08:38:21+00:00",
+  "id": "M4b-agent-loop-necessity-pilot-results",
+  "results": [
+    {
+      "candidate_success_probability": 0.98,
+      "condition_id": "C0",
+      "condition_name": "one_shot_greedy",
+      "cost_penalty": 0.006,
+      "expected_success_after_horizon_risk": 0.97804,
+      "expected_task_utility": 0.97204,
+      "residual_failure_risk": 0.002,
+      "selected_success_before_horizon_risk": 0.98,
+      "task_class": "short_deterministic"
+    },
+    {
+      "candidate_success_probability": 0.98,
+      "condition_id": "C1",
+      "condition_name": "one_shot_sampling",
+      "cost_penalty": 0.006,
+      "expected_success_after_horizon_risk": 0.97804,
+      "expected_task_utility": 0.97204,
+      "residual_failure_risk": 0.002,
+      "selected_success_before_horizon_risk": 0.98,
+      "task_class": "short_deterministic"
+    },
+    {
+      "candidate_success_probability": 0.98,
+      "condition_id": "C2",
+      "condition_name": "best_of_n_no_verifier",
+      "cost_penalty": 0.048,
+      "expected_success_after_horizon_risk": 0.97804,
+      "expected_task_utility": 0.93004,
+      "residual_failure_risk": 0.002,
+      "selected_success_before_horizon_risk": 0.98,
+      "task_class": "short_deterministic"
+    },
+    {
+      "candidate_success_probability": 0.98,
+      "condition_id": "C3",
+      "condition_name": "best_of_n_strong_verifier",
+      "cost_penalty": 0.051,
+      "expected_success_after_horizon_risk": 0.996929,
+      "expected_task_utility": 0.945929,
+      "residual_failure_risk": 0.002,
+      "selected_success_before_horizon_risk": 0.998927,
+      "task_class": "short_deterministic"
+    },
+    {
+      "candidate_success_probability": 1.0,
+      "condition_id": "C4",
+      "condition_name": "self_reflection_loop",
+      "cost_penalty": 0.03,
+      "expected_success_after_horizon_risk": 0.9978,
+      "expected_task_utility": 0.9678,
+      "residual_failure_risk": 0.0022,
+      "selected_success_before_horizon_risk": 1.0,
+      "task_class": "short_deterministic"
+    },
+    {
+      "candidate_success_probability": 1.0,
+      "condition_id": "C5",
+      "condition_name": "grounded_feedback_loop",
+      "cost_penalty": 0.042,
+      "expected_success_after_horizon_risk": 0.9986,
+      "expected_task_utility": 0.9566,
+      "residual_failure_risk": 0.0014,
+      "selected_success_before_horizon_risk": 1.0,
+      "task_class": "short_deterministic"
+    },
+    {
+      "candidate_success_probability": 1.0,
+      "condition_id": "C6",
+      "condition_name": "full_state_control_loop",
+      "cost_penalty": 0.058,
+      "expected_success_after_horizon_risk": 0.9993,
+      "expected_task_utility": 0.9413,
+      "residual_failure_risk": 0.0007,
+      "selected_success_before_horizon_risk": 1.0,
+      "task_class": "short_deterministic"
+    },
+    {
+      "candidate_success_probability": 1.0,
+      "condition_id": "C7",
+      "condition_name": "weak_verifier_stress",
+      "cost_penalty": 0.06,
+      "expected_success_after_horizon_risk": 0.9982,
+      "expected_task_utility": 0.9382,
+      "residual_failure_risk": 0.0018,
+      "selected_success_before_horizon_risk": 1.0,
+      "task_class": "short_deterministic"
+    },
+    {
+      "candidate_success_probability": 0.35,
+      "condition_id": "C0",
+      "condition_name": "one_shot_greedy",
+      "cost_penalty": 0.006,
+      "expected_success_after_horizon_risk": 0.328217,
+      "expected_task_utility": 0.322217,
+      "residual_failure_risk": 0.062236,
+      "selected_success_before_horizon_risk": 0.35,
+      "task_class": "medium_reasoning"
+    },
+    {
+      "candidate_success_probability": 0.35,
+      "condition_id": "C1",
+      "condition_name": "one_shot_sampling",
+      "cost_penalty": 0.006,
+      "expected_success_after_horizon_risk": 0.328217,
+      "expected_task_utility": 0.322217,
+      "residual_failure_risk": 0.062236,
+      "selected_success_before_horizon_risk": 0.35,
+      "task_class": "medium_reasoning"
+    },
+    {
+      "candidate_success_probability": 0.35,
+      "condition_id": "C2",
+      "condition_name": "best_of_n_no_verifier",
+      "cost_penalty": 0.048,
+      "expected_success_after_horizon_risk": 0.328217,
+      "expected_task_utility": 0.280217,
+      "residual_failure_risk": 0.062236,
+      "selected_success_before_horizon_risk": 0.35,
+      "task_class": "medium_reasoning"
+    },
+    {
+      "candidate_success_probability": 0.35,
+      "condition_id": "C3",
+      "condition_name": "best_of_n_strong_verifier",
+      "cost_penalty": 0.051,
+      "expected_success_after_horizon_risk": 0.832364,
+      "expected_task_utility": 0.781364,
+      "residual_failure_risk": 0.062236,
+      "selected_success_before_horizon_risk": 0.887606,
+      "task_class": "medium_reasoning"
+    },
+    {
+      "candidate_success_probability": 0.37,
+      "condition_id": "C4",
+      "condition_name": "self_reflection_loop",
+      "cost_penalty": 0.03,
+      "expected_success_after_horizon_risk": 0.383316,
+      "expected_task_utility": 0.353316,
+      "residual_failure_risk": 0.068269,
+      "selected_success_before_horizon_risk": 0.411402,
+      "task_class": "medium_reasoning"
+    },
+    {
+      "candidate_success_probability": 0.45,
+      "condition_id": "C5",
+      "condition_name": "grounded_feedback_loop",
+      "cost_penalty": 0.042,
+      "expected_success_after_horizon_risk": 0.822516,
+      "expected_task_utility": 0.780516,
+      "residual_failure_risk": 0.043932,
+      "selected_success_before_horizon_risk": 0.860311,
+      "task_class": "medium_reasoning"
+    },
+    {
+      "candidate_success_probability": 0.47,
+      "condition_id": "C6",
+      "condition_name": "full_state_control_loop",
+      "cost_penalty": 0.058,
+      "expected_success_after_horizon_risk": 0.855202,
+      "expected_task_utility": 0.797202,
+      "residual_failure_risk": 0.022182,
+      "selected_success_before_horizon_risk": 0.874602,
+      "task_class": "medium_reasoning"
+    },
+    {
+      "candidate_success_probability": 0.4,
+      "condition_id": "C7",
+      "condition_name": "weak_verifier_stress",
+      "cost_penalty": 0.06,
+      "expected_success_after_horizon_risk": 0.423346,
+      "expected_task_utility": 0.363346,
+      "residual_failure_risk": 0.056169,
+      "selected_success_before_horizon_risk": 0.44854,
+      "task_class": "medium_reasoning"
+    },
+    {
+      "candidate_success_probability": 0.12,
+      "condition_id": "C0",
+      "condition_name": "one_shot_greedy",
+      "cost_penalty": 0.006,
+      "expected_success_after_horizon_risk": 0.088737,
+      "expected_task_utility": 0.082737,
+      "residual_failure_risk": 0.260525,
+      "selected_success_before_horizon_risk": 0.12,
+      "task_class": "long_software"
+    },
+    {
+      "candidate_success_probability": 0.12,
+      "condition_id": "C1",
+      "condition_name": "one_shot_sampling",
+      "cost_penalty": 0.006,
+      "expected_success_after_horizon_risk": 0.088737,
+      "expected_task_utility": 0.082737,
+      "residual_failure_risk": 0.260525,
+      "selected_success_before_horizon_risk": 0.12,
+      "task_class": "long_software"
+    },
+    {
+      "candidate_success_probability": 0.12,
+      "condition_id": "C2",
+      "condition_name": "best_of_n_no_verifier",
+      "cost_penalty": 0.048,
+      "expected_success_after_horizon_risk": 0.088737,
+      "expected_task_utility": 0.040737,
+      "residual_failure_risk": 0.260525,
+      "selected_success_before_horizon_risk": 0.12,
+      "task_class": "long_software"
+    },
+    {
+      "candidate_success_probability": 0.12,
+      "condition_id": "C3",
+      "condition_name": "best_of_n_strong_verifier",
+      "cost_penalty": 0.051,
+      "expected_success_after_horizon_risk": 0.400083,
+      "expected_task_utility": 0.349083,
+      "residual_failure_risk": 0.260525,
+      "selected_success_before_horizon_risk": 0.541037,
+      "task_class": "long_software"
+    },
+    {
+      "candidate_success_probability": 0.14,
+      "condition_id": "C4",
+      "condition_name": "self_reflection_loop",
+      "cost_penalty": 0.03,
+      "expected_success_after_horizon_risk": 0.116176,
+      "expected_task_utility": 0.086176,
+      "residual_failure_risk": 0.282654,
+      "selected_success_before_horizon_risk": 0.161952,
+      "task_class": "long_software"
+    },
+    {
+      "candidate_success_probability": 0.22,
+      "condition_id": "C5",
+      "condition_name": "grounded_feedback_loop",
+      "cost_penalty": 0.042,
+      "expected_success_after_horizon_risk": 0.468034,
+      "expected_task_utility": 0.426034,
+      "residual_failure_risk": 0.190134,
+      "selected_success_before_horizon_risk": 0.577915,
+      "task_class": "long_software"
+    },
+    {
+      "candidate_success_probability": 0.24,
+      "condition_id": "C6",
+      "condition_name": "full_state_control_loop",
+      "cost_penalty": 0.058,
+      "expected_success_after_horizon_risk": 0.551863,
+      "expected_task_utility": 0.493863,
+      "residual_failure_risk": 0.099875,
+      "selected_success_before_horizon_risk": 0.613096,
+      "task_class": "long_software"
+    },
+    {
+      "candidate_success_probability": 0.17,
+      "condition_id": "C7",
+      "condition_name": "weak_verifier_stress",
+      "cost_penalty": 0.06,
+      "expected_success_after_horizon_risk": 0.152334,
+      "expected_task_utility": 0.092334,
+      "residual_failure_risk": 0.237741,
+      "selected_success_before_horizon_risk": 0.199845,
+      "task_class": "long_software"
+    },
+    {
+      "candidate_success_probability": 0.18,
+      "condition_id": "C0",
+      "condition_name": "one_shot_greedy",
+      "cost_penalty": 0.006,
+      "expected_success_after_horizon_risk": 0.147223,
+      "expected_task_utility": 0.141223,
+      "residual_failure_risk": 0.182093,
+      "selected_success_before_horizon_risk": 0.18,
+      "task_class": "long_research"
+    },
+    {
+      "candidate_success_probability": 0.18,
+      "condition_id": "C1",
+      "condition_name": "one_shot_sampling",
+      "cost_penalty": 0.006,
+      "expected_success_after_horizon_risk": 0.147223,
+      "expected_task_utility": 0.141223,
+      "residual_failure_risk": 0.182093,
+      "selected_success_before_horizon_risk": 0.18,
+      "task_class": "long_research"
+    },
+    {
+      "candidate_success_probability": 0.18,
+      "condition_id": "C2",
+      "condition_name": "best_of_n_no_verifier",
+      "cost_penalty": 0.048,
+      "expected_success_after_horizon_risk": 0.147223,
+      "expected_task_utility": 0.099223,
+      "residual_failure_risk": 0.182093,
+      "selected_success_before_horizon_risk": 0.18,
+      "task_class": "long_research"
+    },
+    {
+      "candidate_success_probability": 0.18,
+      "condition_id": "C3",
+      "condition_name": "best_of_n_strong_verifier",
+      "cost_penalty": 0.051,
+      "expected_success_after_horizon_risk": 0.563037,
+      "expected_task_utility": 0.512037,
+      "residual_failure_risk": 0.182093,
+      "selected_success_before_horizon_risk": 0.688388,
+      "task_class": "long_research"
+    },
+    {
+      "candidate_success_probability": 0.2,
+      "condition_id": "C4",
+      "condition_name": "self_reflection_loop",
+      "cost_penalty": 0.03,
+      "expected_success_after_horizon_risk": 0.183532,
+      "expected_task_utility": 0.153532,
+      "residual_failure_risk": 0.198459,
+      "selected_success_before_horizon_risk": 0.228974,
+      "task_class": "long_research"
+    },
+    {
+      "candidate_success_probability": 0.28,
+      "condition_id": "C5",
+      "condition_name": "grounded_feedback_loop",
+      "cost_penalty": 0.042,
+      "expected_success_after_horizon_risk": 0.587817,
+      "expected_task_utility": 0.545817,
+      "residual_failure_risk": 0.13107,
+      "selected_success_before_horizon_risk": 0.676483,
+      "task_class": "long_research"
+    },
+    {
+      "candidate_success_probability": 0.3,
+      "condition_id": "C6",
+      "condition_name": "full_state_control_loop",
+      "cost_penalty": 0.058,
+      "expected_success_after_horizon_risk": 0.657176,
+      "expected_task_utility": 0.599176,
+      "residual_failure_risk": 0.067721,
+      "selected_success_before_horizon_risk": 0.704914,
+      "task_class": "long_research"
+    },
+    {
+      "candidate_success_probability": 0.23,
+      "condition_id": "C7",
+      "condition_name": "weak_verifier_stress",
+      "cost_penalty": 0.06,
+      "expected_success_after_horizon_risk": 0.222851,
+      "expected_task_utility": 0.162851,
+      "residual_failure_risk": 0.16541,
+      "selected_success_before_horizon_risk": 0.267019,
+      "task_class": "long_research"
+    },
+    {
+      "candidate_success_probability": 0.1,
+      "condition_id": "C0",
+      "condition_name": "one_shot_greedy",
+      "cost_penalty": 0.006,
+      "expected_success_after_horizon_risk": 0.06551,
+      "expected_task_utility": 0.05951,
+      "residual_failure_risk": 0.3449,
+      "selected_success_before_horizon_risk": 0.1,
+      "task_class": "long_planning"
+    },
+    {
+      "candidate_success_probability": 0.1,
+      "condition_id": "C1",
+      "condition_name": "one_shot_sampling",
+      "cost_penalty": 0.006,
+      "expected_success_after_horizon_risk": 0.06551,
+      "expected_task_utility": 0.05951,
+      "residual_failure_risk": 0.3449,
+      "selected_success_before_horizon_risk": 0.1,
+      "task_class": "long_planning"
+    },
+    {
+      "candidate_success_probability": 0.1,
+      "condition_id": "C2",
+      "condition_name": "best_of_n_no_verifier",
+      "cost_penalty": 0.048,
+      "expected_success_after_horizon_risk": 0.06551,
+      "expected_task_utility": 0.01751,
+      "residual_failure_risk": 0.3449,
+      "selected_success_before_horizon_risk": 0.1,
+      "task_class": "long_planning"
+    },
+    {
+      "candidate_success_probability": 0.1,
+      "condition_id": "C3",
+      "condition_name": "best_of_n_strong_verifier",
+      "cost_penalty": 0.051,
+      "expected_success_after_horizon_risk": 0.31266,
+      "expected_task_utility": 0.26166,
+      "residual_failure_risk": 0.3449,
+      "selected_success_before_horizon_risk": 0.47727,
+      "task_class": "long_planning"
+    },
+    {
+      "candidate_success_probability": 0.12,
+      "condition_id": "C4",
+      "condition_name": "self_reflection_loop",
+      "cost_penalty": 0.03,
+      "expected_success_after_horizon_risk": 0.087446,
+      "expected_task_utility": 0.057446,
+      "residual_failure_risk": 0.372238,
+      "selected_success_before_horizon_risk": 0.139298,
+      "task_class": "long_planning"
+    },
+    {
+      "candidate_success_probability": 0.2,
+      "condition_id": "C5",
+      "condition_name": "grounded_feedback_loop",
+      "cost_penalty": 0.042,
+      "expected_success_after_horizon_risk": 0.402058,
+      "expected_task_utility": 0.360058,
+      "residual_failure_risk": 0.255803,
+      "selected_success_before_horizon_risk": 0.540258,
+      "task_class": "long_planning"
+    },
+    {
+      "candidate_success_probability": 0.22,
+      "condition_id": "C6",
+      "condition_name": "full_state_control_loop",
+      "cost_penalty": 0.058,
+      "expected_success_after_horizon_risk": 0.498731,
+      "expected_task_utility": 0.440731,
+      "residual_failure_risk": 0.137018,
+      "selected_success_before_horizon_risk": 0.577915,
+      "task_class": "long_planning"
+    },
+    {
+      "candidate_success_probability": 0.15,
+      "condition_id": "C7",
+      "condition_name": "weak_verifier_stress",
+      "cost_penalty": 0.06,
+      "expected_success_after_horizon_risk": 0.121046,
+      "expected_task_utility": 0.061046,
+      "residual_failure_risk": 0.316413,
+      "selected_success_before_horizon_risk": 0.177075,
+      "task_class": "long_planning"
+    }
+  ],
+  "source_manifest": "data/M4b-agent-loop-necessity-pilot-manifest.json",
+  "summary": {
+    "all_predeclared_checks_passed": true,
+    "predeclared_checks": {
+      "C3_beats_C2_for_all_task_classes": true,
+      "C6_beats_C4_on_all_long_tasks": true,
+      "C6_beats_C7_for_all_task_classes": true,
+      "C6_does_not_improve_over_C0_on_short_task": true,
+      "C6_improves_over_C0_on_all_long_tasks": true
+    },
+    "predeclared_contrasts": {
+      "long_planning": {
+        "C3_minus_C2": 0.24415,
+        "C6_minus_C0": 0.381221,
+        "C6_minus_C4": 0.383285,
+        "C6_minus_C7": 0.379685
+      },
+      "long_research": {
+        "C3_minus_C2": 0.412814,
+        "C6_minus_C0": 0.457953,
+        "C6_minus_C4": 0.445644,
+        "C6_minus_C7": 0.436325
+      },
+      "long_software": {
+        "C3_minus_C2": 0.308346,
+        "C6_minus_C0": 0.411126,
+        "C6_minus_C4": 0.407687,
+        "C6_minus_C7": 0.401529
+      },
+      "medium_reasoning": {
+        "C3_minus_C2": 0.501147,
+        "C6_minus_C0": 0.474985,
+        "C6_minus_C4": 0.443886,
+        "C6_minus_C7": 0.433856
+      },
+      "short_deterministic": {
+        "C3_minus_C2": 0.015889,
+        "C6_minus_C0": -0.03074,
+        "C6_minus_C4": -0.0265,
+        "C6_minus_C7": 0.0031
+      }
+    },
+    "task_class_winners": {
+      "long_planning": {
+        "condition_id": "C6",
+        "condition_name": "full_state_control_loop",
+        "expected_task_utility": 0.440731
+      },
+      "long_research": {
+        "condition_id": "C6",
+        "condition_name": "full_state_control_loop",
+        "expected_task_utility": 0.599176
+      },
+      "long_software": {
+        "condition_id": "C6",
+        "condition_name": "full_state_control_loop",
+        "expected_task_utility": 0.493863
+      },
+      "medium_reasoning": {
+        "condition_id": "C6",
+        "condition_name": "full_state_control_loop",
+        "expected_task_utility": 0.797202
+      },
+      "short_deterministic": {
+        "condition_id": "C0",
+        "condition_name": "one_shot_greedy",
+        "expected_task_utility": 0.97204
+      }
+    }
+  },
+  "utility_formula": "expected_success_after_horizon_risk - cost_penalty"
+}

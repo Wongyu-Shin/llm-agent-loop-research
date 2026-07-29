@@ -1,0 +1,178 @@
+{
+  "id": "M4b-agent-loop-necessity-pilot-manifest",
+  "date": "2026-05-27",
+  "status": "simulation_preflight_only",
+  "claim_boundary": "This pilot simulation validates the analysis pipeline and expected interaction patterns. It is not empirical evidence about any real LLM.",
+  "linked_protocol": "data/M4b-agent-loop-necessity-study-protocol.json",
+  "utility_formula": "expected_success_after_horizon_risk - cost_penalty",
+  "cost_model": {
+    "model_call": 0.006,
+    "tool_call": 0.003,
+    "rollback_enabled": 0.01,
+    "state_ledger": 0.006
+  },
+  "task_classes": [
+    {
+      "id": "short_deterministic",
+      "task_count": 50,
+      "horizon_steps": 1,
+      "base_candidate_success": 0.98,
+      "per_step_harmful_commitment_hazard": 0.002,
+      "expected_loop_effect": "neutral_or_negative"
+    },
+    {
+      "id": "medium_reasoning",
+      "task_count": 100,
+      "horizon_steps": 8,
+      "base_candidate_success": 0.35,
+      "per_step_harmful_commitment_hazard": 0.008,
+      "expected_loop_effect": "positive_with_verifier_or_search"
+    },
+    {
+      "id": "long_software",
+      "task_count": 50,
+      "horizon_steps": 25,
+      "base_candidate_success": 0.12,
+      "per_step_harmful_commitment_hazard": 0.012,
+      "expected_loop_effect": "positive_with_tests_and_rollback"
+    },
+    {
+      "id": "long_research",
+      "task_count": 50,
+      "horizon_steps": 20,
+      "base_candidate_success": 0.18,
+      "per_step_harmful_commitment_hazard": 0.01,
+      "expected_loop_effect": "positive_with_retrieval_and_provenance"
+    },
+    {
+      "id": "long_planning",
+      "task_count": 50,
+      "horizon_steps": 30,
+      "base_candidate_success": 0.10,
+      "per_step_harmful_commitment_hazard": 0.014,
+      "expected_loop_effect": "positive_with_observation_action_loop"
+    }
+  ],
+  "conditions": [
+    {
+      "id": "C0",
+      "name": "one_shot_greedy",
+      "candidate_count": 1,
+      "candidate_success_bonus": 0.0,
+      "verifier": "none",
+      "model_calls": 1,
+      "tool_calls": 0,
+      "hazard_multiplier": 1.0,
+      "rollback_enabled": false,
+      "state_ledger": false
+    },
+    {
+      "id": "C1",
+      "name": "one_shot_sampling",
+      "candidate_count": 1,
+      "candidate_success_bonus": 0.0,
+      "verifier": "none",
+      "model_calls": 1,
+      "tool_calls": 0,
+      "hazard_multiplier": 1.0,
+      "rollback_enabled": false,
+      "state_ledger": false
+    },
+    {
+      "id": "C2",
+      "name": "best_of_n_no_verifier",
+      "candidate_count": 8,
+      "candidate_success_bonus": 0.0,
+      "verifier": "none",
+      "model_calls": 8,
+      "tool_calls": 0,
+      "hazard_multiplier": 1.0,
+      "rollback_enabled": false,
+      "state_ledger": false
+    },
+    {
+      "id": "C3",
+      "name": "best_of_n_strong_verifier",
+      "candidate_count": 8,
+      "candidate_success_bonus": 0.0,
+      "verifier": "strong",
+      "model_calls": 8,
+      "tool_calls": 1,
+      "hazard_multiplier": 1.0,
+      "rollback_enabled": false,
+      "state_ledger": false
+    },
+    {
+      "id": "C4",
+      "name": "self_reflection_loop",
+      "candidate_count": 4,
+      "candidate_success_bonus": 0.02,
+      "verifier": "weak",
+      "model_calls": 4,
+      "tool_calls": 0,
+      "hazard_multiplier": 1.10,
+      "rollback_enabled": false,
+      "state_ledger": true
+    },
+    {
+      "id": "C5",
+      "name": "grounded_feedback_loop",
+      "candidate_count": 4,
+      "candidate_success_bonus": 0.10,
+      "verifier": "strong",
+      "model_calls": 4,
+      "tool_calls": 4,
+      "hazard_multiplier": 0.70,
+      "rollback_enabled": false,
+      "state_ledger": true
+    },
+    {
+      "id": "C6",
+      "name": "full_state_control_loop",
+      "candidate_count": 4,
+      "candidate_success_bonus": 0.12,
+      "verifier": "strong",
+      "model_calls": 5,
+      "tool_calls": 4,
+      "hazard_multiplier": 0.35,
+      "rollback_enabled": true,
+      "state_ledger": true
+    },
+    {
+      "id": "C7",
+      "name": "weak_verifier_stress",
+      "candidate_count": 8,
+      "candidate_success_bonus": 0.05,
+      "verifier": "weak",
+      "model_calls": 8,
+      "tool_calls": 2,
+      "hazard_multiplier": 0.90,
+      "rollback_enabled": false,
+      "state_ledger": true
+    }
+  ],
+  "verifiers": {
+    "none": {
+      "selection": "random_candidate",
+      "true_positive_rate": null,
+      "false_positive_rate": null
+    },
+    "weak": {
+      "selection": "noisy_pass_filter",
+      "true_positive_rate": 0.55,
+      "false_positive_rate": 0.45
+    },
+    "strong": {
+      "selection": "noisy_pass_filter",
+      "true_positive_rate": 0.95,
+      "false_positive_rate": 0.05
+    }
+  },
+  "predeclared_checks": [
+    "C6 should improve utility over C0 on long task classes.",
+    "C6 should not materially improve utility over C0 on short_deterministic after cost penalty.",
+    "C3 should beat C2 when verifier quality is strong.",
+    "C7 should be weaker than C6 despite more candidates.",
+    "C4 should not be treated as equivalent to external feedback."
+  ]
+}

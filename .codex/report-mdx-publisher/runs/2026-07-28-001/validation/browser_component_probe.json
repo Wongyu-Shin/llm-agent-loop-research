@@ -1,0 +1,68 @@
+{
+  "artifact_version": "1.0",
+  "schema_version": "1.0",
+  "skill_version": "0.1.0",
+  "run_id": "2026-07-28-171205",
+  "command": "run",
+  "workflow_preset": "full-report",
+  "quality": "strict",
+  "created_at": "2026-07-28T08:12:05.965687+00:00",
+  "source": "browser",
+  "components": [
+    {
+      "browser_name": "chrome",
+      "browser_version": "",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "page_url": "http://127.0.0.1:3000/self-correction-scaling/",
+      "route": "/self-correction-scaling",
+      "selector": "main h1",
+      "selector_match_count": 1,
+      "bounding_box": {
+        "x": 272,
+        "y": 144,
+        "width": 760,
+        "height": 92.15625
+      },
+      "visible": true,
+      "action": "load",
+      "screenshot_sha256": "75434752c9f651a7731aaffbf1deeceea86f17affecc8ba4620ec35eea71ff9d",
+      "screenshot_path": "validation/screenshots/live-page.png",
+      "console_errors": [
+        {
+          "type": "error",
+          "text": "In HTML, %s cannot be a descendant of <%s>.\nThis will cause a hydration error.%s <p> p \n\n  ...\n    <ErrorBoundary errorComponent={undefined} errorStyles={undefined} errorScripts={undefined}>\n      <LoadingBoundary name=\"self-corre...\" loading={null}>\n        <HTTPAccessFallbackBoundary notFound={undefined} forbidden={undefined} unauthorized={undefined}>\n          <RedirectBoundary>\n            <RedirectErrorBoundary router={{...}}>\n              <InnerLayoutRouter url=\"/self-corr...\" tree={[...]} params={{}} cacheNode={{rsc:{...}, ...}} ...>\n                <SegmentViewNode type=\"page\" pagePath=\"self-corre...\">\n                  <SegmentTrieNode>\n                  <MDXContent>\n                    <ArticlePage>\n                      <div className=\"article-grid\">\n                        <article className=\"doc-article\">\n                          <header>\n                          <section>\n                          <Section>\n                            <section className=\"doc-section\" id=\"model\">\n                              <h2>\n                              <p>\n                              <dl>\n                              <div>\n                              <p>\n                              <span>\n                              <p>\n                              <span>\n                              <p>\n                              <span>\n                              <p>\n                              <span>\n                              <p>\n                              <span>\n                              <p>\n                              <span>\n                              <p>\n                              <Note>\n                                <aside className=\"doc-note n...\">\n                                  <div>\n                                  <div>\n>                                   <p>\n>                                     <p>\n                              ...\n                          ...\n                        ...\n                ...\n              ...\n"
+        },
+        {
+          "type": "error",
+          "text": "Encountered a script tag while rendering React component. Scripts inside React components are never executed when rendering on the client. Consider using template tag instead (https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template)."
+        },
+        {
+          "type": "pageerror",
+          "text": "Hydration failed because the server rendered HTML didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:\n\n- A server/client branch `if (typeof window !== 'undefined')`.\n- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.\n- Date formatting in a user's locale which doesn't match the server.\n- External changing data without sending a snapshot of it along with the HTML.\n- Invalid HTML tag nesting.\n\nIt can also happen if the client has a browser extension installed which messes with the HTML before React loaded.\n\nhttps://react.dev/link/hydration-mismatch"
+        }
+      ],
+      "network_errors": [],
+      "hydration_errors": [
+        {
+          "type": "error",
+          "text": "In HTML, %s cannot be a descendant of <%s>.\nThis will cause a hydration error.%s <p> p \n\n  ...\n    <ErrorBoundary errorComponent={undefined} errorStyles={undefined} errorScripts={undefined}>\n      <LoadingBoundary name=\"self-corre...\" loading={null}>\n        <HTTPAccessFallbackBoundary notFound={undefined} forbidden={undefined} unauthorized={undefined}>\n          <RedirectBoundary>\n            <RedirectErrorBoundary router={{...}}>\n              <InnerLayoutRouter url=\"/self-corr...\" tree={[...]} params={{}} cacheNode={{rsc:{...}, ...}} ...>\n                <SegmentViewNode type=\"page\" pagePath=\"self-corre...\">\n                  <SegmentTrieNode>\n                  <MDXContent>\n                    <ArticlePage>\n                      <div className=\"article-grid\">\n                        <article className=\"doc-article\">\n                          <header>\n                          <section>\n                          <Section>\n                            <section className=\"doc-section\" id=\"model\">\n                              <h2>\n                              <p>\n                              <dl>\n                              <div>\n                              <p>\n                              <span>\n                              <p>\n                              <span>\n                              <p>\n                              <span>\n                              <p>\n                              <span>\n                              <p>\n                              <span>\n                              <p>\n                              <span>\n                              <p>\n                              <Note>\n                                <aside className=\"doc-note n...\">\n                                  <div>\n                                  <div>\n>                                   <p>\n>                                     <p>\n                              ...\n                          ...\n                        ...\n                ...\n              ...\n"
+        },
+        {
+          "type": "pageerror",
+          "text": "Hydration failed because the server rendered HTML didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:\n\n- A server/client branch `if (typeof window !== 'undefined')`.\n- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.\n- Date formatting in a user's locale which doesn't match the server.\n- External changing data without sending a snapshot of it along with the HTML.\n- Invalid HTML tag nesting.\n\nIt can also happen if the client has a browser extension installed which messes with the HTML before React loaded.\n\nhttps://react.dev/link/hydration-mismatch"
+        }
+      ],
+      "source": "browser",
+      "reason": "",
+      "content_svg_count": 21,
+      "main_button_count": 0,
+      "main_role_button_count": 0,
+      "framework_overlay_count": 0,
+      "body_background": "rgb(255, 255, 255)",
+      "css_loaded": false
+    }
+  ]
+}

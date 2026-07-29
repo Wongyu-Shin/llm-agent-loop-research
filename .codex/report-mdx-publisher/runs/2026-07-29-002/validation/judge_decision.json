@@ -1,0 +1,33 @@
+{
+  "artifact_version": "1.0",
+  "schema_version": "1.0",
+  "skill_version": "0.1.0",
+  "run_id": "2026-07-29-163353",
+  "command": "run",
+  "workflow_preset": "validate-only",
+  "quality": "strict",
+  "created_at": "2026-07-29T07:33:53.400153+00:00",
+  "decision": "reject",
+  "blocking_failures": [
+    {
+      "judge": "pedagogy",
+      "check": "single_h1"
+    },
+    {
+      "judge": "pedagogy",
+      "check": "explains_usage"
+    },
+    {
+      "judge": "visual",
+      "check": "live_browser_evidence"
+    },
+    {
+      "judge": "visual",
+      "check": "screenshot_captured"
+    },
+    {
+      "judge": "visual",
+      "check": "css_loaded"
+    }
+  ]
+}

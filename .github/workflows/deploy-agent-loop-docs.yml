@@ -1,0 +1,80 @@
+name: Deploy Agent Loop Docs
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "apps/agent-loop-docs/**"
+      - ".github/workflows/deploy-agent-loop-docs.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: apps/agent-loop-docs/package-lock.json
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Install dependencies
+        working-directory: apps/agent-loop-docs
+        run: npm ci
+
+      - name: Lint
+        working-directory: apps/agent-loop-docs
+        run: npm run lint
+
+      - name: Type-check
+        working-directory: apps/agent-loop-docs
+        run: npm run typecheck
+
+      - name: Install Playwright Chromium
+        working-directory: apps/agent-loop-docs
+        run: npx playwright install --with-deps chromium
+
+      - name: Run browser tests
+        working-directory: apps/agent-loop-docs
+        run: npm run test:e2e
+
+      - name: Build static site
+        working-directory: apps/agent-loop-docs
+        env:
+          NEXT_PUBLIC_BASE_PATH: /llm-agent-loop-research
+          NEXT_PUBLIC_SITE_URL: https://wongyu-shin.github.io/llm-agent-loop-research
+          NEXT_TELEMETRY_DISABLED: 1
+        run: npm run build
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: apps/agent-loop-docs/out
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

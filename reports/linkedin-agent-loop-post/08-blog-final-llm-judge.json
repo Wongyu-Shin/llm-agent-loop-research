@@ -1,0 +1,211 @@
+{
+  "generated_at": "2026-05-28T01:48:06+00:00",
+  "id": "m4b-content-judge-blog",
+  "input": "reports/linkedin-agent-loop-post/07-blog-post-final.md",
+  "mode": "blog",
+  "model": "gpt-5.4-mini",
+  "review_count": 5,
+  "reviews": [
+    {
+      "highest_risk_issues": [
+        "제목과 결론의 '필요성' 표현이 아직 넓게 읽힐 수 있다. 본문과 일치하게 '조건부 구조적 필요성'이 더 전면에 와야 한다.",
+        "Section 3의 논리 사슬은 맞지만, next-token objective -> sequence likelihood/MAP -> task utility mismatch를 더 엄격히 분리하면 더 안전하다.",
+        "tiny pilot는 n=12, synthetic deterministic, single-model, single-run, underpowered라는 한계를 더 강하게 전면화해야 한다.",
+        "weak verifier가 loop를 악화시키는 메커니즘을 false positive, correlated candidates, proxy hacking, irreversible side effects, state drift로 더 분해하면 통계/제어 관점에서 더 설득력 있다.",
+        "state control는 ownership, rollback semantics, memory provenance, stopping rule을 아키텍처 수준에서 더 명시적으로 나눌 필요가 있다."
+      ],
+      "optional_revisions": [
+        "pilot 결과 표의 제목에 'n=12, synthetic deterministic, single-run, underpowered' 경고를 직접 넣으면 오독을 더 줄일 수 있다.",
+        "각 control surface마다 '정의 / 경계 / 실패 모드 / 실무 예시'를 한 줄씩 더 붙이면 Fowler식 boundary condition이 더 선명해진다.",
+        "self-reflection이 verifier가 아닌 이유를 '독립성'과 '측정 가능성' 기준으로 한 문장 더 못 박으면 좋다.",
+        "coding/research/planning/customer support 예시에 각각 어떤 verifier가 핵심인지 한 줄씩 더 붙이면 실무성이 올라간다.",
+        "LinkedIn 카드용으로는 마지막 thesis를 더 짧게 압축해도 좋다."
+      ],
+      "overclaim_check": "minor overclaim",
+      "perspective": "수학/통계 리뷰어",
+      "perspective_id": "math_stats",
+      "quality_bar_check": "meets",
+      "required_revisions": [
+        "제목 또는 부제에서 '필요하다'의 뉘앙스를 더 약화하고, '조건부 구조적 필요성'이 전면에 오도록 수정할 것.",
+        "Section 3에서 next-token objective, sequence objective, task utility의 구분을 더 엄격히 유지하고, greedy decoding vs sequence MAP mismatch와 sequence likelihood vs task utility mismatch를 별도 명제로 분리할 것.",
+        "Section 5의 tiny pilot는 '이 설정에서는 개선이 관찰되지 않았다' 수준으로만 해석하고, 효과 없음이나 loop가 더 나쁨 같은 인과적 결론을 피할 것.",
+        "Section 6의 verifier는 '독립적이고, 오류율이 낮거나 calibration되어 있으며, task proxy와 정렬된 판정 신호'라는 통계적 조건을 명시할 것.",
+        "Section 8 또는 9에 state ownership, rollback semantics, memory provenance, stopping rule을 더 명시적으로 넣고, loop가 해로운 이유를 false positive verifier, correlated candidates, proxy hacking, irreversible side effects, state drift로 구체화할 것.",
+        "결론 문장은 짧고 기억 가능하지만, '반복이 아니라 폐루프 제어'가 조건부 구조적 필요성과 함께 읽히도록 한 번 더 다듬을 것."
+      ],
+      "score": 8.6,
+      "standalone_check": "self-contained",
+      "strongest_points": [
+        "핵심 논지를 loop 일반론이 아니라 objective mismatch와 control surface로 분해한 점은 수학적으로 타당하다.",
+        "next-token objective, sequence likelihood, task utility를 구분한 구조는 과장된 agent 담론을 정리하는 데 유효하다.",
+        "verifier, actionable feedback, tool access, state control의 4분해는 실무 아키텍처로도 쓸 수 있을 만큼 명확하다.",
+        "tiny pilot를 증명이 아니라 failure-mode 사례로 제한한 점은 과잉 일반화를 잘 막고 있다.",
+        "self-reflection이 verifier가 아니라는 점과 weak verifier의 위험을 분명히 쓴 점은 중요하다."
+      ],
+      "verdict": "revise"
+    },
+    {
+      "highest_risk_issues": [
+        "제목과 결론의 일부 문장은 여전히 ‘필요하다’의 범위가 약간 넓게 읽힐 수 있다. 본문은 안전하지만 첫인상은 조금 강하다.",
+        "Section 3의 논리 사슬은 맞지만, greedy decoding vs sequence MAP vs task utility의 구분을 더 한 단계씩 끊어 읽히게 만들면 더 강해진다.",
+        "state control은 충분히 좋지만, ownership / rollback semantics / stopping rule을 더 전면에 두면 Fowler식 boundary condition이 더 선명해진다.",
+        "weak verifier가 loop를 악화시키는 메커니즘을 false positive, correlated candidates, proxy hacking, irreversible side effects, state drift 관점에서 조금 더 압축해도 좋다.",
+        "tiny pilot의 숫자가 전면에 있어 일부 독자는 실험 보고서처럼 읽을 수 있다. 현재도 안전하지만, 본문 중심축은 실험이 아니라 개념이어야 한다."
+      ],
+      "optional_revisions": [
+        "verifier 정의에 calibration과 task proxy 정렬을 한 문장 더 넣으면 통계적 경계가 더 선명해진다.",
+        "self-reflection이 verifier가 아닌 이유를 ‘독립성’ 기준으로 한 번 더 못 박으면 좋다.",
+        "각 도메인 예시(coding/research/planning/customer support)에 verifier와 feedback의 구체적 형태를 한 줄씩 더 붙이면 실무성이 올라간다.",
+        "LinkedIn 카드용으로는 마지막 thesis를 더 짧게 압축한 버전이 있으면 좋다.",
+        "loop가 해로운 조건에 irreversible side effect와 state drift를 분리해 쓰면 제어 관점이 더 또렷해진다."
+      ],
+      "overclaim_check": "minor overclaim",
+      "perspective": "LLM 시스템 엔지니어",
+      "perspective_id": "llm_systems",
+      "quality_bar_check": "meets",
+      "required_revisions": [
+        "제목 또는 부제에서 ‘필요하다’의 뉘앙스를 더 좁혀 ‘조건부 구조적 필요성’이 전면에 오도록 다듬을 것.",
+        "Section 3에서 next-token objective -> sequence likelihood/MAP -> task utility -> control surfaces의 연결을 더 엄격히 분리해 쓸 것.",
+        "state control 섹션에 ownership, rollback semantics, stopping rule을 더 명시적으로 넣을 것.",
+        "tiny pilot는 숫자보다 실패 모드 중심으로 읽히도록 해석 문장을 더 약하게 유지할 것.",
+        "결론 문장을 더 짧고 기억 가능하게 다듬을 것."
+      ],
+      "score": 8.8,
+      "standalone_check": "self-contained",
+      "strongest_points": [
+        "핵심 논지를 ‘loop 필연’이 아니라 ‘조건부 구조적 필요성’으로 낮춘 점이 정확하다. 제목, 부제, 결론까지 대체로 그 방향을 유지하고 있다.",
+        "next-token objective, sequence likelihood, task utility를 분리한 뒤 control surface로 연결하는 구조가 공학적으로 타당하다.",
+        "verifier, actionable feedback, tool access, state control의 4분해가 실무 아키텍처 리뷰에 바로 쓸 수 있는 수준으로 정리되어 있다.",
+        "self-reflection이 verifier가 아니라는 점, weak verifier가 loop를 악화시킬 수 있다는 점, state control의 ownership/rollback/stopping rule을 넣은 점이 좋다.",
+        "tiny pilot를 증명이 아니라 failure-mode 경고로 위치시킨 점이 과잉 일반화를 잘 막고 있다."
+      ],
+      "verdict": "pass"
+    },
+    {
+      "highest_risk_issues": [
+        "제목과 결론에서 여전히 ‘필요하다’의 범위가 약간 넓게 읽힐 수 있다. 본문과 일치하게 ‘조건부 구조적 필요성’이 더 전면에 와야 한다.",
+        "Section 3의 논리 사슬은 좋지만, next-token objective, sequence likelihood/MAP, task utility의 구분을 더 한 단계씩 끊어 읽히게 만들면 더 강해진다.",
+        "state control의 아키텍처 정의는 충분히 좋지만, ownership / rollback semantics / stopping rule을 더 전면에 두면 Fowler식 boundary condition이 더 선명해진다.",
+        "tiny pilot의 숫자가 전면에 있어 일부 독자는 실험 보고서처럼 읽을 수 있다. 현재는 안전하지만, 본문 중심축은 실험이 아니라 개념이어야 한다.",
+        "weak verifier가 loop를 악화시키는 메커니즘을 false positive, correlated candidates, proxy hacking 관점에서 조금 더 압축해도 좋다."
+      ],
+      "optional_revisions": [
+        "pilot 결과 표의 제목에 n=12, synthetic deterministic, single-run, underpowered를 직접 넣으면 오독을 줄일 수 있다.",
+        "각 도메인 예시(coding/research/planning/customer support)에 verifier와 feedback의 구체적 형태를 한 줄씩 더 붙이면 실무성이 올라간다.",
+        "self-reflection과 verifier의 차이를 초반에 한 번 더 못 박으면 독자가 더 빨리 따라온다.",
+        "LinkedIn 카드용으로는 마지막 thesis를 더 짧게 줄여도 좋다. 예: ‘반복이 아니라, 검증 가능한 폐루프가 필요하다.’",
+        "loop가 해로운 조건에 irreversible side effect와 state drift를 분리해 쓰면 제어 관점이 더 또렷해진다."
+      ],
+      "overclaim_check": "minor overclaim",
+      "perspective": "소프트웨어 아키텍처 리뷰어",
+      "perspective_id": "software_architecture",
+      "quality_bar_check": "meets",
+      "required_revisions": [
+        "제목 또는 부제에서 ‘필요하다’의 뉘앙스를 더 약화하고, ‘조건부 구조적 필요성’이 전면에 오도록 수정할 것.",
+        "Section 2~3를 더 엄격히 재배치할 것: next-token objective -> decoding mismatch -> sequence likelihood/MAP -> task utility mismatch -> 그래서 control surface가 필요하다는 결론.",
+        "네 control surface를 각각 정의 / 경계 / 실패 모드 / 실무 예시 형식으로 더 명확히 쓸 것.",
+        "state control 섹션에 state ownership, rollback semantics, memory provenance, stopping rule을 반드시 포함할 것.",
+        "weak verifier가 loop를 악화시키는 메커니즘을 더 구체화할 것. false positive, correlated candidate, reward/proxy hacking, irreversible side effects, state drift를 분리해서 설명할 것.",
+        "tiny pilot 해석을 더 약하게 만들 것. ‘효과 없음’이나 ‘loop가 더 나쁨’ 같은 인과적 결론을 피하고, ‘이 설정에서는 개선이 관찰되지 않았다’ 수준으로 제한할 것.",
+        "결론 문장을 더 짧고 기억 가능하게 압축할 것. 현재는 정확하지만 약간 설명적이다."
+      ],
+      "score": 8.8,
+      "standalone_check": "self-contained",
+      "strongest_points": [
+        "핵심 논지를 ‘반복’이 아니라 ‘폐루프 제어’로 재정의한 점이 좋다. Fowler식 boundary를 향한 방향이 분명하고, loop를 분석 단위로 두지 않으려는 태도가 적절하다.",
+        "verifier, actionable feedback, tool access, state control의 네 control surface 분해는 실무자가 가져갈 수 있는 아키텍처 vocabulary로 쓸 만하다.",
+        "one-shot generation, sequence likelihood, task utility의 차이를 분리한 흐름은 방향이 맞고, next-token 생성과 실제 과제 성능의 간극을 설명하려는 의도가 분명하다.",
+        "tiny pilot를 증명이 아니라 경고등으로 위치시킨 점은 과장 방지에 유리하다.",
+        "when not to use a loop, when loop can hurt를 별도 섹션으로 둔 점은 조건부 구조적 필요성이라는 메시지와 잘 맞는다."
+      ],
+      "verdict": "revise"
+    },
+    {
+      "highest_risk_issues": [
+        "제목과 결론에서 여전히 ‘필요하다’의 범위가 약간 넓게 읽힐 수 있다. 본문은 안전하지만 첫인상은 조금 강하다.",
+        "Section 3의 논리 사슬은 좋지만, greedy decoding vs sequence MAP vs task utility의 구분을 더 한 단계씩 끊어 읽히게 만들면 더 강해진다.",
+        "state control의 아키텍처 정의는 충분히 좋지만, ownership / rollback semantics / stopping rule을 더 전면에 두면 Fowler식 boundary condition이 더 선명해진다.",
+        "tiny pilot의 숫자가 전면에 있어 일부 독자는 실험 보고서처럼 읽을 수 있다. 본문 중심축은 실험이 아니라 개념이어야 한다.",
+        "weak verifier가 loop를 악화시키는 메커니즘을 false positive, correlated candidates, proxy hacking 관점에서 조금 더 압축해도 좋다."
+      ],
+      "optional_revisions": [
+        "verifier 정의에 calibration과 task proxy 정렬을 한 문장 더 넣으면 통계적 경계가 더 선명해진다.",
+        "self-reflection이 verifier가 아닌 이유를 ‘독립성’ 기준으로 한 번 더 못 박으면 좋다.",
+        "각 도메인 예시(coding/research/planning/customer support)에 verifier와 feedback의 구체적 형태를 한 줄씩 더 붙이면 실무성이 올라간다.",
+        "LinkedIn 카드용으로는 마지막 thesis를 더 짧게 압축한 버전이 있으면 좋다.",
+        "loop가 해로운 조건에 irreversible side effect와 state drift를 분리해 쓰면 제어 관점이 더 또렷해진다."
+      ],
+      "overclaim_check": "minor overclaim",
+      "perspective": "제어/RL 리뷰어",
+      "perspective_id": "control_rl",
+      "quality_bar_check": "meets",
+      "required_revisions": [
+        "제목 또는 부제에서 ‘필요하다’의 뉘앙스를 더 약화하고, ‘조건부 구조적 필요성’이 전면에 오도록 수정할 것.",
+        "Section 3을 엄격히 재배치할 것: (1) next-token objective, (2) greedy vs sequence MAP mismatch, (3) sequence likelihood vs task utility mismatch, (4) 그래서 control surfaces가 필요하다는 결론.",
+        "네 control surface를 더 엄격히 정의할 것: verifier=판정/측정, actionable feedback=수정 가능한 오류 구조, tool access=외부 관측/행동, state control=기억/분기/롤백/종료 규칙.",
+        "state control 섹션에 state ownership, rollback semantics, stopping rule을 명시적으로 포함할 것.",
+        "Section 9에 loop가 더 나빠지는 메커니즘을 더 구체적으로 쓸 것: weak verifier, false positive, correlated candidates, reward/proxy hacking, irreversible side effects, state drift.",
+        "tiny pilot 해석을 더 보수적으로 바꿀 것. ‘loop가 효과 없다’가 아니라 ‘이 설정에서는 개선이 관찰되지 않았다’ 수준으로 제한할 것.",
+        "closing thesis를 더 짧고 기억 가능한 문장으로 압축할 것."
+      ],
+      "score": 8.6,
+      "standalone_check": "self-contained",
+      "strongest_points": [
+        "핵심 논지를 ‘반복’이 아니라 ‘폐루프 제어’로 재정의한 점이 제어/RL 관점에서 타당하다. loop 자체를 분석 단위로 두지 않고 verifier, feedback, tool, state로 분해한 구조가 좋다.",
+        "next-token objective, sequence likelihood, task utility를 분리한 뒤 control surface로 연결하는 흐름이 논리적으로 맞고, objective mismatch를 중심축으로 잡은 점이 강하다.",
+        "verifier, actionable feedback, tool access, state control의 4분해는 실무 아키텍처 리뷰에 바로 쓸 수 있는 수준이다.",
+        "self-reflection이 verifier가 아니라는 점과 weak verifier가 loop를 악화시킬 수 있다는 점을 분명히 쓴 것은 중요한 경계 설정이다.",
+        "tiny pilot를 증명이 아니라 경고등으로 위치시킨 점은 과잉 일반화를 잘 막고 있다."
+      ],
+      "verdict": "pass"
+    },
+    {
+      "highest_risk_issues": [
+        "제목과 일부 문장에 여전히 ‘필요’의 범위가 넓게 읽힐 수 있다. ‘조건부 구조적 필요성’이 전면에 오도록 더 약하게 써야 한다.",
+        "Section 3의 논리 사슬은 좋아졌지만, next-token objective -> sequence MAP -> task utility -> control surfaces의 연결을 더 엄격히 분리하면 더 안전하다.",
+        "pilot 해석은 여전히 숫자가 전면에 있어 오독 위험이 있다. n=12, synthetic deterministic, single-model, single-run이라는 한계를 더 강하게 전면 배치해야 한다.",
+        "weak verifier가 loop를 악화시키는 메커니즘을 false positive, correlated candidates, proxy hacking, irreversible side effects, state drift로 더 분해하면 통계/제어 관점에서 더 설득력 있다.",
+        "state control의 정의는 좋지만, ownership, rollback semantics, stopping rule이 아키텍처 수준에서 더 구체적으로 드러나면 좋다."
+      ],
+      "optional_revisions": [
+        "pilot 결과 표의 제목에 'n=12, synthetic deterministic, single-run, underpowered' 경고를 직접 넣으면 오독을 더 줄일 수 있다.",
+        "각 control surface마다 '정의 / 경계 / 실패 모드 / 실무 예시'를 한 줄씩 더 붙이면 Fowler식 boundary condition이 더 선명해진다.",
+        "self-reflection이 verifier가 아닌 이유를 '독립성'과 '측정 가능성' 기준으로 한 문장 더 못 박으면 좋다.",
+        "coding/research/planning 예시에 각각 어떤 verifier가 핵심인지 한 줄씩 더 붙이면 실무성이 올라간다.",
+        "LinkedIn 카드용으로는 결론 문장과 4개 control surface를 더 압축해도 좋다."
+      ],
+      "overclaim_check": "minor overclaim",
+      "perspective": "기술 에세이 편집자",
+      "perspective_id": "editorial",
+      "quality_bar_check": "meets",
+      "required_revisions": [
+        "제목 또는 부제에서 '필요하다'의 뉘앙스를 더 약화하고, '조건부 구조적 필요성'이 전면에 오도록 수정할 것.",
+        "Section 3에서 next-token objective, sequence objective, task utility의 구분을 더 엄격히 유지하고, greedy vs sequence MAP mismatch와 sequence likelihood vs task utility mismatch를 별도 명제로 분리할 것.",
+        "Section 5의 tiny pilot는 '이 설정에서는 개선이 관찰되지 않았다' 수준으로만 해석하고, 효과 없음이나 loop가 더 나쁨 같은 인과적 결론을 피할 것.",
+        "Section 6의 verifier는 '독립적이고, 오류율이 낮거나 calibration되어 있으며, task proxy와 정렬된 판정 신호'라는 통계적 조건을 명시할 것.",
+        "Section 8 또는 9에 state ownership, rollback semantics, stopping rule을 더 명시적으로 넣고, loop가 해로운 이유를 false positive verifier, correlated candidates, proxy hacking, irreversible side effects, state drift로 구체화할 것.",
+        "결론 문장은 짧고 기억 가능하지만, '반복이 아니라 폐루프 제어'가 조건부 구조적 필요성과 함께 읽히도록 한 번 더 다듬을 것."
+      ],
+      "score": 8.8,
+      "standalone_check": "self-contained",
+      "strongest_points": [
+        "핵심 논지를 ‘loop 필연’이 아니라 ‘조건부 구조적 필요성’으로 낮춘 점이 정확하다. 과장된 agent 담론을 공학적으로 정리하려는 방향이 분명하다.",
+        "next-token objective, sequence likelihood, task utility를 분리한 뒤 control surface로 연결하는 구조가 논리적으로 탄탄하다.",
+        "verifier, actionable feedback, tool access, state control의 4분해는 실무자가 가져갈 수 있는 아키텍처 vocabulary로 쓸 만하다.",
+        "self-reflection이 verifier가 아니라는 점, weak verifier가 loop를 악화시킬 수 있다는 점을 분명히 쓴 것은 중요한 교정이다.",
+        "tiny pilot를 증명이 아니라 경고등으로 위치시킨 점은 과잉 일반화를 잘 막고 있다.",
+        "결론 문장이 짧고 기억하기 쉬워졌고, 카드/링크드인용으로도 재사용 가능하다."
+      ],
+      "verdict": "pass"
+    }
+  ],
+  "summary": {
+    "all_pass": false,
+    "average_score": 8.72,
+    "min_score": 8.6,
+    "verdict_counts": {
+      "pass": 3,
+      "revise": 2
+    }
+  }
+}

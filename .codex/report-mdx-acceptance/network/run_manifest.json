@@ -1,0 +1,64 @@
+{
+  "artifact_version": "1.0",
+  "schema_version": "1.0",
+  "skill_version": "0.1.0",
+  "run_id": "2026-07-29-151635",
+  "command": "validate",
+  "workflow_preset": "full-report",
+  "quality": "fast",
+  "created_at": "2026-07-29T06:16:35.668173+00:00",
+  "input_paths": {
+    "config": "/Users/wongyushin/personal/llm-agent-loop-research/.codex/report-mdx-acceptance/network.json"
+  },
+  "output_paths": {
+    "run_dir": "/Users/wongyushin/personal/llm-agent-loop-research/.codex/report-mdx-acceptance/network"
+  },
+  "repo_root": "/Users/wongyushin/.codex/skills/report-mdx-publisher",
+  "repo_commit": "",
+  "upstream_manifest_version": "1.0",
+  "command_results": [
+    {
+      "phase": "validate",
+      "status": "failed",
+      "detail": "external_dependency_gate",
+      "timestamp": "2026-07-29T06:16:38.717375+00:00"
+    }
+  ],
+  "artifact_paths": [
+    "artifact_index.json",
+    "changed_files.json",
+    "discovery_report.json",
+    "environment_manifest.json",
+    "evidence_ledger.json",
+    "failure_report.json",
+    "failure_report.md",
+    "install_check.json",
+    "network_attempts.json",
+    "privacy_scan.json",
+    "report_input.resolved.json",
+    "run_manifest.json",
+    "run_report.json",
+    "run_report.md"
+  ],
+  "skipped_artifacts": [],
+  "skipped_artifact_reasons": {},
+  "resume_source": "",
+  "resume_source_exit_code": "",
+  "resume_source_final_status": "",
+  "resumed_artifact_count": 0,
+  "recomputed_phases": [],
+  "source_snapshot": {
+    "repo_commit": "",
+    "skill_version": "0.1.0",
+    "input_files": [
+      {
+        "path": "/Users/wongyushin/personal/llm-agent-loop-research/.codex/report-mdx-acceptance/network.json",
+        "sha256": "c005fbdb68074498d852f58f94f778163b86a70d2dd52da9ac3fa5a403ce6c49",
+        "bytes": 47
+      }
+    ],
+    "digest": "e3dcef42ea57d5b35d3ccd84e19307862e876e3b8aa2339eb27174ee5fe86c6b"
+  },
+  "exit_code": 3,
+  "final_status": "failed"
+}

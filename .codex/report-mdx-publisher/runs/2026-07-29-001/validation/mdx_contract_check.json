@@ -1,0 +1,55 @@
+{
+  "artifact_version": "1.0",
+  "schema_version": "1.0",
+  "skill_version": "0.1.0",
+  "run_id": "2026-07-29-111123",
+  "command": "run",
+  "workflow_preset": "validate-only",
+  "quality": "strict",
+  "created_at": "2026-07-29T02:11:23.744550+00:00",
+  "passed": true,
+  "checks": [
+    {
+      "name": "import_order",
+      "passed": true
+    },
+    {
+      "name": "navMeta",
+      "passed": true
+    },
+    {
+      "name": "single_h1",
+      "passed": true
+    },
+    {
+      "name": "section_rhythm",
+      "passed": true
+    },
+    {
+      "name": "asset_references",
+      "passed": true
+    },
+    {
+      "name": "internal_links",
+      "passed": true
+    },
+    {
+      "name": "glossary_links",
+      "passed": true
+    }
+  ],
+  "target_mdx": "/Users/wongyushin/personal/llm-agent-loop-research/apps/agent-loop-docs/app/self-correction-scaling/page.mdx",
+  "quality_summary": {
+    "bytes": 22204,
+    "line_count": 371,
+    "h1_count": 0,
+    "import_count": 1,
+    "interactive_or_svg_markers": 0,
+    "required_terms": {
+      "components": true,
+      "operation": true,
+      "usage": true,
+      "evidence": true
+    }
+  }
+}

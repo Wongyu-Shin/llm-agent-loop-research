@@ -1,0 +1,41 @@
+{
+  "artifact_version": "1.0",
+  "schema_version": "1.0",
+  "skill_version": "0.1.0",
+  "run_id": "2026-07-29-151611",
+  "command": "validate",
+  "workflow_preset": "full-report",
+  "quality": "strict",
+  "created_at": "2026-07-29T06:16:11.268591+00:00",
+  "source": "browser_failed",
+  "components": [
+    {
+      "browser_name": "",
+      "browser_version": "Version 1.62.0",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "page_url": "http://127.0.0.1:3000/",
+      "route": "/generated-report",
+      "selector": "main h1",
+      "selector_match_count": 0,
+      "bounding_box": null,
+      "visible": false,
+      "action": "load",
+      "screenshot_sha256": "",
+      "screenshot_path": "validation/screenshots/live-page.png",
+      "console_errors": [],
+      "network_errors": [],
+      "hydration_errors": [],
+      "source": "browser_failed",
+      "reason": "node:internal/modules/cjs/loader:1478\n  throw err;\n  ^\n\nError: Cannot find module 'playwright'\nRequire stack:\n- /Users/wongyushin/.codex/skills/report-mdx-publisher/[eval]\n    at Module._resolveFilename (node:internal/modules/cjs/loader:1475:15)\n    at wrapResolveFilename (node:internal/modules/cjs/loader:1048:27)\n    at defaultResolveImplForCJSLoading (node:internal/modules/cjs/loader:1072:10)\n    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1093:12)\n    at Module._load (node:internal/modules/cjs/loader:1261:25)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)\n    at Module.require (node:internal/modules/cjs/loader:1575:12)\n    at require (node:internal/modules/helpers:191:16)\n    at [eval]:2:22\n    at runScriptInThisContext (node:internal/vm:219:10) {\n  code: 'MODULE_NOT_FOUND',\n  requireStack: [ '/Users/wongyushin/.codex/skills/report-mdx-publisher/[eval]' ]\n}\n\nNode.js v26.0.0",
+      "content_svg_count": 0,
+      "main_button_count": 0,
+      "main_role_button_count": 0,
+      "framework_overlay_count": 0,
+      "body_background": "",
+      "css_loaded": false
+    }
+  ]
+}

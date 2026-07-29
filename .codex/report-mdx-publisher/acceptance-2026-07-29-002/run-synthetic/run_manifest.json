@@ -1,0 +1,173 @@
+{
+  "artifact_version": "1.0",
+  "schema_version": "1.0",
+  "skill_version": "0.1.0",
+  "run_id": "2026-07-29-163439",
+  "command": "run",
+  "workflow_preset": "full-report",
+  "quality": "strict",
+  "created_at": "2026-07-29T07:34:39.766405+00:00",
+  "input_paths": {
+    "config": "fixtures/synthetic/report_input.yaml"
+  },
+  "output_paths": {
+    "run_dir": "/Users/wongyushin/personal/llm-agent-loop-research/.codex/report-mdx-publisher/acceptance-2026-07-29-002/run-synthetic"
+  },
+  "repo_root": "/Users/wongyushin/.codex/skills/report-mdx-publisher",
+  "repo_commit": "",
+  "upstream_manifest_version": "1.0",
+  "command_results": [
+    {
+      "phase": "draft",
+      "status": "started",
+      "detail": "",
+      "timestamp": "2026-07-29T07:34:42.629034+00:00"
+    },
+    {
+      "phase": "draft",
+      "status": "passed",
+      "detail": "",
+      "timestamp": "2026-07-29T07:34:42.631478+00:00"
+    },
+    {
+      "phase": "validate",
+      "status": "started",
+      "detail": "",
+      "timestamp": "2026-07-29T07:34:42.631482+00:00"
+    },
+    {
+      "phase": "validate",
+      "status": "passed",
+      "detail": "",
+      "timestamp": "2026-07-29T07:34:43.537650+00:00"
+    },
+    {
+      "phase": "polish",
+      "status": "started",
+      "detail": "",
+      "timestamp": "2026-07-29T07:34:43.537665+00:00"
+    },
+    {
+      "phase": "polish",
+      "status": "passed",
+      "detail": "",
+      "timestamp": "2026-07-29T07:34:43.547683+00:00"
+    },
+    {
+      "phase": "validate",
+      "status": "started",
+      "detail": "",
+      "timestamp": "2026-07-29T07:34:43.547687+00:00"
+    },
+    {
+      "phase": "validate",
+      "status": "passed",
+      "detail": "",
+      "timestamp": "2026-07-29T07:34:44.458944+00:00"
+    }
+  ],
+  "artifact_paths": [
+    "acceptance_decision_record.json",
+    "acceptance_decision_record.md",
+    "artifact_index.json",
+    "changed_files.json",
+    "discovery_report.json",
+    "environment_manifest.json",
+    "evidence_ledger.json",
+    "install_check.json",
+    "mdx/01_input.mdx",
+    "mdx/01_protected_spans.json",
+    "mdx/01_rewrite_spans.json",
+    "mdx/02_draft.mdx",
+    "mdx/final.diff",
+    "polish/00_metrics.json",
+    "polish/01_input.mdx",
+    "polish/01_input_with_metrics.txt",
+    "polish/01_protected_map.json",
+    "polish/01_protected_spans.json",
+    "polish/01_rewrite_bundle.jsonl",
+    "polish/01_rewrite_spans.json",
+    "polish/02_detection.json",
+    "polish/02_do_not_ledger.json",
+    "polish/03_edit_plan.json",
+    "polish/03_rewrite.mdx",
+    "polish/03_rewrite_diff.json",
+    "polish/04_fidelity_audit.json",
+    "polish/04_fidelity_audit.llm.json",
+    "polish/04_fidelity_audit.machine.json",
+    "polish/05_naturalness_review.json",
+    "polish/final.mdx",
+    "polish/llm_input_audit.json",
+    "polish/offset_roundtrip_report.json",
+    "polish/post_rollback_fidelity_check.json",
+    "polish/prompt_bundle.redacted.jsonl",
+    "polish/prompt_bundle.sha256",
+    "polish/summary.json",
+    "privacy_scan.json",
+    "report_input.resolved.json",
+    "run_manifest.json",
+    "run_report.json",
+    "run_report.md",
+    "validation/browser_component_probe.json",
+    "validation/browser_trace.zip",
+    "validation/claim_trace_report.json",
+    "validation/component_inventory.json",
+    "validation/component_probe_action_matrix.json",
+    "validation/console.ndjson",
+    "validation/engineering_judge.json",
+    "validation/fixture_matrix.json",
+    "validation/judge_decision.json",
+    "validation/judge_decision_trace.json",
+    "validation/judge_results.json",
+    "validation/mdx_contract_check.json",
+    "validation/mdx_contract_negative_cases.json",
+    "validation/nav_check.json",
+    "validation/network.har",
+    "validation/pedagogy_judge.json",
+    "validation/render_probe.jsonl",
+    "validation/route_manifest.json",
+    "validation/route_source_diff.json",
+    "validation/screenshot_manifest.json",
+    "validation/static_check.json",
+    "validation/visual_judge.json"
+  ],
+  "skipped_artifacts": [
+    {
+      "path": "cleanup_report.json",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command run with workflow_preset full-report does not run cleanup"
+    }
+  ],
+  "skipped_artifact_reasons": {
+    "cleanup_report.json": "command run with workflow_preset full-report does not run cleanup"
+  },
+  "resume_source": "",
+  "resume_source_exit_code": "",
+  "resume_source_final_status": "",
+  "resumed_artifact_count": 0,
+  "recomputed_phases": [
+    "draft",
+    "draft",
+    "validate",
+    "validate",
+    "polish",
+    "polish",
+    "validate",
+    "validate"
+  ],
+  "source_snapshot": {
+    "repo_commit": "",
+    "skill_version": "0.1.0",
+    "input_files": [
+      {
+        "path": "/Users/wongyushin/.codex/skills/report-mdx-publisher/fixtures/synthetic/report_input.yaml",
+        "sha256": "079c2034a507fd3bdf6f479b35314fdfed41f309ff35b94cac537245e2451bd1",
+        "bytes": 153
+      }
+    ],
+    "digest": "29528dc00470ab5dfa4e58203545dd56083414d10ba2dfd9cb6bddef26159f52"
+  },
+  "exit_code": 0,
+  "final_status": "passed"
+}

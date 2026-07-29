@@ -1,0 +1,19 @@
+{
+  "artifact_version": "1.0",
+  "schema_version": "1.0",
+  "skill_version": "0.1.0",
+  "run_id": "2026-07-29-151635",
+  "command": "validate",
+  "workflow_preset": "full-report",
+  "quality": "fast",
+  "created_at": "2026-07-29T06:16:35.668173+00:00",
+  "reason": "simulated network failure",
+  "attempts": [],
+  "allowed_outbound_calls": 0,
+  "blocked_outbound_calls": 0,
+  "dns_allowed": 0,
+  "http_allowed": 0,
+  "llm_provider_allowed": 0,
+  "atlassian_allowed": 0,
+  "no_network": false
+}

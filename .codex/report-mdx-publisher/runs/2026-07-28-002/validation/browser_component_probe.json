@@ -1,0 +1,46 @@
+{
+  "artifact_version": "1.0",
+  "schema_version": "1.0",
+  "skill_version": "0.1.0",
+  "run_id": "2026-07-28-171405",
+  "command": "run",
+  "workflow_preset": "full-report",
+  "quality": "strict",
+  "created_at": "2026-07-28T08:14:05.194418+00:00",
+  "source": "browser",
+  "components": [
+    {
+      "browser_name": "chrome",
+      "browser_version": "",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "page_url": "http://127.0.0.1:3000/self-correction-scaling/",
+      "route": "/self-correction-scaling",
+      "selector": "main h1",
+      "selector_match_count": 1,
+      "bounding_box": {
+        "x": 272,
+        "y": 144,
+        "width": 760,
+        "height": 92.15625
+      },
+      "visible": true,
+      "action": "load",
+      "screenshot_sha256": "3e2e21b2867027a842a2f72dae66dcd34ecf4dcb3baea333241f8e8b79504ec7",
+      "screenshot_path": "validation/screenshots/live-page.png",
+      "console_errors": [],
+      "network_errors": [],
+      "hydration_errors": [],
+      "source": "browser",
+      "reason": "",
+      "content_svg_count": 21,
+      "main_button_count": 0,
+      "main_role_button_count": 0,
+      "framework_overlay_count": 0,
+      "body_background": "rgb(255, 255, 255)",
+      "css_loaded": false
+    }
+  ]
+}

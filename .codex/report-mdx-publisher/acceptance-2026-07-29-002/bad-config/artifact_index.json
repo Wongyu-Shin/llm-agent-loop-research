@@ -1,0 +1,60 @@
+{
+  "artifact_version": "1.0",
+  "schema_version": "1.0",
+  "skill_version": "0.1.0",
+  "run_id": "2026-07-29-163455",
+  "command": "validate",
+  "workflow_preset": "full-report",
+  "quality": "fast",
+  "created_at": "2026-07-29T07:34:55.370128+00:00",
+  "artifacts": [
+    {
+      "path": "changed_files.json",
+      "status": "produced",
+      "retention_class": "debug",
+      "reason": "",
+      "sha256": "ab4327ef4fcca38b013dd5170506524e4efd289e73af41274198b3dc89b1f72a",
+      "bytes": 271
+    },
+    {
+      "path": "failure_report.json",
+      "status": "produced",
+      "retention_class": "debug",
+      "reason": "",
+      "sha256": "03608cfb409c235de154cb3cc00bb82dd4a3b369bbd09e94cd4a5bd597646c8f",
+      "bytes": 870
+    },
+    {
+      "path": "failure_report.md",
+      "status": "produced",
+      "retention_class": "debug",
+      "reason": "",
+      "sha256": "c74c7fd20ccd89651dc3d88ef1b151960029da280a99710a4e6ce580cabd6c39",
+      "bytes": 119
+    },
+    {
+      "path": "run_manifest.json",
+      "status": "produced",
+      "retention_class": "permanent",
+      "reason": "",
+      "sha256": "5c008758794759023135145883975d5483e2cee4f7651fc01a9f5c9c18a224ab",
+      "bytes": 1781
+    },
+    {
+      "path": "run_report.json",
+      "status": "produced",
+      "retention_class": "debug",
+      "reason": "",
+      "sha256": "dcf7f2db9098cde3c4ceca42339a8bd533637fd0da5b626512d954eaeef50cd5",
+      "bytes": 857
+    },
+    {
+      "path": "run_report.md",
+      "status": "produced",
+      "retention_class": "debug",
+      "reason": "",
+      "sha256": "a63e431c959bda45d916833c1f282df197003b343b451e96238e53625dc31937",
+      "bytes": 43
+    }
+  ]
+}

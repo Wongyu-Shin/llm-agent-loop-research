@@ -1,0 +1,23 @@
+{
+  "artifact_version": "1.0",
+  "schema_version": "1.0",
+  "skill_version": "0.1.0",
+  "run_id": "2026-07-29-163439",
+  "command": "run",
+  "workflow_preset": "full-report",
+  "quality": "strict",
+  "created_at": "2026-07-29T07:34:39.766405+00:00",
+  "spans": [
+    {
+      "rewrite_span_id": "span-001",
+      "start_offset": 20,
+      "end_offset": 38,
+      "start_line": 3,
+      "start_column": 1,
+      "end_line": 3,
+      "end_column": 19,
+      "sha256": "f1b1ab887cdc96daaf39ed31588d78b5e4927502bc1e771194fac0e148ae0c53",
+      "compiler_config_hash": "python-line-prose-v2"
+    }
+  ]
+}

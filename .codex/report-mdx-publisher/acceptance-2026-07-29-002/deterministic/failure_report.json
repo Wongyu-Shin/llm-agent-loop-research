@@ -1,0 +1,19 @@
+{
+  "artifact_version": "1.0",
+  "schema_version": "1.0",
+  "skill_version": "0.1.0",
+  "run_id": "2026-07-29-163455",
+  "command": "validate",
+  "workflow_preset": "full-report",
+  "quality": "fast",
+  "created_at": "2026-07-29T07:34:55.435722+00:00",
+  "exit_code": 1,
+  "gate_id": "deterministic_gate",
+  "failing_artifact": "",
+  "requires_user_action": true,
+  "resume_from": "validate",
+  "retry_command": "scripts/report_mdx_publisher.py validate --config /Users/wongyushin/personal/llm-agent-loop-research/.codex/report-mdx-publisher/acceptance-2026-07-29-002/deterministic.json --run-dir /Users/wongyushin/personal/llm-agent-loop-research/.codex/report-mdx-publisher/acceptance-2026-07-29-002/deterministic --json",
+  "open_artifact": "failure_report.md",
+  "force_allowed": true,
+  "summary": "simulated deterministic gate failure"
+}

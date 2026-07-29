@@ -1,0 +1,54 @@
+{
+  "artifact_version": "1.0",
+  "schema_version": "1.0",
+  "skill_version": "0.1.0",
+  "run_id": "2026-07-29-151626",
+  "command": "polish",
+  "workflow_preset": "full-report",
+  "quality": "strict",
+  "created_at": "2026-07-29T06:16:26.186791+00:00",
+  "spans": [
+    {
+      "kind": "mdx_structure_or_nonprose",
+      "start_offset": 0,
+      "end_offset": 24,
+      "sha256": "8a86c41503ea48c4af0080598ecdd6bac4b2344ea63e285d69c2546d8e15389d"
+    },
+    {
+      "kind": "mdx_structure_or_nonprose",
+      "start_offset": 96,
+      "end_offset": 97,
+      "sha256": "d10b36aa74a59bcf4a88185837f658afaf3646eff2bb16c3928d0e9335e945d2"
+    },
+    {
+      "kind": "mdx_structure_or_nonprose",
+      "start_offset": 99,
+      "end_offset": 125,
+      "sha256": "134a34ae55f204521e5ebb6bd45c691473d86c7ee100eb2f346663a2b9ee06ca"
+    },
+    {
+      "kind": "mdx_structure_or_nonprose",
+      "start_offset": 181,
+      "end_offset": 199,
+      "sha256": "16090346d129f1069510f6c813ab3fb3187888684b03615234aca27a3987b88e"
+    },
+    {
+      "kind": "mdx_structure_or_nonprose",
+      "start_offset": 200,
+      "end_offset": 213,
+      "sha256": "831f11e7d7026bc2402e464ae6714a93218f622321805bfb5339d48bd550dfde"
+    },
+    {
+      "kind": "mdx_structure_or_nonprose",
+      "start_offset": 214,
+      "end_offset": 228,
+      "sha256": "60b48b730af80d56ccab2f1275476942257e88c65ada71d879cf4da46d008fcd"
+    },
+    {
+      "kind": "mdx_structure_or_nonprose",
+      "start_offset": 230,
+      "end_offset": 303,
+      "sha256": "bbd5928ff3c3602316b7b8dcb9fc02c6c450814372ad54054bc6997adce4c703"
+    }
+  ]
+}

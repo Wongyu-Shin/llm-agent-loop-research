@@ -1,0 +1,17 @@
+{
+  "artifact_version": "1.0",
+  "schema_version": "1.0",
+  "skill_version": "0.1.0",
+  "run_id": "2026-07-28-171405",
+  "command": "run",
+  "workflow_preset": "full-report",
+  "quality": "strict",
+  "created_at": "2026-07-28T08:14:05.194418+00:00",
+  "verdict": "accept",
+  "protected_span_drift": 0,
+  "idempotent": true,
+  "source_mdx": "/Users/wongyushin/personal/llm-agent-loop-research/apps/agent-loop-docs/app/self-correction-scaling/page.mdx",
+  "rewrite_span_count": 149,
+  "edit_count": 0,
+  "upstream": "https://github.com/epoko77-ai/im-not-ai"
+}

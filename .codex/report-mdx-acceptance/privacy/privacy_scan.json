@@ -1,0 +1,18 @@
+{
+  "artifact_version": "1.0",
+  "schema_version": "1.0",
+  "skill_version": "0.1.0",
+  "run_id": "2026-07-29-151638",
+  "command": "validate",
+  "workflow_preset": "full-report",
+  "quality": "fast",
+  "created_at": "2026-07-29T06:16:38.791651+00:00",
+  "findings": [
+    {
+      "path": "/Users/wongyushin/personal/llm-agent-loop-research/.codex/report-mdx-acceptance/privacy.json",
+      "kind": "credential_like_value",
+      "blocked": true
+    }
+  ],
+  "blocked": true
+}

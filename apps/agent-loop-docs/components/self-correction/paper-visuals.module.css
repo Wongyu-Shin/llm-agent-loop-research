@@ -1,0 +1,664 @@
+.scroll {
+  position: relative;
+}
+
+.svg {
+  min-width: 720px;
+}
+
+.iterationSvg {
+  min-width: 800px;
+}
+
+.potentiometerControl {
+  display: grid;
+  width: min(100%, 640px);
+  align-items: center;
+  grid-template-areas:
+    "copy hardware readout"
+    "copy scale readout";
+  grid-template-columns: minmax(168px, 1fr) 170px 92px;
+  gap: 0 18px;
+}
+
+.potentiometerCopy {
+  display: grid;
+  grid-area: copy;
+  gap: 4px;
+}
+
+.potentiometerCopy label {
+  color: var(--fg-default);
+  font-size: var(--text-label);
+  font-weight: 720;
+}
+
+.potentiometerCopy span {
+  color: var(--fg-muted);
+  font-size: var(--text-caption);
+}
+
+.potentiometerHardware {
+  position: relative;
+  width: 170px;
+  height: 108px;
+  grid-area: hardware;
+}
+
+.potentiometerHardware::before {
+  position: absolute;
+  top: 9px;
+  left: 50%;
+  width: 118px;
+  height: 86px;
+  transform: translateX(-50%);
+  border: 1px solid color-mix(in srgb, var(--border-emphasis) 74%, transparent);
+  border-radius: 62px 62px 22px 22px;
+  background:
+    radial-gradient(
+      circle at 50% 48%,
+      rgb(255 255 255 / 8%),
+      rgb(255 255 255 / 1%) 61%,
+      transparent 63%
+    ),
+    rgb(255 255 255 / 2%);
+  box-shadow:
+    inset 0 1px rgb(255 255 255 / 8%),
+    0 14px 24px rgb(0 0 0 / 28%);
+  content: "";
+}
+
+.potentiometerTicks {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.potentiometerTicks span {
+  position: absolute;
+  top: 57px;
+  left: 50%;
+  width: 2px;
+  height: 8px;
+  transform: translate(-50%, -50%) rotate(var(--tick-angle))
+    translateY(-47px);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--fg-muted) 64%, transparent);
+  transform-origin: center;
+}
+
+.potentiometerTicks span:nth-child(9) {
+  height: 11px;
+  background: var(--fg-attention);
+  box-shadow: 0 0 8px color-mix(in srgb, var(--fg-attention) 55%, transparent);
+}
+
+.potentiometerKnob {
+  position: absolute;
+  z-index: 1;
+  top: 57px;
+  left: 50%;
+  width: 70px;
+  height: 70px;
+  transform: translate(-50%, -50%) rotate(var(--pot-angle));
+  border: 1px solid rgb(255 255 255 / 22%);
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 35% 28%, rgb(255 255 255 / 18%), transparent 28%),
+    radial-gradient(circle at 50% 54%, #2b2c31 0 43%, #16171b 68%, #08090b 100%);
+  box-shadow:
+    inset 0 2px 4px rgb(255 255 255 / 10%),
+    inset 0 -8px 14px rgb(0 0 0 / 46%),
+    0 0 0 5px rgb(255 255 255 / 3%),
+    0 10px 20px rgb(0 0 0 / 42%);
+  transition:
+    transform 420ms ease-in,
+    box-shadow 220ms ease;
+}
+
+.potentiometerKnob span {
+  position: absolute;
+  top: 7px;
+  left: 50%;
+  width: 3px;
+  height: 22px;
+  transform: translateX(-50%);
+  border-radius: 999px;
+  background: var(--fg-default);
+  box-shadow:
+    0 0 5px rgb(255 255 255 / 72%),
+    0 0 11px color-mix(in srgb, var(--viz-focus) 52%, transparent);
+}
+
+.potentiometerHardware input {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  cursor: ew-resize;
+  opacity: 0.001;
+}
+
+.potentiometerHardware:has(input:focus-visible) .potentiometerKnob {
+  outline: 2px solid var(--viz-focus);
+  outline-offset: 5px;
+  box-shadow:
+    inset 0 2px 4px rgb(255 255 255 / 10%),
+    0 0 24px color-mix(in srgb, var(--viz-focus) 48%, transparent);
+}
+
+.potentiometerScale {
+  display: grid;
+  width: 170px;
+  padding: 0 4px;
+  color: var(--fg-muted);
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  grid-area: scale;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.potentiometerScale span:nth-child(2) {
+  color: var(--fg-attention);
+  text-align: center;
+}
+
+.potentiometerScale span:last-child {
+  text-align: right;
+}
+
+.potentiometerReadout {
+  display: grid;
+  min-height: 66px;
+  place-content: center;
+  border: 1px solid var(--border-default);
+  border-radius: 10px;
+  background: rgb(255 255 255 / 3%);
+  color: var(--fg-default);
+  grid-area: readout;
+  text-align: center;
+  transition:
+    border-color 320ms ease-in,
+    box-shadow 320ms ease-in,
+    color 320ms ease-in;
+}
+
+.potentiometerReadout strong {
+  font-family: var(--font-mono);
+  font-size: 1rem;
+}
+
+.potentiometerReadout span {
+  font-size: 0.68rem;
+  font-weight: 720;
+}
+
+.potentiometerReadout[data-pattern="개선"] {
+  border-color: color-mix(in srgb, var(--viz-correct) 64%, var(--border-default));
+  color: var(--viz-correct-hot);
+  box-shadow: 0 0 18px color-mix(in srgb, var(--viz-correct) 18%, transparent);
+}
+
+.potentiometerReadout[data-pattern="정체"] {
+  border-color: color-mix(in srgb, var(--fg-attention) 64%, var(--border-default));
+  color: var(--fg-attention);
+}
+
+.potentiometerReadout[data-pattern="악화"] {
+  border-color: color-mix(in srgb, var(--viz-incorrect) 64%, var(--border-default));
+  color: var(--viz-incorrect-hot);
+  box-shadow: 0 0 18px color-mix(in srgb, var(--viz-incorrect) 18%, transparent);
+}
+
+.iterationRow {
+  cursor: pointer;
+  opacity: 1;
+  transition:
+    opacity 560ms ease-in,
+    filter 560ms ease-in;
+}
+
+.iterationRow[data-phase="current"] {
+  animation: question-cylinder-fade-in 760ms ease-in both;
+}
+
+.iterationRow[data-phase="past"] {
+  opacity: 0.28;
+  filter: saturate(0.46) brightness(0.58);
+}
+
+.iterationRow[data-phase="future"] {
+  opacity: 0.2;
+}
+
+.iterationRow:focus-visible {
+  outline: none;
+}
+
+.iterationHitTarget {
+  fill: transparent;
+  stroke: transparent;
+  pointer-events: all;
+}
+
+.iterationSelection {
+  fill: transparent;
+  stroke: transparent;
+  stroke-width: 1.5;
+  transition:
+    fill 420ms ease-in,
+    stroke 420ms ease-in,
+    filter 420ms ease-in;
+  vector-effect: non-scaling-stroke;
+}
+
+.iterationRow:hover .iterationSelection,
+.iterationRow:focus-visible .iterationSelection,
+.iterationRowSelected .iterationSelection {
+  fill: color-mix(in srgb, var(--bg-accent-muted) 54%, transparent);
+  stroke: var(--viz-focus);
+  filter: drop-shadow(
+    0 0 10px color-mix(in srgb, var(--viz-focus) 24%, transparent)
+  );
+}
+
+.iterationLabel {
+  fill: var(--fg-muted);
+}
+
+.iterationRowSelected .iterationLabel {
+  fill: var(--fg-default);
+}
+
+.iterationTrack {
+  fill: var(--bg-subtle);
+  stroke: var(--border-default);
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+}
+
+.iterationSegments {
+  opacity: 1;
+  animation: question-segment-fade-in 760ms ease-in both;
+}
+
+.correctSegment,
+.incorrectSegment {
+  transition:
+    x 640ms ease-in,
+    width 640ms ease-in;
+}
+
+.segmentAuras {
+  opacity: 0.58;
+  pointer-events: none;
+}
+
+.cylinderGlass {
+  mix-blend-mode: screen;
+  pointer-events: none;
+}
+
+.cylinderShell {
+  fill: none;
+  stroke: rgb(232 232 232 / 25%);
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+}
+
+.cylinderShell ellipse:last-of-type {
+  fill: rgb(255 255 255 / 3%);
+  stroke: rgb(255 255 255 / 36%);
+}
+
+.cylinderSpecular {
+  fill: none;
+  stroke: rgb(255 255 255 / 44%);
+  stroke-linecap: round;
+  stroke-width: 1.2;
+  vector-effect: non-scaling-stroke;
+}
+
+.futureCylinder {
+  fill: rgb(255 255 255 / 2%);
+  stroke: color-mix(in srgb, var(--fg-muted) 72%, transparent);
+  stroke-dasharray: 8 8;
+  stroke-linecap: round;
+  stroke-width: 1.25;
+  vector-effect: non-scaling-stroke;
+}
+
+.massBoundary {
+  fill: rgb(255 255 255 / 7%);
+  stroke: color-mix(in srgb, var(--fg-on-emphasis) 72%, transparent);
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+}
+
+.segmentLabel {
+  fill: var(--fg-on-emphasis);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 750;
+  paint-order: stroke;
+  stroke: color-mix(in srgb, var(--bg-inset) 58%, transparent);
+  stroke-width: 2px;
+  stroke-linejoin: round;
+}
+
+.loopConnector {
+  fill: none;
+  stroke: var(--viz-focus);
+  stroke-width: 1.5;
+  vector-effect: non-scaling-stroke;
+}
+
+.deltaPositive {
+  fill: var(--viz-correct) !important;
+}
+
+.deltaNegative {
+  fill: var(--viz-incorrect) !important;
+}
+
+.deltaNeutral {
+  fill: var(--fg-muted) !important;
+}
+
+.iterationCaption {
+  fill: var(--fg-muted);
+}
+
+@keyframes question-cylinder-fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes question-segment-fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.interactive {
+  cursor: pointer;
+}
+
+.interactive:focus-visible {
+  outline: none;
+}
+
+.interactive .focusShape,
+.interactive .flowStroke,
+.interactive .plotLine,
+.interactive .claimPanel {
+  transition:
+    opacity 180ms ease,
+    stroke 180ms ease,
+    stroke-width 180ms ease,
+    fill 180ms ease,
+    filter 180ms ease;
+}
+
+.interactive:hover .focusShape,
+.interactive:focus-visible .focusShape,
+.interactive[data-selected="true"] .focusShape {
+  stroke: var(--fg-accent);
+  stroke-width: 2.5;
+  filter: drop-shadow(
+    0 5px 10px color-mix(in srgb, var(--fg-accent) 24%, transparent)
+  );
+}
+
+.interactive:hover .flowStroke,
+.interactive:focus-visible .flowStroke,
+.interactive[data-selected="true"] .flowStroke,
+.interactive:hover .plotLine,
+.interactive:focus-visible .plotLine,
+.interactive[data-selected="true"] .plotLine {
+  opacity: 1;
+  filter: drop-shadow(
+    0 0 8px color-mix(in srgb, currentColor 48%, transparent)
+  );
+}
+
+.interactive[data-dimmed="true"] {
+  opacity: 0.34;
+}
+
+.flowStroke {
+  fill: none;
+  vector-effect: non-scaling-stroke;
+}
+
+.flowHitArea {
+  fill: none;
+  stroke: transparent;
+  stroke-width: 48;
+  pointer-events: stroke;
+  vector-effect: non-scaling-stroke;
+}
+
+.metricHitTarget {
+  fill: transparent;
+  stroke: transparent;
+  pointer-events: all;
+}
+
+.motionDot {
+  filter: drop-shadow(
+    0 0 7px color-mix(in srgb, currentColor 58%, transparent)
+  );
+}
+
+.equation {
+  font-family: KaTeX_Main, "STIX Two Text", "Times New Roman", serif;
+  font-variant-numeric: tabular-nums;
+  font-weight: 500;
+}
+
+.labelPlate {
+  fill: color-mix(in srgb, var(--bg-canvas) 92%, transparent);
+  stroke: var(--border-default);
+  vector-effect: non-scaling-stroke;
+}
+
+.selectedPlate {
+  fill: var(--bg-accent-muted);
+  stroke: var(--fg-accent);
+  vector-effect: non-scaling-stroke;
+}
+
+.metricBar {
+  transition:
+    x 220ms ease,
+    width 220ms ease,
+    opacity 180ms ease;
+}
+
+.netMarker {
+  transition:
+    transform 220ms ease,
+    stroke 180ms ease;
+}
+
+.plotLine {
+  fill: none;
+  opacity: 0.74;
+  vector-effect: non-scaling-stroke;
+  transition:
+    opacity 180ms ease,
+    stroke-width 180ms ease,
+    filter 180ms ease;
+}
+
+.plotPoint {
+  vector-effect: non-scaling-stroke;
+  transition:
+    r 180ms ease,
+    opacity 180ms ease;
+}
+
+.claimPanel {
+  fill: var(--bg-canvas);
+  stroke: var(--border-default);
+  vector-effect: non-scaling-stroke;
+}
+
+.fallback {
+  margin-top: var(--space-4);
+  border-top: var(--border-width) solid var(--border-default);
+  background: color-mix(in srgb, var(--bg-canvas) 82%, transparent);
+  color: var(--fg-default);
+}
+
+.fallback > summary {
+  min-height: 44px;
+  padding: var(--space-2) 0;
+  color: var(--fg-muted);
+  cursor: pointer;
+  font-size: var(--text-caption);
+  font-weight: 600;
+}
+
+.fallback > summary:hover {
+  color: var(--fg-default);
+}
+
+.fallbackContent {
+  padding: 0 0 var(--space-2);
+  overflow-x: auto;
+}
+
+.fallbackContent > p {
+  margin: 0 0 var(--space-3);
+  color: var(--fg-muted);
+  font-size: var(--text-caption);
+  line-height: 1.6;
+}
+
+.fallback table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--text-caption);
+  font-variant-numeric: tabular-nums;
+}
+
+.fallback th,
+.fallback td {
+  border-bottom: var(--border-width) solid var(--border-muted);
+  padding: var(--space-2);
+  text-align: left;
+  vertical-align: top;
+}
+
+.fallback th {
+  color: var(--fg-muted);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.fallback td[data-numeric="true"] {
+  font-family: var(--font-mono);
+  text-align: right;
+  white-space: nowrap;
+}
+
+.fallback ul,
+.fallback ol {
+  margin: 0;
+  padding-left: var(--space-5);
+  color: var(--fg-muted);
+  font-size: var(--text-caption);
+}
+
+.fallback li + li {
+  margin-top: var(--space-2);
+}
+
+.fallback strong,
+.fallback code {
+  color: var(--fg-default);
+}
+
+.fallback code {
+  font-family: var(--font-mono);
+}
+
+.fallbackGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-4);
+}
+
+.fallbackGrid h4 {
+  margin: 0 0 var(--space-2);
+  color: var(--fg-default);
+  font-size: var(--text-label);
+}
+
+@media (max-width: 720px) {
+  .svg {
+    min-width: 680px;
+  }
+
+  .potentiometerControl {
+    width: 100%;
+    grid-template-areas:
+      "copy readout"
+      "hardware hardware"
+      "scale scale";
+    grid-template-columns: minmax(0, 1fr) 86px;
+    gap: 8px 12px;
+  }
+
+  .potentiometerHardware,
+  .potentiometerScale {
+    justify-self: center;
+  }
+
+  .fallbackGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .interactive .focusShape,
+  .interactive .flowStroke,
+  .interactive .plotLine,
+  .interactive .claimPanel,
+  .metricBar,
+  .netMarker,
+  .plotPoint {
+    transition: none;
+  }
+
+  .iterationRow,
+  .iterationSegments {
+    animation: none;
+    opacity: 1;
+  }
+
+  .iterationSelection,
+  .correctSegment,
+  .incorrectSegment,
+  .potentiometerKnob,
+  .potentiometerReadout {
+    transition: none;
+  }
+
+  .motionDot {
+    display: none;
+  }
+}

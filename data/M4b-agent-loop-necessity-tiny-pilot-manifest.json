@@ -1,0 +1,147 @@
+{
+  "id": "M4b-agent-loop-necessity-tiny-pilot-manifest",
+  "version": "0.1.0",
+  "created_at": "2026-05-27",
+  "claim_boundary": {
+    "purpose": "Tiny empirical pilot for checking whether loop policies improve selected deterministic tasks under a real LLM provider.",
+    "not_sufficient_for_publication_claim": "This pilot is too small to establish the thesis. It is a smoke test for the preregistered protocol and runner.",
+    "evidence_boundary": "Provider-check and dry-run outputs are not empirical LLM evidence. Only mode=run outputs with a real provider count as pilot evidence."
+  },
+  "answer_contract": {
+    "format": "Return only compact JSON with one string field: {\"answer\":\"...\"}.",
+    "normalization": "strip whitespace; compare case-insensitively unless a task overrides case_sensitive."
+  },
+  "conditions": [
+    {
+      "id": "C0",
+      "name": "one-shot",
+      "description": "Single model call, no verifier feedback before final answer.",
+      "max_calls": 1,
+      "selection": "single"
+    },
+    {
+      "id": "C3",
+      "name": "best-of-n with strong verifier",
+      "description": "Generate independent candidates and select the first answer that passes the deterministic verifier.",
+      "candidate_count": 3,
+      "selection": "strong_verifier"
+    },
+    {
+      "id": "C4",
+      "name": "self-reflection loop",
+      "description": "Generate an answer, then ask the model to critique and revise without external verifier feedback.",
+      "max_calls": 2,
+      "selection": "self_revision"
+    },
+    {
+      "id": "C6",
+      "name": "grounded verifier loop",
+      "description": "Generate an answer, evaluate it with a deterministic verifier, and feed back only pass/fail style verifier information until success or budget exhaustion.",
+      "max_iterations": 3,
+      "selection": "strong_verifier_feedback"
+    },
+    {
+      "id": "C7",
+      "name": "weak-verifier stress",
+      "description": "Generate candidates and select with a weak verifier that checks only answer shape, then score with the strong verifier for analysis.",
+      "candidate_count": 3,
+      "selection": "weak_verifier"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "S1",
+      "class": "short_deterministic",
+      "prompt": "Compute 19 + 28.",
+      "expected": ["47"],
+      "dry_run_answers": ["47", "47", "47", "47", "47", "47"]
+    },
+    {
+      "id": "S2",
+      "class": "short_deterministic",
+      "prompt": "Reverse the letters in the word 'stressed'.",
+      "expected": ["desserts"],
+      "dry_run_answers": ["desserts", "desserts", "desserts", "desserts", "desserts", "desserts"]
+    },
+    {
+      "id": "M1",
+      "class": "medium_reasoning",
+      "prompt": "A box has twice as many blue tokens as red tokens. After adding 3 red tokens and removing 2 blue tokens, the counts are equal. How many blue tokens were originally in the box?",
+      "expected": ["10"],
+      "dry_run_answers": ["8", "10", "10", "9", "10", "10"]
+    },
+    {
+      "id": "M2",
+      "class": "medium_reasoning",
+      "prompt": "Four services deploy in sequence. Alpha deploys before Gamma. Beta deploys immediately after Alpha. Delta deploys after Beta but before Gamma. Which service deploys third?",
+      "expected": ["delta"],
+      "dry_run_answers": ["gamma", "delta", "delta", "beta", "delta", "delta"]
+    },
+    {
+      "id": "M3",
+      "class": "medium_reasoning",
+      "prompt": "All flarns are mibbs. No mibbs are zargs. Some zargs are wugs. Can any flarn be a zarg? Answer yes or no.",
+      "expected": ["no"],
+      "dry_run_answers": ["yes", "no", "no", "no", "no", "no"]
+    },
+    {
+      "id": "H1",
+      "class": "tiny_symbolic",
+      "prompt": "Find the smallest positive integer n such that n mod 3 = 2, n mod 5 = 3, and n mod 7 = 2.",
+      "expected": ["23"],
+      "dry_run_answers": ["53", "23", "38", "23", "23", "23"]
+    },
+    {
+      "id": "ST1",
+      "class": "stress_deterministic",
+      "prompt": "Take the string 'M4b-loop-proof-2026', reverse it, then replace every hyphen with an underscore. Return the exact resulting string.",
+      "expected": ["6202_foorp_pool_b4M"],
+      "case_sensitive": true,
+      "dry_run_answers": ["6202_foorp_pool_b4m", "6202_foorp_pool_b4M", "6202_foorp_pool_b4M", "6202_foorp_pool_b4M"]
+    },
+    {
+      "id": "ST2",
+      "class": "stress_deterministic",
+      "prompt": "Sort the list [17, 4, 29, 8, 13, 22] ascending. Take the 2nd, 4th, and 6th values using 1-indexing, then join them with hyphens.",
+      "expected": ["8-17-29"],
+      "dry_run_answers": ["8-13-29", "8-17-29", "8-17-29", "8-17-29"]
+    },
+    {
+      "id": "ST3",
+      "class": "stress_deterministic",
+      "prompt": "Find the smallest positive integer n such that n mod 11 = 7, n mod 13 = 5, and n mod 17 = 9.",
+      "expected": ["876"],
+      "dry_run_answers": ["435", "876", "876", "876"]
+    },
+    {
+      "id": "ST4",
+      "class": "stress_deterministic",
+      "prompt": "Evaluate ((37 * 24) - (19 * 13) + 2^8) / 3. Use ^ to mean exponentiation.",
+      "expected": ["299"],
+      "dry_run_answers": ["213", "299", "299", "299"]
+    },
+    {
+      "id": "ST5",
+      "class": "stress_deterministic",
+      "prompt": "Seven deployment steps are A, B, C, D, E, F, and G. C is immediately before F. A is after F. B is before C. E is immediately after A. D is before B. G is after E. Which step is fifth?",
+      "expected": ["A"],
+      "case_sensitive": false,
+      "dry_run_answers": ["E", "A", "A", "A"]
+    },
+    {
+      "id": "ST6",
+      "class": "stress_deterministic",
+      "prompt": "In the sentence 'loop agents need grounded feedback because unchecked commitments compound during long horizon inference', take the first letter of each word whose 1-indexed position is prime, then concatenate those letters.",
+      "expected": ["anfuli"],
+      "dry_run_answers": ["anfucl", "anfuli", "anfuli", "anfuli"]
+    }
+  ],
+  "predeclared_checks": [
+    "C6_success_rate_minus_C0_success_rate_is_nonnegative_on_medium_reasoning",
+    "C6_success_rate_minus_C0_success_rate_is_nonnegative_on_tiny_symbolic",
+    "C6_success_rate_minus_C0_success_rate_is_nonnegative_on_stress_deterministic",
+    "C3_success_rate_minus_C0_success_rate_is_nonnegative_on_nonshort_tasks",
+    "C6_call_count_exceeds_C0_call_count",
+    "C7_is_not_interpreted_as_a_valid_loop_if_it_improves_only_by_answer_shape_selection"
+  ]
+}

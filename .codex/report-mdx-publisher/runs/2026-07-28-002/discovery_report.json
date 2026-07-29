@@ -1,0 +1,80 @@
+{
+  "artifact_version": "1.0",
+  "schema_version": "1.0",
+  "skill_version": "0.1.0",
+  "run_id": "2026-07-28-171405",
+  "command": "run",
+  "workflow_preset": "full-report",
+  "quality": "strict",
+  "created_at": "2026-07-28T08:14:05.194418+00:00",
+  "candidates": [
+    {
+      "type": "package_json",
+      "path": "package.json",
+      "confidence": 0.5
+    },
+    {
+      "type": "package_json",
+      "path": "apps/agent-loop-docs/package.json",
+      "confidence": 0.5
+    },
+    {
+      "type": "package_json",
+      "path": "apps/agent-loop-docs/.next/package.json",
+      "confidence": 0.5
+    },
+    {
+      "type": "package_json",
+      "path": "apps/agent-loop-docs/.next/dev/package.json",
+      "confidence": 0.5
+    },
+    {
+      "type": "package_json",
+      "path": "apps/agent-loop-docs/.next/dev/build/package.json",
+      "confidence": 0.5
+    },
+    {
+      "type": "package_json",
+      "path": "apps/agent-loop-docs/.next/build/package.json",
+      "confidence": 0.5
+    },
+    {
+      "type": "mdx_page",
+      "path": "apps/agent-loop-docs/app/page.mdx",
+      "confidence": 0.8
+    },
+    {
+      "type": "mdx_page",
+      "path": "apps/agent-loop-docs/app/mdp/page.mdx",
+      "confidence": 0.8
+    },
+    {
+      "type": "mdx_page",
+      "path": "apps/agent-loop-docs/app/cegis/page.mdx",
+      "confidence": 0.8
+    },
+    {
+      "type": "mdx_page",
+      "path": "apps/agent-loop-docs/app/self-correction-scaling/page.mdx",
+      "confidence": 0.8
+    },
+    {
+      "type": "mdx_page",
+      "path": "apps/agent-loop-docs/app/ogis/page.mdx",
+      "confidence": 0.8
+    },
+    {
+      "type": "mdx_page",
+      "path": "apps/agent-loop-docs/app/pomdp/page.mdx",
+      "confidence": 0.8
+    }
+  ],
+  "selected": {
+    "docs_app_root": "apps/agent-loop-docs",
+    "authority": "config",
+    "confidence": 1.0
+  },
+  "conflicts": [],
+  "docs_root_candidates": [],
+  "unresolved_questions": []
+}

@@ -1,0 +1,55 @@
+{
+  "artifact_version": "1.0",
+  "schema_version": "1.0",
+  "skill_version": "0.1.0",
+  "run_id": "2026-07-29-151641",
+  "command": "validate",
+  "workflow_preset": "full-report",
+  "quality": "fast",
+  "created_at": "2026-07-29T06:16:41.933018+00:00",
+  "passed": true,
+  "checks": [
+    {
+      "name": "import_order",
+      "passed": true
+    },
+    {
+      "name": "navMeta",
+      "passed": true
+    },
+    {
+      "name": "single_h1",
+      "passed": true
+    },
+    {
+      "name": "section_rhythm",
+      "passed": true
+    },
+    {
+      "name": "asset_references",
+      "passed": true
+    },
+    {
+      "name": "internal_links",
+      "passed": true
+    },
+    {
+      "name": "glossary_links",
+      "passed": true
+    }
+  ],
+  "target_mdx": "",
+  "quality_summary": {
+    "bytes": 0,
+    "line_count": 0,
+    "h1_count": 0,
+    "import_count": 0,
+    "interactive_or_svg_markers": 0,
+    "required_terms": {
+      "components": false,
+      "operation": false,
+      "usage": false,
+      "evidence": false
+    }
+  }
+}

@@ -1,0 +1,161 @@
+import {
+  ArticlePage,
+  ComparisonTable,
+  DocHero,
+  LeadStatement,
+  ModelCheckpoint,
+  Note,
+  PageNav,
+  Section,
+  SourceLink,
+  TermGrid,
+} from "@/components/doc-ui"
+import { CegisLoopLab } from "@/components/visualizations/cegis-loop-lab"
+import { CegisGuaranteeWorkbench } from "@/components/visualizations/cegis-guarantee-workbench"
+import { CegisRetentionExplorer } from "@/components/visualizations/cegis-retention-explorer"
+
+export const metadata = {
+  title: "CEGIS로 실패 입력을 다음 patch의 제약으로 보존하기",
+  description: "결제 API validation 후보가 concrete counterexample을 회귀 조건으로 보존하며 줄어드는 과정을 설명합니다.",
+}
+
+<ArticlePage
+  toc={[
+    { id: "checkpoint", label: "실패 입력과 새 조건" },
+    { id: "lab", label: "반례 누적 실습" },
+    { id: "progress", label: "Candidate set의 감소" },
+    { id: "formal-model", label: "CEGIS specification" },
+    { id: "agent-mapping", label: "Code agent와 CEGIS-like" },
+    { id: "guarantees", label: "보장 조건과 한계" },
+    { id: "sources", label: "근거 문헌" },
+  ]}
+>
+  <DocHero
+    index="04"
+    acronym="CEGIS · RETAINED FAILURE"
+    title="CEGIS는 실패한 입력을 다음 patch가 만족해야 할 제약으로 보존하는 합성 방식입니다"
+    lead="Clamp patch가 주문 금액보다 큰 할인 요청에서 계약을 어겼다면 다음 후보는 그 입력을 거부해야 합니다. CEGIS는 learner와 verifier를 번갈아 실행하며 이런 counterexample을 누적합니다."
+  />
+
+  <ModelCheckpoint
+    label="결제 API · checkpoint 4"
+    question="실패한 할인 요청을 다음 patch가 반드시 처리하도록 만들 수 있을까?"
+    known="{ subtotal: 10000, discount: 12000 }은 clamp patch가 API 계약을 위반한다는 반례입니다."
+    unknown="유한 test suite 밖의 모든 요청에서도 최종 patch가 specification을 만족하는지는 별도 검증이 필요합니다."
+  />
+
+  <Section id="checkpoint" title="구체적인 실패 입력은 다음 validation rule이 만족해야 할 조건이 됩니다">
+    CEGIS에서는 합성과 검증이 다른 역할을 맡습니다. Learner는 지금까지 모인 example에서 일반화해 candidate를 만들고, verifier는 그 candidate가 specification을 위반하는 input을 찾습니다.
+
+    <ComparisonTable
+      columns={["Iteration", "Candidate", "Verifier response", "새 constraint"]}
+      rows={[
+        ["0", "모든 discount 허용", "discount = -1", "discount는 0 이상"],
+        ["1", "discount ≥ 0", "discount = 4, subtotal = 3", "discount는 subtotal 이하"],
+        ["2", "0 ≤ discount ≤ subtotal", "accept", "현재 finite domain에서 위반 없음"],
+      ]}
+    />
+
+    <LeadStatement>
+      `다시 생각해 봐`는 후보 공간이 어떻게 줄었는지 확인하기 어렵습니다. 재현 가능한 실패 입력은 다음 후보가 통과해야 할 검증 조건이 됩니다.
+    </LeadStatement>
+  </Section>
+
+  <Section id="lab" title="음수 할인과 주문 금액을 넘는 할인을 차례로 반례에 추가합니다">
+    <CegisLoopLab />
+
+    실습은 `subtotal = 3`으로 고정하고 discount를 -2부터 5까지 검사합니다. 첫 candidate는 음수 할인에서 깨지고 하한만 검사한 candidate는 subtotal보다 큰 할인에서 깨집니다. 두 반례를 모두 보존하면 learner는 양쪽 경계를 검사하는 candidate를 선택하고 verifier는 남은 domain을 검사합니다.
+  </Section>
+
+  <Section id="progress" title="모든 반례를 보존해야 candidate set이 단조롭게 줄어듭니다">
+    <CegisRetentionExplorer />
+
+    Counterexample $e_t$를 받은 뒤 일관된 candidate set은 다음처럼 갱신됩니다.
+
+    $$
+    C_{t+1}=\{p\in C_t\mid\Phi(p,e_t)\}
+    $$
+
+    $e_t$가 현재 candidate의 위반을 드러냈다면 적어도 $p_t$는 $C_{t+1}$에서 빠집니다. Learner가 모든 counterexample을 보존하고 다음 candidate에 constraint를 강제한다면 같은 실패를 공유하는 후보도 함께 제거됩니다.
+
+    반례를 log에만 남겨 두고 다음 prompt나 test suite에서 사용하지 않으면 이 단조 감소는 성립하지 않습니다. Agent memory의 양보다 중요한 것은 실패가 다음 생성의 제약으로 작동하느냐입니다.
+  </Section>
+
+  <Section id="formal-model" title="모든 결제 요청에서 계약을 만족하는 validation rule을 수식으로 정의합니다">
+    Candidate parameter를 $p$, 가능한 요청을 $x$라고 하면 synthesis specification은 다음 형태를 가집니다.
+
+    $$
+    \exists p\in C\;\forall x\in D:\Phi(p,x)
+    $$
+
+    CEGIS는 전체 domain $D$를 매번 한꺼번에 다루는 대신 누적 evidence set $E_t$에서 candidate를 찾습니다.
+
+    $$
+    p_t\in\{p\in C\mid \forall e\in E_t:\Phi(p,e)\}
+    $$
+
+    Verifier는 현재 candidate를 깨는 input을 찾습니다.
+
+    $$
+    \operatorname{Verify}(p_t)=
+    \begin{cases}
+    \text{ACCEPT}, & \nexists x\in D:\neg\Phi(p_t,x)\\
+    e_t, & \Phi(p_t,e_t)=\text{false}
+    \end{cases}
+    $$
+
+    Counterexample이 나오면 $E_{t+1}=E_t\cup\{e_t\}$로 갱신하고 다시 합성합니다.
+
+    <TermGrid
+      items={[
+        { symbol: "C", term: "Candidate space", description: "허용할 validation rule과 patch의 집합" },
+        { symbol: "D", term: "Input domain", description: "specification이 만족되어야 하는 결제 요청의 범위" },
+        { symbol: "Φ", term: "Correctness predicate", description: "candidate p가 request x에서 계약을 지키는지 판정하는 식" },
+        { symbol: "Eₜ", term: "Counterexample set", description: "verifier가 지금까지 발견해 보존한 실패 입력" },
+      ]}
+    />
+  </Section>
+
+  <Section id="agent-mapping" title="일반 code agent는 formal CEGIS보다 CEGIS-like로 설명하는 편이 정확합니다">
+    <ComparisonTable
+      columns={["CEGIS", "Code agent의 근사 대응"]}
+      rows={[
+        ["specification Φ", "issue 요구사항, API contract, acceptance criteria"],
+        ["candidate pₜ", "patch, program, plan, invariant"],
+        ["learner", "LLM, prompt, 작업 memory"],
+        ["verifier", "compiler, test runner, SMT solver, static analyzer"],
+        ["counterexample eₜ", "failing input, assertion, model-checking trace"],
+      ]}
+    />
+
+    Compiler error나 자연어 review가 언제나 formal counterexample인 것은 아닙니다. 일반 code agent에는 `CEGIS-like` 또는 `counterexample-guided refinement`라고 쓰는 편이 정확합니다.
+
+    AAAI 2025의 program repair 연구는 LLM이 program sketch를 채우고, test suite가 실패 counterexample을 돌려주며, 그 입력을 다음 prompt에 넣는 loop를 CEGIS로 설명합니다.
+  </Section>
+
+  <Section id="guarantees" title="유한 test suite 통과는 모든 입력에 대한 correctness proof가 아닙니다">
+    <Note label="보장 조건" tone="warn">
+      <p>CEGIS의 보장은 candidate space, specification, verifier의 soundness와 completeness, counterexample memory, termination 조건에 달려 있습니다. 유한 test suite 통과는 그 suite와의 consistency를 확인한 결과이지 모든 가능한 input에 대한 증명이 아닙니다.</p>
+    </Note>
+
+    <CegisGuaranteeWorkbench />
+
+    유한 candidate class에서 sound한 counterexample이 현재 candidate를 계속 제거하고 valid candidate가 존재한다면 종료를 보일 수 있습니다. Candidate class가 무한하거나 verifier가 incomplete하면 일반적인 종료 보장은 사라집니다. LLM이 과거 반례를 잊거나 무시하는 경우에는 candidate set이 단조롭게 줄어든다는 전제부터 깨집니다.
+
+    CEGIS는 Halting problem을 해결하지 않습니다. 일반 프로그램의 임의 입력에 대한 종료나 비자명한 semantic property에는 여전히 undecidability의 경계가 있습니다. 실제 agent는 제한된 domain과 budget 안에서 반례를 찾고, 정해 둔 stop rule에 따라 충분히 검증된 후보를 선택합니다.
+  </Section>
+
+  <Section id="sources" title="근거 문헌">
+    <SourceLink href="https://people.csail.mit.edu/asolar/papers/thesis.pdf">
+      Solar-Lezama (2008), Program Synthesis by Sketching
+    </SourceLink>
+    <SourceLink href="https://people.eecs.berkeley.edu/~sseshia/pubs/b2hd-jha-acta17.html">
+      Jha &amp; Seshia (2017), A Theory of Formal Synthesis via Inductive Learning
+    </SourceLink>
+    <SourceLink href="https://ojs.aaai.org/index.php/AAAI/article/view/32046">
+      Orvalho, Janota &amp; Manquinho (2025), Counterexample Guided Program Repair Using Zero-Shot Learning and MaxSAT-based Fault Localization
+    </SourceLink>
+  </Section>
+
+  <PageNav previous="/ogis" />
+</ArticlePage>

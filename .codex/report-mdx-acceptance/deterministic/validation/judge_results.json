@@ -1,0 +1,29 @@
+{
+  "artifact_version": "1.0",
+  "schema_version": "1.0",
+  "skill_version": "0.1.0",
+  "run_id": "2026-07-29-151641",
+  "command": "validate",
+  "workflow_preset": "full-report",
+  "quality": "fast",
+  "created_at": "2026-07-29T06:16:41.933018+00:00",
+  "results": [
+    {
+      "judge": "pedagogy",
+      "decision": "reject",
+      "score": 0
+    },
+    {
+      "judge": "visual",
+      "decision": "reject",
+      "score": 40
+    },
+    {
+      "judge": "engineering",
+      "decision": "reject",
+      "score": 50
+    }
+  ],
+  "passed": false,
+  "review_mode": "deterministic_evidence_lane"
+}

@@ -1,0 +1,170 @@
+{
+  "generated_at": "2026-05-29T02:43:33+00:00",
+  "id": "m4b-content-judge-blog",
+  "input": "reports/linkedin-agent-loop-post/07-blog-post-final.md",
+  "mode": "blog",
+  "model": "gpt-5.4-mini",
+  "review_count": 5,
+  "reviews": [
+    {
+      "highest_risk_issues": [
+        "pilot 해석은 조심스럽지만, C0/C3/C6/C7 수치가 본문에 직접 등장하지 않아 독자가 무엇을 관찰했는지 불명확하다. 반대로 수치를 넣을 경우 표본 12개에서 success rate 차이를 과도하게 읽을 위험이 있다.",
+        "best-of-n, weak verifier, correlated candidates에 대한 설명은 방향은 맞지만, 확률적 이득 조건을 더 엄밀히 써야 한다. 특히 독립 표본 가정이 깨질 때의 효과 감소를 정성적으로만 말해 통계적 조건이 약하다.",
+        "self-reflection이 verifier가 아니라는 주장은 타당하지만, '독립 측정'이라는 표현은 너무 강할 수 있다. 같은 모델이라도 외부 테스트/도구 결과를 반영하면 부분적 검증 신호가 될 수 있으므로 경계 조건을 더 분명히 해야 한다.",
+        "causal claim이 일부 문장에서 과하게 읽힐 수 있다. 예를 들어 'loop를 붙였다는 사실보다 어떤 신호가 loop를 닫는지가 더 중요하다'는 문장은 설계 원칙으로는 좋지만, 인과적 우선순위로 읽히지 않도록 조건부 문장으로 다듬는 편이 안전하다."
+      ],
+      "optional_revisions": [
+        "수학적 부분에 간단한 기대효용 표기를 하나 더 넣어, verifier가 proxy라는 점과 utility maximization이 다르다는 점을 더 엄밀하게 보강할 수 있다.",
+        "pilot 결과를 본문에 넣는다면 표 형태로 최소한의 기술통계만 제시하고, 해석은 '차이 없음'이 아니라 '이 설정에서는 loop 구조만으로 개선을 확인할 근거가 없음'으로 제한하라.",
+        "Sources and Further Reading는 좋지만, 본문 핵심 주장과 직접 연결되는 3~5개만 먼저 묶어 주면 글의 중심축이 더 선명해진다."
+      ],
+      "overclaim_check": "minor overclaim",
+      "perspective": "수학/통계 리뷰어",
+      "perspective_id": "math_stats",
+      "quality_bar_check": "meets",
+      "required_revisions": [
+        "파일럿 섹션에 표본 수, 과제 수, 단일 run, underpowered라는 한계를 더 전면에 두고, 수치가 아니라 관찰 포인트 중심으로 읽히게 정리하라.",
+        "best-of-n과 weak verifier 부분에 '후보 다양성', '선택기 calibration', '오류 상관'이 성능을 좌우한다는 점을 더 명시하고, 독립성 가정이 깨질 때 기대 개선이 줄어드는 이유를 한 문장 더 보강하라.",
+        "self-reflection 관련 문장을 'verifier 대체 불가'로 좁히고, 외부 테스트나 도구 결과를 활용하는 경우와 구분하라.",
+        "loop necessity에 대한 표현을 '모든 task'가 아니라 '신뢰성, 외부 상태, 검증 가능성, 복구 가능성이 중요한 task'로 더 일관되게 유지하라."
+      ],
+      "score": 8,
+      "standalone_check": "self-contained",
+      "strongest_points": [
+        "next-token objective, sequence likelihood, task utility를 분리한 구조가 명확하고, 확률적 생성과 과제 효용의 불일치를 잘 짚었다.",
+        "verifier, actionable feedback, tool access, state control의 네 제어면으로 loop를 재정의한 점은 개념적으로 유용하고, 설계 질문으로도 잘 전환된다.",
+        "pilot을 성능 주장에 쓰지 않고 failure mode 관찰로 제한한 태도는 통계적으로 적절하며, 과잉해석을 잘 막고 있다."
+      ],
+      "verdict": "revise"
+    },
+    {
+      "highest_risk_issues": [
+        "일부 문장이 여전히 'loop가 중요하다'를 너무 넓게 일반화한다. 특히 '최근 agent 제품과 실험적 방법론의 공통 실행 형태' 같은 표현은 범위를 더 좁혀야 한다.",
+        "파일럿 서술은 충분히 caveat가 있지만, 본문에서 'loop 구조만으로 성능 향상을 말할 근거가 없었다'는 문장은 단일 소규모 실험을 구조적 결론처럼 읽히게 할 수 있다.",
+        "Sources and Further Reading가 본문과 분리되어 있어 standalone blog post로는 괜찮지만, 일부 독자는 본문 논증이 외부 참고에 기대는 느낌을 받을 수 있다."
+      ],
+      "optional_revisions": [
+        "도입부에 '이 글에서 loop는 반복이 아니라 관찰-판정-피드백-상태갱신이 연결된 폐루프'라는 한 문장을 더 앞당기면 좋다.",
+        "표와 체크리스트는 좋지만, 한두 개의 구체적 실패 사례를 더 넣으면 Joel/Fowler식의 기억점이 강해진다.",
+        "Sources 섹션의 항목 수를 조금 줄이고, 본문 내에서 이미 충분히 설명한 개념은 참고문헌으로만 남겨도 된다."
+      ],
+      "overclaim_check": "minor overclaim",
+      "perspective": "LLM 시스템 엔지니어",
+      "perspective_id": "llm_systems",
+      "quality_bar_check": "near",
+      "required_revisions": [
+        "파일럿 결론 문장을 더 약하게 수정하라. '이 설정에서는 관찰된 범위 내에서 loop 구조만으로 우위를 말할 수 없었다' 수준으로 낮추는 것이 안전하다.",
+        "loop의 정의를 더 엄격히 고정하라. self-reflection, retry, tool loop, closed-loop control의 구분을 한 번 더 압축해서 명시해야 한다.",
+        "몇몇 단정적 표현을 조건부 표현으로 바꿔라. 예: 'agent는 반드시 loop로 고쳐야 한다'를 반박하는 문단에서 대체 설명의 조건을 더 분명히 써야 한다."
+      ],
+      "score": 8,
+      "standalone_check": "self-contained",
+      "strongest_points": [
+        "핵심 논지인 'loop'보다 verifier, actionable feedback, tool access, state control이 제어면이라는 프레이밍이 명확하다.",
+        "next-token objective, sequence likelihood, task utility를 분리해 설명한 부분은 공학적으로 정확하고 설계 리뷰에 유용하다.",
+        "self-reflection을 verifier와 구분하고, weak verifier가 loop를 악화시킬 수 있다는 경고가 잘 들어가 있다."
+      ],
+      "verdict": "revise"
+    },
+    {
+      "highest_risk_issues": [
+        "일부 문장이 여전히 과하게 일반화된다. 특히 'loop를 닫는 것'과 '폐루프 설계'가 거의 항상 유리한 것처럼 읽힐 수 있어, 조건부 적용 범위를 더 자주 못 박아야 한다.",
+        "pilot 언급은 충분히 caveat를 달았지만, 본문에서 C0/C3/C4/C6/C7 숫자를 전혀 쓰지 않아 독자가 '실제로 무엇을 봤는지'를 확인하기 어렵다. 반대로 숫자를 넣을 거면 해석 한계를 더 엄격히 써야 한다.",
+        "architecture vocabulary는 대체로 좋지만, 일부 표현이 아직 설명적이다. 예: '좋은 loop는 더 좋은 정보로 다음 행동을 바꾸는 loop'는 맞지만 다소 추상적이어서, state boundary/rollback/stop rule과의 연결을 더 구체화할 필요가 있다."
+      ],
+      "optional_revisions": [
+        "도표 하나를 더 넣어 'control surface -> failure mode -> design question' 매핑을 시각적으로 고정하면 읽는 사람이 설계 원칙을 더 잘 가져갈 수 있다.",
+        "'Sources and Further Reading'는 좋지만, 본문 내에서 최소 2~3개의 대표 인용 포인트를 더 직접 연결하면 글의 주장-근거 연결이 더 단단해진다.",
+        "LinkedIn 카드용으로는 본문에서 이미 잘 정리된 4면(verifier/feedback/tool/state)을 더 전면에 배치하면 재사용성이 높아진다."
+      ],
+      "overclaim_check": "minor overclaim",
+      "perspective": "소프트웨어 아키텍처 리뷰어",
+      "perspective_id": "software_architecture",
+      "quality_bar_check": "near",
+      "required_revisions": [
+        "pilot 섹션에 최소한 핵심 수치와 해석 한계를 함께 넣어라. 예: one-shot 0.75, self-reflection 0.4167, weak verifier 0.6667, strong verifier loop 0.75이며, 표본이 작아 성능 결론은 금지라는 식으로 명시해야 한다.",
+        "'LLM agent loop는 폐루프 제어 시스템처럼 검토할 만하다' 같은 문장은 조건을 더 붙여라. 신뢰성, 외부 상태 변경, 검증 가능성, 복구 가능성 중 무엇이 충족될 때인지 문장 단위로 분리해야 한다.",
+        "self-reflection과 verifier의 boundary를 더 엄격하게 써라. 현재도 구분은 되지만, '자기평가가 왜 독립 측정이 아닌지'를 한 문장 더 추가해 architecture vocabulary를 강화해야 한다."
+      ],
+      "score": 8,
+      "standalone_check": "self-contained",
+      "strongest_points": [
+        "핵심 주장(루프 자체가 아니라 control surface가 분석 단위라는 점)이 분명하고, one-shot/loop의 적용 경계를 실무적으로 나눴다.",
+        "verifier, actionable feedback, tool access, state control을 분리해 설명한 점은 Fowler식 boundary 감각에 가깝고, 설계 리뷰 질문으로도 전환 가능하다.",
+        "next-token objective, sequence likelihood, task utility를 구분한 구조가 좋고, self-reflection을 verifier로 오인하지 말아야 한다는 경계도 명확하다."
+      ],
+      "verdict": "revise"
+    },
+    {
+      "highest_risk_issues": [
+        "일부 문장이 여전히 과하게 일반화되어 있다. 특히 'LLM agent loop는 실제로 loop로 움직인다'와 '장기 작업에서 검토할 이유가 있다'는 표현은 방향성은 맞지만, 조건부 필요성을 더 엄밀히 써야 한다.",
+        "pilot 언급이 안전하게 처리되었지만, 본문에서 숫자와 결론의 연결이 약간 남아 있다. 독자가 '실험이 뭘 보여줬는지'를 과대해석할 여지가 있다.",
+        "control/RL 렌즈를 표방하지만, reward/utility framing이 아직 충분히 엄밀하지 않다. verifier signal을 proxy(U)로 두는 설명은 좋지만, reward shaping, terminal vs intermediate signal, partial observability 같은 제어 용어와의 연결이 더 선명하면 좋다.",
+        "Sources and Further Reading는 유용하지만 본문 논증과의 대응 관계가 다소 느슨하다. 특히 외부 인용이 '배경' 수준에 머물러 있어 핵심 주장별 근거 매핑이 더 필요하다."
+      ],
+      "optional_revisions": [
+        "제어/RL 독자를 위해 reward, verifier, utility proxy, stopping rule의 관계를 간단한 도식이나 수식 한 줄로 더 명확히 보여주면 좋다.",
+        "몇몇 문장은 블로그답게 좋지만 약간 길다. 특히 4장과 7장의 정의 문단은 더 짧게 쪼개면 기억성이 좋아진다.",
+        "Sources 섹션은 본문 각 절 끝에 짧은 괄호형 근거를 붙이는 방식으로 재배치하면 더 durable해진다.",
+        "LinkedIn 카드용으로는 본문과 별개로 핵심 문장을 더 짧고 강하게 압축할 수 있다."
+      ],
+      "overclaim_check": "minor overclaim",
+      "perspective": "제어/RL 리뷰어",
+      "perspective_id": "control_rl",
+      "quality_bar_check": "near",
+      "required_revisions": [
+        "모든 LLM task에 loop가 필요하지 않다는 caveat를 더 전면에 두고, loop의 필요조건을 '신뢰성, 외부 상태, 검증 가능성, 복구 가능성'으로 더 엄밀하게 정리하라.",
+        "self-reflection이 왜 verifier가 아닌지에 대해 '독립성 부족' 외에 '측정 대상과 평가 채널의 분리 실패'를 명시하라.",
+        "weak verifier가 loop를 악화시키는 메커니즘을 false positive, correlated candidates, proxy hacking으로 설명한 부분을 더 압축하고, 핵심 인과를 한 문단으로 정리하라.",
+        "pilot 섹션은 숫자보다 실패 모드 관찰이라는 점을 더 강하게 유지하고, 결과 해석을 '성능 비교 불가'로 명시하라.",
+        "결론부에서 loop가 아니라 control surface가 분석 단위라는 메시지를 한 번 더 반복해, 글의 중심축이 흐려지지 않게 하라."
+      ],
+      "score": 8,
+      "standalone_check": "self-contained",
+      "strongest_points": [
+        "loop를 단순 반복이 아니라 observation-verifier-feedback-state update가 연결된 폐루프 제어로 재정의한 점이 좋다.",
+        "next-token objective, sequence likelihood, task utility를 분리해 설명한 구조가 제어/RL 관점에서 타당하다.",
+        "verifier, actionable feedback, tool access, state control의 4면 분해가 실무 설계 질문으로 잘 내려온다.",
+        "self-reflection을 verifier와 구분하고, weak verifier가 loop를 악화시킬 수 있다는 경고가 명확하다."
+      ],
+      "verdict": "revise"
+    },
+    {
+      "highest_risk_issues": [
+        "일부 문장이 여전히 선언적이고 길어서, Joel/Fowler급의 압축된 기억 문장으로는 덜 남는다. 특히 결론부와 control surface 설명에서 중복이 있다.",
+        "Sources and Further Reading가 본문과 거의 같은 내용을 다시 요약해 길이를 늘린다. standalone blog post로는 중복감이 크고 LinkedIn 독자 경험에도 불리하다."
+      ],
+      "optional_revisions": [
+        "도입부에 더 기억나는 한 문장을 추가하면 좋다. 예: '반복은 루프가 아니다. 판정이 있어야 루프다.' 같은 식의 압축 문장.",
+        "표현을 조금 더 구어적이고 단단하게 다듬으면 LinkedIn 카드뉴스와의 연결성이 좋아진다.",
+        "경계 조건 섹션에서 '언제 적용되고 언제 아닌가'를 더 명시적으로 분리하면 Fowler식 명료성이 더 살아난다."
+      ],
+      "overclaim_check": "minor overclaim",
+      "perspective": "기술 에세이 편집자",
+      "perspective_id": "editorial",
+      "quality_bar_check": "near",
+      "required_revisions": [
+        "결론부를 더 압축해 핵심 문장을 2~3개로 정리하고, 반복되는 'loop가 아니라 control surface' 문장을 한 번만 강하게 남겨라.",
+        "Sources and Further Reading는 본문과 중복되는 설명을 줄이고, 정말 필요한 경우에만 짧은 참고 목록으로 축소하라.",
+        "파일럿 섹션은 '무엇을 보여주지 못했는가'를 이미 잘 적었으므로, 숫자와 메타 설명을 더 줄이고 실패 모드 관찰이라는 기능만 남겨라.",
+        "몇몇 용어는 더 일관되게 정리하라. 예: verifier / feedback / state control / utility proxy를 처음 정의한 뒤에는 한국어 설명과 영어 용어를 과도하게 반복하지 말 것."
+      ],
+      "score": 8,
+      "standalone_check": "self-contained",
+      "strongest_points": [
+        "핵심 논지(루프 자체가 아니라 verifier, feedback, tool access, state control이 중요하다는 점)가 일관되게 유지된다.",
+        "next-token objective, sequence likelihood, task utility를 분리해 설명한 구조가 명료하고, 독립 완결성도 높다.",
+        "self-reflection의 한계와 weak verifier의 위험을 구체적으로 짚어, agent hype를 적절히 눌러준다."
+      ],
+      "verdict": "revise"
+    }
+  ],
+  "summary": {
+    "all_pass": false,
+    "average_score": 8.0,
+    "min_score": 8,
+    "verdict_counts": {
+      "revise": 5
+    }
+  }
+}

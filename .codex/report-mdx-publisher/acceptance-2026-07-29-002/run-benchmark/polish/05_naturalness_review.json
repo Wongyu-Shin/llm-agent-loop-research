@@ -1,0 +1,15 @@
+{
+  "artifact_version": "1.0",
+  "schema_version": "1.0",
+  "skill_version": "0.1.0",
+  "run_id": "2026-07-29-163444",
+  "command": "run",
+  "workflow_preset": "full-report",
+  "quality": "strict",
+  "created_at": "2026-07-29T07:34:44.527809+00:00",
+  "verdict": "accept",
+  "review_mode": "deterministic_im_not_ai_adaptation",
+  "score_before": 1,
+  "score_after": 1,
+  "score_improvement_ratio": 0.0
+}

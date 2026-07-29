@@ -1,0 +1,51 @@
+{
+  "artifact": "apps/agent-loop-docs/app/self-correction-scaling/page.mdx",
+  "scope": [
+    "장면별 상세 본문",
+    "scene callout",
+    "최종 takeaways"
+  ],
+  "protected_spans": [
+    "Acc_t",
+    "CL_t",
+    "CS_t",
+    "Upp",
+    "Acc_0",
+    "RMSE",
+    "R²",
+    "99%",
+    "0.50",
+    "99.49%",
+    "0.51%",
+    "KEEP",
+    "DISCARD",
+    "CRASH",
+    "val_bpb"
+  ],
+  "findings": [
+    {
+      "category": "E-7",
+      "severity": "S2",
+      "description": "설명 본문이 해라체로 끝나 발표용 구어체 존댓말이라는 요청과 어조가 맞지 않습니다.",
+      "action": "사실과 논리 관계를 보존한 채 종결을 -습니다/-합니다 계열로 통일합니다."
+    },
+    {
+      "category": "E-2",
+      "severity": "S2",
+      "description": "긴 문장이 동일한 문어체 리듬으로 이어져 실제 낭독 시 핵심 대비가 약해집니다.",
+      "action": "논리 단위가 바뀌는 지점에서 문장을 나누고 자연스러운 연결 표현을 보강합니다."
+    },
+    {
+      "category": "A-18",
+      "severity": "S2",
+      "description": "여러 조건과 결론이 한 문장에 몰린 구간은 발표자가 한 호흡에 읽기 어렵습니다.",
+      "action": "수식과 수치는 유지하고 절을 분리해 한 문장 한 메시지에 가깝게 다듬습니다."
+    },
+    {
+      "category": "E-5",
+      "severity": "S2",
+      "description": "쉼표로 연결된 긴 절이 연속되어 발표 중 핵심 조건과 결론의 경계가 흐려집니다.",
+      "action": "논리 경계에 마침표를 두고 필요한 연결어만 남겨 낭독 호흡을 짧게 만듭니다."
+    }
+  ]
+}

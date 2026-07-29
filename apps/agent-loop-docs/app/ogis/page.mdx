@@ -1,0 +1,154 @@
+import {
+  ArticlePage,
+  ComparisonTable,
+  DocHero,
+  LeadStatement,
+  ModelCheckpoint,
+  Note,
+  PageNav,
+  Section,
+  SourceLink,
+  TermGrid,
+} from "@/components/doc-ui"
+import { OgisOracleLab } from "@/components/visualizations/ogis-oracle-lab"
+import { OgisApplicabilityLens } from "@/components/visualizations/ogis-applicability-lens"
+import { OgisProtocolExplorer } from "@/components/visualizations/ogis-protocol-explorer"
+
+export const metadata = {
+  title: "OGIS 질의와 검증 응답으로 patch 후보 좁히기",
+  description: "결제 API patch 후보가 typed oracle query와 evidence에 따라 줄어드는 과정을 설명합니다.",
+}
+
+<ArticlePage
+  toc={[
+    { id: "checkpoint", label: "Patch 후보와 검증" },
+    { id: "oracle-interface", label: "Typed oracle interface" },
+    { id: "query-types", label: "응답 형식별 정보" },
+    { id: "lab", label: "후보 제거 실습" },
+    { id: "formal-model", label: "Evidence와 version space" },
+    { id: "agent-boundary", label: "OGIS 적용 조건" },
+    { id: "sources", label: "근거 문헌" },
+  ]}
+>
+  <DocHero
+    index="03"
+    acronym="OGIS · NEXT CANDIDATE"
+    title="OGIS는 질의 형식과 검증 응답으로 patch 후보를 좁히는 귀납적 합성 방식입니다"
+    lead="Clamp, 하한 검사, 양쪽 경계 검사처럼 가능한 수정안이 여러 개일 때 learner는 후보를 만들고 oracle에 정해진 형식으로 묻습니다. 응답을 evidence로 보존하면 다음 후보의 범위가 줄어듭니다."
+  />
+
+  <ModelCheckpoint
+    label="결제 API · checkpoint 3"
+    question="clamp, 음수 검증, 상한 검증 중 어떤 patch 후보를 남길까?"
+    known="contract test는 discount가 subtotal보다 큰 입력을 거부해야 한다고 알려 줬습니다."
+    unknown="현재 evidence만으로는 다른 경계 입력에서도 각 후보가 계약을 만족하는지 알 수 없습니다."
+  />
+
+  <Section id="checkpoint" title="LLM이 patch 후보를 만들면 harness가 test와 compiler로 후보를 확인합니다">
+    결제 API를 고칠 수 있는 patch는 여러 개입니다. 계산 결과를 clamp할 수도 있고, `discount < 0`만 검사할 수도 있으며, `discount > subtotal`까지 함께 거부할 수도 있습니다. LLM은 이 candidate space에서 patch를 제안하는 learner로 볼 수 있습니다.
+
+    Harness는 compiler, unit test, contract test를 호출합니다. 결과를 다음 prompt나 작업 memory에 남기면 다음 learner 호출은 이전과 다른 evidence를 받습니다.
+
+    <LeadStatement>
+      OGIS가 묻는 핵심은 “몇 번 다시 생성했는가”가 아니라 “어떤 응답이 어떤 후보를 탈락시켰는가”입니다.
+    </LeadStatement>
+  </Section>
+
+  <Section id="oracle-interface" title="OGIS의 oracle은 query와 response type이 정해진 검증 interface입니다">
+    OGIS의 oracle은 막연한 전문가 비유가 아닙니다. Learner가 보낼 query와 oracle이 돌려줄 response type이 정해져 있습니다. Code agent에서는 다음 interface가 그 구조를 보여줍니다.
+
+    <OgisProtocolExplorer />
+
+    ```ts
+    type VerificationResult =
+      | { kind: "accept" }
+      | {
+          kind: "counterexample"
+          input: { subtotal: number; discount: number }
+          expected: "accept" | "reject"
+        }
+
+    type Verify = (patch: Patch) => Promise<VerificationResult>
+    ```
+
+    `fail` 한 단어보다 실패 입력과 기대 동작이 더 많은 후보를 구분합니다. 반대로 자연어 review가 모호하거나 test가 실제 요구사항과 어긋나면 oracle 응답도 잘못된 방향으로 후보를 줄일 수 있습니다.
+  </Section>
+
+  <Section id="query-types" title="Boolean 판정, label, counterexample은 각각 제거할 수 있는 후보 범위가 다릅니다">
+    <ComparisonTable
+      columns={["Query", "결제 API에서의 응답", "Candidate에 미치는 영향"]}
+      rows={[
+        ["Membership", "특정 요청을 accept할지 reject할지", "그 입력에서 틀린 validation rule을 제거"],
+        ["Example", "계약을 대표하는 labeled request", "새 경계 조건을 evidence에 추가"],
+        ["Equivalence", "accept 또는 현재 rule과 다른 counterexample", "현재 후보와 같은 실패를 공유하는 후보를 제거"],
+        ["Correctness", "pass 또는 fail", "판정은 가능하지만 수정 위치 정보는 적을 수 있음"],
+      ]}
+    />
+
+    같은 test runner라도 실패 입력을 돌려주는지, boolean만 돌려주는지에 따라 learner가 받는 정보가 달라집니다. 좋은 agent harness는 test 개수뿐 아니라 response schema도 설계합니다.
+  </Section>
+
+  <Section id="lab" title="할인값을 질의할 때마다 계약과 모순되는 validation 후보가 탈락합니다">
+    <OgisOracleLab />
+
+    실습의 target은 `0 ≤ discount ≤ subtotal`인 요청만 허용하는 규칙입니다. Learner는 현재 evidence와 일관된 첫 validation 후보를 냅니다. Membership query는 선택한 할인값의 label을 알려 주고, equivalence query는 현재 후보를 깨는 할인값을 돌려줍니다.
+  </Section>
+
+  <Section id="formal-model" title="누적 evidence와 일관된 후보만 version space에 남습니다">
+    Candidate class를 $C$, 누적 evidence를 $E_t$라고 합시다. 현재 version space는 evidence와 일관된 후보의 집합입니다.
+
+    $$
+    C_t=\{c\in C\mid c\text{ is consistent with }E_t\}
+    $$
+
+    한 번의 OGIS step은 learner, oracle, memory update로 나눌 수 있습니다.
+
+    $$
+    c_t=\operatorname{Learn}(E_t),\qquad
+    r_t=\operatorname{Oracle}(q_t,c_t),\qquad
+    E_{t+1}=\operatorname{Update}(E_t,r_t)
+    $$
+
+    <TermGrid
+      items={[
+        { symbol: "C", term: "Candidate class", description: "learner가 제안할 수 있는 validation rule과 patch의 범위" },
+        { symbol: "Eₜ", term: "Evidence", description: "label, test result, counterexample을 보존한 기록" },
+        { symbol: "qₜ", term: "Query", description: "learner나 harness가 oracle interface에 보내는 요청" },
+        { symbol: "rₜ", term: "Response", description: "query type에 맞춰 oracle이 돌려주는 정보" },
+        { symbol: "Cₜ", term: "Version space", description: "현재 evidence와 모순되지 않는 candidate의 부분집합" },
+      ]}
+    />
+  </Section>
+
+  <Section id="agent-boundary" title="Candidate와 typed oracle query가 있을 때 OGIS 설명이 성립합니다">
+    LLM은 program, plan, answer를 제안할 수 있습니다. Harness가 oracle을 호출하고 응답을 context, 파일, memory에 남기면 다음 호출의 proposal distribution은 달라집니다.
+
+    $$
+    x_t=\operatorname{Decode}(P_\theta(\cdot\mid g,H_t)),\qquad
+    f_t=\operatorname{Oracle}(g,x_t),\qquad
+    H_{t+1}=U(H_t,x_t,f_t)
+    $$
+
+    <OgisApplicabilityLens />
+
+    <Note label="동일시하지 않기" tone="warn">
+      <p>Scalar score만 받는 실험 loop는 black-box optimization에 더 가깝습니다. 환경 observation을 받아 다음 action을 고르는 문제는 POMDP가 더 잘 설명합니다. OGIS는 candidate와 oracle query가 구현에서 식별될 때 유용합니다.</p>
+    </Note>
+
+    LLM과 OGIS를 직접 연결한 연구도 있습니다. MILCOM 2023 연구는 LLM plan을 Z3로 검사하고 counterexample을 다음 prompt에 넣었습니다. NeurIPS 2024의 LLMLift는 방법을 `LLM-based OGIS`라고 부르며 LLM이 만든 program summary와 invariant를 verifier로 확인합니다.
+  </Section>
+
+  <Section id="sources" title="근거 문헌">
+    <SourceLink href="https://people.eecs.berkeley.edu/~sseshia/pubs/b2hd-jha-acta17.html">
+      Jha &amp; Seshia (2017), A Theory of Formal Synthesis via Inductive Learning
+    </SourceLink>
+    <SourceLink href="https://nusci.csl.sri.com/publication/milcom23b/">
+      Jha et al. (2023), Counterexample Guided Inductive Synthesis Using Large Language Models and Satisfiability Solving
+    </SourceLink>
+    <SourceLink href="https://proceedings.neurips.cc/paper_files/paper/2024/hash/48bb60a0c0aebb4142bf314bd1a5c6a0-Abstract-Conference.html">
+      Bhatia et al. (2024), Verified Code Transpilation with LLMs
+    </SourceLink>
+  </Section>
+
+  <PageNav previous="/pomdp" next="/cegis" />
+</ArticlePage>

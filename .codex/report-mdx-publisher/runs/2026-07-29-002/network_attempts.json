@@ -1,0 +1,19 @@
+{
+  "artifact_version": "1.0",
+  "schema_version": "1.0",
+  "skill_version": "0.1.0",
+  "run_id": "2026-07-29-163353",
+  "command": "run",
+  "workflow_preset": "validate-only",
+  "quality": "strict",
+  "created_at": "2026-07-29T07:33:53.400153+00:00",
+  "reason": "no-network mode initialized",
+  "attempts": [],
+  "allowed_outbound_calls": 0,
+  "blocked_outbound_calls": 0,
+  "dns_allowed": 0,
+  "http_allowed": 0,
+  "llm_provider_allowed": 0,
+  "atlassian_allowed": 0,
+  "no_network": true
+}

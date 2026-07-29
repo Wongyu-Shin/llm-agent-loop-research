@@ -1,0 +1,16 @@
+{
+  "artifact_version": "1.0",
+  "schema_version": "1.0",
+  "skill_version": "0.1.0",
+  "run_id": "2026-07-28-174707",
+  "command": "run",
+  "workflow_preset": "full-report",
+  "quality": "strict",
+  "created_at": "2026-07-28T08:47:07.225003+00:00",
+  "findings": [
+    {
+      "kind": "rewriteable_span",
+      "count": 150
+    }
+  ]
+}

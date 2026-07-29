@@ -1,0 +1,830 @@
+{
+  "contrasts": [
+    {
+      "baseline": "C0",
+      "baseline_only": 0,
+      "baseline_success_rate": 0.75,
+      "both_fail": 3,
+      "both_pass": 9,
+      "condition": "C3",
+      "condition_only": 0,
+      "condition_success_rate": 0.75,
+      "discordant_pairs": 0,
+      "exact_mcnemar_p_value": 1.0,
+      "n": 12,
+      "paired_rows": [
+        {
+          "baseline_passed": true,
+          "condition_passed": true,
+          "task_id": "H1"
+        },
+        {
+          "baseline_passed": true,
+          "condition_passed": true,
+          "task_id": "M1"
+        },
+        {
+          "baseline_passed": true,
+          "condition_passed": true,
+          "task_id": "M2"
+        },
+        {
+          "baseline_passed": true,
+          "condition_passed": true,
+          "task_id": "M3"
+        },
+        {
+          "baseline_passed": true,
+          "condition_passed": true,
+          "task_id": "S1"
+        },
+        {
+          "baseline_passed": true,
+          "condition_passed": true,
+          "task_id": "S2"
+        },
+        {
+          "baseline_passed": true,
+          "condition_passed": true,
+          "task_id": "ST1"
+        },
+        {
+          "baseline_passed": true,
+          "condition_passed": true,
+          "task_id": "ST2"
+        },
+        {
+          "baseline_passed": false,
+          "condition_passed": false,
+          "task_id": "ST3"
+        },
+        {
+          "baseline_passed": false,
+          "condition_passed": false,
+          "task_id": "ST4"
+        },
+        {
+          "baseline_passed": true,
+          "condition_passed": true,
+          "task_id": "ST5"
+        },
+        {
+          "baseline_passed": false,
+          "condition_passed": false,
+          "task_id": "ST6"
+        }
+      ],
+      "paired_success_delta": 0.0,
+      "task_class": "all"
+    },
+    {
+      "baseline": "C0",
+      "baseline_only": 0,
+      "baseline_success_rate": 1.0,
+      "both_fail": 0,
+      "both_pass": 3,
+      "condition": "C3",
+      "condition_only": 0,
+      "condition_success_rate": 1.0,
+      "discordant_pairs": 0,
+      "exact_mcnemar_p_value": 1.0,
+      "n": 3,
+      "paired_rows": [
+        {
+          "baseline_passed": true,
+          "condition_passed": true,
+          "task_id": "M1"
+        },
+        {
+          "baseline_passed": true,
+          "condition_passed": true,
+          "task_id": "M2"
+        },
+        {
+          "baseline_passed": true,
+          "condition_passed": true,
+          "task_id": "M3"
+        }
+      ],
+      "paired_success_delta": 0.0,
+      "task_class": "medium_reasoning"
+    },
+    {
+      "baseline": "C0",
+      "baseline_only": 0,
+      "baseline_success_rate": 1.0,
+      "both_fail": 0,
+      "both_pass": 2,
+      "condition": "C3",
+      "condition_only": 0,
+      "condition_success_rate": 1.0,
+      "discordant_pairs": 0,
+      "exact_mcnemar_p_value": 1.0,
+      "n": 2,
+      "paired_rows": [
+        {
+          "baseline_passed": true,
+          "condition_passed": true,
+          "task_id": "S1"
+        },
+        {
+          "baseline_passed": true,
+          "condition_passed": true,
+          "task_id": "S2"
+        }
+      ],
+      "paired_success_delta": 0.0,
+      "task_class": "short_deterministic"
+    },
+    {
+      "baseline": "C0",
+      "baseline_only": 0,
+      "baseline_success_rate": 0.5,
+      "both_fail": 3,
+      "both_pass": 3,
+      "condition": "C3",
+      "condition_only": 0,
+      "condition_success_rate": 0.5,
+      "discordant_pairs": 0,
+      "exact_mcnemar_p_value": 1.0,
+      "n": 6,
+      "paired_rows": [
+        {
+          "baseline_passed": true,
+          "condition_passed": true,
+          "task_id": "ST1"
+        },
+        {
+          "baseline_passed": true,
+          "condition_passed": true,
+          "task_id": "ST2"
+        },
+        {
+          "baseline_passed": false,
+          "condition_passed": false,
+          "task_id": "ST3"
+        },
+        {
+          "baseline_passed": false,
+          "condition_passed": false,
+          "task_id": "ST4"
+        },
+        {
+          "baseline_passed": true,
+          "condition_passed": true,
+          "task_id": "ST5"
+        },
+        {
+          "baseline_passed": false,
+          "condition_passed": false,
+          "task_id": "ST6"
+        }
+      ],
+      "paired_success_delta": 0.0,
+      "task_class": "stress_deterministic"
+    },
+    {
+      "baseline": "C0",
+      "baseline_only": 0,
+      "baseline_success_rate": 1.0,
+      "both_fail": 0,
+      "both_pass": 1,
+      "condition": "C3",
+      "condition_only": 0,
+      "condition_success_rate": 1.0,
+      "discordant_pairs": 0,
+      "exact_mcnemar_p_value": 1.0,
+      "n": 1,
+      "paired_rows": [
+        {
+          "baseline_passed": true,
+          "condition_passed": true,
+          "task_id": "H1"
+        }
+      ],
+      "paired_success_delta": 0.0,
+      "task_class": "tiny_symbolic"
+    },
+    {
+      "baseline": "C0",
+      "baseline_only": 4,
+      "baseline_success_rate": 0.75,
+      "both_fail": 3,
+      "both_pass": 5,
+      "condition": "C4",
+      "condition_only": 0,
+      "condition_success_rate": 0.416667,
+      "discordant_pairs": 4,
+      "exact_mcnemar_p_value": 0.125,
+      "n": 12,
+      "paired_rows": [
+        {
+          "baseline_passed": true,
+          "condition_passed": true,
+          "task_id": "H1"
+        },
+        {
+          "baseline_passed": true,
+          "condition_passed": false,
+          "task_id": "M1"
+        },
+        {
+          "baseline_passed": true,
+          "condition_passed": true,
+          "task_id": "M2"
+        },
+        {
+          "baseline_passed": true,
+          "condition_passed": true,
+          "task_id": "M3"
+        },
+        {
+          "baseline_passed": true,
+          "condition_passed": true,
+          "task_id": "S1"
+        },
+        {
+          "baseline_passed": true,
+          "condition_passed": true,
+          "task_id": "S2"
+        },
+        {
+          "baseline_passed": true,
+          "condition_passed": false,
+          "task_id": "ST1"
+        },
+        {
+          "baseline_passed": true,
+          "condition_passed": false,
+          "task_id": "ST2"
+        },
+        {
+          "baseline_passed": false,
+          "condition_passed": false,
+          "task_id": "ST3"
+        },
+        {
+          "baseline_passed": false,
+          "condition_passed": false,
+          "task_id": "ST4"
+        },
+        {
+          "baseline_passed": true,
+          "condition_passed": false,
+          "task_id": "ST5"
+        },
+        {
+          "baseline_passed": false,
+          "condition_passed": false,
+          "task_id": "ST6"
+        }
+      ],
+      "paired_success_delta": -0.333333,
+      "task_class": "all"
+    },
+    {
+      "baseline": "C0",
+      "baseline_only": 1,
+      "baseline_success_rate": 1.0,
+      "both_fail": 0,
+      "both_pass": 2,
+      "condition": "C4",
+      "condition_only": 0,
+      "condition_success_rate": 0.666667,
+      "discordant_pairs": 1,
+      "exact_mcnemar_p_value": 1.0,
+      "n": 3,
+      "paired_rows": [
+        {
+          "baseline_passed": true,
+          "condition_passed": false,
+          "task_id": "M1"
+        },
+        {
+          "baseline_passed": true,
+          "condition_passed": true,
+          "task_id": "M2"
+        },
+        {
+          "baseline_passed": true,
+          "condition_passed": true,
+          "task_id": "M3"
+        }
+      ],
+      "paired_success_delta": -0.333333,
+      "task_class": "medium_reasoning"
+    },
+    {
+      "baseline": "C0",
+      "baseline_only": 0,
+      "baseline_success_rate": 1.0,
+      "both_fail": 0,
+      "both_pass": 2,
+      "condition": "C4",
+      "condition_only": 0,
+      "condition_success_rate": 1.0,
+      "discordant_pairs": 0,
+      "exact_mcnemar_p_value": 1.0,
+      "n": 2,
+      "paired_rows": [
+        {
+          "baseline_passed": true,
+          "condition_passed": true,
+          "task_id": "S1"
+        },
+        {
+          "baseline_passed": true,
+          "condition_passed": true,
+          "task_id": "S2"
+        }
+      ],
+      "paired_success_delta": 0.0,
+      "task_class": "short_deterministic"
+    },
+    {
+      "baseline": "C0",
+      "baseline_only": 3,
+      "baseline_success_rate": 0.5,
+      "both_fail": 3,
+      "both_pass": 0,
+      "condition": "C4",
+      "condition_only": 0,
+      "condition_success_rate": 0.0,
+      "discordant_pairs": 3,
+      "exact_mcnemar_p_value": 0.25,
+      "n": 6,
+      "paired_rows": [
+        {
+          "baseline_passed": true,
+          "condition_passed": false,
+          "task_id": "ST1"
+        },
+        {
+          "baseline_passed": true,
+          "condition_passed": false,
+          "task_id": "ST2"
+        },
+        {
+          "baseline_passed": false,
+          "condition_passed": false,
+          "task_id": "ST3"
+        },
+        {
+          "baseline_passed": false,
+          "condition_passed": false,
+          "task_id": "ST4"
+        },
+        {
+          "baseline_passed": true,
+          "condition_passed": false,
+          "task_id": "ST5"
+        },
+        {
+          "baseline_passed": false,
+          "condition_passed": false,
+          "task_id": "ST6"
+        }
+      ],
+      "paired_success_delta": -0.5,
+      "task_class": "stress_deterministic"
+    },
+    {
+      "baseline": "C0",
+      "baseline_only": 0,
+      "baseline_success_rate": 1.0,
+      "both_fail": 0,
+      "both_pass": 1,
+      "condition": "C4",
+      "condition_only": 0,
+      "condition_success_rate": 1.0,
+      "discordant_pairs": 0,
+      "exact_mcnemar_p_value": 1.0,
+      "n": 1,
+      "paired_rows": [
+        {
+          "baseline_passed": true,
+          "condition_passed": true,
+          "task_id": "H1"
+        }
+      ],
+      "paired_success_delta": 0.0,
+      "task_class": "tiny_symbolic"
+    },
+    {
+      "baseline": "C0",
+      "baseline_only": 0,
+      "baseline_success_rate": 0.75,
+      "both_fail": 3,
+      "both_pass": 9,
+      "condition": "C6",
+      "condition_only": 0,
+      "condition_success_rate": 0.75,
+      "discordant_pairs": 0,
+      "exact_mcnemar_p_value": 1.0,
+      "n": 12,
+      "paired_rows": [
+        {
+          "baseline_passed": true,
+          "condition_passed": true,
+          "task_id": "H1"
+        },
+        {
+          "baseline_passed": true,
+          "condition_passed": true,
+          "task_id": "M1"
+        },
+        {
+          "baseline_passed": true,
+          "condition_passed": true,
+          "task_id": "M2"
+        },
+        {
+          "baseline_passed": true,
+          "condition_passed": true,
+          "task_id": "M3"
+        },
+        {
+          "baseline_passed": true,
+          "condition_passed": true,
+          "task_id": "S1"
+        },
+        {
+          "baseline_passed": true,
+          "condition_passed": true,
+          "task_id": "S2"
+        },
+        {
+          "baseline_passed": true,
+          "condition_passed": true,
+          "task_id": "ST1"
+        },
+        {
+          "baseline_passed": true,
+          "condition_passed": true,
+          "task_id": "ST2"
+        },
+        {
+          "baseline_passed": false,
+          "condition_passed": false,
+          "task_id": "ST3"
+        },
+        {
+          "baseline_passed": false,
+          "condition_passed": false,
+          "task_id": "ST4"
+        },
+        {
+          "baseline_passed": true,
+          "condition_passed": true,
+          "task_id": "ST5"
+        },
+        {
+          "baseline_passed": false,
+          "condition_passed": false,
+          "task_id": "ST6"
+        }
+      ],
+      "paired_success_delta": 0.0,
+      "task_class": "all"
+    },
+    {
+      "baseline": "C0",
+      "baseline_only": 0,
+      "baseline_success_rate": 1.0,
+      "both_fail": 0,
+      "both_pass": 3,
+      "condition": "C6",
+      "condition_only": 0,
+      "condition_success_rate": 1.0,
+      "discordant_pairs": 0,
+      "exact_mcnemar_p_value": 1.0,
+      "n": 3,
+      "paired_rows": [
+        {
+          "baseline_passed": true,
+          "condition_passed": true,
+          "task_id": "M1"
+        },
+        {
+          "baseline_passed": true,
+          "condition_passed": true,
+          "task_id": "M2"
+        },
+        {
+          "baseline_passed": true,
+          "condition_passed": true,
+          "task_id": "M3"
+        }
+      ],
+      "paired_success_delta": 0.0,
+      "task_class": "medium_reasoning"
+    },
+    {
+      "baseline": "C0",
+      "baseline_only": 0,
+      "baseline_success_rate": 1.0,
+      "both_fail": 0,
+      "both_pass": 2,
+      "condition": "C6",
+      "condition_only": 0,
+      "condition_success_rate": 1.0,
+      "discordant_pairs": 0,
+      "exact_mcnemar_p_value": 1.0,
+      "n": 2,
+      "paired_rows": [
+        {
+          "baseline_passed": true,
+          "condition_passed": true,
+          "task_id": "S1"
+        },
+        {
+          "baseline_passed": true,
+          "condition_passed": true,
+          "task_id": "S2"
+        }
+      ],
+      "paired_success_delta": 0.0,
+      "task_class": "short_deterministic"
+    },
+    {
+      "baseline": "C0",
+      "baseline_only": 0,
+      "baseline_success_rate": 0.5,
+      "both_fail": 3,
+      "both_pass": 3,
+      "condition": "C6",
+      "condition_only": 0,
+      "condition_success_rate": 0.5,
+      "discordant_pairs": 0,
+      "exact_mcnemar_p_value": 1.0,
+      "n": 6,
+      "paired_rows": [
+        {
+          "baseline_passed": true,
+          "condition_passed": true,
+          "task_id": "ST1"
+        },
+        {
+          "baseline_passed": true,
+          "condition_passed": true,
+          "task_id": "ST2"
+        },
+        {
+          "baseline_passed": false,
+          "condition_passed": false,
+          "task_id": "ST3"
+        },
+        {
+          "baseline_passed": false,
+          "condition_passed": false,
+          "task_id": "ST4"
+        },
+        {
+          "baseline_passed": true,
+          "condition_passed": true,
+          "task_id": "ST5"
+        },
+        {
+          "baseline_passed": false,
+          "condition_passed": false,
+          "task_id": "ST6"
+        }
+      ],
+      "paired_success_delta": 0.0,
+      "task_class": "stress_deterministic"
+    },
+    {
+      "baseline": "C0",
+      "baseline_only": 0,
+      "baseline_success_rate": 1.0,
+      "both_fail": 0,
+      "both_pass": 1,
+      "condition": "C6",
+      "condition_only": 0,
+      "condition_success_rate": 1.0,
+      "discordant_pairs": 0,
+      "exact_mcnemar_p_value": 1.0,
+      "n": 1,
+      "paired_rows": [
+        {
+          "baseline_passed": true,
+          "condition_passed": true,
+          "task_id": "H1"
+        }
+      ],
+      "paired_success_delta": 0.0,
+      "task_class": "tiny_symbolic"
+    },
+    {
+      "baseline": "C0",
+      "baseline_only": 1,
+      "baseline_success_rate": 0.75,
+      "both_fail": 3,
+      "both_pass": 8,
+      "condition": "C7",
+      "condition_only": 0,
+      "condition_success_rate": 0.666667,
+      "discordant_pairs": 1,
+      "exact_mcnemar_p_value": 1.0,
+      "n": 12,
+      "paired_rows": [
+        {
+          "baseline_passed": true,
+          "condition_passed": true,
+          "task_id": "H1"
+        },
+        {
+          "baseline_passed": true,
+          "condition_passed": true,
+          "task_id": "M1"
+        },
+        {
+          "baseline_passed": true,
+          "condition_passed": true,
+          "task_id": "M2"
+        },
+        {
+          "baseline_passed": true,
+          "condition_passed": true,
+          "task_id": "M3"
+        },
+        {
+          "baseline_passed": true,
+          "condition_passed": true,
+          "task_id": "S1"
+        },
+        {
+          "baseline_passed": true,
+          "condition_passed": true,
+          "task_id": "S2"
+        },
+        {
+          "baseline_passed": true,
+          "condition_passed": false,
+          "task_id": "ST1"
+        },
+        {
+          "baseline_passed": true,
+          "condition_passed": true,
+          "task_id": "ST2"
+        },
+        {
+          "baseline_passed": false,
+          "condition_passed": false,
+          "task_id": "ST3"
+        },
+        {
+          "baseline_passed": false,
+          "condition_passed": false,
+          "task_id": "ST4"
+        },
+        {
+          "baseline_passed": true,
+          "condition_passed": true,
+          "task_id": "ST5"
+        },
+        {
+          "baseline_passed": false,
+          "condition_passed": false,
+          "task_id": "ST6"
+        }
+      ],
+      "paired_success_delta": -0.083333,
+      "task_class": "all"
+    },
+    {
+      "baseline": "C0",
+      "baseline_only": 0,
+      "baseline_success_rate": 1.0,
+      "both_fail": 0,
+      "both_pass": 3,
+      "condition": "C7",
+      "condition_only": 0,
+      "condition_success_rate": 1.0,
+      "discordant_pairs": 0,
+      "exact_mcnemar_p_value": 1.0,
+      "n": 3,
+      "paired_rows": [
+        {
+          "baseline_passed": true,
+          "condition_passed": true,
+          "task_id": "M1"
+        },
+        {
+          "baseline_passed": true,
+          "condition_passed": true,
+          "task_id": "M2"
+        },
+        {
+          "baseline_passed": true,
+          "condition_passed": true,
+          "task_id": "M3"
+        }
+      ],
+      "paired_success_delta": 0.0,
+      "task_class": "medium_reasoning"
+    },
+    {
+      "baseline": "C0",
+      "baseline_only": 0,
+      "baseline_success_rate": 1.0,
+      "both_fail": 0,
+      "both_pass": 2,
+      "condition": "C7",
+      "condition_only": 0,
+      "condition_success_rate": 1.0,
+      "discordant_pairs": 0,
+      "exact_mcnemar_p_value": 1.0,
+      "n": 2,
+      "paired_rows": [
+        {
+          "baseline_passed": true,
+          "condition_passed": true,
+          "task_id": "S1"
+        },
+        {
+          "baseline_passed": true,
+          "condition_passed": true,
+          "task_id": "S2"
+        }
+      ],
+      "paired_success_delta": 0.0,
+      "task_class": "short_deterministic"
+    },
+    {
+      "baseline": "C0",
+      "baseline_only": 1,
+      "baseline_success_rate": 0.5,
+      "both_fail": 3,
+      "both_pass": 2,
+      "condition": "C7",
+      "condition_only": 0,
+      "condition_success_rate": 0.333333,
+      "discordant_pairs": 1,
+      "exact_mcnemar_p_value": 1.0,
+      "n": 6,
+      "paired_rows": [
+        {
+          "baseline_passed": true,
+          "condition_passed": false,
+          "task_id": "ST1"
+        },
+        {
+          "baseline_passed": true,
+          "condition_passed": true,
+          "task_id": "ST2"
+        },
+        {
+          "baseline_passed": false,
+          "condition_passed": false,
+          "task_id": "ST3"
+        },
+        {
+          "baseline_passed": false,
+          "condition_passed": false,
+          "task_id": "ST4"
+        },
+        {
+          "baseline_passed": true,
+          "condition_passed": true,
+          "task_id": "ST5"
+        },
+        {
+          "baseline_passed": false,
+          "condition_passed": false,
+          "task_id": "ST6"
+        }
+      ],
+      "paired_success_delta": -0.166667,
+      "task_class": "stress_deterministic"
+    },
+    {
+      "baseline": "C0",
+      "baseline_only": 0,
+      "baseline_success_rate": 1.0,
+      "both_fail": 0,
+      "both_pass": 1,
+      "condition": "C7",
+      "condition_only": 0,
+      "condition_success_rate": 1.0,
+      "discordant_pairs": 0,
+      "exact_mcnemar_p_value": 1.0,
+      "n": 1,
+      "paired_rows": [
+        {
+          "baseline_passed": true,
+          "condition_passed": true,
+          "task_id": "H1"
+        }
+      ],
+      "paired_success_delta": 0.0,
+      "task_class": "tiny_symbolic"
+    }
+  ],
+  "generated_at": "2026-05-27T08:40:18+00:00",
+  "id": "M4b-agent-loop-necessity-tiny-pilot-analysis",
+  "method": "Paired task-level contrasts against C0 with an exact two-sided binomial McNemar-style p-value over discordant pairs. This is descriptive for the tiny pilot and not publication-grade inference.",
+  "model": "gpt-5.4-mini",
+  "provider": "https://api.openai.com",
+  "source_results": "data/M4b-agent-loop-necessity-tiny-pilot-results.json"
+}

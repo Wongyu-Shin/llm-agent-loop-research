@@ -1,0 +1,21 @@
+{
+  "artifact_version": "1.0",
+  "schema_version": "1.0",
+  "skill_version": "0.1.0",
+  "run_id": "2026-07-29-163725",
+  "command": "run",
+  "workflow_preset": "validate-only",
+  "quality": "strict",
+  "created_at": "2026-07-29T07:37:25.135329+00:00",
+  "components": [
+    {
+      "name": "SelfCorrectionScalingReport",
+      "kind": "page",
+      "selector": "main h1",
+      "visual_requirement_trigger": "configured_live_route",
+      "linked_claim_ids": [
+        "claim.target_page.live"
+      ]
+    }
+  ]
+}

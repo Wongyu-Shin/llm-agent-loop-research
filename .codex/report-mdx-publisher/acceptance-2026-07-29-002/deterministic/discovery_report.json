@@ -1,0 +1,30 @@
+{
+  "artifact_version": "1.0",
+  "schema_version": "1.0",
+  "skill_version": "0.1.0",
+  "run_id": "2026-07-29-163504",
+  "command": "validate",
+  "workflow_preset": "full-report",
+  "quality": "fast",
+  "created_at": "2026-07-29T07:35:04.209625+00:00",
+  "candidates": [
+    {
+      "type": "package_json",
+      "path": "fixtures/synthetic/docs-app/package.json",
+      "confidence": 0.5
+    },
+    {
+      "type": "mdx_page",
+      "path": "fixtures/synthetic/docs-app/app/page.mdx",
+      "confidence": 0.8
+    }
+  ],
+  "selected": {
+    "docs_app_root": "fixtures/synthetic/docs-app",
+    "authority": "config",
+    "confidence": 1.0
+  },
+  "conflicts": [],
+  "docs_root_candidates": [],
+  "unresolved_questions": []
+}

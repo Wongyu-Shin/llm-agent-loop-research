@@ -1,0 +1,26 @@
+{
+  "artifact_version": "1.0",
+  "schema_version": "1.0",
+  "skill_version": "0.1.0",
+  "run_id": "2026-07-29-163452",
+  "command": "cleanup",
+  "workflow_preset": "full-report",
+  "quality": "fast",
+  "created_at": "2026-07-29T07:34:52.428081+00:00",
+  "os": "macOS-26.0.1-arm64-arm-64bit",
+  "locale": "C.UTF-8",
+  "timezone": "KST",
+  "python_version": "3.9.6",
+  "node_version": "v26.0.0",
+  "npm_version": "11.12.1",
+  "browser_name": "chromium",
+  "browser_version": "Version 1.62.0",
+  "playwright_version": "Version 1.62.0",
+  "environment_flags": {
+    "no_network": false,
+    "dry_run": false
+  },
+  "skill_git_digest": "",
+  "skill_dir": "/Users/wongyushin/.codex/skills/report-mdx-publisher",
+  "repo_root": "/Users/wongyushin/.codex/skills/report-mdx-publisher"
+}

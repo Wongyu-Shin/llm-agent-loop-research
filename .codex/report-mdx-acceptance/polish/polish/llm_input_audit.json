@@ -1,0 +1,22 @@
+{
+  "artifact_version": "1.0",
+  "schema_version": "1.0",
+  "skill_version": "0.1.0",
+  "run_id": "2026-07-29-151626",
+  "command": "polish",
+  "workflow_preset": "full-report",
+  "quality": "strict",
+  "created_at": "2026-07-29T06:16:26.186791+00:00",
+  "raw_mdx_sent": false,
+  "rewrite_bundle_only": true,
+  "llm_provider_invoked": false,
+  "blocked_tokens": [],
+  "forbidden_constructs_present": {
+    "imports": false,
+    "exports": true,
+    "navMeta": true,
+    "jsx_props": false,
+    "code_fences": false,
+    "table_delimiters": true
+  }
+}

@@ -1,0 +1,164 @@
+{
+  "id": "M4b-agent-loop-necessity-study-protocol",
+  "date": "2026-05-27",
+  "status": "preregistration-style draft",
+  "conditional_thesis": "Loop-based LLM agents are structurally justified for long-horizon, open-ended, partially observable, externally verifiable tasks because one-shot autoregressive decoding lacks task-utility search, external feedback, reliable revision, and state control.",
+  "research_questions": [
+    {
+      "id": "RQ1",
+      "question": "Does loop-based operation outperform one-shot decoding on long-horizon tasks?",
+      "falsifiable_answer": "Supported only if loop conditions beat one-shot baselines after cost reporting."
+    },
+    {
+      "id": "RQ2",
+      "question": "Is external feedback necessary for loop benefits?",
+      "falsifiable_answer": "Supported if grounded tool/test/retrieval feedback beats self-reflection-only loops."
+    },
+    {
+      "id": "RQ3",
+      "question": "Does loop benefit scale with horizon length?",
+      "falsifiable_answer": "Supported if loop advantage grows from short to medium to long tasks."
+    },
+    {
+      "id": "RQ4",
+      "question": "Can loops harm performance?",
+      "falsifiable_answer": "Supported if weak-verifier or no-rollback loops regress relative to one-shot baselines."
+    }
+  ],
+  "conditions": [
+    {
+      "id": "C0",
+      "name": "one_shot_greedy",
+      "description": "Deterministic direct answer."
+    },
+    {
+      "id": "C1",
+      "name": "one_shot_sampling",
+      "description": "Single stochastic answer."
+    },
+    {
+      "id": "C2",
+      "name": "best_of_n_no_verifier",
+      "description": "Multiple samples without reliable selection."
+    },
+    {
+      "id": "C3",
+      "name": "best_of_n_verifier",
+      "description": "Multiple samples selected by an external or calibrated verifier."
+    },
+    {
+      "id": "C4",
+      "name": "self_reflection_loop",
+      "description": "Model critiques and revises without external feedback."
+    },
+    {
+      "id": "C5",
+      "name": "grounded_feedback_loop",
+      "description": "Model observes tests, tools, or retrieval and revises."
+    },
+    {
+      "id": "C6",
+      "name": "full_state_control_loop",
+      "description": "Grounded feedback plus rollback, state ledger, and stopping rule."
+    },
+    {
+      "id": "C7",
+      "name": "weak_verifier_stress",
+      "description": "Loop uses intentionally noisy or underpowered verifier."
+    }
+  ],
+  "task_classes": [
+    {
+      "id": "short_deterministic",
+      "examples": ["json_extraction", "format_conversion", "simple_classification"],
+      "expected_loop_effect": "neutral_or_negative"
+    },
+    {
+      "id": "medium_reasoning",
+      "examples": ["math_reasoning", "logic_puzzle", "multi_hop_qa"],
+      "expected_loop_effect": "positive_with_verifier_or_search"
+    },
+    {
+      "id": "long_software",
+      "examples": ["bug_fix", "refactor", "failing_test_repair"],
+      "expected_loop_effect": "positive_with_tests_and_rollback"
+    },
+    {
+      "id": "long_research",
+      "examples": ["source_search", "citation_synthesis", "contradiction_resolution"],
+      "expected_loop_effect": "positive_with_retrieval_and_provenance"
+    },
+    {
+      "id": "long_planning",
+      "examples": ["web_navigation", "grid_world", "multi_step_plan_validation"],
+      "expected_loop_effect": "positive_with_observation_action_loop"
+    }
+  ],
+  "primary_metric": {
+    "name": "task_utility",
+    "formula": "success_score - cost_penalty - side_effect_penalty - regression_penalty"
+  },
+  "secondary_metrics": [
+    "success_rate",
+    "visible_hidden_gap",
+    "token_cost",
+    "model_calls",
+    "tool_calls",
+    "wall_time_seconds",
+    "revision_count",
+    "rollback_count",
+    "verifier_disagreement",
+    "context_growth_tokens",
+    "regression_after_revision",
+    "stale_state_error"
+  ],
+  "statistical_models": {
+    "binary_success": "logit(P(success)) ~ condition * horizon_class + feedback_type + log(cost) + (1 | task_family) + (1 | task_id)",
+    "continuous_utility": "utility ~ condition * horizon_class + feedback_type + log(cost) + (1 | task_family) + (1 | task_id)"
+  },
+  "predeclared_contrasts": [
+    {
+      "contrast": "C6 > C0 on long tasks",
+      "interpretation": "Full loop beats one-shot greedy."
+    },
+    {
+      "contrast": "C6 > C4 on long tasks",
+      "interpretation": "External feedback beats self-reflection only."
+    },
+    {
+      "contrast": "C3 > C2",
+      "interpretation": "Verifier selection matters beyond more samples."
+    },
+    {
+      "contrast": "C7 < C6",
+      "interpretation": "Verifier quality moderates loop benefit."
+    }
+  ],
+  "failure_labels": [
+    "local_decoding_error",
+    "objective_mismatch",
+    "verifier_false_positive",
+    "verifier_false_negative",
+    "self_critique_regression",
+    "context_drift",
+    "stale_memory",
+    "tool_observation_error",
+    "rollback_failure",
+    "cost_overrun",
+    "side_effect"
+  ],
+  "support_criteria": [
+    "Full loops beat one-shot baselines on long-horizon tasks after cost reporting.",
+    "Loop advantage is smaller or absent on short deterministic tasks.",
+    "External feedback loops beat self-reflection-only loops.",
+    "Weak verifier loops show plateau or regression.",
+    "Failure logs show reduced unrepaired error propagation, not merely longer outputs."
+  ],
+  "weakening_criteria": [
+    "One-shot baselines match full loops on long-horizon tasks.",
+    "Self-reflection-only loops match external feedback loops.",
+    "Loop gains vanish after cost normalization.",
+    "Failures are dominated by verifier error, memory corruption, or context drift.",
+    "Negative controls show loops help equally on trivial tasks."
+  ]
+}

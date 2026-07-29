@@ -1,0 +1,312 @@
+{
+  "artifact_version": "1.0",
+  "schema_version": "1.0",
+  "skill_version": "0.1.0",
+  "run_id": "2026-07-29-151626",
+  "command": "polish",
+  "workflow_preset": "full-report",
+  "quality": "strict",
+  "created_at": "2026-07-29T06:16:26.186791+00:00",
+  "input_paths": {
+    "config": "fixtures/polish/report_input.yaml"
+  },
+  "output_paths": {
+    "run_dir": "/Users/wongyushin/personal/llm-agent-loop-research/.codex/report-mdx-acceptance/polish"
+  },
+  "repo_root": "/Users/wongyushin/.codex/skills/report-mdx-publisher",
+  "repo_commit": "",
+  "upstream_manifest_version": "1.0",
+  "command_results": [
+    {
+      "phase": "polish",
+      "status": "started",
+      "detail": "",
+      "timestamp": "2026-07-29T06:16:29.260611+00:00"
+    },
+    {
+      "phase": "polish",
+      "status": "passed",
+      "detail": "",
+      "timestamp": "2026-07-29T06:16:29.274066+00:00"
+    }
+  ],
+  "artifact_paths": [
+    "artifact_index.json",
+    "changed_files.json",
+    "discovery_report.json",
+    "environment_manifest.json",
+    "evidence_ledger.json",
+    "install_check.json",
+    "polish/00_metrics.json",
+    "polish/01_input.mdx",
+    "polish/01_input_with_metrics.txt",
+    "polish/01_protected_map.json",
+    "polish/01_protected_spans.json",
+    "polish/01_rewrite_bundle.jsonl",
+    "polish/01_rewrite_spans.json",
+    "polish/02_detection.json",
+    "polish/02_do_not_ledger.json",
+    "polish/03_edit_plan.json",
+    "polish/03_rewrite.mdx",
+    "polish/03_rewrite_diff.json",
+    "polish/04_fidelity_audit.json",
+    "polish/04_fidelity_audit.llm.json",
+    "polish/04_fidelity_audit.machine.json",
+    "polish/05_naturalness_review.json",
+    "polish/final.mdx",
+    "polish/llm_input_audit.json",
+    "polish/offset_roundtrip_report.json",
+    "polish/post_rollback_fidelity_check.json",
+    "polish/prompt_bundle.redacted.jsonl",
+    "polish/prompt_bundle.sha256",
+    "polish/summary.json",
+    "privacy_scan.json",
+    "report_input.resolved.json",
+    "run_manifest.json",
+    "run_report.json",
+    "run_report.md"
+  ],
+  "skipped_artifacts": [
+    {
+      "path": "mdx/01_input_digest.json",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command polish with workflow_preset full-report does not run draft"
+    },
+    {
+      "path": "mdx/01_input.mdx",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command polish with workflow_preset full-report does not run draft"
+    },
+    {
+      "path": "mdx/01_rewrite_spans.json",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command polish with workflow_preset full-report does not run draft"
+    },
+    {
+      "path": "mdx/01_protected_spans.json",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command polish with workflow_preset full-report does not run draft"
+    },
+    {
+      "path": "mdx/02_draft.mdx",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command polish with workflow_preset full-report does not run draft"
+    },
+    {
+      "path": "mdx/final.diff",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command polish with workflow_preset full-report does not run draft"
+    },
+    {
+      "path": "validation/static_check.json",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command polish with workflow_preset full-report does not run validate"
+    },
+    {
+      "path": "validation/nav_check.json",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command polish with workflow_preset full-report does not run validate"
+    },
+    {
+      "path": "validation/render_probe.jsonl",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command polish with workflow_preset full-report does not run validate"
+    },
+    {
+      "path": "validation/route_manifest.json",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command polish with workflow_preset full-report does not run validate"
+    },
+    {
+      "path": "validation/route_source_diff.json",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command polish with workflow_preset full-report does not run validate"
+    },
+    {
+      "path": "validation/mdx_contract_check.json",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command polish with workflow_preset full-report does not run validate"
+    },
+    {
+      "path": "validation/mdx_contract_negative_cases.json",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command polish with workflow_preset full-report does not run validate"
+    },
+    {
+      "path": "validation/fixture_matrix.json",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command polish with workflow_preset full-report does not run validate"
+    },
+    {
+      "path": "validation/component_inventory.json",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command polish with workflow_preset full-report does not run validate"
+    },
+    {
+      "path": "validation/browser_component_probe.json",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command polish with workflow_preset full-report does not run validate"
+    },
+    {
+      "path": "validation/browser_trace.zip",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command polish with workflow_preset full-report does not run validate"
+    },
+    {
+      "path": "validation/network.har",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command polish with workflow_preset full-report does not run validate"
+    },
+    {
+      "path": "validation/console.ndjson",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command polish with workflow_preset full-report does not run validate"
+    },
+    {
+      "path": "validation/screenshot_manifest.json",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command polish with workflow_preset full-report does not run validate"
+    },
+    {
+      "path": "validation/component_probe_action_matrix.json",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command polish with workflow_preset full-report does not run validate"
+    },
+    {
+      "path": "validation/pedagogy_judge.json",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command polish with workflow_preset full-report does not run validate"
+    },
+    {
+      "path": "validation/visual_judge.json",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command polish with workflow_preset full-report does not run validate"
+    },
+    {
+      "path": "validation/engineering_judge.json",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command polish with workflow_preset full-report does not run validate"
+    },
+    {
+      "path": "validation/judge_results.json",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command polish with workflow_preset full-report does not run validate"
+    },
+    {
+      "path": "validation/judge_decision.json",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command polish with workflow_preset full-report does not run validate"
+    },
+    {
+      "path": "validation/judge_decision_trace.json",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command polish with workflow_preset full-report does not run validate"
+    },
+    {
+      "path": "validation/claim_trace_report.json",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command polish with workflow_preset full-report does not run validate"
+    },
+    {
+      "path": "cleanup_report.json",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command polish with workflow_preset full-report does not run cleanup"
+    },
+    {
+      "path": "acceptance_decision_record.json",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command polish with workflow_preset full-report does not run acceptance"
+    },
+    {
+      "path": "acceptance_decision_record.md",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command polish with workflow_preset full-report does not run acceptance"
+    }
+  ],
+  "skipped_artifact_reasons": {
+    "mdx/01_input_digest.json": "command polish with workflow_preset full-report does not run draft",
+    "mdx/01_input.mdx": "command polish with workflow_preset full-report does not run draft",
+    "mdx/01_rewrite_spans.json": "command polish with workflow_preset full-report does not run draft",
+    "mdx/01_protected_spans.json": "command polish with workflow_preset full-report does not run draft",
+    "mdx/02_draft.mdx": "command polish with workflow_preset full-report does not run draft",
+    "mdx/final.diff": "command polish with workflow_preset full-report does not run draft",
+    "validation/static_check.json": "command polish with workflow_preset full-report does not run validate",
+    "validation/nav_check.json": "command polish with workflow_preset full-report does not run validate",
+    "validation/render_probe.jsonl": "command polish with workflow_preset full-report does not run validate",
+    "validation/route_manifest.json": "command polish with workflow_preset full-report does not run validate",
+    "validation/route_source_diff.json": "command polish with workflow_preset full-report does not run validate",
+    "validation/mdx_contract_check.json": "command polish with workflow_preset full-report does not run validate",
+    "validation/mdx_contract_negative_cases.json": "command polish with workflow_preset full-report does not run validate",
+    "validation/fixture_matrix.json": "command polish with workflow_preset full-report does not run validate",
+    "validation/component_inventory.json": "command polish with workflow_preset full-report does not run validate",
+    "validation/browser_component_probe.json": "command polish with workflow_preset full-report does not run validate",
+    "validation/browser_trace.zip": "command polish with workflow_preset full-report does not run validate",
+    "validation/network.har": "command polish with workflow_preset full-report does not run validate",
+    "validation/console.ndjson": "command polish with workflow_preset full-report does not run validate",
+    "validation/screenshot_manifest.json": "command polish with workflow_preset full-report does not run validate",
+    "validation/component_probe_action_matrix.json": "command polish with workflow_preset full-report does not run validate",
+    "validation/pedagogy_judge.json": "command polish with workflow_preset full-report does not run validate",
+    "validation/visual_judge.json": "command polish with workflow_preset full-report does not run validate",
+    "validation/engineering_judge.json": "command polish with workflow_preset full-report does not run validate",
+    "validation/judge_results.json": "command polish with workflow_preset full-report does not run validate",
+    "validation/judge_decision.json": "command polish with workflow_preset full-report does not run validate",
+    "validation/judge_decision_trace.json": "command polish with workflow_preset full-report does not run validate",
+    "validation/claim_trace_report.json": "command polish with workflow_preset full-report does not run validate",
+    "cleanup_report.json": "command polish with workflow_preset full-report does not run cleanup",
+    "acceptance_decision_record.json": "command polish with workflow_preset full-report does not run acceptance",
+    "acceptance_decision_record.md": "command polish with workflow_preset full-report does not run acceptance"
+  },
+  "resume_source": "",
+  "resume_source_exit_code": "",
+  "resume_source_final_status": "",
+  "resumed_artifact_count": 0,
+  "recomputed_phases": [
+    "polish",
+    "polish"
+  ],
+  "source_snapshot": {
+    "repo_commit": "",
+    "skill_version": "0.1.0",
+    "input_files": [
+      {
+        "path": "/Users/wongyushin/.codex/skills/report-mdx-publisher/fixtures/polish/report_input.yaml",
+        "sha256": "98a14ece37e28b95f2ca3ed94ded2f1698cf272397331855c58d5baecce95dc2",
+        "bytes": 118
+      }
+    ],
+    "digest": "66a80f55fbb95468c95f6d922cd279b23ef2ef76d30b33b88b0780b6ba994175"
+  },
+  "exit_code": 0,
+  "final_status": "passed"
+}

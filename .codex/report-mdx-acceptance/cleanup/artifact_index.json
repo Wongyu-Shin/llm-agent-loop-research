@@ -1,0 +1,418 @@
+{
+  "artifact_version": "1.0",
+  "schema_version": "1.0",
+  "skill_version": "0.1.0",
+  "run_id": "2026-07-29-151629",
+  "command": "cleanup",
+  "workflow_preset": "full-report",
+  "quality": "fast",
+  "created_at": "2026-07-29T06:16:29.346958+00:00",
+  "artifacts": [
+    {
+      "path": "acceptance_decision_record.json",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command cleanup with workflow_preset full-report does not run acceptance"
+    },
+    {
+      "path": "acceptance_decision_record.md",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command cleanup with workflow_preset full-report does not run acceptance"
+    },
+    {
+      "path": "changed_files.json",
+      "status": "produced",
+      "retention_class": "debug",
+      "reason": "",
+      "sha256": "7c531b8fc9b2e048ed3d24086a847212b1ed2093534a8d480846fae86763ff05",
+      "bytes": 270
+    },
+    {
+      "path": "cleanup_report.json",
+      "status": "produced",
+      "retention_class": "debug",
+      "reason": "",
+      "sha256": "316254ce9ce88eff19122a9b5bcb94b1a963d793760d62ae22e8dcacafed1631",
+      "bytes": 420
+    },
+    {
+      "path": "discovery_report.json",
+      "status": "produced",
+      "retention_class": "debug",
+      "reason": "",
+      "sha256": "4f08c81731d5227d0fb3ea526d6827a39bc3489108bb319f1c97b6b6be36a9c2",
+      "bytes": 699
+    },
+    {
+      "path": "environment_manifest.json",
+      "status": "produced",
+      "retention_class": "debug",
+      "reason": "",
+      "sha256": "43d1f21d75402c05c2d5a15f9de46242cb129658ab095693385f6de991fc9505",
+      "bytes": 778
+    },
+    {
+      "path": "evidence_ledger.json",
+      "status": "produced",
+      "retention_class": "debug",
+      "reason": "",
+      "sha256": "282379569a2cea484ddb119dcd64e94998db8ca19ba207682ab13cf39fd50dde",
+      "bytes": 386
+    },
+    {
+      "path": "install_check.json",
+      "status": "produced",
+      "retention_class": "debug",
+      "reason": "",
+      "sha256": "904f7bccd2caebef9bc6577f53f7e02aa18e28425f9960960a603736a90845ee",
+      "bytes": 1412
+    },
+    {
+      "path": "mdx/01_input.mdx",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command cleanup with workflow_preset full-report does not run draft"
+    },
+    {
+      "path": "mdx/01_input_digest.json",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command cleanup with workflow_preset full-report does not run draft"
+    },
+    {
+      "path": "mdx/01_protected_spans.json",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command cleanup with workflow_preset full-report does not run draft"
+    },
+    {
+      "path": "mdx/01_rewrite_spans.json",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command cleanup with workflow_preset full-report does not run draft"
+    },
+    {
+      "path": "mdx/02_draft.mdx",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command cleanup with workflow_preset full-report does not run draft"
+    },
+    {
+      "path": "mdx/final.diff",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command cleanup with workflow_preset full-report does not run draft"
+    },
+    {
+      "path": "polish/00_metrics.json",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command cleanup with workflow_preset full-report does not run polish"
+    },
+    {
+      "path": "polish/01_input.mdx",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command cleanup with workflow_preset full-report does not run polish"
+    },
+    {
+      "path": "polish/01_input_with_metrics.txt",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command cleanup with workflow_preset full-report does not run polish"
+    },
+    {
+      "path": "polish/01_protected_map.json",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command cleanup with workflow_preset full-report does not run polish"
+    },
+    {
+      "path": "polish/01_protected_spans.json",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command cleanup with workflow_preset full-report does not run polish"
+    },
+    {
+      "path": "polish/01_rewrite_bundle.jsonl",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command cleanup with workflow_preset full-report does not run polish"
+    },
+    {
+      "path": "polish/01_rewrite_spans.json",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command cleanup with workflow_preset full-report does not run polish"
+    },
+    {
+      "path": "polish/02_detection.json",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command cleanup with workflow_preset full-report does not run polish"
+    },
+    {
+      "path": "polish/02_do_not_ledger.json",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command cleanup with workflow_preset full-report does not run polish"
+    },
+    {
+      "path": "polish/03_edit_plan.json",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command cleanup with workflow_preset full-report does not run polish"
+    },
+    {
+      "path": "polish/03_rewrite.mdx",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command cleanup with workflow_preset full-report does not run polish"
+    },
+    {
+      "path": "polish/03_rewrite_diff.json",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command cleanup with workflow_preset full-report does not run polish"
+    },
+    {
+      "path": "polish/04_fidelity_audit.json",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command cleanup with workflow_preset full-report does not run polish"
+    },
+    {
+      "path": "polish/04_fidelity_audit.llm.json",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command cleanup with workflow_preset full-report does not run polish"
+    },
+    {
+      "path": "polish/04_fidelity_audit.machine.json",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command cleanup with workflow_preset full-report does not run polish"
+    },
+    {
+      "path": "polish/05_naturalness_review.json",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command cleanup with workflow_preset full-report does not run polish"
+    },
+    {
+      "path": "polish/final.mdx",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command cleanup with workflow_preset full-report does not run polish"
+    },
+    {
+      "path": "polish/llm_input_audit.json",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command cleanup with workflow_preset full-report does not run polish"
+    },
+    {
+      "path": "polish/offset_roundtrip_report.json",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command cleanup with workflow_preset full-report does not run polish"
+    },
+    {
+      "path": "polish/post_rollback_fidelity_check.json",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command cleanup with workflow_preset full-report does not run polish"
+    },
+    {
+      "path": "polish/prompt_bundle.redacted.jsonl",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command cleanup with workflow_preset full-report does not run polish"
+    },
+    {
+      "path": "polish/prompt_bundle.sha256",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command cleanup with workflow_preset full-report does not run polish"
+    },
+    {
+      "path": "polish/summary.json",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command cleanup with workflow_preset full-report does not run polish"
+    },
+    {
+      "path": "privacy_scan.json",
+      "status": "produced",
+      "retention_class": "sensitive",
+      "reason": "",
+      "sha256": "ca26f27709484478bec2ce345833b1c0702723eb101abb40ba61472b9d259d2d",
+      "bytes": 291
+    },
+    {
+      "path": "report_input.resolved.json",
+      "status": "produced",
+      "retention_class": "debug",
+      "reason": "",
+      "sha256": "af552faa3975eb576dfa317b17f46333effc08c8a0eae39b440608582fdafcf6",
+      "bytes": 268
+    },
+    {
+      "path": "run_manifest.json",
+      "status": "produced",
+      "retention_class": "permanent",
+      "reason": "",
+      "sha256": "c28835935f141a84c274553c4c223ac4805bb41d0a9e34b8e6432b6bc5af0662",
+      "bytes": 18932
+    },
+    {
+      "path": "run_report.json",
+      "status": "produced",
+      "retention_class": "debug",
+      "reason": "",
+      "sha256": "9a44de27994185175ad8264f036cdcea2a911009f29af4867538a6dd4c8dc5c4",
+      "bytes": 1698
+    },
+    {
+      "path": "run_report.md",
+      "status": "produced",
+      "retention_class": "debug",
+      "reason": "",
+      "sha256": "8dc5654004f8f353327deac86cddf4286599e2a38a7aad371052118a75ba874a",
+      "bytes": 43
+    },
+    {
+      "path": "validation/browser_component_probe.json",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command cleanup with workflow_preset full-report does not run validate"
+    },
+    {
+      "path": "validation/browser_trace.zip",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command cleanup with workflow_preset full-report does not run validate"
+    },
+    {
+      "path": "validation/claim_trace_report.json",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command cleanup with workflow_preset full-report does not run validate"
+    },
+    {
+      "path": "validation/component_inventory.json",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command cleanup with workflow_preset full-report does not run validate"
+    },
+    {
+      "path": "validation/component_probe_action_matrix.json",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command cleanup with workflow_preset full-report does not run validate"
+    },
+    {
+      "path": "validation/console.ndjson",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command cleanup with workflow_preset full-report does not run validate"
+    },
+    {
+      "path": "validation/engineering_judge.json",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command cleanup with workflow_preset full-report does not run validate"
+    },
+    {
+      "path": "validation/fixture_matrix.json",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command cleanup with workflow_preset full-report does not run validate"
+    },
+    {
+      "path": "validation/judge_decision.json",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command cleanup with workflow_preset full-report does not run validate"
+    },
+    {
+      "path": "validation/judge_decision_trace.json",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command cleanup with workflow_preset full-report does not run validate"
+    },
+    {
+      "path": "validation/judge_results.json",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command cleanup with workflow_preset full-report does not run validate"
+    },
+    {
+      "path": "validation/mdx_contract_check.json",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command cleanup with workflow_preset full-report does not run validate"
+    },
+    {
+      "path": "validation/mdx_contract_negative_cases.json",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command cleanup with workflow_preset full-report does not run validate"
+    },
+    {
+      "path": "validation/nav_check.json",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command cleanup with workflow_preset full-report does not run validate"
+    },
+    {
+      "path": "validation/network.har",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command cleanup with workflow_preset full-report does not run validate"
+    },
+    {
+      "path": "validation/pedagogy_judge.json",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command cleanup with workflow_preset full-report does not run validate"
+    },
+    {
+      "path": "validation/render_probe.jsonl",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command cleanup with workflow_preset full-report does not run validate"
+    },
+    {
+      "path": "validation/route_manifest.json",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command cleanup with workflow_preset full-report does not run validate"
+    },
+    {
+      "path": "validation/route_source_diff.json",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command cleanup with workflow_preset full-report does not run validate"
+    },
+    {
+      "path": "validation/screenshot_manifest.json",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command cleanup with workflow_preset full-report does not run validate"
+    },
+    {
+      "path": "validation/static_check.json",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command cleanup with workflow_preset full-report does not run validate"
+    },
+    {
+      "path": "validation/visual_judge.json",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command cleanup with workflow_preset full-report does not run validate"
+    }
+  ]
+}

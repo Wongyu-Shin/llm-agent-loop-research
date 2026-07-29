@@ -1,0 +1,238 @@
+import {
+  PresenterNotes,
+  ProvenanceBadge,
+  ResearchDeck,
+  ResearchHero,
+  StoryScene,
+} from "@/components/self-correction/presentation-shell"
+import {
+  QuestionFlowLab,
+  RepairDamageLab,
+  ScalingEvidenceExplorer,
+  TwoStateTransitionLab,
+} from "@/components/self-correction/paper-visuals"
+import {
+  AutoresearchLoopMap,
+  LoopControlWorkbench,
+  LoopPolicyStudio,
+  TheoryToLoopBridge,
+} from "@/components/self-correction/loop-visuals"
+
+export const metadata = {
+  title: "LLM 자기수정을 위한 확률적 추론 스케일링 이론",
+  description:
+    "A Probabilistic Inference Scaling Theory for LLM Self-Correction를 먼저 이해하고, 복구 이득과 훼손 손실의 멘탈 모델을 Autoresearch형 agent loop의 검증·채택·중단 정책으로 옮기는 25분 인터랙티브 문서입니다.",
+}
+
+<ResearchDeck>
+  <ResearchHero />
+
+  <StoryScene
+    id="scene-01"
+    part="paper"
+    eyebrow="Part I · 논문 이해 · 질문"
+    title="다시 생각하면, 언제 더 좋아집니까?"
+    visual={<QuestionFlowLab />}
+  >
+    <ProvenanceBadge kind="paper">논문 질문</ProvenanceBadge>
+
+    같은 모델이 같은 답을 거듭 고친다고 해서 정확도가 늘 오르는 건 아닙니다. 좋아질 수도 있지만, 그대로이거나 오히려 나빠질 수도 있습니다. 논문은 이 차이를 두 흐름으로 나눠서 봅니다. 하나는 오답이 정답으로 들어오는 **복구 유입**이고, 다른 하나는 정답이 오답으로 빠져나가는 **훼손 유출**입니다.
+
+    <div className="scene-callout">
+      <strong>먼저 붙잡을 결론</strong>
+      <span>몇 번 반복했는지만으로는 결과가 좋아질지 알 수 없습니다.</span>
+    </div>
+
+    <PresenterNotes sceneId="scene-01" />
+  </StoryScene>
+
+  <StoryScene
+    id="scene-02"
+    part="paper"
+    eyebrow="Part I · 논문 이해 · 상태 전이"
+    title="두 조건부 전이율로 다음 정확도를 회계합니다"
+    visual={<TwoStateTransitionLab />}
+  >
+    <ProvenanceBadge kind="paper">논문 정의 · Eq. 6 재인덱싱</ProvenanceBadge>
+
+    논문이 직접 다루는 것은 외부 정보 없이 같은 모델이 이전 응답을 다시 살펴보는 intrinsic self-correction입니다. 라운드 $t$의 정답 비율은 $Acc_t$입니다. 현재 정답이 다음에도 정답으로 남을 확률은 $CL_t$, 현재 오답이 정답으로 복구될 확률은 $CS_t$입니다. 이 값들은 모델이 스스로 말한 자신감이나 critique 점수가 아닙니다. 외부 판정이 끝난 뒤 응답 집단에서 계산한 조건부 전이율입니다.
+
+    <div
+      className="scene-formula"
+      role="math"
+      aria-label="논문 식 6을 t에서 t 더하기 1 방향으로 재인덱싱한 식. 다음 정확도는 현재 정확도 곱하기 CL 아래첨자 t 더하기 현재 오답률 곱하기 CS 아래첨자 t."
+    >
+      <span className="scene-formula-label">논문 Eq. 6 · $t-1 \to t$를 화면 진행 방향 $t \to t+1$로 재인덱싱</span>
+      <span className="scene-equation">$\displaystyle Acc_{t+1} = Acc_t \times CL_t + (1 - Acc_t) \times CS_t$</span>
+    </div>
+
+    <div className="scene-callout">
+      <strong>확률 회계</strong>
+      <span>다음 정확도는 살아남은 정답과 새로 복구된 정답의 합입니다.</span>
+    </div>
+
+    <PresenterNotes sceneId="scene-02" />
+  </StoryScene>
+
+  <StoryScene
+    id="scene-03"
+    part="paper"
+    eyebrow="Part I · 논문 이해 · 한 라운드의 손익"
+    title="복구 이득이 훼손 손실보다 커야 합니다"
+    visual={<RepairDamageLab />}
+  >
+    <ProvenanceBadge kind="paper">논문의 수학적 귀결</ProvenanceBadge>
+
+    한 라운드에서 정확도가 얼마나 달라지는지는 두 항의 차이로 볼 수 있습니다. $(1 - Acc_t) \times CS_t$는 복구 이득이고, $Acc_t \times (1 - CL_t)$는 훼손 손실입니다. 현재 정확도가 99%이고 $CS_t=0.50$이면 손익분기 $CL_t$는 약 99.49%입니다. 따라서 남은 오답의 절반을 고쳐도 기존 정답을 약 0.51%보다 많이 훼손하면 전체 정확도는 오히려 내려갑니다.
+
+    <div
+      className="scene-formula"
+      role="math"
+      aria-label="정확도의 순변화는 복구 이득에서 훼손 손실을 뺀 값."
+    >
+      <span className="scene-formula-label">한 라운드의 순변화</span>
+      <span className="scene-equation">$\displaystyle Acc_{t+1} - Acc_t = (1 - Acc_t) \times CS_t - Acc_t \times (1 - CL_t)$</span>
+    </div>
+
+    <div className="scene-callout">
+      <strong>위험 구조</strong>
+      <span>출발 정확도가 높을수록 작은 훼손률도 큰 비용이 됩니다.</span>
+    </div>
+
+    <PresenterNotes sceneId="scene-03" />
+  </StoryScene>
+
+  <StoryScene
+    id="scene-04"
+    part="paper"
+    eyebrow="Part I · 논문 이해 · 반복 궤적과 근거"
+    title="고정점은 예측 도구이지 보편적 성능 보장이 아닙니다"
+    visual={<ScalingEvidenceExplorer />}
+  >
+    <ProvenanceBadge kind="paper">정지 전이 모형 · 실험 · 비판적 읽기</ProvenanceBadge>
+
+    수렴 궤적을 얻으려면 한 가지 가정이 필요합니다. 논문은 $CL_t$와 $CS_t$가 라운드와 무관한 상수 $CL$, $CS$라고 둡니다. 그런 다음 첫 전이에서 $Acc_0$, $CL$, $CS$를 추정해 2회차부터 5회차의 실제 곡선과 비교합니다. 하지만 가능한 모델·데이터셋 조합 전체나 RMSE·R²·신뢰구간은 보고하지 않았습니다. 따라서 이 결과를 모든 최신 agent에 통하는 장기 법칙으로 넓혀서는 안 됩니다.
+
+    <div
+      className="scene-formula scene-formula-grid"
+      role="math"
+      aria-label="정지 전이 모형의 네 식. 정확도 전이식, Upp, 알파, 닫힌형 정확도 궤적."
+    >
+      <span className="scene-equation">$\displaystyle Acc_t = Acc_{t-1} \times CL + (1 - Acc_{t-1}) \times CS$</span>
+      <span className="scene-equation">$\displaystyle Upp = \frac{CS}{1 - CL + CS}$</span>
+      <span className="scene-equation">$\displaystyle \alpha = CL - CS$</span>
+      <span className="scene-equation">$\displaystyle Acc_t = Upp - \alpha^t \times (Upp - Acc_0)$</span>
+    </div>
+
+    <div className="scene-callout">
+      <strong>적용 한계</strong>
+      <span>$Upp$는 주어진 데이터·프롬프트·수정 절차가 만드는 점근적 고정점입니다. 빨리 수렴한다고 해서 정확도가 높다는 뜻은 아닙니다.</span>
+    </div>
+
+    <PresenterNotes sceneId="scene-04" />
+  </StoryScene>
+
+  <StoryScene
+    id="scene-05"
+    part="bridge"
+    eyebrow="전환 · 적용 경계"
+    title="고정 곡선이 아니라 복구와 훼손을 묻는 습관을 옮깁니다"
+    visual={<TheoryToLoopBridge />}
+  >
+    <ProvenanceBadge kind="interpretation">여기부터 엔지니어링 적용</ProvenanceBadge>
+
+    논문이 분석하는 단위는 같은 응답을 다시 고치는 한 라운드입니다. 반면 실무 loop가 다루는 단위는 격리된 artifact experiment입니다. 그러므로 정답·오답을 challenger와 incumbent에 바로 대응시켜서는 안 됩니다. 사례별 pass/fail 기준이 있을 때만 $CL_t$와 $CS_t$를 계산할 수 있습니다. 연속형 metric 하나뿐이라면 metric delta·불확실성·guard·holdout을 직접 비교해야 합니다.
+
+    <div className="scene-callout">
+      <strong>전환 규칙</strong>
+      <span>candidate가 만든 변화와 evidence gate를 통과한 뒤의 system state 변화는 따로 봐야 합니다.</span>
+    </div>
+
+    <PresenterNotes sceneId="scene-05" />
+  </StoryScene>
+
+  <StoryScene
+    id="scene-06"
+    part="practice"
+    eyebrow="Part II · Autoresearch 적용 · 구조"
+    title="무엇을 고정하고, 무엇을 바꾸며, 누가 채택합니까?"
+    visual={<AutoresearchLoopMap />}
+  >
+    <ProvenanceBadge kind="official">공식 Autoresearch 사례 + 엔지니어링 일반화</ProvenanceBadge>
+
+    공식 Autoresearch 예시에서는 `prepare.py`의 data·runtime utility·evaluator를 고정하고 `train.py` 하나만 바꿉니다. startup·compile을 제외한 5분 학습 뒤에는 낮을수록 좋은 `val_bpb`로 challenger를 비교합니다. 이 구조를 실무로 넓히려면 research contract, incumbent, isolated challenger, raw observation, verdict, append-only experiment ledger, derived memory를 별도 객체로 분리해 둬야 합니다. 그리고 KEEP 판정을 받은 challenger만 다음 incumbent가 되게 합니다.
+
+    <div className="scene-callout">
+      <strong>실험 단위</strong>
+      <span>Autoresearch형 loop의 한 번은 생각 한 번을 뜻하지 않습니다. 고정된 계약 아래 실행하고 되돌릴 수 있는 실험 한 건입니다.</span>
+    </div>
+
+    <PresenterNotes sceneId="scene-06" />
+  </StoryScene>
+
+  <StoryScene
+    id="scene-07"
+    part="practice"
+    eyebrow="Part II · Autoresearch 적용 · 통제"
+    title="KEEP·DISCARD·CRASH 뒤에 무엇이 실제로 바뀝니까?"
+    visual={<LoopControlWorkbench />}
+  >
+    <ProvenanceBadge kind="practice">실무 권고 · replay, diagnose, stop</ProvenanceBadge>
+
+    KEEP이면 challenger와 incumbent가 함께 전진합니다. DISCARD나 CRASH이면 incumbent는 그대로 두고 실패 증거만 ledger에 추가합니다. 이 구분을 먼저 지켜야 합니다. 그런 다음 proposer·executor·evaluator·controller의 경계를 나눠서 진단합니다. 한 trial의 timeout과 전체 campaign의 성공·안전·cycle·plateau·예산·human gate 종료도 서로 다른 시계로 관리해야 합니다. 그래야 마지막 candidate가 아니라 검증된 best-so-far를 반환할 수 있습니다.
+
+    <div className="scene-callout">
+      <strong>시스템 보존</strong>
+      <span>candidate가 실패하면 ledger는 바뀝니다. 하지만 gate를 통과하기 전에는 incumbent를 후퇴시키지 않습니다.</span>
+    </div>
+
+    <PresenterNotes sceneId="scene-07" />
+  </StoryScene>
+
+  <StoryScene
+    id="scene-08"
+    part="practice"
+    eyebrow="Part II · Autoresearch 적용 · 정책"
+    title="목표·변경·증거·채택·기억·중단을 한 장에 씁니다"
+    visual={<LoopPolicyStudio />}
+  >
+    <ProvenanceBadge kind="synthetic">편집 가능한 synthetic policy</ProvenanceBadge>
+
+    loop policy를 쓸 때는 실제 goal과 proxy metric, mutable artifact와 frozen harness, trial budget과 campaign budget, raw observation과 score, experiment ledger와 derived memory를 각각 분리합니다. 여기에 KEEP·DISCARD·CRASH·rollback, 구조화된 stop reason, 고위험 external action의 human gate를 명시합니다. 이 구성을 갖추면 복구 이득과 훼손 손실이라는 논문의 렌즈를 실무의 보수적인 acceptance policy로 옮길 수 있습니다.
+
+    <ol className="scene-final-takeaways">
+      <li>논문은 반복 횟수보다 정답 보존과 오답 복구의 균형을 먼저 보게 합니다.</li>
+      <li>실무에 적용할 때는 candidate의 전이와 system-after-gate의 전이를 따로 봐야 합니다.</li>
+      <li>좋은 agent loop는 많이 고치는 시스템이 아닙니다. 증거 없는 변경을 채택하지 않는 시스템입니다.</li>
+    </ol>
+
+    <PresenterNotes sceneId="scene-08" />
+  </StoryScene>
+
+  <footer className="deck-sources" aria-labelledby="deck-sources-title">
+    <div>
+      <span>PRIMARY SOURCES</span>
+      <h2 id="deck-sources-title">근거와 적용 경계</h2>
+    </div>
+    <ul className="scene-source-list">
+      <li>
+        <a href="https://aclanthology.org/2025.emnlp-main.685/" target="_blank" rel="noreferrer">
+          Yang et al. (2025), A Probabilistic Inference Scaling Theory for LLM Self-Correction
+        </a>
+        <span>논문의 정의, 수렴식, 단일 전이 추정, 실험 비교</span>
+      </li>
+      <li>
+        <a href="https://github.com/karpathy/autoresearch" target="_blank" rel="noreferrer">
+          karpathy/autoresearch README
+        </a>
+        <span>고정 파일, 변경 파일, 5분 실행 예산, val_bpb</span>
+      </li>
+      <li>
+        <a href="https://github.com/karpathy/autoresearch/blob/master/program.md" target="_blank" rel="noreferrer">
+          karpathy/autoresearch program.md
+        </a>
+        <span>baseline, results.tsv, KEEP·DISCARD·CRASH, revert와 기본 중단 정책</span>
+      </li>
+    </ul>
+  </footer>
+</ResearchDeck>

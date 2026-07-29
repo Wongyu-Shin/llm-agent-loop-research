@@ -1,0 +1,57 @@
+{
+  "artifact_version": "1.0",
+  "schema_version": "1.0",
+  "skill_version": "0.1.0",
+  "run_id": "2026-07-29-163452",
+  "command": "cleanup",
+  "workflow_preset": "full-report",
+  "quality": "fast",
+  "created_at": "2026-07-29T07:34:52.428081+00:00",
+  "status": "passed",
+  "exit_code": 0,
+  "files_changed": [],
+  "validations_run": [
+    "validation/static_check.json",
+    "validation/nav_check.json",
+    "validation/render_probe.jsonl",
+    "validation/route_manifest.json",
+    "validation/route_source_diff.json",
+    "validation/mdx_contract_check.json",
+    "validation/mdx_contract_negative_cases.json",
+    "validation/fixture_matrix.json",
+    "validation/component_inventory.json",
+    "validation/browser_component_probe.json",
+    "validation/browser_trace.zip",
+    "validation/network.har",
+    "validation/console.ndjson",
+    "validation/screenshot_manifest.json",
+    "validation/component_probe_action_matrix.json",
+    "validation/pedagogy_judge.json",
+    "validation/visual_judge.json",
+    "validation/engineering_judge.json",
+    "validation/judge_results.json",
+    "validation/judge_decision.json",
+    "validation/judge_decision_trace.json",
+    "validation/claim_trace_report.json"
+  ],
+  "gate_results": [
+    {
+      "phase": "cleanup",
+      "status": "started",
+      "detail": "",
+      "timestamp": "2026-07-29T07:34:55.297856+00:00"
+    },
+    {
+      "phase": "cleanup",
+      "status": "passed",
+      "detail": "",
+      "timestamp": "2026-07-29T07:34:55.298389+00:00"
+    }
+  ],
+  "failed_phases": [],
+  "retried_phases": [],
+  "runtime": {
+    "started_at": "2026-07-29T07:34:52.428081+00:00",
+    "finished_at": "2026-07-29T07:34:55.299716+00:00"
+  }
+}

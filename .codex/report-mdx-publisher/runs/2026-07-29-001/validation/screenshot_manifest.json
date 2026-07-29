@@ -1,0 +1,18 @@
+{
+  "artifact_version": "1.0",
+  "schema_version": "1.0",
+  "skill_version": "0.1.0",
+  "run_id": "2026-07-29-111123",
+  "command": "run",
+  "workflow_preset": "validate-only",
+  "quality": "strict",
+  "created_at": "2026-07-29T02:11:23.744550+00:00",
+  "screenshots": [
+    {
+      "path": "validation/screenshots/live-page.png",
+      "sha256": "71df4f29ad2bd2a6ac45fa362cb7a49bae971b2f15cd8ebc9b2b020ad03dfee5",
+      "nonblank": true,
+      "source": "browser"
+    }
+  ]
+}

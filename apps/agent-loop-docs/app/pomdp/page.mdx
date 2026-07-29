@@ -1,0 +1,135 @@
+import {
+  ArticlePage,
+  ComparisonTable,
+  DocHero,
+  LeadStatement,
+  ModelCheckpoint,
+  Note,
+  PageNav,
+  Section,
+  SourceLink,
+  TermGrid,
+} from "@/components/doc-ui"
+import { PomdpBeliefLab } from "@/components/visualizations/pomdp-belief-lab"
+import { PomdpInformationValueExplorer } from "@/components/visualizations/pomdp-information-value-explorer"
+import { PomdpStructureExplorer } from "@/components/visualizations/pomdp-structure-explorer"
+
+export const metadata = {
+  title: "POMDP로 테스트 결과에서 결함 원인 추정하기",
+  description: "결제 API의 숨은 결함 원인을 test observation으로 추정하며 belief update와 정보의 가치를 설명합니다.",
+}
+
+<ArticlePage
+  toc={[
+    { id: "checkpoint", label: "Hidden state와 observation" },
+    { id: "information-value", label: "테스트의 정보 가치" },
+    { id: "lab", label: "Belief update 실습" },
+    { id: "formal-model", label: "POMDP와 Bayes update" },
+    { id: "planning-boundary", label: "Belief update와 planning" },
+    { id: "sources", label: "근거 문헌" },
+  ]}
+>
+  <DocHero
+    index="02"
+    acronym="POMDP · HIDDEN STATE"
+    title="POMDP는 직접 볼 수 없는 결함 원인에 대한 확률을 테스트 결과로 갱신하는 모형입니다"
+    lead="음수 결제 금액의 원인이 계산식 오류인지 입력 검증 누락인지는 실패 로그 한 줄로 확정할 수 없습니다. POMDP는 실제 state, 관찰한 test 결과, 원인별 belief를 분리해 이런 불확실성을 표현합니다."
+  />
+
+  <ModelCheckpoint
+    label="결제 API · checkpoint 2"
+    question="계산식이 틀렸을까, API 입력 검증이 빠졌을까?"
+    known="음수 total이 재현됐고 clamp patch 뒤 단위 테스트는 통과했습니다."
+    unknown="contract test를 실행하기 전에는 실패 원인이 계산식인지 계약 위반인지 확정할 수 없습니다."
+  />
+
+  <Section id="checkpoint" title="결함 원인은 hidden state이고 테스트 로그는 observation입니다">
+    실제 결함 원인은 환경 state에 속합니다. Agent가 읽는 assertion과 stack trace는 그 state에서 나온 observation입니다. 하나의 observation이 여러 원인에서 나올 수 있으므로 log 한 줄을 실제 state로 곧바로 치환하면 안 됩니다.
+
+    <PomdpStructureExplorer />
+
+    <ComparisonTable
+      columns={["구분", "결제 API 사례", "특징"]}
+      rows={[
+        ["Hidden state", "입력 검증 누락 또는 계산식 결함", "환경에는 있지만 agent가 직접 읽지 못함"],
+        ["Observation", "test pass/fail, assertion, response status", "선택한 action과 실제 state에 따라 확률적으로 나타남"],
+        ["Belief", "P(입력 검증 누락 | 지금까지의 test 결과)", "history를 반영한 state 가설의 확률분포"],
+        ["Action", "단위 테스트 또는 contract test 실행", "환경을 바꾸거나 다음 observation의 분포를 바꿈"],
+      ]}
+    />
+
+    React의 `state`나 모델이 말한 confidence와 POMDP의 belief는 자동으로 같은 개념이 되지 않습니다. 어떤 hidden state 집합을 두었고, observation likelihood를 어떻게 정의했는지가 분명해야 확률분포로 다룰 수 있습니다.
+  </Section>
+
+  <Section id="information-value" title="계산식 오류와 입력 검증 누락을 다르게 드러내는 테스트가 다음 행동을 바꿉니다">
+    <LeadStatement>
+      실행의 가치는 성공 여부만으로 정해지지 않습니다. 서로 다른 좋은 patch를 요구하는 원인들을 test가 구분해 준다면, 그 observation에는 의사결정 가치가 있습니다.
+    </LeadStatement>
+
+    contract test가 실패하면 입력 검증 누락 가설의 확률이 커지고, 다음 action은 계산식 수정에서 validator 추가로 바뀔 수 있습니다. 반대로 어느 test를 실행해도 두 가설이 같은 결과를 낸다면 그 test의 정보 가치는 작습니다.
+
+    <PomdpInformationValueExplorer />
+
+    $$
+    V_{\text{info}}
+    =\mathbb{E}_o\left[\max_a\mathbb{E}[U(a,S)\mid h,o]\right]
+    -\max_a\mathbb{E}[U(a,S)\mid h]
+    $$
+
+    이 식은 observation을 받은 뒤 고를 최선의 action과 observation 없이 고를 최선의 action을 비교합니다.
+
+    <Note label="Reasoning과 evidence" tone="warn">
+      <p>추론 token을 더 생성하면 계산량과 내부 history는 늘어납니다. 그러나 test log, API response, 검색한 문서처럼 외부 state에서 온 새 measurement가 자동으로 생기지는 않습니다.</p>
+    </Note>
+  </Section>
+
+  <Section id="lab" title="같은 실패라도 어떤 테스트에서 나왔는지에 따라 belief update가 달라집니다">
+    <PomdpBeliefLab />
+
+    실습은 hidden state를 `입력 검증 누락`과 `계산식 결함` 두 가지로 제한합니다. 같은 실패 observation도 어떤 test를 실행했는지에 따라 likelihood가 다릅니다. Contract test의 실패는 입력 검증 누락 가설을 더 강하게 지지하고, 경계값 단위 테스트의 실패는 계산식 결함 가설을 더 강하게 지지합니다.
+  </Section>
+
+  <Section id="formal-model" title="Hidden state, observation model, belief update를 수식으로 연결합니다">
+    POMDP는 보통 $\langle S,A,T,R,\Omega,O,\gamma\rangle$로 적습니다. 문헌에 따라 observation 집합과 observation probability의 기호는 달라질 수 있습니다.
+
+    <TermGrid
+      items={[
+        { symbol: "S", term: "Hidden state", description: "입력 검증 누락처럼 실제로 존재하지만 직접 보이지 않는 상태" },
+        { symbol: "A", term: "Action", description: "test 실행, source 조회, patch 적용처럼 agent가 고르는 행동" },
+        { symbol: "T", term: "Transition", description: "T(s'|s,a), action 뒤 hidden state가 바뀌는 확률" },
+        { symbol: "Ω", term: "Observation space", description: "pass, fail, assertion처럼 agent가 받을 수 있는 관찰값" },
+        { symbol: "O", term: "Observation model", description: "O(o|s',a), state와 action이 observation을 만들 확률" },
+        { symbol: "b", term: "Belief state", description: "action과 observation history를 반영한 hidden state의 posterior" },
+      ]}
+    />
+
+    action 뒤 state 분포를 예측하고 observation $o_{t+1}$을 받으면 Bayes rule로 보정합니다.
+
+    $$
+    \bar b_{t+1}(s')=\sum_s T(s'\mid s,a_t)b_t(s)
+    $$
+
+    $$
+    b_{t+1}(s')=\eta\,O(o_{t+1}\mid s',a_t)\bar b_{t+1}(s')
+    $$
+
+    진단 test처럼 hidden cause를 바꾸지 않는 action은 identity transition으로 둘 수 있습니다. 이때 belief 변화는 observation likelihood에서 옵니다.
+  </Section>
+
+  <Section id="planning-boundary" title="Belief update는 상태 추정이며 online planning에는 별도 탐색이 필요합니다">
+    Belief를 갱신하는 일은 state estimation입니다. Online planner는 현재 belief에서 여러 action과 가능한 observation을 분기하고, model이나 simulator로 미래를 rollout한 뒤 장기 value를 계산합니다.
+
+    POMCP는 belief update와 Monte Carlo tree search를 결합한 대표 사례입니다. 일반적인 ReAct loop가 observation을 다음 prompt에 넣더라도 explicit belief distribution, branching simulation, value backup이 없다면 POMCP를 수행한다고 말할 근거는 없습니다. POMDP는 agent와 환경의 상호작용을 표현할 수 있지만, 그 표현만으로 내부 해법까지 정해지지는 않습니다.
+  </Section>
+
+  <Section id="sources" title="근거 문헌">
+    <SourceLink href="https://doi.org/10.1016/S0004-3702(98)00023-X">
+      Kaelbling, Littman &amp; Cassandra (1998), Planning and Acting in Partially Observable Stochastic Domains
+    </SourceLink>
+    <SourceLink href="https://papers.nips.cc/paper_files/paper/2010/hash/edfbe1afcf9246bb0d40eb4d8027d90f-Abstract.html">
+      Silver &amp; Veness (2010), Monte-Carlo Planning in Large POMDPs
+    </SourceLink>
+  </Section>
+
+  <PageNav previous="/mdp" next="/ogis" />
+</ArticlePage>

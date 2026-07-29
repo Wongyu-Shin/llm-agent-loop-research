@@ -1,0 +1,308 @@
+{
+  "id": "M4b-agent-loop-necessity",
+  "date": "2026-05-27",
+  "research_question": "Is loop-based operation a mathematically and engineering-grounded consequence of LLM structure for agentic tasks?",
+  "verdict": "The strong universal claim is false, but a conditional version is well supported for long-horizon, open-ended, partially observable, externally verifiable tasks.",
+  "claim_map": {
+    "autoregressive_locality": [
+      "bengio-2003-nplm",
+      "vaswani-2017-transformer"
+    ],
+    "greedy_or_likelihood_decoding_not_task_global_optimum": [
+      "holtzman-2019-degeneration",
+      "stahlberg-2019-nmt-search-errors",
+      "eikema-2021-mbr"
+    ],
+    "sampling_search_verification_can_improve_expected_utility": [
+      "wang-2022-self-consistency",
+      "yao-2023-tree-of-thoughts",
+      "cobbe-2021-verifiers",
+      "lightman-2023-process-supervision",
+      "brown-2024-large-language-monkeys",
+      "snell-2024-test-time-compute",
+      "chang-2025-hybrid-tts"
+    ],
+    "agent_loop_engineering_evidence": [
+      "yao-2022-react",
+      "shinn-2023-reflexion",
+      "schick-2023-toolformer",
+      "nakano-2021-webgpt",
+      "yang-2024-swe-agent",
+      "packer-2023-memgpt",
+      "wang-2023-voyager",
+      "luo-2025-agent-survey",
+      "cao-2025-planning-survey"
+    ],
+    "loop_limitations_and_counterevidence": [
+      "huang-2023-self-correct",
+      "jimenez-2023-swe-bench",
+      "holtzman-2019-degeneration",
+      "brown-2024-large-language-monkeys",
+      "self-feedback-rag-2025"
+    ],
+    "recent_test_time_scaling_and_self_correction": [
+      "kang-2025-t1",
+      "chang-2025-hybrid-tts",
+      "self-feedback-rag-2025"
+    ],
+    "multidisciplinary_foundations": [
+      "astrom-murray-feedback",
+      "sutton-barto-rl",
+      "simon-1955-rational-choice"
+    ]
+  },
+  "sources": [
+    {
+      "id": "bengio-2003-nplm",
+      "title": "A Neural Probabilistic Language Model",
+      "authors": "Yoshua Bengio, Rejean Ducharme, Pascal Vincent, Christian Jauvin",
+      "year": 2003,
+      "url": "https://jmlr.org/papers/v3/bengio03a.html",
+      "type": "paper",
+      "use": "Background for neural probabilistic language modeling and conditional next-token distributions."
+    },
+    {
+      "id": "vaswani-2017-transformer",
+      "title": "Attention Is All You Need",
+      "authors": "Ashish Vaswani et al.",
+      "year": 2017,
+      "url": "https://arxiv.org/abs/1706.03762",
+      "type": "paper",
+      "use": "Transformer architecture background; masked decoder self-attention and autoregressive generation context."
+    },
+    {
+      "id": "holtzman-2019-degeneration",
+      "title": "The Curious Case of Neural Text Degeneration",
+      "authors": "Ari Holtzman, Jan Buys, Li Du, Maxwell Forbes, Yejin Choi",
+      "year": 2019,
+      "url": "https://arxiv.org/abs/1904.09751",
+      "type": "paper",
+      "use": "Evidence that likelihood-oriented decoding can produce bland/repetitive generations, motivating non-greedy decoding and tail truncation."
+    },
+    {
+      "id": "stahlberg-2019-nmt-search-errors",
+      "title": "On NMT Search Errors and Model Errors: Cat Got Your Tongue?",
+      "authors": "Felix Stahlberg, Bill Byrne",
+      "year": 2019,
+      "url": "https://aclanthology.org/D19-1331/",
+      "type": "paper",
+      "use": "Shows that exact model-score search and beam search can expose model-objective pathologies; model score optimum is not task adequacy."
+    },
+    {
+      "id": "eikema-2021-mbr",
+      "title": "Sampling-Based Approximations to Minimum Bayes Risk Decoding for Neural Machine Translation",
+      "authors": "Bryan Eikema, Wilker Aziz",
+      "year": 2021,
+      "url": "https://arxiv.org/abs/2108.04718",
+      "type": "paper",
+      "use": "Contrasts mode-seeking decoding with expected-utility decision rules."
+    },
+    {
+      "id": "wang-2022-self-consistency",
+      "title": "Self-Consistency Improves Chain of Thought Reasoning in Language Models",
+      "authors": "Xuezhi Wang et al.",
+      "year": 2022,
+      "url": "https://arxiv.org/abs/2203.11171",
+      "type": "paper",
+      "use": "Repeated reasoning-path sampling and answer aggregation improves reasoning benchmarks over greedy chain-of-thought."
+    },
+    {
+      "id": "yao-2022-react",
+      "title": "ReAct: Synergizing Reasoning and Acting in Language Models",
+      "authors": "Shunyu Yao et al.",
+      "year": 2022,
+      "url": "https://arxiv.org/abs/2210.03629",
+      "type": "paper",
+      "use": "Interleaves reasoning, action, and observation; evidence for environment-grounded feedback loops."
+    },
+    {
+      "id": "schick-2023-toolformer",
+      "title": "Toolformer: Language Models Can Teach Themselves to Use Tools",
+      "authors": "Timo Schick et al.",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2302.04761",
+      "type": "paper",
+      "use": "Tool-call use as external computation/lookup incorporated into future token prediction."
+    },
+    {
+      "id": "shinn-2023-reflexion",
+      "title": "Reflexion: Language Agents with Verbal Reinforcement Learning",
+      "authors": "Noah Shinn et al.",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2303.11366",
+      "type": "paper",
+      "use": "Trial-feedback-reflection memory loop for language agents."
+    },
+    {
+      "id": "yao-2023-tree-of-thoughts",
+      "title": "Tree of Thoughts: Deliberate Problem Solving with Large Language Models",
+      "authors": "Shunyu Yao et al.",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2305.10601",
+      "type": "paper",
+      "use": "Search over thought states with evaluation and backtracking; strong support for loop/search on planning-like tasks."
+    },
+    {
+      "id": "lightman-2023-process-supervision",
+      "title": "Let's Verify Step by Step",
+      "authors": "Hunter Lightman et al.",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2305.20050",
+      "type": "paper",
+      "use": "Step-level verification as feedback for multi-step reasoning."
+    },
+    {
+      "id": "nakano-2021-webgpt",
+      "title": "WebGPT: Browser-assisted question-answering with human feedback",
+      "authors": "Reiichiro Nakano et al.",
+      "year": 2021,
+      "url": "https://arxiv.org/abs/2112.09332",
+      "type": "paper",
+      "use": "Browser-assisted QA requires search/navigation/reference collection loop."
+    },
+    {
+      "id": "cobbe-2021-verifiers",
+      "title": "Training Verifiers to Solve Math Word Problems",
+      "authors": "Karl Cobbe et al.",
+      "year": 2021,
+      "url": "https://arxiv.org/abs/2110.14168",
+      "type": "paper",
+      "use": "Generate many candidate solutions and select with a verifier."
+    },
+    {
+      "id": "huang-2023-self-correct",
+      "title": "Large Language Models Cannot Self-Correct Reasoning Yet",
+      "authors": "Jie Huang et al.",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2310.01798",
+      "type": "paper",
+      "use": "Important limitation: intrinsic self-correction without external feedback can degrade reasoning."
+    },
+    {
+      "id": "packer-2023-memgpt",
+      "title": "MemGPT: Towards LLMs as Operating Systems",
+      "authors": "Charles Packer et al.",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2310.08560",
+      "type": "paper",
+      "use": "Context/memory management for long-running agents."
+    },
+    {
+      "id": "jimenez-2023-swe-bench",
+      "title": "SWE-bench: Can Language Models Resolve Real-World GitHub Issues?",
+      "authors": "Carlos E. Jimenez et al.",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2310.06770",
+      "type": "paper",
+      "use": "Real-world software engineering tasks require repository interaction and expose limits of non-interactive LMs."
+    },
+    {
+      "id": "yang-2024-swe-agent",
+      "title": "SWE-agent: Agent-Computer Interfaces Enable Automated Software Engineering",
+      "authors": "John Yang et al.",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2405.15793",
+      "type": "paper",
+      "use": "Interactive coding agent interface, navigation, edit, and test loop."
+    },
+    {
+      "id": "brown-2024-large-language-monkeys",
+      "title": "Large Language Monkeys: Scaling Inference Compute with Repeated Sampling",
+      "authors": "Bradley Brown et al.",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2407.21787",
+      "type": "paper",
+      "use": "Repeated sampling scales coverage when automatic verification is available; also notes selection plateaus without verifiers."
+    },
+    {
+      "id": "snell-2024-test-time-compute",
+      "title": "Scaling LLM Test-Time Compute Optimally can be More Effective than Scaling Model Parameters",
+      "authors": "Charlie Snell, Jaehoon Lee, Kelvin Xu, Aviral Kumar",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2408.03314",
+      "type": "paper",
+      "use": "Test-time compute scaling via verifier search and adaptive strategies; effectiveness depends on problem difficulty."
+    },
+    {
+      "id": "kang-2025-t1",
+      "title": "T1: Tool-integrated Self-verification for Test-time Compute Scaling in Small Language Models",
+      "authors": "Minki Kang, Jongwon Jeong, Jaewoong Cho",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2504.04718",
+      "type": "paper",
+      "use": "Recent evidence that tool-integrated verification can improve test-time scaling where internal self-verification is weak."
+    },
+    {
+      "id": "wang-2023-voyager",
+      "title": "Voyager: An Open-Ended Embodied Agent with Large Language Models",
+      "authors": "Guanzhi Wang et al.",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2305.16291",
+      "type": "paper",
+      "use": "Embodied long-horizon agent with curriculum, skill library, environment feedback, execution errors, and self-verification."
+    },
+    {
+      "id": "luo-2025-agent-survey",
+      "title": "Large Language Model Agent: A Survey on Methodology, Applications and Challenges",
+      "authors": "Junyu Luo et al.",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2503.21460",
+      "type": "survey",
+      "use": "Current survey framing LLM agents through methodology, architecture, collaboration, evolution, evaluation, tools, and challenges."
+    },
+    {
+      "id": "cao-2025-planning-survey",
+      "title": "Large Language Models for Planning: A Comprehensive and Systematic Survey",
+      "authors": "Pengfei Cao et al.",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2505.19683",
+      "type": "survey",
+      "use": "Current planning survey categorizing LLM planning methods into external-module augmented, finetuning-based, and searching-based approaches."
+    },
+    {
+      "id": "chang-2025-hybrid-tts",
+      "title": "Step-level Verifier-guided Hybrid Test-Time Scaling for Large Language Models",
+      "authors": "Kaiyan Chang et al.",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2507.15512",
+      "type": "paper",
+      "use": "Recent verifier-guided step-level test-time scaling evidence for reasoning loops."
+    },
+    {
+      "id": "self-feedback-rag-2025",
+      "title": "Can Language Models Critique Themselves? Investigating Self-Feedback for Retrieval Augmented Generation at BioASQ 2025",
+      "authors": "Samy Ateia, Udo Kruschwitz",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2508.05366",
+      "type": "paper",
+      "use": "Recent domain-specific evidence that self-feedback in agentic RAG/deep-research style systems needs empirical comparison against direct expert or external feedback."
+    },
+    {
+      "id": "astrom-murray-feedback",
+      "title": "Feedback Systems: An Introduction for Scientists and Engineers",
+      "authors": "Karl J. Astrom, Richard M. Murray",
+      "year": 2021,
+      "url": "https://fbswiki.org/wiki/index.php/Feedback_Systems:_An_Introduction_for_Scientists_and_Engineers",
+      "type": "book",
+      "use": "Control-theoretic background for open-loop versus closed-loop framing."
+    },
+    {
+      "id": "sutton-barto-rl",
+      "title": "Reinforcement Learning: An Introduction",
+      "authors": "Richard S. Sutton, Andrew G. Barto",
+      "year": 2018,
+      "url": "https://web.stanford.edu/class/psych209/Readings/SuttonBartoIPRLBook2ndEd.pdf",
+      "type": "book",
+      "use": "Agent-environment interaction framing for sequential decision-making."
+    },
+    {
+      "id": "simon-1955-rational-choice",
+      "title": "A Behavioral Model of Rational Choice",
+      "authors": "Herbert A. Simon",
+      "year": 1955,
+      "url": "https://cooperative-individualism.org/simon-herbert_a-behavioral-model-of-rational-choice-1955-feb.pdf",
+      "type": "paper",
+      "use": "Bounded rationality and satisficing background for finite search."
+    }
+  ]
+}

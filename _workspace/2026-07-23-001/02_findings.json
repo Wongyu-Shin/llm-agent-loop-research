@@ -1,0 +1,50 @@
+[
+  {
+    "id": "A-10-01",
+    "category": "A-10 할 수 있다 남발",
+    "severity": "S2",
+    "span": "다음과 같은 TypeScript 타입을 생각할 수 있습니다",
+    "reason": "구체적인 동사로 바로 적을 수 있는 문장입니다.",
+    "suggested_fix": "다음 TypeScript 타입으로 적어 봅니다"
+  },
+  {
+    "id": "I-2-01",
+    "category": "I-2 형식명사 점",
+    "severity": "S2",
+    "span": "비교할 수 있다는 점입니다",
+    "reason": "핵심 판단을 형식명사로 한 번 더 감쌉니다.",
+    "suggested_fix": "두 문장으로 나눠 비교 행위를 직접 서술합니다."
+  },
+  {
+    "id": "A-15-01",
+    "category": "A-15 추상 주어와 인지 동사",
+    "severity": "S2",
+    "span": "계산할 수 있다는 가정입니다",
+    "reason": "가정을 명사로 끝내기보다 가정하는 내용을 동사로 적는 편이 분명합니다.",
+    "suggested_fix": "계산할 수 있다고 가정합니다"
+  },
+  {
+    "id": "C-12-01",
+    "category": "C-12 쉼표 포함률",
+    "severity": "S2",
+    "span": "action과, observation 없이",
+    "reason": "짧은 병렬 구문에 쉼표가 필요하지 않습니다.",
+    "suggested_fix": "action과 observation 없이"
+  },
+  {
+    "id": "A-10-02",
+    "category": "A-10 할 수 있다 남발",
+    "severity": "S2",
+    "span": "interface로 생각할 수 있습니다",
+    "reason": "interface가 맡는 역할을 직접 서술할 수 있습니다.",
+    "suggested_fix": "interface가 그 구조를 보여줍니다"
+  },
+  {
+    "id": "C-12-02",
+    "category": "C-12 쉼표 포함률",
+    "severity": "S2",
+    "span": "없거나, 잘못된 verifier를 따르거나, 이전 실패를 잊는다면",
+    "reason": "연속된 조건절마다 쉼표를 넣어 호흡이 끊깁니다.",
+    "suggested_fix": "없거나 verifier가 잘못됐거나 이전 실패를 잊는다면"
+  }
+]

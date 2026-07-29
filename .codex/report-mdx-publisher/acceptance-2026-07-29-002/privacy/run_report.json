@@ -1,0 +1,35 @@
+{
+  "artifact_version": "1.0",
+  "schema_version": "1.0",
+  "skill_version": "0.1.0",
+  "run_id": "2026-07-29-163501",
+  "command": "validate",
+  "workflow_preset": "full-report",
+  "quality": "fast",
+  "created_at": "2026-07-29T07:35:01.267744+00:00",
+  "status": "failed",
+  "exit_code": 5,
+  "files_changed": [],
+  "validations_run": [],
+  "gate_results": [
+    {
+      "phase": "validate",
+      "status": "failed",
+      "detail": "privacy_scan_gate",
+      "timestamp": "2026-07-29T07:35:04.139092+00:00"
+    }
+  ],
+  "failed_phases": [
+    {
+      "phase": "validate",
+      "status": "failed",
+      "detail": "privacy_scan_gate",
+      "timestamp": "2026-07-29T07:35:04.139092+00:00"
+    }
+  ],
+  "retried_phases": [],
+  "runtime": {
+    "started_at": "2026-07-29T07:35:01.267744+00:00",
+    "finished_at": "2026-07-29T07:35:04.140734+00:00"
+  }
+}

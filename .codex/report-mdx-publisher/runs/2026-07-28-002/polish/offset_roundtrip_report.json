@@ -1,0 +1,19 @@
+{
+  "artifact_version": "1.0",
+  "schema_version": "1.0",
+  "skill_version": "0.1.0",
+  "run_id": "2026-07-28-171405",
+  "command": "run",
+  "workflow_preset": "full-report",
+  "quality": "strict",
+  "created_at": "2026-07-28T08:14:05.194418+00:00",
+  "passed": true,
+  "fixtures": [
+    "korean_emoji",
+    "crlf_lf",
+    "jsx_expression_adjacent_text",
+    "gfm_table_cells",
+    "nested_jsx_children",
+    "prose_after_code_blocks"
+  ]
+}

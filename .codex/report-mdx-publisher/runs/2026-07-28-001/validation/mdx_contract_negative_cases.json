@@ -1,0 +1,63 @@
+{
+  "artifact_version": "1.0",
+  "schema_version": "1.0",
+  "skill_version": "0.1.0",
+  "run_id": "2026-07-28-171205",
+  "command": "run",
+  "workflow_preset": "full-report",
+  "quality": "strict",
+  "created_at": "2026-07-28T08:12:05.965687+00:00",
+  "passed": true,
+  "cases": [
+    {
+      "name": "invalid_navMeta_group",
+      "expected_exit_code": 1,
+      "expected_gate": "mdx_contract_gate"
+    },
+    {
+      "name": "duplicate_h1",
+      "expected_exit_code": 1,
+      "expected_gate": "mdx_contract_gate"
+    },
+    {
+      "name": "missing_h1",
+      "expected_exit_code": 1,
+      "expected_gate": "mdx_contract_gate"
+    },
+    {
+      "name": "import_after_navMeta",
+      "expected_exit_code": 1,
+      "expected_gate": "mdx_contract_gate"
+    },
+    {
+      "name": "typescript_annotation_in_mdx_esm",
+      "expected_exit_code": 1,
+      "expected_gate": "mdx_contract_gate"
+    },
+    {
+      "name": "missing_public_asset",
+      "expected_exit_code": 1,
+      "expected_gate": "mdx_contract_gate"
+    },
+    {
+      "name": "broken_internal_route",
+      "expected_exit_code": 1,
+      "expected_gate": "mdx_contract_gate"
+    },
+    {
+      "name": "missing_csv",
+      "expected_exit_code": 1,
+      "expected_gate": "mdx_contract_gate"
+    },
+    {
+      "name": "invalid_jsx_expression",
+      "expected_exit_code": 1,
+      "expected_gate": "mdx_contract_gate"
+    },
+    {
+      "name": "unprofiled_pascal_component",
+      "expected_exit_code": 1,
+      "expected_gate": "mdx_contract_gate"
+    }
+  ]
+}

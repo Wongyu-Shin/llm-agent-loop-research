@@ -1,0 +1,22 @@
+{
+  "name": "llm-agent-loop-research",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Research and interactive documentation on feedback-driven LLM agent loops.",
+  "scripts": {
+    "m4b:math-demo": "python3 scripts/m4b_loop_math_demo.py",
+    "m4b:pilot-sim": "python3 scripts/m4b_pilot_simulation.py",
+    "m4b:tiny-pilot:check": "python3 scripts/m4b_tiny_pilot_runner.py --mode provider-check",
+    "m4b:tiny-pilot:dry-run": "python3 scripts/m4b_tiny_pilot_runner.py --mode dry-run",
+    "m4b:tiny-pilot:run": "python3 scripts/m4b_tiny_pilot_runner.py --mode run",
+    "m4b:tiny-pilot:analyze": "python3 scripts/m4b_analyze_tiny_pilot.py",
+    "cards:render": "python3 scripts/m4b_generate_linkedin_cards.py",
+    "site:install": "npm ci --prefix apps/agent-loop-docs",
+    "site:dev": "npm run dev --prefix apps/agent-loop-docs",
+    "site:check": "npm run check --prefix apps/agent-loop-docs",
+    "site:test": "npm run test:e2e --prefix apps/agent-loop-docs"
+  },
+  "engines": {
+    "node": ">=20.9.0"
+  }
+}

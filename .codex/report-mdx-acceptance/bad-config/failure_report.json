@@ -1,0 +1,19 @@
+{
+  "artifact_version": "1.0",
+  "schema_version": "1.0",
+  "skill_version": "0.1.0",
+  "run_id": "2026-07-29-151632",
+  "command": "validate",
+  "workflow_preset": "full-report",
+  "quality": "fast",
+  "created_at": "2026-07-29T06:16:32.468564+00:00",
+  "exit_code": 2,
+  "gate_id": "input_config_gate",
+  "failing_artifact": "",
+  "requires_user_action": true,
+  "resume_from": "validate",
+  "retry_command": "scripts/report_mdx_publisher.py validate --config /Users/wongyushin/personal/llm-agent-loop-research/.codex/report-mdx-acceptance/bad.json --run-dir /Users/wongyushin/personal/llm-agent-loop-research/.codex/report-mdx-acceptance/bad-config --json",
+  "open_artifact": "failure_report.md",
+  "force_allowed": false,
+  "summary": "Expecting property name enclosed in double quotes: line 1 column 2 (char 1)"
+}

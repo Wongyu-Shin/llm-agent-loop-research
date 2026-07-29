@@ -1,0 +1,178 @@
+{
+  "generated_at": "2026-05-29T02:05:17+00:00",
+  "id": "m4b-content-judge-blog",
+  "input": "reports/linkedin-agent-loop-post/07-blog-post-final.md",
+  "mode": "blog",
+  "model": "gpt-5.4-mini",
+  "review_count": 5,
+  "reviews": [
+    {
+      "highest_risk_issues": [
+        "pilot 해석 문장이 다소 반복적이며, C0/C3/C4/C6/C7 수치를 본문에서 직접 쓰지 않더라도 독자가 '어떤 조건이 좋아졌는지'를 통계적으로 판단하기 어렵다. 현재는 정성적 교훈만 남고 비교 구조가 약하다.",
+        "best-of-n, weak verifier, correlated candidates에 대한 설명은 방향은 맞지만, 확률적으로 어떤 조건에서 개선이 기대되는지에 대한 전제(독립성, 선택기 정확도, 후보 다양성)가 더 명시적으로 정리되면 좋다.",
+        "causal claim 경계가 일부 문장에서 흐려진다. 예를 들어 'loop를 붙였다는 사실보다 어떤 신호가 loop를 닫는지가 더 중요하다'는 문장은 설계 주장으로는 좋지만, 파일럿이 이를 입증한 것처럼 읽히지 않도록 더 분리해야 한다."
+      ],
+      "optional_revisions": [
+        "경계 조건 표에 '독립성', 'calibration', 'candidate diversity'를 추가하면 통계적 설득력이 높아진다.",
+        "pilot 수치(C0, C3, C4, C6, C7)를 본문이 아니라 각주나 부록형 문장으로 짧게 넣으면, 독자가 '정말 loop 자체가 개선을 만들지 않았는가'를 더 직접적으로 볼 수 있다.",
+        "Sources and Further Reading에서 decoding/search mismatch와 verifier-guided reasoning을 구분하는 소제목을 더 명확히 나누면 논리 흐름이 좋아진다."
+      ],
+      "overclaim_check": "minor overclaim",
+      "perspective": "수학/통계 리뷰어",
+      "perspective_id": "math_stats",
+      "quality_bar_check": "meets",
+      "required_revisions": [
+        "pilot 섹션에서 '무엇이 관찰되었고 무엇이 관찰되지 않았는지'를 더 선명하게 분리하라. 특히 성능 향상 주장 대신 실패 모드 관찰이라는 점을 한 문단 안에서 반복하지 말고, 한 번만 명시한 뒤 나머지는 관찰 항목으로 정리하라.",
+        "best-of-n과 verifier의 관계를 확률 조건문으로 더 엄밀하게 써라. 예: 후보 다양성, 선택기 calibration, 후보 간 상관이 낮을 때만 기대 이득이 생긴다는 점을 명시하라.",
+        "self-reflection이 verifier가 아니라는 주장은 유지하되, 왜 독립성 부족이 false positive/negative를 줄이지 못하는지 한 단계 더 수학적으로 설명하라. '같은 오류 상관을 공유한다'는 표현만으로는 충분하지 않다.",
+        "causal language를 점검하라. 'loop가 성능을 보장하지 않는다', 'weak verifier가 오답을 강화할 수 있다'는 것은 인과적 가능성이지 일반 법칙이 아니다. 조건부 표현을 유지하라."
+      ],
+      "score": 8,
+      "standalone_check": "self-contained",
+      "strongest_points": [
+        "next-token objective, sequence likelihood, task utility를 분리한 구조가 명확하고, 확률적 생성과 과제 효용의 불일치를 잘 짚었다.",
+        "loop를 단일 개념으로 뭉개지 않고 verifier, actionable feedback, tool access, state control로 분해한 점은 설계 관점에서 유용하다.",
+        "pilot을 과대해석하지 않고 underpowered, failure-mode observation으로 제한한 점은 통계적으로 적절하다."
+      ],
+      "verdict": "revise"
+    },
+    {
+      "highest_risk_issues": [
+        "파일럿 결과를 본문에서 거의 배제했지만, 여전히 일부 문장이 ‘loop 구조만으로는 성능 향상을 보장하지 않는다’는 일반론으로 읽힐 수 있다. 이 문장은 pilot 범위를 넘는 과잉 일반화로 보일 위험이 있다.",
+        "‘폐루프 제어 시스템처럼 검토할 만하다’는 표현은 좋지만, control theory의 엄밀한 의미와 LLM agent 설계를 너무 쉽게 등치시키는 인상을 줄 수 있다. 설계 렌즈임을 더 강하게 못 박아야 한다.",
+        "best-of-n, verifier, calibration, proxy hacking 설명은 방향은 맞지만, 일부 문장은 선택기와 후보 다양성의 관계를 너무 단정적으로 서술한다. 조건부 성립임을 더 분명히 해야 한다.",
+        "Sources and Further Reading는 충분하지만, 본문 내에서 인용 근거와 연결되는 문장들이 다소 느슨하다. 특히 decoding/search mismatch와 self-correction 한계의 연결을 더 정밀하게 써야 한다."
+      ],
+      "optional_revisions": [
+        "도입부에서 ‘loop’라는 용어의 과잉 사용을 줄이고, ‘control surface’라는 중심어를 더 일찍 전면화하면 글의 구조가 더 선명해진다.",
+        "표와 체크리스트는 좋지만, 일부 항목은 중복된다. 결론의 체크리스트를 4개 핵심 질문으로 압축해도 된다.",
+        "Sources and Further Reading는 좋지만, 본문 중간에 각 참고군을 짧게 괄호형으로 연결하면 읽는 흐름이 더 자연스러워진다.",
+        "LinkedIn 카드뉴스용으로는 본문보다 더 짧고 단정한 문장으로 재압축할 필요가 있다."
+      ],
+      "overclaim_check": "minor overclaim",
+      "perspective": "LLM 시스템 엔지니어",
+      "perspective_id": "llm_systems",
+      "quality_bar_check": "near",
+      "required_revisions": [
+        "‘loop 구조만으로는 성능 향상을 보장하지 않는다’ 같은 문장을 파일럿 범위에 한정하거나, 더 엄밀한 조건문으로 바꿔라.",
+        "폐루프 제어 비유가 어디까지나 설계 렌즈라는 점을 본문 초반과 결론에서 한 번 더 명시해라.",
+        "weak verifier, best-of-n, correlated candidates 관련 문장을 ‘항상/필연’이 아니라 ‘조건부로’ 읽히도록 다듬어라.",
+        "self-reflection이 verifier가 아니라는 설명에 ‘독립성’ 외에 ‘측정 대상과 평가 채널의 분리’라는 공학적 기준을 더 명시해라."
+      ],
+      "score": 8,
+      "standalone_check": "self-contained",
+      "strongest_points": [
+        "핵심 주장인 ‘loop’보다 verifier, actionable feedback, tool access, state control을 봐야 한다는 프레이밍이 명확하고 실무적이다.",
+        "next-token objective, sequence likelihood, task utility를 분리해 설명한 부분은 공학적으로 정확하며, loop 과신을 잘 꺾는다.",
+        "self-reflection을 verifier와 구분하고, weak verifier가 오히려 loop를 악화시킬 수 있다는 경고가 설계 관점에서 타당하다.",
+        "one-shot이 충분한 경우와 loop 검토가 필요한 경우를 나눈 경계 조건이 있어 standalone essay로서 유용하다."
+      ],
+      "verdict": "revise"
+    },
+    {
+      "highest_risk_issues": [
+        "일부 문장은 여전히 선언적이다. 특히 'loop를 닫는다'는 표현이 반복적으로 쓰이지만, 어떤 조건에서 구조적으로 필요하고 어떤 조건에서 단지 유용한지의 경계가 더 엄밀해야 한다.",
+        "pilot 섹션은 충분히 caveat를 달았지만, 숫자를 아예 본문에서 배제한 대신 독자가 무엇을 검증했는지 흐려질 수 있다. 실패 모드 관찰의 구체성이 조금 더 필요하다.",
+        "'좋은 agent loop'의 기준이 잘 정리되어 있으나 architecture vocabulary 측면에서 verifier, feedback, state boundary, rollback, stopping rule 사이의 관계를 더 도식적으로 고정하면 더 강해진다."
+      ],
+      "optional_revisions": [
+        "'task utility'를 한국어로 풀어쓴 표현과 영어 용어를 병기하는 방식을 한 번 더 정리해 가독성을 높여라.",
+        "표 하나를 더 써서 'one-shot / weak loop / strong loop'를 비교하면 Fowler식 boundary가 더 선명해진다.",
+        "LinkedIn 카드용으로는 본문보다 더 짧은 핵심 문장 3개를 별도로 추출해 두는 편이 좋다."
+      ],
+      "overclaim_check": "minor overclaim",
+      "perspective": "소프트웨어 아키텍처 리뷰어",
+      "perspective_id": "software_architecture",
+      "quality_bar_check": "meets",
+      "required_revisions": [
+        "'loop'와 'control surface'의 관계를 한 문단에서 더 엄밀히 정의해, loop 자체가 분석 단위가 아니라는 점을 서두와 결론에서 동일한 용어로 반복해라.",
+        "pilot 섹션에서 어떤 실패 모드를 실제로 관찰했는지 2~3개만 더 구체화해라. 단, 성능 주장으로 읽히지 않도록 숫자 해석은 피해야 한다.",
+        "'self-reflection은 verifier가 아니다'를 더 강하게 뒷받침하는 boundary condition을 추가해라. 예: 언제 feedback으로는 쓸 수 있지만 verifier로는 부족한지.",
+        "Sources and Further Reading는 좋지만, 본문 내 핵심 주장과 연결되는 인용 포인트를 한두 군데 더 명시해라. 현재는 참고문헌 목록에 머무는 느낌이 있다."
+      ],
+      "score": 8,
+      "standalone_check": "self-contained",
+      "strongest_points": [
+        "loop를 단순 반복이 아니라 verifier, actionable feedback, tool access, state control의 조합으로 재정의한 점이 실무적이다.",
+        "next-token objective, sequence likelihood, task utility를 분리해 설명한 구조가 Fowler식 boundary 설정에 가깝고, 설계 리뷰에 유용하다.",
+        "self-reflection을 verifier와 구분하고, weak verifier가 loop를 악화시킬 수 있다는 경고가 명확하다.",
+        "짧은 작업에는 one-shot이 더 나을 수 있다는 조건부 경계가 분명해 과잉 일반화를 피한다."
+      ],
+      "verdict": "pass"
+    },
+    {
+      "highest_risk_issues": [
+        "파일럿 결과를 본문에서 거의 배제했지만, 여전히 'loop 구조만으로는 성능 향상을 보장하지 않는다'는 문장이 실험적 일반화처럼 읽힐 수 있다. pilot이 underpowered라는 caveat와 함께 더 강하게 제한해야 한다.",
+        "verifier, feedback, tool, state control의 구분은 좋지만, 실제로 이 네 요소가 어떻게 상호작용해 closed-loop stability나 policy improvement로 이어지는지에 대한 제어 관점의 연결이 아직 다소 추상적이다.",
+        "Sources and Further Reading가 근거 목록 수준에 머물러 있어, 핵심 주장별로 어떤 문헌이 어떤 문장을 지지하는지 연결이 약하다.",
+        "몇몇 표현은 여전히 과도하게 포괄적이다. 예를 들어 '좋은 agent loop'의 정의가 상황별로 달라질 수 있는데, 현재는 다소 보편 규범처럼 읽힌다."
+      ],
+      "optional_revisions": [
+        "one-shot이 더 나은 경우와 loop가 필요한 경우를 표로만 두지 말고, 각 경우에 대한 대표 task 예시를 1개씩 더 넣으면 실무성이 올라간다.",
+        "self-reflection이 verifier가 아닌 이유를 '독립성 부족' 외에 'reward shaping이 아니라 self-generated reward'라는 식으로 한 문장 더 보강할 수 있다.",
+        "LinkedIn 카드용으로는 본문보다 더 짧은 핵심 문장 3~5개를 별도로 추출해두면 메시지 일관성이 좋아진다."
+      ],
+      "overclaim_check": "minor overclaim",
+      "perspective": "제어/RL 리뷰어",
+      "perspective_id": "control_rl",
+      "quality_bar_check": "meets",
+      "required_revisions": [
+        "파일럿 관련 문장은 '이 설정의 작은 점검에서는'처럼 범위를 더 좁히고, 일반론으로 읽히지 않도록 명시하라.",
+        "closed-loop control 렌즈를 더 제어/RL답게 만들기 위해, observation -> policy update -> action selection -> state transition의 연결을 한 단락에서 명시적으로 정리하라.",
+        "verifier가 weak할 때 왜 loop가 악화되는지에 대해 false positive/false negative뿐 아니라 policy selection bias, state contamination 관점도 한 번 더 정리하라.",
+        "Sources 섹션에서 핵심 주장별로 1:1 대응이 보이도록 문헌을 재배치하거나, 본문 중간에 짧은 인용 근거 문장을 추가하라."
+      ],
+      "score": 8,
+      "standalone_check": "self-contained",
+      "strongest_points": [
+        "loop를 단순 반복이 아니라 verifier, actionable feedback, tool access, state control의 폐루프 구조로 분해한 점이 정확하다.",
+        "next-token objective, sequence likelihood, task utility를 분리해 objective mismatch를 설명한 부분이 제어/RL 관점에서 설득력 있다.",
+        "self-reflection을 verifier와 구분하고, weak verifier가 오히려 loop를 악화시킬 수 있다는 경고가 명확하다.",
+        "짧은 작업에는 one-shot이 충분할 수 있고, loop는 조건부 설계 요구라는 boundary condition을 반복해서 명시한 점이 좋다."
+      ],
+      "verdict": "revise"
+    },
+    {
+      "highest_risk_issues": [
+        "문장 밀도가 높고 추상 명사가 많아, Joel/Fowler급의 '기억나는 문장'보다는 설명문에 가깝다. 핵심 문장 몇 개는 더 날카롭게 다듬어야 한다.",
+        "Sources and Further Reading가 본문 논증과 약간 분리되어 있어, 본문 안에서 근거-주장 연결이 더 선명해야 한다. 현재는 참고문헌 목록이 뒤에 붙은 느낌이 강하다.",
+        "파일럿 서술은 충분히 조심스럽지만, 'failure mode를 보여주는 사례'라는 표현이 반복되어 독자에게는 실험적 가치가 과장 없이도 다소 모호하게 읽힐 수 있다.",
+        "일부 구간에서 영어 기술어가 과도하게 남아 있어 LinkedIn/블로그 독자 경험이 다소 거칠다. 특히 control surface, utility proxy, state boundary 등의 반복은 한국어 문장 리듬을 약화시킨다."
+      ],
+      "optional_revisions": [
+        "표현을 더 한국어답게 다듬어라. 예: 'control surface'는 첫 등장만 병기하고 이후에는 '제어면'으로 통일하는 식이 좋다.",
+        "몇몇 정의 문장은 더 짧게 끊어라. 현재는 정확하지만 길어서 LinkedIn 카드뉴스용 발췌 문장으로 쓰기 어렵다.",
+        "경계 조건 섹션에 '언제 적용되지 않는가'를 더 전면화하면 Fowler식 명료성이 좋아진다.",
+        "마지막 체크리스트를 더 압축해 4개 항목으로 정리하면 결론의 힘이 커진다."
+      ],
+      "overclaim_check": "minor overclaim",
+      "perspective": "기술 에세이 편집자",
+      "perspective_id": "editorial",
+      "quality_bar_check": "near",
+      "required_revisions": [
+        "서두와 결론에 더 강한 한 문장 정의를 넣어라. 예: 'loop는 반복이 아니라, 판정이 다음 행동을 바꾸는 구조다.' 같은 식의 기억나는 문장이 필요하다.",
+        "본문 중복을 줄여라. 'loop가 아니다/반복만으로는 부족하다'는 메시지가 여러 번 반복되므로, 한두 군데는 압축하고 나머지는 구체 사례로 바꾸는 편이 좋다.",
+        "파일럿 단락은 더 짧게 정리하고, 숫자보다 교훈을 전면에 두되 '무엇을 보여주지 못했는지'를 한 문단으로 명확히 고정하라.",
+        "Sources 섹션은 본문 각 절의 주장과 더 직접 연결되도록 재배치하거나, 최소한 본문 내에 인용 힌트를 넣어 독자가 왜 이 논문들이 필요한지 이해하게 하라."
+      ],
+      "score": 8,
+      "standalone_check": "self-contained",
+      "strongest_points": [
+        "핵심 논지와 경계 조건이 분명하다. 'loop'를 단일 개념으로 뭉개지 않고 verifier, actionable feedback, tool access, state control로 분해한 점이 좋다.",
+        "next-token objective, sequence likelihood, task utility의 구분이 구조적으로 잘 서 있다. 독자가 왜 '반복'만으로는 설명이 부족한지 따라가기 쉽다.",
+        "self-reflection과 verifier를 구분하고, weak verifier가 loop를 악화시킬 수 있다는 점을 명시한 것은 실무적으로 유용하다.",
+        "독립 완결성은 대체로 충족한다. 외부 문맥 없이도 주장, 한계, 관련 연구, 설계 질문이 모두 들어 있다."
+      ],
+      "verdict": "revise"
+    }
+  ],
+  "summary": {
+    "all_pass": false,
+    "average_score": 8.0,
+    "min_score": 8,
+    "verdict_counts": {
+      "pass": 1,
+      "revise": 4
+    }
+  }
+}

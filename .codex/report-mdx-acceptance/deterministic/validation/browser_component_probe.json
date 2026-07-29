@@ -1,0 +1,41 @@
+{
+  "artifact_version": "1.0",
+  "schema_version": "1.0",
+  "skill_version": "0.1.0",
+  "run_id": "2026-07-29-151641",
+  "command": "validate",
+  "workflow_preset": "full-report",
+  "quality": "fast",
+  "created_at": "2026-07-29T06:16:41.933018+00:00",
+  "source": "not_run",
+  "components": [
+    {
+      "browser_name": "",
+      "browser_version": "Version 1.62.0",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "page_url": "",
+      "route": "",
+      "selector": "main h1",
+      "selector_match_count": 0,
+      "bounding_box": null,
+      "visible": false,
+      "action": "load",
+      "screenshot_sha256": "",
+      "screenshot_path": "",
+      "console_errors": [],
+      "network_errors": [],
+      "hydration_errors": [],
+      "source": "not_run",
+      "reason": "live_route or live_base_url was not configured",
+      "content_svg_count": 0,
+      "main_button_count": 0,
+      "main_role_button_count": 0,
+      "framework_overlay_count": 0,
+      "body_background": "",
+      "css_loaded": false
+    }
+  ]
+}

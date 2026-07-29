@@ -1,0 +1,22 @@
+{
+  "artifact_version": "1.0",
+  "schema_version": "1.0",
+  "skill_version": "0.1.0",
+  "run_id": "2026-07-28-174707",
+  "command": "run",
+  "workflow_preset": "full-report",
+  "quality": "strict",
+  "created_at": "2026-07-28T08:47:07.225003+00:00",
+  "input": {
+    "docs_app_root": "apps/agent-loop-docs",
+    "source_mdx": "apps/agent-loop-docs/app/self-correction-scaling/page.mdx",
+    "live_base_url": "http://127.0.0.1:3000",
+    "live_route": "/self-correction-scaling",
+    "browser_probe_selector": "main h1",
+    "component_name": "SelfCorrectionScalingReport",
+    "component_kind": "page",
+    "require_live_browser": false,
+    "require_interactive_svg": false,
+    "require_all_judges": false
+  }
+}

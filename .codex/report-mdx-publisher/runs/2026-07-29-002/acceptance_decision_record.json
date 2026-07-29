@@ -1,0 +1,147 @@
+{
+  "artifact_version": "1.0",
+  "schema_version": "1.0",
+  "skill_version": "0.1.0",
+  "run_id": "2026-07-29-163353",
+  "command": "run",
+  "workflow_preset": "validate-only",
+  "quality": "strict",
+  "created_at": "2026-07-29T07:33:53.400153+00:00",
+  "decision": "accept",
+  "decision_maker": {
+    "identity": "codex-local",
+    "role": "operator"
+  },
+  "reviewed_run_ids": [
+    "2026-07-29-163353"
+  ],
+  "reviewed_artifact_hashes": [
+    {
+      "path": "environment_manifest.json",
+      "sha256": "40ae6b41291c20c82ba67726cc154378d1bdaddb517b21682cbff0012108d1c3"
+    },
+    {
+      "path": "report_input.resolved.json",
+      "sha256": "93d5cec8372cb72da64e4134a5337a7914a2dc2e1014eb4cfda6c218acb26fe9"
+    },
+    {
+      "path": "discovery_report.json",
+      "sha256": "47cc3ece3b704cd1c906f78dab3a20127509fe22a6a05532de52bb61e901febd"
+    },
+    {
+      "path": "evidence_ledger.json",
+      "sha256": "748837b551e220aae8d06fd99407e9009159e5ae81e8e8a134d4a2f09a7577e6"
+    },
+    {
+      "path": "install_check.json",
+      "sha256": "5024b943604e89cee46491162b26e1924c349e81aef7fea1a5668b3a83a6fe2a"
+    },
+    {
+      "path": "network_attempts.json",
+      "sha256": "3b4850ed43bd3c8eab0cb22c10f4291002c5a374c74b7a99b4e9d950c06284d4"
+    },
+    {
+      "path": "privacy_scan.json",
+      "sha256": "e299191739625d08825163bd2bf17924e9d79a5c2d637a04108579b06235adb5"
+    },
+    {
+      "path": "validation/static_check.json",
+      "sha256": "f00379e01120d3185c370d126f619226f09f60a0fae723a2b489b7b6fbe92f4f"
+    },
+    {
+      "path": "validation/nav_check.json",
+      "sha256": "598cba087572f783bf7e97c51bb24dab1e696181f1a3c2cb803902e53d4513ac"
+    },
+    {
+      "path": "validation/render_probe.jsonl",
+      "sha256": "b9d3f4ddb45a4b19df9700dd3f10de36a2e96c4b613bf04f658d5f1564cc88c6"
+    },
+    {
+      "path": "validation/route_manifest.json",
+      "sha256": "aee51ef346bcedde0b0442b0baa62d07e4ea50d64df69dfa19f8be6971a05934"
+    },
+    {
+      "path": "validation/route_source_diff.json",
+      "sha256": "2cd5968a5258f117fb18669f9946e832fcebeb15d694bfee92c5597da7e4b524"
+    },
+    {
+      "path": "validation/mdx_contract_check.json",
+      "sha256": "7040872b4230267339e7fda23e58522b319ff823ee2fb33e08039fe43ca8e47f"
+    },
+    {
+      "path": "validation/mdx_contract_negative_cases.json",
+      "sha256": "45db9dbd3e874abfda53e62ad3ce5eb5ac7da4e2761c78b1e52208ed14d9b2ba"
+    },
+    {
+      "path": "validation/fixture_matrix.json",
+      "sha256": "f8363b03bdd3751f83f1de5ef5746d1577976fcde6b460bc0992773fa9154ad5"
+    },
+    {
+      "path": "validation/component_inventory.json",
+      "sha256": "d281cfbdc3efb95a0a3d1d276f8e4dcc6fd495caea7d9a7916208d6f5b1e0999"
+    },
+    {
+      "path": "validation/console.ndjson",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "validation/network.har",
+      "sha256": "961ff8ac617792cf119273eab2bdb06171caccd60d6de7b0dd4ab975d6c8e803"
+    },
+    {
+      "path": "validation/browser_trace.zip",
+      "sha256": "caf73f2cd9c985355368e76cd6e08bd67e77776951f9b85c9130716fdbfbd06e"
+    },
+    {
+      "path": "validation/browser_component_probe.json",
+      "sha256": "d713cf860bcda97a6d25ce4da2f1daf6bbb376b013d997cb0f250091eac5b601"
+    },
+    {
+      "path": "validation/screenshot_manifest.json",
+      "sha256": "e9b01d9b647f572d9d0da7373b2b3cf255b2be19a72618f3358394678b91ca06"
+    },
+    {
+      "path": "validation/component_probe_action_matrix.json",
+      "sha256": "30e69c69dee736ea4feff1a7251e9bfeb154a2b39b33791c951ab6a70ff83650"
+    },
+    {
+      "path": "validation/claim_trace_report.json",
+      "sha256": "883d79397384f9204613a82a739a9f678b17ae3fc3be28d55cb4fed53650ff93"
+    },
+    {
+      "path": "validation/pedagogy_judge.json",
+      "sha256": "b3bc0618b91758e2603ba0a7fb0a23e2f034bf806ae6f05c60ed3cb1fccc903b"
+    },
+    {
+      "path": "validation/visual_judge.json",
+      "sha256": "10bd95ad85a3a6597eb697f5212337ce992240296787d775e442ddbe0bc92632"
+    },
+    {
+      "path": "validation/engineering_judge.json",
+      "sha256": "33c1ed66ce5dfeb4384b5e9876168ad7bdbfcc604fac61a7e16cf375e5d15d72"
+    },
+    {
+      "path": "validation/judge_results.json",
+      "sha256": "9b072612761e5c699286205535fc1d3c3a5a020839ef350e3cd400f5b148c029"
+    },
+    {
+      "path": "validation/judge_decision.json",
+      "sha256": "883e7adfb28e78a6b23f709f438cadb0c362cd80c2d0a2cad342b443c8ac63b5"
+    },
+    {
+      "path": "validation/judge_decision_trace.json",
+      "sha256": "e64405a8e6bb23889fbf77ce9371d648d7882cd46399cdf9a9382086c4a98813"
+    },
+    {
+      "path": "changed_files.json",
+      "sha256": "8c3548af54a9a68e0d4e778d82cc68d13b09c026636453465752c3c8c845eda5"
+    }
+  ],
+  "waivers": [],
+  "known_residual_risks": [
+    "external publishing, if needed, must be handled by a downstream publisher skill"
+  ],
+  "approved_scope": "local MDX acceptance dry-run",
+  "timestamp": "2026-07-29T07:33:57.692034+00:00",
+  "required_follow_up_actions": []
+}

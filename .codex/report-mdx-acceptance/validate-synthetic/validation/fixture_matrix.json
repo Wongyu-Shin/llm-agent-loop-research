@@ -1,0 +1,52 @@
+{
+  "artifact_version": "1.0",
+  "schema_version": "1.0",
+  "skill_version": "0.1.0",
+  "run_id": "2026-07-29-151611",
+  "command": "validate",
+  "workflow_preset": "full-report",
+  "quality": "strict",
+  "created_at": "2026-07-29T06:16:11.268591+00:00",
+  "fixtures": [
+    {
+      "fixture": "rendering",
+      "purpose": "code blocks and technical explanation",
+      "required_artifacts": [
+        "validation/render_probe.jsonl",
+        "validation/mdx_contract_check.json"
+      ]
+    },
+    {
+      "fixture": "viewer",
+      "purpose": "lazy mount and viewer/canvas behavior",
+      "required_artifacts": [
+        "validation/browser_component_probe.json",
+        "validation/screenshot_manifest.json"
+      ]
+    },
+    {
+      "fixture": "dust3r-family/benchmark",
+      "purpose": "GFM tables, images, benchmark data",
+      "required_artifacts": [
+        "validation/component_inventory.json",
+        "validation/claim_trace_report.json"
+      ]
+    },
+    {
+      "fixture": "citation-graph",
+      "purpose": "graph visualization and data substitution",
+      "required_artifacts": [
+        "validation/browser_component_probe.json",
+        "validation/component_probe_action_matrix.json"
+      ]
+    },
+    {
+      "fixture": "2d-change-tracking",
+      "purpose": "nested route coverage and internal links",
+      "required_artifacts": [
+        "validation/route_manifest.json",
+        "validation/route_source_diff.json"
+      ]
+    }
+  ]
+}

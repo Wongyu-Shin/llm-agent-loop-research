@@ -1,0 +1,375 @@
+import {
+  ArticlePage,
+  ComparisonTable,
+  DocHero,
+  LeadStatement,
+  Note,
+  Section,
+  SourceLink,
+  TermGrid,
+} from "@/components/doc-ui"
+
+export const metadata = {
+  title: "LLM 자기수정의 확률적 스케일링과 Agent 설계 원칙",
+  description:
+    "정답 보존율과 오답 복구율로 LLM 자기수정의 수렴과 실패를 설명하고, 검증 중심 agent 설계 및 SOTA 모델 적용 범위를 정리합니다.",
+}
+
+<ArticlePage
+  toc={[
+    { id: "verdict", label: "핵심 판단" },
+    { id: "model", label: "확률 모형" },
+    { id: "experiment", label: "실험 검증" },
+    { id: "principles", label: "Agent 원칙" },
+    { id: "frontier", label: "SOTA 적용 범위" },
+    { id: "operations", label: "운영 측정" },
+    { id: "limits", label: "한계와 위험" },
+    { id: "sources", label: "근거 문헌" },
+  ]}
+>
+  <DocHero
+    index="05"
+    acronym="SELF-CORRECTION · INFERENCE SCALING"
+    title="LLM 자기수정은 반복 횟수가 아니라 정답 보존율과 오답 복구율의 균형으로 설계해야 합니다"
+    lead="반복 자기수정의 성능은 오답을 고치는 확률만으로 결정되지 않습니다. 이미 맞은 답을 얼마나 잘 보존하는지가 함께 작용하며, 이 균형은 자기수정이 개선·포화·악화 중 어느 방향으로 움직일지를 정합니다."
+    context="LLM agent를 설계·평가하는 엔지니어와 연구자를 위한 기술 리포트입니다. 근거 범위는 EMNLP 2025 원 논문과 2026년 7월 28일까지 확인한 1차 연구 자료입니다."
+  />
+
+  <Section id="verdict" title="결론은 보편 법칙 하나가 아니라 세 수준의 명제로 나뉩니다">
+    <LeadStatement>
+      정답 유입과 유출의 균형식은 모델 세대와 무관하게 사용할 수 있습니다. 반면 첫 라운드에서 측정한 고정 전이확률로 모든 후속 라운드를 예측하는 지수 수렴식은 동일한 수정 연산이 반복될 때만 성립하는 조건부 근사입니다.
+    </LeadStatement>
+
+    <ComparisonTable
+      columns={["명제", "판정", "실무 의미"]}
+      rows={[
+        [
+          "정답 유입 − 정답 유출이 다음 정확도 변화를 결정한다",
+          "전확률법칙에서 나오는 일반 관계",
+          "오답 복구율과 정답 훼손율을 함께 측정해야 함",
+        ],
+        [
+          "고정된 CL·CS 아래 정확도는 하나의 고정점으로 기하급수적으로 수렴한다",
+          "시간 동질적 2상태 모형에서 성립",
+          "같은 모델·업무·프롬프트·도구 조합의 짧은 구간 예측에 사용",
+        ],
+        [
+          "모든 SOTA·미래 모델이 같은 지수곡선을 따른다",
+          "현재 근거로 지지되지 않음",
+          "적응형 추론과 도구 사용에서는 라운드별 CLₜ·CSₜ 또는 더 풍부한 상태 모형이 필요",
+        ],
+      ]}
+    />
+
+    이 리포트가 권고하는 agent는 더 오래 반성하는 agent가 아닙니다. 검증된 결과를 보존하고, 오류 증거가 있는 부분만 수정하며, 기대 순이득이 비용과 위험보다 작아지면 멈추는 agent입니다.
+  </Section>
+
+  <Section id="model" title="자기수정은 정답과 오답 사이의 확률 흐름으로 표현할 수 있습니다">
+    현재 답이 정답인지 오답인지만 남기면 자기수정은 두 상태 사이의 전이로 축약됩니다.
+
+    <TermGrid
+      items={[
+        {
+          symbol: "CL",
+          term: "Confidence Level",
+          description: "현재 답이 정답일 때 수정 후에도 정답으로 남을 조건부 확률",
+        },
+        {
+          symbol: "CS",
+          term: "Critique Score",
+          description: "현재 답이 오답일 때 수정 후 정답으로 바뀔 조건부 확률",
+        },
+        {
+          symbol: "U",
+          term: "Convergence point",
+          description: "정답으로 들어오는 흐름과 정답에서 빠져나가는 흐름이 같아지는 정확도",
+        },
+        {
+          symbol: "α",
+          term: "Convergence factor",
+          description: "현재 정확도가 고정점에서 떨어진 거리를 다음 라운드에 얼마나 남기는지 나타내는 계수",
+        },
+      ]}
+    />
+
+    <ComparisonTable
+      columns={["현재 상태", "수정 후 정답", "수정 후 오답"]}
+      rows={[
+        ["정답", "CL", "1 − CL"],
+        ["오답", "CS", "1 − CS"],
+      ]}
+    />
+
+    라운드 $t-1$의 정확도를 $A_{t-1}$라고 하면, 기존 정답 중 $CL$만큼이 남고 기존 오답 중 $CS$만큼이 복구됩니다.
+
+    $$
+    A_t=A_{t-1}CL+(1-A_{t-1})CS
+    $$
+
+    같은 관계를 순변화로 쓰면 핵심 직관이 더 잘 드러납니다.
+
+    $$
+    A_t-A_{t-1}
+    =
+    \underbrace{(1-A_{t-1})CS}_{\text{오답을 고치는 이득}}
+    -
+    \underbrace{A_{t-1}(1-CL)}_{\text{정답을 망치는 손실}}
+    $$
+
+    자기수정이 평균적으로 이로우려면 오답 복구 이득이 정답 훼손 손실보다 커야 합니다.
+
+    $$
+    (1-A_{t-1})CS>A_{t-1}(1-CL)
+    $$
+
+    두 흐름이 같아지는 고정점은 다음과 같습니다.
+
+    $$
+    U=\frac{CS}{1-CL+CS}
+    $$
+
+    $CL$과 $CS$가 라운드와 무관한 상수이고 $\alpha=CL-CS$라면,
+
+    $$
+    A_t-U=\alpha(A_{t-1}-U)
+    $$
+
+    이므로 정확도 곡선은 다음처럼 닫힌 형태로 정리됩니다.
+
+    $$
+    A_t=U-\alpha^t(U-A_0)
+    $$
+
+    논문이 강조하는 단조 수렴 해석은 실험에서 주로 관찰한 $0<\alpha<1$ 구간에 해당합니다. 일반적인 안정 수렴 조건은 $|\alpha|<1$이며, $\alpha<0$이면 정확도는 고정점의 양쪽을 오가며 접근합니다.
+
+    <Note label="U는 보편적 성능 상한이 아닙니다" tone="warn">
+      <p>
+        원 논문은 이 값을 <code>Upp</code>라고 부르지만, 수학적으로는 주어진 모델·데이터셋·프롬프트·샘플링 절차의 고정점에 가깝습니다. 초기 정확도가 이미 U보다 높으면 정확도는 U를 향해 내려갑니다.
+      </p>
+    </Note>
+
+    $U$는 도착점이고 $\alpha$는 접근 속도입니다. 작은 $\alpha$가 항상 좋은 것은 아닙니다. $CL$이 낮아져서 $\alpha$가 작아진 경우에는 빠르게 나쁜 고정점으로 이동할 수도 있으므로, 먼저 $U$를 확인하고 그다음 수렴 속도를 봐야 합니다.
+  </Section>
+
+  <Section id="experiment" title="원 논문은 첫 수정에서 추정한 전이확률로 2~5라운드 정확도를 예측했습니다">
+    실험은 첫 번째 수정 깊이에서 $A_0$, $CL$, $CS$를 추정한 뒤, 같은 수정 절차를 실제로 5라운드 수행해 얻은 정확도 곡선과 이론 곡선을 비교하는 방식입니다.
+
+    <ComparisonTable
+      columns={["검증 항목", "실험 조작", "관찰한 결과"]}
+      rows={[
+        [
+          "주 정확도 곡선",
+          "reask 프롬프트로 5라운드 수정, 질문마다 5개 응답을 독립 샘플링",
+          "첫 수정에서 계산한 곡선이 후속 라운드의 포화 형태와 대체로 일치",
+        ],
+        [
+          "CL·CS 안정성",
+          "Llama3-8B-Instruct에서 라운드별 CLₜ·CSₜ 재측정",
+          "검증한 1~5라운드에서는 두 값이 대체로 안정적",
+        ],
+        [
+          "초기 정확도 독립성",
+          "초기 정확도를 0·20·40·60·80·100%로 인위적으로 설정",
+          "서로 다른 시작점이 같은 고정점 방향으로 접근",
+        ],
+        [
+          "수렴 속도",
+          "α가 작은 Llama3-8B와 큰 Qwen2.5-7B를 비교",
+          "작은 α를 가진 모델이 5라운드 안에 자신의 고정점에 더 빠르게 접근",
+        ],
+        [
+          "oracle verifier",
+          "정답을 한 번 찾으면 이후 수정에서 보존해 CL=1을 모사",
+          "5라운드 상승 곡선이 이론과 유사했으며, 100%는 고정 전이 가정 아래의 점근적 예측",
+        ],
+        [
+          "실패 사례",
+          "Llama3-8B·GSM8K에 ‘Are you sure?’ 프롬프트 적용",
+          "CL과 예측 고정점이 낮아지고 실제 정확도도 하락",
+        ],
+      ]}
+    />
+
+    모델은 Llama 3, Qwen 2.5, DeepSeek, Mistral, GLM4, Qwen-Max, GPT-3.5 Turbo, GPT-4 Turbo를 포함했습니다. 데이터셋은 GSM8K, HumanEval, IFEval, MMLU, BoolQ, CommonsenseQA, PIQA, HotpotQA였습니다. 비용 때문에 8개 모델과 8개 데이터셋의 64개 조합을 모두 실행한 것은 아니며, 논문은 한 모델에서 여러 데이터셋을 확인하고 한 데이터셋에서 여러 모델을 확인하는 일부 조합을 제시했습니다.
+
+    <Note label="첫 라운드는 예측 검증보다 파라미터 보정에 가깝습니다" tone="neutral">
+      <p>
+        A₁은 같은 전환 자료로 계산한 CL과 CS에 의해 거의 결정됩니다. 따라서 미래 예측을 실제로 시험하는 구간은 2~5라운드입니다. 논문은 이 구간의 곡선을 주로 시각적으로 비교했으며 RMSE, R², 신뢰구간 같은 적합도 통계는 제시하지 않았습니다.
+      </p>
+    </Note>
+
+    생성 과제에서는 여러 수정 전·후 응답 쌍의 정답 빈도로 확률을 추정하고, 분류 과제에서는 정답·오답 후보를 이전 답으로 넣어 후보 logits에서 조건부 확률을 추정했습니다. 따라서 “한 라운드로 예측한다”는 표현은 한 번의 API 호출을 뜻하지 않습니다. 정답 판정과 반복 샘플링 또는 후보별 logits가 필요합니다.
+  </Section>
+
+  <Section id="principles" title="Agent는 수정 횟수보다 보존·검증·중단 정책을 먼저 설계해야 합니다">
+    <ComparisonTable
+      columns={["원칙", "구현 방법", "확률 모형에서의 효과"]}
+      rows={[
+        [
+          "검증된 incumbent 보존",
+          "수정 후보를 별도 버전으로 만들고 검증을 통과할 때만 교체",
+          "정답 → 오답 전이를 줄여 시스템 수준의 CL을 높임",
+        ],
+        [
+          "증거가 있을 때만 수정",
+          "‘다시 생각해’ 대신 실패 테스트·충돌 제약·근거 누락을 전달",
+          "불필요한 전면 수정을 줄이면서 오류가 있는 사례의 CS를 높임",
+        ],
+        [
+          "생성과 검증 분리",
+          "컴파일러·테스트·계산기·검색 원문·스키마·사람 승인 사용",
+          "생성기와 같은 오류를 반복하지 않는 외부 신호로 CL과 CS를 함께 개선",
+        ],
+        [
+          "선택적 라우팅",
+          "검증 통과 사례는 종료하고 실패 또는 불확실 사례에만 추가 계산 배정",
+          "이미 맞은 답이 수정 위험에 노출되는 면적을 줄임",
+        ],
+        [
+          "적응형 중단",
+          "라운드별 순이득, 비용, 지연, 행동 위험을 비교해 종료",
+          "기하급수적으로 감소하는 한계효용 뒤의 과잉 반복을 방지",
+        ],
+        [
+          "검증 후 실행",
+          "샌드박스 검증과 rollback 가능성을 확인한 뒤 외부 상태에 commit",
+          "답변 정확도 모형이 직접 다루지 않는 비가역 행동 위험을 통제",
+        ],
+      ]}
+    />
+
+    권장 워크플로는 다음과 같습니다.
+
+    ```text
+    incumbent 생성
+      → 독립 verifier로 검사
+      → 통과: 결과 동결·종료
+      → 실패: 근거가 있는 국소 critique 생성
+      → challenger 생성
+      → incumbent와 challenger를 다시 검증
+      → 개선이 확인될 때만 교체
+      → 순이득이 없거나 예산이 끝나면 중단·rollback·사람에게 에스컬레이션
+    ```
+
+    같은 LLM에게 생성과 판정을 모두 맡기는 경우에도 역할 프롬프트를 나누는 것만으로 독립성이 생기지는 않습니다. 검증기의 오탐과 미탐을 별도 평가셋에서 측정하고, 가능한 영역에는 실행 결과나 원문처럼 생성과 다른 근거 채널을 사용해야 합니다.
+  </Section>
+
+  <Section id="frontier" title="SOTA 모델에도 흐름 원리는 남지만 고정된 지수곡선은 보장되지 않습니다">
+    라운드별 전이확률을 허용하면 다음 식은 어떤 모델 세대에도 사용할 수 있습니다.
+
+    $$
+    A_{t+1}=A_tCL_t+(1-A_t)CS_t
+    $$
+
+    그러나 현대 reasoning model과 tool-using agent는 문제 난이도에 따라 사고 시간을 바꾸고, 전체 이력을 사용하며, 검색·코드 실행으로 새 정보를 얻고, 중간에 전략과 모델을 전환합니다. 이때 각 라운드는 같은 수정 연산이 아니므로 하나의 $U$와 $\alpha$로 전체 과정을 설명하기 어렵습니다.
+
+    <ComparisonTable
+      columns={["시스템", "원 논문 식의 적합성", "더 적절한 분석"]}
+      rows={[
+        [
+          "같은 프롬프트로 직전 답만 반복 수정",
+          "CL·CS가 안정적인 짧은 구간에서 높음",
+          "고정 전이확률의 2상태 Markov 근사",
+        ],
+        [
+          "긴 내부 추론을 수행하는 reasoning model",
+          "외부 호출 단위에는 적용 가능하지만 내부 reflection 단위와 일치하지 않음",
+          "외부 라운드별 CLₜ·CSₜ 측정과 난이도별 층화",
+        ],
+        [
+          "검색·코드·파일·브라우저를 사용하는 agent",
+          "새 observation 때문에 전이확률이 상태와 행동에 따라 변함",
+          "시간가변 전이 모형 또는 MDP·POMDP",
+        ],
+        [
+          "다중 agent·병렬 후보·모델 라우팅",
+          "정답/오답 두 상태만으로 선택과 분기 정보를 잃음",
+          "다상태 전이행렬과 controller·verifier를 포함한 시스템 모형",
+        ],
+      ]}
+    />
+
+    강한 모델일수록 수정 정책은 더 보수적이어야 합니다. 현재 정확도가 $A$일 때 자기수정이 유리하려면
+
+    $$
+    CL>1-\frac{1-A}{A}CS
+    $$
+
+    여야 합니다. $CS=0.5$라고 해도 $A=0.95$이면 $CL>0.9737$, $A=0.99$이면 $CL>0.9949$가 필요합니다. 초기 정확도가 높아질수록 고칠 오답은 줄고 망가뜨릴 정답은 늘어나므로, 전면적인 재검토보다 불확실 사례만 선택하는 정책이 중요해집니다.
+
+    2025년 이후 연구는 이 구분과 일치하는 방향의 근거를 제공합니다.
+
+    - ICLR 2025의 test-time compute 연구는 최적 전략과 필요한 계산량이 문제 난이도에 따라 달라진다고 보고했고, 고정 반복보다 요청별 적응형 배분을 권고했습니다.
+    - SCoRe와 S²R은 self-verification과 self-correction이 강화학습으로 개선될 수 있음을 보였습니다. 이는 CL과 CS가 모델 이름에 붙은 불변 상수가 아니라 훈련과 절차가 바꾸는 시스템 속성임을 뜻합니다.
+    - DeepSeek-R1은 self-reflection, verification, dynamic strategy adaptation을 현대 reasoning model의 학습된 행동으로 보고했습니다. 이런 동적 전략은 고정 전이확률 가정과 구분해야 합니다.
+    - ACL 2026 Findings의 DeepVerifier 연구는 복잡한 research agent에서 오답 → 정답 전이는 초반에 강하지만 빠르게 감소하고, 정답 → 오답 전이는 약하지만 계속 남는 사례를 제시했습니다. Claude-3.7 기반 GAIA-Full 설정은 약 4라운드에서 정점을 보였지만 모델별 최적 라운드는 달랐습니다. 복구와 훼손의 경쟁은 남지만 정상성은 깨질 수 있다는 직접적인 예입니다.
+
+    <Note label="SOTA는 모델 단독 속성이 아닙니다" tone="neutral">
+      <p>
+        Agent 성능은 모델뿐 아니라 도구, verifier, memory, routing, stopping, task distribution의 결합으로 정해집니다. 이 리포트는 특정 모델의 종합 순위를 매기지 않으며, 각 배포 조합에서 전이확률을 다시 측정할 것을 권고합니다.
+      </p>
+    </Note>
+  </Section>
+
+  <Section id="operations" title="운영에서는 라운드별 전이표와 가치 기반 중단 조건을 함께 기록해야 합니다">
+    배포 전에 실제 업무 분포와 같은 held-out 평가셋을 준비하고, 각 라운드의 이전 답과 수정 답을 모두 보존합니다. 최소 측정 단위는 다음과 같습니다.
+
+    <ComparisonTable
+      columns={["측정값", "질문", "경고 신호"]}
+      rows={[
+        ["Aₜ", "라운드별 전체 성공률은 어떻게 변하는가?", "평균은 오르지만 고위험 사례가 악화될 수 있음"],
+        ["CLₜ", "맞은 결과를 얼마나 보존하는가?", "라운드가 갈수록 하락하면 과잉 수정 가능성"],
+        ["CSₜ", "틀린 결과를 얼마나 복구하는가?", "빠르게 하락하면 잔여 오류가 더 어려워졌을 가능성"],
+        ["비용·지연", "추가 성공 한 건에 얼마의 계산과 시간이 드는가?", "정확도 개선보다 운영 비용이 빠르게 증가"],
+        ["오류 심각도", "수정이 어떤 종류의 회귀를 만들었는가?", "평균 정확도로 안전·금전·데이터 손실 위험이 가려짐"],
+        ["verifier 오류", "판정기가 틀린 답을 통과시키거나 맞은 답을 거부하는가?", "자가 평가와 실제 정답의 체계적 불일치"],
+      ]}
+    />
+
+    중단 정책은 정확도만이 아니라 업무 가치를 사용해야 합니다.
+
+    ```text
+    추가 라운드 실행
+      iff
+    예상 오류 감소 가치
+      >
+    추론 비용 + 지연 비용 + 회귀 위험 + 행동 위험
+    ```
+
+    표본 수와 신뢰구간을 함께 기록하고, 모델·프롬프트·도구·verifier가 바뀌면 기존 $CL$, $CS$, $U$, $\alpha$를 재사용하지 않습니다. 라운드별 값이 안정적이지 않으면 하나의 지수곡선을 맞추는 대신 시간가변 전이 또는 난이도·오류 유형별 모형으로 전환합니다.
+  </Section>
+
+  <Section id="limits" title="이론은 유용한 기준선이지만 Agent의 의미·상태·행동 비용을 모두 담지는 못합니다">
+    이 리포트의 판단에는 다음 경계가 있습니다.
+
+    - 정답/오답 이진 평가는 장문 보고서의 부분적 정확성, 유용성, 안전성, 스타일 품질을 충분히 표현하지 못합니다.
+    - 질문별 오류 난이도가 다르면 데이터셋 평균은 여러 전이 동역학의 혼합이 됩니다.
+    - 같은 모델의 self-judge는 generator와 오류가 상관될 수 있으므로 ground truth 대체물이 아닙니다.
+    - 도구 호출이 새 정보를 만들거나 외부 상태를 바꾸면 단순 자기수정이 아니라 상태 의존적 의사결정 문제가 됩니다.
+    - 원 논문의 검증은 5라운드, intrinsic reask 설정, 일부 모델·데이터셋 조합에 집중되어 있습니다.
+    - DeepVerifier는 과제와 agent 구조가 원 논문과 다르므로 복잡한 agent의 비정상성과 조기 중단 필요성을 보여주는 사례로만 사용합니다. 원 논문의 고정 전이 법칙을 직접 재현한 결과로 해석하지 않습니다.
+
+    따라서 이 이론은 미래 모델의 성능을 보장하는 법칙보다, 자기수정 파이프라인이 언제 개선되고 언제 회귀하는지 측정하기 위한 최소 기준선으로 사용하는 편이 적절합니다.
+  </Section>
+
+  <Section id="sources" title="근거 문헌">
+    <SourceLink href="https://aclanthology.org/2025.emnlp-main.685/">
+      Yang et al. (2025), A Probabilistic Inference Scaling Theory for LLM Self-Correction, EMNLP 2025
+    </SourceLink>
+    <SourceLink href="https://proceedings.iclr.cc/paper_files/paper/2025/hash/1b623663fd9b874366f3ce019fdfdd44-Abstract-Conference.html">
+      Snell et al. (2025), Scaling LLM Test-Time Compute Optimally Can be More Effective than Scaling Parameters for Reasoning, ICLR 2025
+    </SourceLink>
+    <SourceLink href="https://proceedings.iclr.cc/paper_files/paper/2025/hash/871ac99fdc5282d0301934d23945ebaa-Abstract-Conference.html">
+      Kumar et al. (2025), Training Language Models to Self-Correct via Reinforcement Learning, ICLR 2025
+    </SourceLink>
+    <SourceLink href="https://aclanthology.org/2025.acl-long.1104/">
+      Ma et al. (2025), S²R: Teaching LLMs to Self-verify and Self-correct via Reinforcement Learning, ACL 2025
+    </SourceLink>
+    <SourceLink href="https://arxiv.org/abs/2501.12948">
+      DeepSeek-AI et al. (2025; revised 2026), DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via Reinforcement Learning
+    </SourceLink>
+    <SourceLink href="https://aclanthology.org/2026.findings-acl.1243/">
+      Wan et al. (2026), Inference-Time Scaling of Verification: Self-Evolving Deep Research Agents via Test-Time Rubric-Guided Verification, Findings of ACL
+    </SourceLink>
+  </Section>
+</ArticlePage>

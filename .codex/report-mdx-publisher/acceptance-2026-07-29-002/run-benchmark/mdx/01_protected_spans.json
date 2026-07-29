@@ -1,0 +1,18 @@
+{
+  "artifact_version": "1.0",
+  "schema_version": "1.0",
+  "skill_version": "0.1.0",
+  "run_id": "2026-07-29-163444",
+  "command": "run",
+  "workflow_preset": "full-report",
+  "quality": "strict",
+  "created_at": "2026-07-29T07:34:44.527809+00:00",
+  "spans": [
+    {
+      "kind": "mdx_structure_or_nonprose",
+      "start_offset": 0,
+      "end_offset": 18,
+      "sha256": "bf2b11795d024cc9f856116a8159b6ac6716c7c0fe132b8a584776a3af8ee73e"
+    }
+  ]
+}

@@ -1,0 +1,5831 @@
+{
+  "claim_boundary": {
+    "evidence_boundary": "Provider-check and dry-run outputs are not empirical LLM evidence. Only mode=run outputs with a real provider count as pilot evidence.",
+    "not_sufficient_for_publication_claim": "This pilot is too small to establish the thesis. It is a smoke test for the preregistered protocol and runner.",
+    "purpose": "Tiny empirical pilot for checking whether loop policies improve selected deterministic tasks under a real LLM provider."
+  },
+  "condition_count": 5,
+  "generated_at": "2026-05-27T08:36:23+00:00",
+  "id": "M4b-agent-loop-necessity-tiny-pilot-run",
+  "mode": "run",
+  "model": "gpt-5.4-mini",
+  "provider": "https://api.openai.com",
+  "results": [
+    {
+      "candidates": [
+        {
+          "answer": "47",
+          "call_index": 1,
+          "latency_seconds": 0.543,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"47\"}",
+          "selected_by": "single",
+          "strong_verifier": {
+            "answer": "47",
+            "expected_normalized": [
+              "47"
+            ],
+            "observed_normalized": "47",
+            "passed": true,
+            "reason": "exact_match"
+          },
+          "temperature": 0.0,
+          "usage": {
+            "completion_tokens": 8,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 58,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 66
+          },
+          "weak_verifier": {
+            "answer": "47",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        }
+      ],
+      "condition_id": "C0",
+      "condition_name": "one-shot",
+      "model_calls": 1,
+      "passed": true,
+      "selected_answer": "47",
+      "selected_call_index": 1,
+      "task_class": "short_deterministic",
+      "task_id": "S1"
+    },
+    {
+      "candidates": [
+        {
+          "answer": "47",
+          "call_index": 1,
+          "latency_seconds": 1.009,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"47\"}",
+          "selected_by": "strong_verifier",
+          "strong_verifier": {
+            "answer": "47",
+            "expected_normalized": [
+              "47"
+            ],
+            "observed_normalized": "47",
+            "passed": true,
+            "reason": "exact_match"
+          },
+          "temperature": 0.7,
+          "usage": {
+            "completion_tokens": 8,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 58,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 66
+          },
+          "weak_verifier": {
+            "answer": "47",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        },
+        {
+          "answer": "47",
+          "call_index": 2,
+          "latency_seconds": 0.562,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"47\"}",
+          "selected_by": "strong_verifier",
+          "strong_verifier": {
+            "answer": "47",
+            "expected_normalized": [
+              "47"
+            ],
+            "observed_normalized": "47",
+            "passed": true,
+            "reason": "exact_match"
+          },
+          "temperature": 0.7,
+          "usage": {
+            "completion_tokens": 8,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 58,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 66
+          },
+          "weak_verifier": {
+            "answer": "47",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        },
+        {
+          "answer": "47",
+          "call_index": 3,
+          "latency_seconds": 0.728,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"47\"}",
+          "selected_by": "strong_verifier",
+          "strong_verifier": {
+            "answer": "47",
+            "expected_normalized": [
+              "47"
+            ],
+            "observed_normalized": "47",
+            "passed": true,
+            "reason": "exact_match"
+          },
+          "temperature": 0.7,
+          "usage": {
+            "completion_tokens": 8,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 58,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 66
+          },
+          "weak_verifier": {
+            "answer": "47",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        }
+      ],
+      "condition_id": "C3",
+      "condition_name": "best-of-n with strong verifier",
+      "model_calls": 3,
+      "passed": true,
+      "selected_answer": "47",
+      "selected_call_index": 1,
+      "task_class": "short_deterministic",
+      "task_id": "S1"
+    },
+    {
+      "candidates": [
+        {
+          "answer": "47",
+          "call_index": 1,
+          "latency_seconds": 0.84,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"47\"}",
+          "selected_by": "self_revision_seed",
+          "strong_verifier": {
+            "answer": "47",
+            "expected_normalized": [
+              "47"
+            ],
+            "observed_normalized": "47",
+            "passed": true,
+            "reason": "exact_match"
+          },
+          "temperature": 0.0,
+          "usage": {
+            "completion_tokens": 8,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 58,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 66
+          },
+          "weak_verifier": {
+            "answer": "47",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        },
+        {
+          "answer": "47",
+          "call_index": 2,
+          "latency_seconds": 0.661,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"47\"}",
+          "selected_by": "self_revision_final",
+          "strong_verifier": {
+            "answer": "47",
+            "expected_normalized": [
+              "47"
+            ],
+            "observed_normalized": "47",
+            "passed": true,
+            "reason": "exact_match"
+          },
+          "temperature": 0.0,
+          "usage": {
+            "completion_tokens": 8,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 89,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 97
+          },
+          "weak_verifier": {
+            "answer": "47",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        }
+      ],
+      "condition_id": "C4",
+      "condition_name": "self-reflection loop",
+      "model_calls": 2,
+      "passed": true,
+      "selected_answer": "47",
+      "selected_call_index": 2,
+      "task_class": "short_deterministic",
+      "task_id": "S1"
+    },
+    {
+      "candidates": [
+        {
+          "answer": "47",
+          "call_index": 1,
+          "latency_seconds": 0.558,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"47\"}",
+          "selected_by": "strong_verifier_feedback",
+          "strong_verifier": {
+            "answer": "47",
+            "expected_normalized": [
+              "47"
+            ],
+            "observed_normalized": "47",
+            "passed": true,
+            "reason": "exact_match"
+          },
+          "temperature": 0.0,
+          "usage": {
+            "completion_tokens": 8,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 58,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 66
+          },
+          "weak_verifier": {
+            "answer": "47",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        }
+      ],
+      "condition_id": "C6",
+      "condition_name": "grounded verifier loop",
+      "model_calls": 1,
+      "passed": true,
+      "selected_answer": "47",
+      "selected_call_index": 1,
+      "task_class": "short_deterministic",
+      "task_id": "S1"
+    },
+    {
+      "candidates": [
+        {
+          "answer": "47",
+          "call_index": 1,
+          "latency_seconds": 0.549,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"47\"}",
+          "selected_by": "weak_verifier",
+          "strong_verifier": {
+            "answer": "47",
+            "expected_normalized": [
+              "47"
+            ],
+            "observed_normalized": "47",
+            "passed": true,
+            "reason": "exact_match"
+          },
+          "temperature": 0.7,
+          "usage": {
+            "completion_tokens": 8,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 58,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 66
+          },
+          "weak_verifier": {
+            "answer": "47",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        },
+        {
+          "answer": "47",
+          "call_index": 2,
+          "latency_seconds": 0.585,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"47\"}",
+          "selected_by": "weak_verifier",
+          "strong_verifier": {
+            "answer": "47",
+            "expected_normalized": [
+              "47"
+            ],
+            "observed_normalized": "47",
+            "passed": true,
+            "reason": "exact_match"
+          },
+          "temperature": 0.7,
+          "usage": {
+            "completion_tokens": 8,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 58,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 66
+          },
+          "weak_verifier": {
+            "answer": "47",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        },
+        {
+          "answer": "47",
+          "call_index": 3,
+          "latency_seconds": 0.596,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"47\"}",
+          "selected_by": "weak_verifier",
+          "strong_verifier": {
+            "answer": "47",
+            "expected_normalized": [
+              "47"
+            ],
+            "observed_normalized": "47",
+            "passed": true,
+            "reason": "exact_match"
+          },
+          "temperature": 0.7,
+          "usage": {
+            "completion_tokens": 8,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 58,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 66
+          },
+          "weak_verifier": {
+            "answer": "47",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        }
+      ],
+      "condition_id": "C7",
+      "condition_name": "weak-verifier stress",
+      "model_calls": 3,
+      "passed": true,
+      "selected_answer": "47",
+      "selected_call_index": 1,
+      "task_class": "short_deterministic",
+      "task_id": "S1"
+    },
+    {
+      "candidates": [
+        {
+          "answer": "desserts",
+          "call_index": 1,
+          "latency_seconds": 0.63,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"desserts\"}",
+          "selected_by": "single",
+          "strong_verifier": {
+            "answer": "desserts",
+            "expected_normalized": [
+              "desserts"
+            ],
+            "observed_normalized": "desserts",
+            "passed": true,
+            "reason": "exact_match"
+          },
+          "temperature": 0.0,
+          "usage": {
+            "completion_tokens": 9,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 61,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 70
+          },
+          "weak_verifier": {
+            "answer": "desserts",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        }
+      ],
+      "condition_id": "C0",
+      "condition_name": "one-shot",
+      "model_calls": 1,
+      "passed": true,
+      "selected_answer": "desserts",
+      "selected_call_index": 1,
+      "task_class": "short_deterministic",
+      "task_id": "S2"
+    },
+    {
+      "candidates": [
+        {
+          "answer": "desserts",
+          "call_index": 1,
+          "latency_seconds": 0.66,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"desserts\"}",
+          "selected_by": "strong_verifier",
+          "strong_verifier": {
+            "answer": "desserts",
+            "expected_normalized": [
+              "desserts"
+            ],
+            "observed_normalized": "desserts",
+            "passed": true,
+            "reason": "exact_match"
+          },
+          "temperature": 0.7,
+          "usage": {
+            "completion_tokens": 9,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 61,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 70
+          },
+          "weak_verifier": {
+            "answer": "desserts",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        },
+        {
+          "answer": "desserts",
+          "call_index": 2,
+          "latency_seconds": 0.725,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"desserts\"}",
+          "selected_by": "strong_verifier",
+          "strong_verifier": {
+            "answer": "desserts",
+            "expected_normalized": [
+              "desserts"
+            ],
+            "observed_normalized": "desserts",
+            "passed": true,
+            "reason": "exact_match"
+          },
+          "temperature": 0.7,
+          "usage": {
+            "completion_tokens": 9,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 61,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 70
+          },
+          "weak_verifier": {
+            "answer": "desserts",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        },
+        {
+          "answer": "desserts",
+          "call_index": 3,
+          "latency_seconds": 0.612,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"desserts\"}",
+          "selected_by": "strong_verifier",
+          "strong_verifier": {
+            "answer": "desserts",
+            "expected_normalized": [
+              "desserts"
+            ],
+            "observed_normalized": "desserts",
+            "passed": true,
+            "reason": "exact_match"
+          },
+          "temperature": 0.7,
+          "usage": {
+            "completion_tokens": 9,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 61,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 70
+          },
+          "weak_verifier": {
+            "answer": "desserts",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        }
+      ],
+      "condition_id": "C3",
+      "condition_name": "best-of-n with strong verifier",
+      "model_calls": 3,
+      "passed": true,
+      "selected_answer": "desserts",
+      "selected_call_index": 1,
+      "task_class": "short_deterministic",
+      "task_id": "S2"
+    },
+    {
+      "candidates": [
+        {
+          "answer": "desserts",
+          "call_index": 1,
+          "latency_seconds": 0.591,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"desserts\"}",
+          "selected_by": "self_revision_seed",
+          "strong_verifier": {
+            "answer": "desserts",
+            "expected_normalized": [
+              "desserts"
+            ],
+            "observed_normalized": "desserts",
+            "passed": true,
+            "reason": "exact_match"
+          },
+          "temperature": 0.0,
+          "usage": {
+            "completion_tokens": 9,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 61,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 70
+          },
+          "weak_verifier": {
+            "answer": "desserts",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        },
+        {
+          "answer": "desserts",
+          "call_index": 2,
+          "latency_seconds": 0.581,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"desserts\"}",
+          "selected_by": "self_revision_final",
+          "strong_verifier": {
+            "answer": "desserts",
+            "expected_normalized": [
+              "desserts"
+            ],
+            "observed_normalized": "desserts",
+            "passed": true,
+            "reason": "exact_match"
+          },
+          "temperature": 0.0,
+          "usage": {
+            "completion_tokens": 9,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 91,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 100
+          },
+          "weak_verifier": {
+            "answer": "desserts",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        }
+      ],
+      "condition_id": "C4",
+      "condition_name": "self-reflection loop",
+      "model_calls": 2,
+      "passed": true,
+      "selected_answer": "desserts",
+      "selected_call_index": 2,
+      "task_class": "short_deterministic",
+      "task_id": "S2"
+    },
+    {
+      "candidates": [
+        {
+          "answer": "desserts",
+          "call_index": 1,
+          "latency_seconds": 0.729,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"desserts\"}",
+          "selected_by": "strong_verifier_feedback",
+          "strong_verifier": {
+            "answer": "desserts",
+            "expected_normalized": [
+              "desserts"
+            ],
+            "observed_normalized": "desserts",
+            "passed": true,
+            "reason": "exact_match"
+          },
+          "temperature": 0.0,
+          "usage": {
+            "completion_tokens": 9,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 61,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 70
+          },
+          "weak_verifier": {
+            "answer": "desserts",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        }
+      ],
+      "condition_id": "C6",
+      "condition_name": "grounded verifier loop",
+      "model_calls": 1,
+      "passed": true,
+      "selected_answer": "desserts",
+      "selected_call_index": 1,
+      "task_class": "short_deterministic",
+      "task_id": "S2"
+    },
+    {
+      "candidates": [
+        {
+          "answer": "desserts",
+          "call_index": 1,
+          "latency_seconds": 0.599,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"desserts\"}",
+          "selected_by": "weak_verifier",
+          "strong_verifier": {
+            "answer": "desserts",
+            "expected_normalized": [
+              "desserts"
+            ],
+            "observed_normalized": "desserts",
+            "passed": true,
+            "reason": "exact_match"
+          },
+          "temperature": 0.7,
+          "usage": {
+            "completion_tokens": 9,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 61,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 70
+          },
+          "weak_verifier": {
+            "answer": "desserts",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        },
+        {
+          "answer": "desserts",
+          "call_index": 2,
+          "latency_seconds": 0.591,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"desserts\"}",
+          "selected_by": "weak_verifier",
+          "strong_verifier": {
+            "answer": "desserts",
+            "expected_normalized": [
+              "desserts"
+            ],
+            "observed_normalized": "desserts",
+            "passed": true,
+            "reason": "exact_match"
+          },
+          "temperature": 0.7,
+          "usage": {
+            "completion_tokens": 9,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 61,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 70
+          },
+          "weak_verifier": {
+            "answer": "desserts",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        },
+        {
+          "answer": "desserts",
+          "call_index": 3,
+          "latency_seconds": 0.594,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"desserts\"}",
+          "selected_by": "weak_verifier",
+          "strong_verifier": {
+            "answer": "desserts",
+            "expected_normalized": [
+              "desserts"
+            ],
+            "observed_normalized": "desserts",
+            "passed": true,
+            "reason": "exact_match"
+          },
+          "temperature": 0.7,
+          "usage": {
+            "completion_tokens": 9,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 61,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 70
+          },
+          "weak_verifier": {
+            "answer": "desserts",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        }
+      ],
+      "condition_id": "C7",
+      "condition_name": "weak-verifier stress",
+      "model_calls": 3,
+      "passed": true,
+      "selected_answer": "desserts",
+      "selected_call_index": 1,
+      "task_class": "short_deterministic",
+      "task_id": "S2"
+    },
+    {
+      "candidates": [
+        {
+          "answer": "10",
+          "call_index": 1,
+          "latency_seconds": 0.635,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"10\"}",
+          "selected_by": "single",
+          "strong_verifier": {
+            "answer": "10",
+            "expected_normalized": [
+              "10"
+            ],
+            "observed_normalized": "10",
+            "passed": true,
+            "reason": "exact_match"
+          },
+          "temperature": 0.0,
+          "usage": {
+            "completion_tokens": 14,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 91,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 105
+          },
+          "weak_verifier": {
+            "answer": "10",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        }
+      ],
+      "condition_id": "C0",
+      "condition_name": "one-shot",
+      "model_calls": 1,
+      "passed": true,
+      "selected_answer": "10",
+      "selected_call_index": 1,
+      "task_class": "medium_reasoning",
+      "task_id": "M1"
+    },
+    {
+      "candidates": [
+        {
+          "answer": "8",
+          "call_index": 1,
+          "latency_seconds": 0.6,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"8\"}",
+          "selected_by": "strong_verifier",
+          "strong_verifier": {
+            "answer": "8",
+            "expected_normalized": [
+              "10"
+            ],
+            "observed_normalized": "8",
+            "passed": false,
+            "reason": "exact_match_failed"
+          },
+          "temperature": 0.7,
+          "usage": {
+            "completion_tokens": 14,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 91,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 105
+          },
+          "weak_verifier": {
+            "answer": "8",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        },
+        {
+          "answer": "10",
+          "call_index": 2,
+          "latency_seconds": 0.821,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"10\"}",
+          "selected_by": "strong_verifier",
+          "strong_verifier": {
+            "answer": "10",
+            "expected_normalized": [
+              "10"
+            ],
+            "observed_normalized": "10",
+            "passed": true,
+            "reason": "exact_match"
+          },
+          "temperature": 0.7,
+          "usage": {
+            "completion_tokens": 14,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 91,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 105
+          },
+          "weak_verifier": {
+            "answer": "10",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        },
+        {
+          "answer": "10",
+          "call_index": 3,
+          "latency_seconds": 0.602,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"10\"}",
+          "selected_by": "strong_verifier",
+          "strong_verifier": {
+            "answer": "10",
+            "expected_normalized": [
+              "10"
+            ],
+            "observed_normalized": "10",
+            "passed": true,
+            "reason": "exact_match"
+          },
+          "temperature": 0.7,
+          "usage": {
+            "completion_tokens": 14,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 91,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 105
+          },
+          "weak_verifier": {
+            "answer": "10",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        }
+      ],
+      "condition_id": "C3",
+      "condition_name": "best-of-n with strong verifier",
+      "model_calls": 3,
+      "passed": true,
+      "selected_answer": "10",
+      "selected_call_index": 2,
+      "task_class": "medium_reasoning",
+      "task_id": "M1"
+    },
+    {
+      "candidates": [
+        {
+          "answer": "10",
+          "call_index": 1,
+          "latency_seconds": 0.8,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"10\"}",
+          "selected_by": "self_revision_seed",
+          "strong_verifier": {
+            "answer": "10",
+            "expected_normalized": [
+              "10"
+            ],
+            "observed_normalized": "10",
+            "passed": true,
+            "reason": "exact_match"
+          },
+          "temperature": 0.0,
+          "usage": {
+            "completion_tokens": 14,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 91,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 105
+          },
+          "weak_verifier": {
+            "answer": "10",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        },
+        {
+          "answer": "8",
+          "call_index": 2,
+          "latency_seconds": 0.691,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"8\"}",
+          "selected_by": "self_revision_final",
+          "strong_verifier": {
+            "answer": "8",
+            "expected_normalized": [
+              "10"
+            ],
+            "observed_normalized": "8",
+            "passed": false,
+            "reason": "exact_match_failed"
+          },
+          "temperature": 0.0,
+          "usage": {
+            "completion_tokens": 14,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 122,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 136
+          },
+          "weak_verifier": {
+            "answer": "8",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        }
+      ],
+      "condition_id": "C4",
+      "condition_name": "self-reflection loop",
+      "model_calls": 2,
+      "passed": false,
+      "selected_answer": "8",
+      "selected_call_index": 2,
+      "task_class": "medium_reasoning",
+      "task_id": "M1"
+    },
+    {
+      "candidates": [
+        {
+          "answer": "10",
+          "call_index": 1,
+          "latency_seconds": 0.62,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"10\"}",
+          "selected_by": "strong_verifier_feedback",
+          "strong_verifier": {
+            "answer": "10",
+            "expected_normalized": [
+              "10"
+            ],
+            "observed_normalized": "10",
+            "passed": true,
+            "reason": "exact_match"
+          },
+          "temperature": 0.0,
+          "usage": {
+            "completion_tokens": 14,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 91,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 105
+          },
+          "weak_verifier": {
+            "answer": "10",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        }
+      ],
+      "condition_id": "C6",
+      "condition_name": "grounded verifier loop",
+      "model_calls": 1,
+      "passed": true,
+      "selected_answer": "10",
+      "selected_call_index": 1,
+      "task_class": "medium_reasoning",
+      "task_id": "M1"
+    },
+    {
+      "candidates": [
+        {
+          "answer": "10",
+          "call_index": 1,
+          "latency_seconds": 0.99,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"10\"}",
+          "selected_by": "weak_verifier",
+          "strong_verifier": {
+            "answer": "10",
+            "expected_normalized": [
+              "10"
+            ],
+            "observed_normalized": "10",
+            "passed": true,
+            "reason": "exact_match"
+          },
+          "temperature": 0.7,
+          "usage": {
+            "completion_tokens": 14,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 91,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 105
+          },
+          "weak_verifier": {
+            "answer": "10",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        },
+        {
+          "answer": "10",
+          "call_index": 2,
+          "latency_seconds": 0.6,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"10\"}",
+          "selected_by": "weak_verifier",
+          "strong_verifier": {
+            "answer": "10",
+            "expected_normalized": [
+              "10"
+            ],
+            "observed_normalized": "10",
+            "passed": true,
+            "reason": "exact_match"
+          },
+          "temperature": 0.7,
+          "usage": {
+            "completion_tokens": 14,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 91,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 105
+          },
+          "weak_verifier": {
+            "answer": "10",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        },
+        {
+          "answer": "8",
+          "call_index": 3,
+          "latency_seconds": 0.77,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"8\"}",
+          "selected_by": "weak_verifier",
+          "strong_verifier": {
+            "answer": "8",
+            "expected_normalized": [
+              "10"
+            ],
+            "observed_normalized": "8",
+            "passed": false,
+            "reason": "exact_match_failed"
+          },
+          "temperature": 0.7,
+          "usage": {
+            "completion_tokens": 14,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 91,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 105
+          },
+          "weak_verifier": {
+            "answer": "8",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        }
+      ],
+      "condition_id": "C7",
+      "condition_name": "weak-verifier stress",
+      "model_calls": 3,
+      "passed": true,
+      "selected_answer": "10",
+      "selected_call_index": 1,
+      "task_class": "medium_reasoning",
+      "task_id": "M1"
+    },
+    {
+      "candidates": [
+        {
+          "answer": "Delta",
+          "call_index": 1,
+          "latency_seconds": 0.693,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"Delta\"}",
+          "selected_by": "single",
+          "strong_verifier": {
+            "answer": "Delta",
+            "expected_normalized": [
+              "delta"
+            ],
+            "observed_normalized": "delta",
+            "passed": true,
+            "reason": "exact_match"
+          },
+          "temperature": 0.0,
+          "usage": {
+            "completion_tokens": 8,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 85,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 93
+          },
+          "weak_verifier": {
+            "answer": "Delta",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        }
+      ],
+      "condition_id": "C0",
+      "condition_name": "one-shot",
+      "model_calls": 1,
+      "passed": true,
+      "selected_answer": "Delta",
+      "selected_call_index": 1,
+      "task_class": "medium_reasoning",
+      "task_id": "M2"
+    },
+    {
+      "candidates": [
+        {
+          "answer": "Delta",
+          "call_index": 1,
+          "latency_seconds": 0.64,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"Delta\"}",
+          "selected_by": "strong_verifier",
+          "strong_verifier": {
+            "answer": "Delta",
+            "expected_normalized": [
+              "delta"
+            ],
+            "observed_normalized": "delta",
+            "passed": true,
+            "reason": "exact_match"
+          },
+          "temperature": 0.7,
+          "usage": {
+            "completion_tokens": 14,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 85,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 99
+          },
+          "weak_verifier": {
+            "answer": "Delta",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        },
+        {
+          "answer": "Delta",
+          "call_index": 2,
+          "latency_seconds": 1.044,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"Delta\"}",
+          "selected_by": "strong_verifier",
+          "strong_verifier": {
+            "answer": "Delta",
+            "expected_normalized": [
+              "delta"
+            ],
+            "observed_normalized": "delta",
+            "passed": true,
+            "reason": "exact_match"
+          },
+          "temperature": 0.7,
+          "usage": {
+            "completion_tokens": 14,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 85,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 99
+          },
+          "weak_verifier": {
+            "answer": "Delta",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        },
+        {
+          "answer": "Delta",
+          "call_index": 3,
+          "latency_seconds": 0.959,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"Delta\"}",
+          "selected_by": "strong_verifier",
+          "strong_verifier": {
+            "answer": "Delta",
+            "expected_normalized": [
+              "delta"
+            ],
+            "observed_normalized": "delta",
+            "passed": true,
+            "reason": "exact_match"
+          },
+          "temperature": 0.7,
+          "usage": {
+            "completion_tokens": 8,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 85,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 93
+          },
+          "weak_verifier": {
+            "answer": "Delta",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        }
+      ],
+      "condition_id": "C3",
+      "condition_name": "best-of-n with strong verifier",
+      "model_calls": 3,
+      "passed": true,
+      "selected_answer": "Delta",
+      "selected_call_index": 1,
+      "task_class": "medium_reasoning",
+      "task_id": "M2"
+    },
+    {
+      "candidates": [
+        {
+          "answer": "Delta",
+          "call_index": 1,
+          "latency_seconds": 0.676,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"Delta\"}",
+          "selected_by": "self_revision_seed",
+          "strong_verifier": {
+            "answer": "Delta",
+            "expected_normalized": [
+              "delta"
+            ],
+            "observed_normalized": "delta",
+            "passed": true,
+            "reason": "exact_match"
+          },
+          "temperature": 0.0,
+          "usage": {
+            "completion_tokens": 8,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 85,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 93
+          },
+          "weak_verifier": {
+            "answer": "Delta",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        },
+        {
+          "answer": "Delta",
+          "call_index": 2,
+          "latency_seconds": 0.707,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"Delta\"}",
+          "selected_by": "self_revision_final",
+          "strong_verifier": {
+            "answer": "Delta",
+            "expected_normalized": [
+              "delta"
+            ],
+            "observed_normalized": "delta",
+            "passed": true,
+            "reason": "exact_match"
+          },
+          "temperature": 0.0,
+          "usage": {
+            "completion_tokens": 14,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 115,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 129
+          },
+          "weak_verifier": {
+            "answer": "Delta",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        }
+      ],
+      "condition_id": "C4",
+      "condition_name": "self-reflection loop",
+      "model_calls": 2,
+      "passed": true,
+      "selected_answer": "Delta",
+      "selected_call_index": 2,
+      "task_class": "medium_reasoning",
+      "task_id": "M2"
+    },
+    {
+      "candidates": [
+        {
+          "answer": "Delta",
+          "call_index": 1,
+          "latency_seconds": 0.633,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"Delta\"}",
+          "selected_by": "strong_verifier_feedback",
+          "strong_verifier": {
+            "answer": "Delta",
+            "expected_normalized": [
+              "delta"
+            ],
+            "observed_normalized": "delta",
+            "passed": true,
+            "reason": "exact_match"
+          },
+          "temperature": 0.0,
+          "usage": {
+            "completion_tokens": 8,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 85,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 93
+          },
+          "weak_verifier": {
+            "answer": "Delta",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        }
+      ],
+      "condition_id": "C6",
+      "condition_name": "grounded verifier loop",
+      "model_calls": 1,
+      "passed": true,
+      "selected_answer": "Delta",
+      "selected_call_index": 1,
+      "task_class": "medium_reasoning",
+      "task_id": "M2"
+    },
+    {
+      "candidates": [
+        {
+          "answer": "Delta",
+          "call_index": 1,
+          "latency_seconds": 0.644,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"Delta\"}",
+          "selected_by": "weak_verifier",
+          "strong_verifier": {
+            "answer": "Delta",
+            "expected_normalized": [
+              "delta"
+            ],
+            "observed_normalized": "delta",
+            "passed": true,
+            "reason": "exact_match"
+          },
+          "temperature": 0.7,
+          "usage": {
+            "completion_tokens": 14,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 85,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 99
+          },
+          "weak_verifier": {
+            "answer": "Delta",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        },
+        {
+          "answer": "Delta",
+          "call_index": 2,
+          "latency_seconds": 0.68,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"Delta\"}",
+          "selected_by": "weak_verifier",
+          "strong_verifier": {
+            "answer": "Delta",
+            "expected_normalized": [
+              "delta"
+            ],
+            "observed_normalized": "delta",
+            "passed": true,
+            "reason": "exact_match"
+          },
+          "temperature": 0.7,
+          "usage": {
+            "completion_tokens": 14,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 85,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 99
+          },
+          "weak_verifier": {
+            "answer": "Delta",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        },
+        {
+          "answer": "Delta",
+          "call_index": 3,
+          "latency_seconds": 0.66,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"Delta\"}",
+          "selected_by": "weak_verifier",
+          "strong_verifier": {
+            "answer": "Delta",
+            "expected_normalized": [
+              "delta"
+            ],
+            "observed_normalized": "delta",
+            "passed": true,
+            "reason": "exact_match"
+          },
+          "temperature": 0.7,
+          "usage": {
+            "completion_tokens": 8,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 85,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 93
+          },
+          "weak_verifier": {
+            "answer": "Delta",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        }
+      ],
+      "condition_id": "C7",
+      "condition_name": "weak-verifier stress",
+      "model_calls": 3,
+      "passed": true,
+      "selected_answer": "Delta",
+      "selected_call_index": 1,
+      "task_class": "medium_reasoning",
+      "task_id": "M2"
+    },
+    {
+      "candidates": [
+        {
+          "answer": "no",
+          "call_index": 1,
+          "latency_seconds": 0.635,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"no\"}",
+          "selected_by": "single",
+          "strong_verifier": {
+            "answer": "no",
+            "expected_normalized": [
+              "no"
+            ],
+            "observed_normalized": "no",
+            "passed": true,
+            "reason": "exact_match"
+          },
+          "temperature": 0.0,
+          "usage": {
+            "completion_tokens": 8,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 86,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 94
+          },
+          "weak_verifier": {
+            "answer": "no",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        }
+      ],
+      "condition_id": "C0",
+      "condition_name": "one-shot",
+      "model_calls": 1,
+      "passed": true,
+      "selected_answer": "no",
+      "selected_call_index": 1,
+      "task_class": "medium_reasoning",
+      "task_id": "M3"
+    },
+    {
+      "candidates": [
+        {
+          "answer": "No",
+          "call_index": 1,
+          "latency_seconds": 0.941,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"No\"}",
+          "selected_by": "strong_verifier",
+          "strong_verifier": {
+            "answer": "No",
+            "expected_normalized": [
+              "no"
+            ],
+            "observed_normalized": "no",
+            "passed": true,
+            "reason": "exact_match"
+          },
+          "temperature": 0.7,
+          "usage": {
+            "completion_tokens": 14,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 86,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 100
+          },
+          "weak_verifier": {
+            "answer": "No",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        },
+        {
+          "answer": "no",
+          "call_index": 2,
+          "latency_seconds": 0.617,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"no\"}",
+          "selected_by": "strong_verifier",
+          "strong_verifier": {
+            "answer": "no",
+            "expected_normalized": [
+              "no"
+            ],
+            "observed_normalized": "no",
+            "passed": true,
+            "reason": "exact_match"
+          },
+          "temperature": 0.7,
+          "usage": {
+            "completion_tokens": 8,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 86,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 94
+          },
+          "weak_verifier": {
+            "answer": "no",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        },
+        {
+          "answer": "No",
+          "call_index": 3,
+          "latency_seconds": 0.645,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"No\"}",
+          "selected_by": "strong_verifier",
+          "strong_verifier": {
+            "answer": "No",
+            "expected_normalized": [
+              "no"
+            ],
+            "observed_normalized": "no",
+            "passed": true,
+            "reason": "exact_match"
+          },
+          "temperature": 0.7,
+          "usage": {
+            "completion_tokens": 14,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 86,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 100
+          },
+          "weak_verifier": {
+            "answer": "No",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        }
+      ],
+      "condition_id": "C3",
+      "condition_name": "best-of-n with strong verifier",
+      "model_calls": 3,
+      "passed": true,
+      "selected_answer": "No",
+      "selected_call_index": 1,
+      "task_class": "medium_reasoning",
+      "task_id": "M3"
+    },
+    {
+      "candidates": [
+        {
+          "answer": "no",
+          "call_index": 1,
+          "latency_seconds": 0.562,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"no\"}",
+          "selected_by": "self_revision_seed",
+          "strong_verifier": {
+            "answer": "no",
+            "expected_normalized": [
+              "no"
+            ],
+            "observed_normalized": "no",
+            "passed": true,
+            "reason": "exact_match"
+          },
+          "temperature": 0.0,
+          "usage": {
+            "completion_tokens": 8,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 86,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 94
+          },
+          "weak_verifier": {
+            "answer": "no",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        },
+        {
+          "answer": "no",
+          "call_index": 2,
+          "latency_seconds": 0.553,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"no\"}",
+          "selected_by": "self_revision_final",
+          "strong_verifier": {
+            "answer": "no",
+            "expected_normalized": [
+              "no"
+            ],
+            "observed_normalized": "no",
+            "passed": true,
+            "reason": "exact_match"
+          },
+          "temperature": 0.0,
+          "usage": {
+            "completion_tokens": 8,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 116,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 124
+          },
+          "weak_verifier": {
+            "answer": "no",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        }
+      ],
+      "condition_id": "C4",
+      "condition_name": "self-reflection loop",
+      "model_calls": 2,
+      "passed": true,
+      "selected_answer": "no",
+      "selected_call_index": 2,
+      "task_class": "medium_reasoning",
+      "task_id": "M3"
+    },
+    {
+      "candidates": [
+        {
+          "answer": "no",
+          "call_index": 1,
+          "latency_seconds": 0.543,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"no\"}",
+          "selected_by": "strong_verifier_feedback",
+          "strong_verifier": {
+            "answer": "no",
+            "expected_normalized": [
+              "no"
+            ],
+            "observed_normalized": "no",
+            "passed": true,
+            "reason": "exact_match"
+          },
+          "temperature": 0.0,
+          "usage": {
+            "completion_tokens": 8,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 86,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 94
+          },
+          "weak_verifier": {
+            "answer": "no",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        }
+      ],
+      "condition_id": "C6",
+      "condition_name": "grounded verifier loop",
+      "model_calls": 1,
+      "passed": true,
+      "selected_answer": "no",
+      "selected_call_index": 1,
+      "task_class": "medium_reasoning",
+      "task_id": "M3"
+    },
+    {
+      "candidates": [
+        {
+          "answer": "no",
+          "call_index": 1,
+          "latency_seconds": 0.747,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"no\"}",
+          "selected_by": "weak_verifier",
+          "strong_verifier": {
+            "answer": "no",
+            "expected_normalized": [
+              "no"
+            ],
+            "observed_normalized": "no",
+            "passed": true,
+            "reason": "exact_match"
+          },
+          "temperature": 0.7,
+          "usage": {
+            "completion_tokens": 8,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 86,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 94
+          },
+          "weak_verifier": {
+            "answer": "no",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        },
+        {
+          "answer": "no",
+          "call_index": 2,
+          "latency_seconds": 0.565,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"no\"}",
+          "selected_by": "weak_verifier",
+          "strong_verifier": {
+            "answer": "no",
+            "expected_normalized": [
+              "no"
+            ],
+            "observed_normalized": "no",
+            "passed": true,
+            "reason": "exact_match"
+          },
+          "temperature": 0.7,
+          "usage": {
+            "completion_tokens": 8,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 86,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 94
+          },
+          "weak_verifier": {
+            "answer": "no",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        },
+        {
+          "answer": "no",
+          "call_index": 3,
+          "latency_seconds": 0.7,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"no\"}",
+          "selected_by": "weak_verifier",
+          "strong_verifier": {
+            "answer": "no",
+            "expected_normalized": [
+              "no"
+            ],
+            "observed_normalized": "no",
+            "passed": true,
+            "reason": "exact_match"
+          },
+          "temperature": 0.7,
+          "usage": {
+            "completion_tokens": 14,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 86,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 100
+          },
+          "weak_verifier": {
+            "answer": "no",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        }
+      ],
+      "condition_id": "C7",
+      "condition_name": "weak-verifier stress",
+      "model_calls": 3,
+      "passed": true,
+      "selected_answer": "no",
+      "selected_call_index": 1,
+      "task_class": "medium_reasoning",
+      "task_id": "M3"
+    },
+    {
+      "candidates": [
+        {
+          "answer": "23",
+          "call_index": 1,
+          "latency_seconds": 0.597,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"23\"}",
+          "selected_by": "single",
+          "strong_verifier": {
+            "answer": "23",
+            "expected_normalized": [
+              "23"
+            ],
+            "observed_normalized": "23",
+            "passed": true,
+            "reason": "exact_match"
+          },
+          "temperature": 0.0,
+          "usage": {
+            "completion_tokens": 14,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 84,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 98
+          },
+          "weak_verifier": {
+            "answer": "23",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        }
+      ],
+      "condition_id": "C0",
+      "condition_name": "one-shot",
+      "model_calls": 1,
+      "passed": true,
+      "selected_answer": "23",
+      "selected_call_index": 1,
+      "task_class": "tiny_symbolic",
+      "task_id": "H1"
+    },
+    {
+      "candidates": [
+        {
+          "answer": "23",
+          "call_index": 1,
+          "latency_seconds": 0.591,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"23\"}",
+          "selected_by": "strong_verifier",
+          "strong_verifier": {
+            "answer": "23",
+            "expected_normalized": [
+              "23"
+            ],
+            "observed_normalized": "23",
+            "passed": true,
+            "reason": "exact_match"
+          },
+          "temperature": 0.7,
+          "usage": {
+            "completion_tokens": 14,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 84,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 98
+          },
+          "weak_verifier": {
+            "answer": "23",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        },
+        {
+          "answer": "23",
+          "call_index": 2,
+          "latency_seconds": 0.689,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"23\"}",
+          "selected_by": "strong_verifier",
+          "strong_verifier": {
+            "answer": "23",
+            "expected_normalized": [
+              "23"
+            ],
+            "observed_normalized": "23",
+            "passed": true,
+            "reason": "exact_match"
+          },
+          "temperature": 0.7,
+          "usage": {
+            "completion_tokens": 14,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 84,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 98
+          },
+          "weak_verifier": {
+            "answer": "23",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        },
+        {
+          "answer": "23",
+          "call_index": 3,
+          "latency_seconds": 0.596,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"23\"}",
+          "selected_by": "strong_verifier",
+          "strong_verifier": {
+            "answer": "23",
+            "expected_normalized": [
+              "23"
+            ],
+            "observed_normalized": "23",
+            "passed": true,
+            "reason": "exact_match"
+          },
+          "temperature": 0.7,
+          "usage": {
+            "completion_tokens": 14,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 84,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 98
+          },
+          "weak_verifier": {
+            "answer": "23",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        }
+      ],
+      "condition_id": "C3",
+      "condition_name": "best-of-n with strong verifier",
+      "model_calls": 3,
+      "passed": true,
+      "selected_answer": "23",
+      "selected_call_index": 1,
+      "task_class": "tiny_symbolic",
+      "task_id": "H1"
+    },
+    {
+      "candidates": [
+        {
+          "answer": "23",
+          "call_index": 1,
+          "latency_seconds": 0.595,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"23\"}",
+          "selected_by": "self_revision_seed",
+          "strong_verifier": {
+            "answer": "23",
+            "expected_normalized": [
+              "23"
+            ],
+            "observed_normalized": "23",
+            "passed": true,
+            "reason": "exact_match"
+          },
+          "temperature": 0.0,
+          "usage": {
+            "completion_tokens": 14,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 84,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 98
+          },
+          "weak_verifier": {
+            "answer": "23",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        },
+        {
+          "answer": "23",
+          "call_index": 2,
+          "latency_seconds": 0.592,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"23\"}",
+          "selected_by": "self_revision_final",
+          "strong_verifier": {
+            "answer": "23",
+            "expected_normalized": [
+              "23"
+            ],
+            "observed_normalized": "23",
+            "passed": true,
+            "reason": "exact_match"
+          },
+          "temperature": 0.0,
+          "usage": {
+            "completion_tokens": 14,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 115,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 129
+          },
+          "weak_verifier": {
+            "answer": "23",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        }
+      ],
+      "condition_id": "C4",
+      "condition_name": "self-reflection loop",
+      "model_calls": 2,
+      "passed": true,
+      "selected_answer": "23",
+      "selected_call_index": 2,
+      "task_class": "tiny_symbolic",
+      "task_id": "H1"
+    },
+    {
+      "candidates": [
+        {
+          "answer": "23",
+          "call_index": 1,
+          "latency_seconds": 0.604,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"23\"}",
+          "selected_by": "strong_verifier_feedback",
+          "strong_verifier": {
+            "answer": "23",
+            "expected_normalized": [
+              "23"
+            ],
+            "observed_normalized": "23",
+            "passed": true,
+            "reason": "exact_match"
+          },
+          "temperature": 0.0,
+          "usage": {
+            "completion_tokens": 14,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 84,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 98
+          },
+          "weak_verifier": {
+            "answer": "23",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        }
+      ],
+      "condition_id": "C6",
+      "condition_name": "grounded verifier loop",
+      "model_calls": 1,
+      "passed": true,
+      "selected_answer": "23",
+      "selected_call_index": 1,
+      "task_class": "tiny_symbolic",
+      "task_id": "H1"
+    },
+    {
+      "candidates": [
+        {
+          "answer": "23",
+          "call_index": 1,
+          "latency_seconds": 0.956,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"23\"}",
+          "selected_by": "weak_verifier",
+          "strong_verifier": {
+            "answer": "23",
+            "expected_normalized": [
+              "23"
+            ],
+            "observed_normalized": "23",
+            "passed": true,
+            "reason": "exact_match"
+          },
+          "temperature": 0.7,
+          "usage": {
+            "completion_tokens": 14,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 84,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 98
+          },
+          "weak_verifier": {
+            "answer": "23",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        },
+        {
+          "answer": "23",
+          "call_index": 2,
+          "latency_seconds": 0.586,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"23\"}",
+          "selected_by": "weak_verifier",
+          "strong_verifier": {
+            "answer": "23",
+            "expected_normalized": [
+              "23"
+            ],
+            "observed_normalized": "23",
+            "passed": true,
+            "reason": "exact_match"
+          },
+          "temperature": 0.7,
+          "usage": {
+            "completion_tokens": 14,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 84,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 98
+          },
+          "weak_verifier": {
+            "answer": "23",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        },
+        {
+          "answer": "23",
+          "call_index": 3,
+          "latency_seconds": 0.887,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"23\"}",
+          "selected_by": "weak_verifier",
+          "strong_verifier": {
+            "answer": "23",
+            "expected_normalized": [
+              "23"
+            ],
+            "observed_normalized": "23",
+            "passed": true,
+            "reason": "exact_match"
+          },
+          "temperature": 0.7,
+          "usage": {
+            "completion_tokens": 14,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 84,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 98
+          },
+          "weak_verifier": {
+            "answer": "23",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        }
+      ],
+      "condition_id": "C7",
+      "condition_name": "weak-verifier stress",
+      "model_calls": 3,
+      "passed": true,
+      "selected_answer": "23",
+      "selected_call_index": 1,
+      "task_class": "tiny_symbolic",
+      "task_id": "H1"
+    },
+    {
+      "candidates": [
+        {
+          "answer": "6202_foorp_pool_b4M",
+          "call_index": 1,
+          "latency_seconds": 0.954,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"6202_foorp_pool_b4M\"}",
+          "selected_by": "single",
+          "strong_verifier": {
+            "answer": "6202_foorp_pool_b4M",
+            "expected_normalized": [
+              "6202_foorp_pool_b4M"
+            ],
+            "observed_normalized": "6202_foorp_pool_b4M",
+            "passed": true,
+            "reason": "exact_match"
+          },
+          "temperature": 0.0,
+          "usage": {
+            "completion_tokens": 22,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 82,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 104
+          },
+          "weak_verifier": {
+            "answer": "6202_foorp_pool_b4M",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        }
+      ],
+      "condition_id": "C0",
+      "condition_name": "one-shot",
+      "model_calls": 1,
+      "passed": true,
+      "selected_answer": "6202_foorp_pool_b4M",
+      "selected_call_index": 1,
+      "task_class": "stress_deterministic",
+      "task_id": "ST1"
+    },
+    {
+      "candidates": [
+        {
+          "answer": "6202_foorp_pool_b4M",
+          "call_index": 1,
+          "latency_seconds": 0.81,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"6202_foorp_pool_b4M\"}",
+          "selected_by": "strong_verifier",
+          "strong_verifier": {
+            "answer": "6202_foorp_pool_b4M",
+            "expected_normalized": [
+              "6202_foorp_pool_b4M"
+            ],
+            "observed_normalized": "6202_foorp_pool_b4M",
+            "passed": true,
+            "reason": "exact_match"
+          },
+          "temperature": 0.7,
+          "usage": {
+            "completion_tokens": 22,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 82,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 104
+          },
+          "weak_verifier": {
+            "answer": "6202_foorp_pool_b4M",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        },
+        {
+          "answer": "6202_foorp_pool_b4M",
+          "call_index": 2,
+          "latency_seconds": 0.761,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"6202_foorp_pool_b4M\"}",
+          "selected_by": "strong_verifier",
+          "strong_verifier": {
+            "answer": "6202_foorp_pool_b4M",
+            "expected_normalized": [
+              "6202_foorp_pool_b4M"
+            ],
+            "observed_normalized": "6202_foorp_pool_b4M",
+            "passed": true,
+            "reason": "exact_match"
+          },
+          "temperature": 0.7,
+          "usage": {
+            "completion_tokens": 22,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 82,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 104
+          },
+          "weak_verifier": {
+            "answer": "6202_foorp_pool_b4M",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        },
+        {
+          "answer": "6202_foorp_pool_b4M",
+          "call_index": 3,
+          "latency_seconds": 0.751,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"6202_foorp_pool_b4M\"}",
+          "selected_by": "strong_verifier",
+          "strong_verifier": {
+            "answer": "6202_foorp_pool_b4M",
+            "expected_normalized": [
+              "6202_foorp_pool_b4M"
+            ],
+            "observed_normalized": "6202_foorp_pool_b4M",
+            "passed": true,
+            "reason": "exact_match"
+          },
+          "temperature": 0.7,
+          "usage": {
+            "completion_tokens": 22,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 82,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 104
+          },
+          "weak_verifier": {
+            "answer": "6202_foorp_pool_b4M",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        }
+      ],
+      "condition_id": "C3",
+      "condition_name": "best-of-n with strong verifier",
+      "model_calls": 3,
+      "passed": true,
+      "selected_answer": "6202_foorp_pool_b4M",
+      "selected_call_index": 1,
+      "task_class": "stress_deterministic",
+      "task_id": "ST1"
+    },
+    {
+      "candidates": [
+        {
+          "answer": "6202_foorp_pool_b4M",
+          "call_index": 1,
+          "latency_seconds": 0.896,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"6202_foorp_pool_b4M\"}",
+          "selected_by": "self_revision_seed",
+          "strong_verifier": {
+            "answer": "6202_foorp_pool_b4M",
+            "expected_normalized": [
+              "6202_foorp_pool_b4M"
+            ],
+            "observed_normalized": "6202_foorp_pool_b4M",
+            "passed": true,
+            "reason": "exact_match"
+          },
+          "temperature": 0.0,
+          "usage": {
+            "completion_tokens": 22,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 82,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 104
+          },
+          "weak_verifier": {
+            "answer": "6202_foorp_pool_b4M",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        },
+        {
+          "answer": "6202_foorp_pool-b4M",
+          "call_index": 2,
+          "latency_seconds": 1.501,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"6202_foorp_pool-b4M\"}",
+          "selected_by": "self_revision_final",
+          "strong_verifier": {
+            "answer": "6202_foorp_pool-b4M",
+            "expected_normalized": [
+              "6202_foorp_pool_b4M"
+            ],
+            "observed_normalized": "6202_foorp_pool-b4M",
+            "passed": false,
+            "reason": "exact_match_failed"
+          },
+          "temperature": 0.0,
+          "usage": {
+            "completion_tokens": 22,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 121,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 143
+          },
+          "weak_verifier": {
+            "answer": "6202_foorp_pool-b4M",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        }
+      ],
+      "condition_id": "C4",
+      "condition_name": "self-reflection loop",
+      "model_calls": 2,
+      "passed": false,
+      "selected_answer": "6202_foorp_pool-b4M",
+      "selected_call_index": 2,
+      "task_class": "stress_deterministic",
+      "task_id": "ST1"
+    },
+    {
+      "candidates": [
+        {
+          "answer": "6202_foorp_pool_b4M",
+          "call_index": 1,
+          "latency_seconds": 0.723,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"6202_foorp_pool_b4M\"}",
+          "selected_by": "strong_verifier_feedback",
+          "strong_verifier": {
+            "answer": "6202_foorp_pool_b4M",
+            "expected_normalized": [
+              "6202_foorp_pool_b4M"
+            ],
+            "observed_normalized": "6202_foorp_pool_b4M",
+            "passed": true,
+            "reason": "exact_match"
+          },
+          "temperature": 0.0,
+          "usage": {
+            "completion_tokens": 22,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 82,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 104
+          },
+          "weak_verifier": {
+            "answer": "6202_foorp_pool_b4M",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        }
+      ],
+      "condition_id": "C6",
+      "condition_name": "grounded verifier loop",
+      "model_calls": 1,
+      "passed": true,
+      "selected_answer": "6202_foorp_pool_b4M",
+      "selected_call_index": 1,
+      "task_class": "stress_deterministic",
+      "task_id": "ST1"
+    },
+    {
+      "candidates": [
+        {
+          "answer": "6202_fpoorp_pool_b4M",
+          "call_index": 1,
+          "latency_seconds": 1.052,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"6202_fpoorp_pool_b4M\"}",
+          "selected_by": "weak_verifier",
+          "strong_verifier": {
+            "answer": "6202_fpoorp_pool_b4M",
+            "expected_normalized": [
+              "6202_foorp_pool_b4M"
+            ],
+            "observed_normalized": "6202_fpoorp_pool_b4M",
+            "passed": false,
+            "reason": "exact_match_failed"
+          },
+          "temperature": 0.7,
+          "usage": {
+            "completion_tokens": 22,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 82,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 104
+          },
+          "weak_verifier": {
+            "answer": "6202_fpoorp_pool_b4M",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        },
+        {
+          "answer": "6202_too rp_pool-b4M",
+          "call_index": 2,
+          "latency_seconds": 0.917,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"6202_too rp_pool-b4M\"}",
+          "selected_by": "weak_verifier",
+          "strong_verifier": {
+            "answer": "6202_too rp_pool-b4M",
+            "expected_normalized": [
+              "6202_foorp_pool_b4M"
+            ],
+            "observed_normalized": "6202_too rp_pool-b4M",
+            "passed": false,
+            "reason": "exact_match_failed"
+          },
+          "temperature": 0.7,
+          "usage": {
+            "completion_tokens": 22,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 82,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 104
+          },
+          "weak_verifier": {
+            "answer": "6202_too rp_pool-b4M",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        },
+        {
+          "answer": "6202_foorp_pool_b4M",
+          "call_index": 3,
+          "latency_seconds": 0.761,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"6202_foorp_pool_b4M\"}",
+          "selected_by": "weak_verifier",
+          "strong_verifier": {
+            "answer": "6202_foorp_pool_b4M",
+            "expected_normalized": [
+              "6202_foorp_pool_b4M"
+            ],
+            "observed_normalized": "6202_foorp_pool_b4M",
+            "passed": true,
+            "reason": "exact_match"
+          },
+          "temperature": 0.7,
+          "usage": {
+            "completion_tokens": 22,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 82,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 104
+          },
+          "weak_verifier": {
+            "answer": "6202_foorp_pool_b4M",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        }
+      ],
+      "condition_id": "C7",
+      "condition_name": "weak-verifier stress",
+      "model_calls": 3,
+      "passed": false,
+      "selected_answer": "6202_fpoorp_pool_b4M",
+      "selected_call_index": 1,
+      "task_class": "stress_deterministic",
+      "task_id": "ST1"
+    },
+    {
+      "candidates": [
+        {
+          "answer": "8-17-29",
+          "call_index": 1,
+          "latency_seconds": 0.866,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"8-17-29\"}",
+          "selected_by": "single",
+          "strong_verifier": {
+            "answer": "8-17-29",
+            "expected_normalized": [
+              "8-17-29"
+            ],
+            "observed_normalized": "8-17-29",
+            "passed": true,
+            "reason": "exact_match"
+          },
+          "temperature": 0.0,
+          "usage": {
+            "completion_tokens": 18,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 103,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 121
+          },
+          "weak_verifier": {
+            "answer": "8-17-29",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        }
+      ],
+      "condition_id": "C0",
+      "condition_name": "one-shot",
+      "model_calls": 1,
+      "passed": true,
+      "selected_answer": "8-17-29",
+      "selected_call_index": 1,
+      "task_class": "stress_deterministic",
+      "task_id": "ST2"
+    },
+    {
+      "candidates": [
+        {
+          "answer": "8-17-29",
+          "call_index": 1,
+          "latency_seconds": 3.251,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"8-17-29\"}",
+          "selected_by": "strong_verifier",
+          "strong_verifier": {
+            "answer": "8-17-29",
+            "expected_normalized": [
+              "8-17-29"
+            ],
+            "observed_normalized": "8-17-29",
+            "passed": true,
+            "reason": "exact_match"
+          },
+          "temperature": 0.7,
+          "usage": {
+            "completion_tokens": 18,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 103,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 121
+          },
+          "weak_verifier": {
+            "answer": "8-17-29",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        },
+        {
+          "answer": "8-17-29",
+          "call_index": 2,
+          "latency_seconds": 0.617,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"8-17-29\"}",
+          "selected_by": "strong_verifier",
+          "strong_verifier": {
+            "answer": "8-17-29",
+            "expected_normalized": [
+              "8-17-29"
+            ],
+            "observed_normalized": "8-17-29",
+            "passed": true,
+            "reason": "exact_match"
+          },
+          "temperature": 0.7,
+          "usage": {
+            "completion_tokens": 18,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 103,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 121
+          },
+          "weak_verifier": {
+            "answer": "8-17-29",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        },
+        {
+          "answer": "8-17-29",
+          "call_index": 3,
+          "latency_seconds": 0.727,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"8-17-29\"}",
+          "selected_by": "strong_verifier",
+          "strong_verifier": {
+            "answer": "8-17-29",
+            "expected_normalized": [
+              "8-17-29"
+            ],
+            "observed_normalized": "8-17-29",
+            "passed": true,
+            "reason": "exact_match"
+          },
+          "temperature": 0.7,
+          "usage": {
+            "completion_tokens": 18,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 103,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 121
+          },
+          "weak_verifier": {
+            "answer": "8-17-29",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        }
+      ],
+      "condition_id": "C3",
+      "condition_name": "best-of-n with strong verifier",
+      "model_calls": 3,
+      "passed": true,
+      "selected_answer": "8-17-29",
+      "selected_call_index": 1,
+      "task_class": "stress_deterministic",
+      "task_id": "ST2"
+    },
+    {
+      "candidates": [
+        {
+          "answer": "8-17-29",
+          "call_index": 1,
+          "latency_seconds": 0.657,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"8-17-29\"}",
+          "selected_by": "self_revision_seed",
+          "strong_verifier": {
+            "answer": "8-17-29",
+            "expected_normalized": [
+              "8-17-29"
+            ],
+            "observed_normalized": "8-17-29",
+            "passed": true,
+            "reason": "exact_match"
+          },
+          "temperature": 0.0,
+          "usage": {
+            "completion_tokens": 18,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 103,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 121
+          },
+          "weak_verifier": {
+            "answer": "8-17-29",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        },
+        {
+          "answer": "8-13-29",
+          "call_index": 2,
+          "latency_seconds": 0.775,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"8-13-29\"}",
+          "selected_by": "self_revision_final",
+          "strong_verifier": {
+            "answer": "8-13-29",
+            "expected_normalized": [
+              "8-17-29"
+            ],
+            "observed_normalized": "8-13-29",
+            "passed": false,
+            "reason": "exact_match_failed"
+          },
+          "temperature": 0.0,
+          "usage": {
+            "completion_tokens": 18,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 138,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 156
+          },
+          "weak_verifier": {
+            "answer": "8-13-29",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        }
+      ],
+      "condition_id": "C4",
+      "condition_name": "self-reflection loop",
+      "model_calls": 2,
+      "passed": false,
+      "selected_answer": "8-13-29",
+      "selected_call_index": 2,
+      "task_class": "stress_deterministic",
+      "task_id": "ST2"
+    },
+    {
+      "candidates": [
+        {
+          "answer": "8-17-29",
+          "call_index": 1,
+          "latency_seconds": 0.963,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"8-17-29\"}",
+          "selected_by": "strong_verifier_feedback",
+          "strong_verifier": {
+            "answer": "8-17-29",
+            "expected_normalized": [
+              "8-17-29"
+            ],
+            "observed_normalized": "8-17-29",
+            "passed": true,
+            "reason": "exact_match"
+          },
+          "temperature": 0.0,
+          "usage": {
+            "completion_tokens": 18,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 103,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 121
+          },
+          "weak_verifier": {
+            "answer": "8-17-29",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        }
+      ],
+      "condition_id": "C6",
+      "condition_name": "grounded verifier loop",
+      "model_calls": 1,
+      "passed": true,
+      "selected_answer": "8-17-29",
+      "selected_call_index": 1,
+      "task_class": "stress_deterministic",
+      "task_id": "ST2"
+    },
+    {
+      "candidates": [
+        {
+          "answer": "8-17-29",
+          "call_index": 1,
+          "latency_seconds": 0.75,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"8-17-29\"}",
+          "selected_by": "weak_verifier",
+          "strong_verifier": {
+            "answer": "8-17-29",
+            "expected_normalized": [
+              "8-17-29"
+            ],
+            "observed_normalized": "8-17-29",
+            "passed": true,
+            "reason": "exact_match"
+          },
+          "temperature": 0.7,
+          "usage": {
+            "completion_tokens": 18,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 103,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 121
+          },
+          "weak_verifier": {
+            "answer": "8-17-29",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        },
+        {
+          "answer": "8-17-29",
+          "call_index": 2,
+          "latency_seconds": 0.619,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"8-17-29\"}",
+          "selected_by": "weak_verifier",
+          "strong_verifier": {
+            "answer": "8-17-29",
+            "expected_normalized": [
+              "8-17-29"
+            ],
+            "observed_normalized": "8-17-29",
+            "passed": true,
+            "reason": "exact_match"
+          },
+          "temperature": 0.7,
+          "usage": {
+            "completion_tokens": 18,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 103,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 121
+          },
+          "weak_verifier": {
+            "answer": "8-17-29",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        },
+        {
+          "answer": "8-17-29",
+          "call_index": 3,
+          "latency_seconds": 0.674,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"8-17-29\"}",
+          "selected_by": "weak_verifier",
+          "strong_verifier": {
+            "answer": "8-17-29",
+            "expected_normalized": [
+              "8-17-29"
+            ],
+            "observed_normalized": "8-17-29",
+            "passed": true,
+            "reason": "exact_match"
+          },
+          "temperature": 0.7,
+          "usage": {
+            "completion_tokens": 18,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 103,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 121
+          },
+          "weak_verifier": {
+            "answer": "8-17-29",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        }
+      ],
+      "condition_id": "C7",
+      "condition_name": "weak-verifier stress",
+      "model_calls": 3,
+      "passed": true,
+      "selected_answer": "8-17-29",
+      "selected_call_index": 1,
+      "task_class": "stress_deterministic",
+      "task_id": "ST2"
+    },
+    {
+      "candidates": [
+        {
+          "answer": "1618",
+          "call_index": 1,
+          "latency_seconds": 0.894,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"1618\"}",
+          "selected_by": "single",
+          "strong_verifier": {
+            "answer": "1618",
+            "expected_normalized": [
+              "876"
+            ],
+            "observed_normalized": "1618",
+            "passed": false,
+            "reason": "exact_match_failed"
+          },
+          "temperature": 0.0,
+          "usage": {
+            "completion_tokens": 15,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 84,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 99
+          },
+          "weak_verifier": {
+            "answer": "1618",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        }
+      ],
+      "condition_id": "C0",
+      "condition_name": "one-shot",
+      "model_calls": 1,
+      "passed": false,
+      "selected_answer": "1618",
+      "selected_call_index": 1,
+      "task_class": "stress_deterministic",
+      "task_id": "ST3"
+    },
+    {
+      "candidates": [
+        {
+          "answer": "744",
+          "call_index": 1,
+          "latency_seconds": 1.026,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"744\"}",
+          "selected_by": "strong_verifier",
+          "strong_verifier": {
+            "answer": "744",
+            "expected_normalized": [
+              "876"
+            ],
+            "observed_normalized": "744",
+            "passed": false,
+            "reason": "exact_match_failed"
+          },
+          "temperature": 0.7,
+          "usage": {
+            "completion_tokens": 14,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 84,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 98
+          },
+          "weak_verifier": {
+            "answer": "744",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        },
+        {
+          "answer": "1511",
+          "call_index": 2,
+          "latency_seconds": 0.747,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"1511\"}",
+          "selected_by": "strong_verifier",
+          "strong_verifier": {
+            "answer": "1511",
+            "expected_normalized": [
+              "876"
+            ],
+            "observed_normalized": "1511",
+            "passed": false,
+            "reason": "exact_match_failed"
+          },
+          "temperature": 0.7,
+          "usage": {
+            "completion_tokens": 15,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 84,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 99
+          },
+          "weak_verifier": {
+            "answer": "1511",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        },
+        {
+          "answer": "2621",
+          "call_index": 3,
+          "latency_seconds": 0.81,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"2621\"}",
+          "selected_by": "strong_verifier",
+          "strong_verifier": {
+            "answer": "2621",
+            "expected_normalized": [
+              "876"
+            ],
+            "observed_normalized": "2621",
+            "passed": false,
+            "reason": "exact_match_failed"
+          },
+          "temperature": 0.7,
+          "usage": {
+            "completion_tokens": 15,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 84,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 99
+          },
+          "weak_verifier": {
+            "answer": "2621",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        }
+      ],
+      "condition_id": "C3",
+      "condition_name": "best-of-n with strong verifier",
+      "model_calls": 3,
+      "passed": false,
+      "selected_answer": "744",
+      "selected_call_index": 1,
+      "task_class": "stress_deterministic",
+      "task_id": "ST3"
+    },
+    {
+      "candidates": [
+        {
+          "answer": "1618",
+          "call_index": 1,
+          "latency_seconds": 0.75,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"1618\"}",
+          "selected_by": "self_revision_seed",
+          "strong_verifier": {
+            "answer": "1618",
+            "expected_normalized": [
+              "876"
+            ],
+            "observed_normalized": "1618",
+            "passed": false,
+            "reason": "exact_match_failed"
+          },
+          "temperature": 0.0,
+          "usage": {
+            "completion_tokens": 15,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 84,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 99
+          },
+          "weak_verifier": {
+            "answer": "1618",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        },
+        {
+          "answer": "1618",
+          "call_index": 2,
+          "latency_seconds": 0.97,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"1618\"}",
+          "selected_by": "self_revision_final",
+          "strong_verifier": {
+            "answer": "1618",
+            "expected_normalized": [
+              "876"
+            ],
+            "observed_normalized": "1618",
+            "passed": false,
+            "reason": "exact_match_failed"
+          },
+          "temperature": 0.0,
+          "usage": {
+            "completion_tokens": 15,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 116,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 131
+          },
+          "weak_verifier": {
+            "answer": "1618",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        }
+      ],
+      "condition_id": "C4",
+      "condition_name": "self-reflection loop",
+      "model_calls": 2,
+      "passed": false,
+      "selected_answer": "1618",
+      "selected_call_index": 2,
+      "task_class": "stress_deterministic",
+      "task_id": "ST3"
+    },
+    {
+      "candidates": [
+        {
+          "answer": "1619",
+          "call_index": 1,
+          "latency_seconds": 1.053,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"1619\"}",
+          "selected_by": "strong_verifier_feedback",
+          "strong_verifier": {
+            "answer": "1619",
+            "expected_normalized": [
+              "876"
+            ],
+            "observed_normalized": "1619",
+            "passed": false,
+            "reason": "exact_match_failed"
+          },
+          "temperature": 0.0,
+          "usage": {
+            "completion_tokens": 15,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 84,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 99
+          },
+          "weak_verifier": {
+            "answer": "1619",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        },
+        {
+          "answer": "1619",
+          "call_index": 2,
+          "latency_seconds": 0.852,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"1619\"}",
+          "selected_by": "strong_verifier_feedback",
+          "strong_verifier": {
+            "answer": "1619",
+            "expected_normalized": [
+              "876"
+            ],
+            "observed_normalized": "1619",
+            "passed": false,
+            "reason": "exact_match_failed"
+          },
+          "temperature": 0.0,
+          "usage": {
+            "completion_tokens": 15,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 119,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 134
+          },
+          "weak_verifier": {
+            "answer": "1619",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        },
+        {
+          "answer": "1619",
+          "call_index": 3,
+          "latency_seconds": 0.607,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"1619\"}",
+          "selected_by": "strong_verifier_feedback",
+          "strong_verifier": {
+            "answer": "1619",
+            "expected_normalized": [
+              "876"
+            ],
+            "observed_normalized": "1619",
+            "passed": false,
+            "reason": "exact_match_failed"
+          },
+          "temperature": 0.0,
+          "usage": {
+            "completion_tokens": 15,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 119,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 134
+          },
+          "weak_verifier": {
+            "answer": "1619",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        }
+      ],
+      "condition_id": "C6",
+      "condition_name": "grounded verifier loop",
+      "model_calls": 3,
+      "passed": false,
+      "selected_answer": "1619",
+      "selected_call_index": 3,
+      "task_class": "stress_deterministic",
+      "task_id": "ST3"
+    },
+    {
+      "candidates": [
+        {
+          "answer": "1501",
+          "call_index": 1,
+          "latency_seconds": 0.775,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"1501\"}",
+          "selected_by": "weak_verifier",
+          "strong_verifier": {
+            "answer": "1501",
+            "expected_normalized": [
+              "876"
+            ],
+            "observed_normalized": "1501",
+            "passed": false,
+            "reason": "exact_match_failed"
+          },
+          "temperature": 0.7,
+          "usage": {
+            "completion_tokens": 15,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 84,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 99
+          },
+          "weak_verifier": {
+            "answer": "1501",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        },
+        {
+          "answer": "2073",
+          "call_index": 2,
+          "latency_seconds": 0.823,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"2073\"}",
+          "selected_by": "weak_verifier",
+          "strong_verifier": {
+            "answer": "2073",
+            "expected_normalized": [
+              "876"
+            ],
+            "observed_normalized": "2073",
+            "passed": false,
+            "reason": "exact_match_failed"
+          },
+          "temperature": 0.7,
+          "usage": {
+            "completion_tokens": 15,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 84,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 99
+          },
+          "weak_verifier": {
+            "answer": "2073",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        },
+        {
+          "answer": "2554",
+          "call_index": 3,
+          "latency_seconds": 0.808,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"2554\"}",
+          "selected_by": "weak_verifier",
+          "strong_verifier": {
+            "answer": "2554",
+            "expected_normalized": [
+              "876"
+            ],
+            "observed_normalized": "2554",
+            "passed": false,
+            "reason": "exact_match_failed"
+          },
+          "temperature": 0.7,
+          "usage": {
+            "completion_tokens": 15,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 84,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 99
+          },
+          "weak_verifier": {
+            "answer": "2554",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        }
+      ],
+      "condition_id": "C7",
+      "condition_name": "weak-verifier stress",
+      "model_calls": 3,
+      "passed": false,
+      "selected_answer": "1501",
+      "selected_call_index": 1,
+      "task_class": "stress_deterministic",
+      "task_id": "ST3"
+    },
+    {
+      "candidates": [
+        {
+          "answer": "341",
+          "call_index": 1,
+          "latency_seconds": 0.712,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"341\"}",
+          "selected_by": "single",
+          "strong_verifier": {
+            "answer": "341",
+            "expected_normalized": [
+              "299"
+            ],
+            "observed_normalized": "341",
+            "passed": false,
+            "reason": "exact_match_failed"
+          },
+          "temperature": 0.0,
+          "usage": {
+            "completion_tokens": 14,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 82,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 96
+          },
+          "weak_verifier": {
+            "answer": "341",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        }
+      ],
+      "condition_id": "C0",
+      "condition_name": "one-shot",
+      "model_calls": 1,
+      "passed": false,
+      "selected_answer": "341",
+      "selected_call_index": 1,
+      "task_class": "stress_deterministic",
+      "task_id": "ST4"
+    },
+    {
+      "candidates": [
+        {
+          "answer": "377",
+          "call_index": 1,
+          "latency_seconds": 1.154,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"377\"}",
+          "selected_by": "strong_verifier",
+          "strong_verifier": {
+            "answer": "377",
+            "expected_normalized": [
+              "299"
+            ],
+            "observed_normalized": "377",
+            "passed": false,
+            "reason": "exact_match_failed"
+          },
+          "temperature": 0.7,
+          "usage": {
+            "completion_tokens": 14,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 82,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 96
+          },
+          "weak_verifier": {
+            "answer": "377",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        },
+        {
+          "answer": "341",
+          "call_index": 2,
+          "latency_seconds": 0.651,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"341\"}",
+          "selected_by": "strong_verifier",
+          "strong_verifier": {
+            "answer": "341",
+            "expected_normalized": [
+              "299"
+            ],
+            "observed_normalized": "341",
+            "passed": false,
+            "reason": "exact_match_failed"
+          },
+          "temperature": 0.7,
+          "usage": {
+            "completion_tokens": 14,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 82,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 96
+          },
+          "weak_verifier": {
+            "answer": "341",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        },
+        {
+          "answer": "377",
+          "call_index": 3,
+          "latency_seconds": 0.818,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"377\"}",
+          "selected_by": "strong_verifier",
+          "strong_verifier": {
+            "answer": "377",
+            "expected_normalized": [
+              "299"
+            ],
+            "observed_normalized": "377",
+            "passed": false,
+            "reason": "exact_match_failed"
+          },
+          "temperature": 0.7,
+          "usage": {
+            "completion_tokens": 14,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 82,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 96
+          },
+          "weak_verifier": {
+            "answer": "377",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        }
+      ],
+      "condition_id": "C3",
+      "condition_name": "best-of-n with strong verifier",
+      "model_calls": 3,
+      "passed": false,
+      "selected_answer": "377",
+      "selected_call_index": 1,
+      "task_class": "stress_deterministic",
+      "task_id": "ST4"
+    },
+    {
+      "candidates": [
+        {
+          "answer": "307",
+          "call_index": 1,
+          "latency_seconds": 0.687,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"307\"}",
+          "selected_by": "self_revision_seed",
+          "strong_verifier": {
+            "answer": "307",
+            "expected_normalized": [
+              "299"
+            ],
+            "observed_normalized": "307",
+            "passed": false,
+            "reason": "exact_match_failed"
+          },
+          "temperature": 0.0,
+          "usage": {
+            "completion_tokens": 14,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 82,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 96
+          },
+          "weak_verifier": {
+            "answer": "307",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        },
+        {
+          "answer": "307",
+          "call_index": 2,
+          "latency_seconds": 6.346,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"307\"}",
+          "selected_by": "self_revision_final",
+          "strong_verifier": {
+            "answer": "307",
+            "expected_normalized": [
+              "299"
+            ],
+            "observed_normalized": "307",
+            "passed": false,
+            "reason": "exact_match_failed"
+          },
+          "temperature": 0.0,
+          "usage": {
+            "completion_tokens": 14,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 113,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 127
+          },
+          "weak_verifier": {
+            "answer": "307",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        }
+      ],
+      "condition_id": "C4",
+      "condition_name": "self-reflection loop",
+      "model_calls": 2,
+      "passed": false,
+      "selected_answer": "307",
+      "selected_call_index": 2,
+      "task_class": "stress_deterministic",
+      "task_id": "ST4"
+    },
+    {
+      "candidates": [
+        {
+          "answer": "341",
+          "call_index": 1,
+          "latency_seconds": 1.579,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"341\"}",
+          "selected_by": "strong_verifier_feedback",
+          "strong_verifier": {
+            "answer": "341",
+            "expected_normalized": [
+              "299"
+            ],
+            "observed_normalized": "341",
+            "passed": false,
+            "reason": "exact_match_failed"
+          },
+          "temperature": 0.0,
+          "usage": {
+            "completion_tokens": 14,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 82,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 96
+          },
+          "weak_verifier": {
+            "answer": "341",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        },
+        {
+          "answer": "307",
+          "call_index": 2,
+          "latency_seconds": 0.636,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"307\"}",
+          "selected_by": "strong_verifier_feedback",
+          "strong_verifier": {
+            "answer": "307",
+            "expected_normalized": [
+              "299"
+            ],
+            "observed_normalized": "307",
+            "passed": false,
+            "reason": "exact_match_failed"
+          },
+          "temperature": 0.0,
+          "usage": {
+            "completion_tokens": 14,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 116,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 130
+          },
+          "weak_verifier": {
+            "answer": "307",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        },
+        {
+          "answer": "289",
+          "call_index": 3,
+          "latency_seconds": 1.359,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"289\"}",
+          "selected_by": "strong_verifier_feedback",
+          "strong_verifier": {
+            "answer": "289",
+            "expected_normalized": [
+              "299"
+            ],
+            "observed_normalized": "289",
+            "passed": false,
+            "reason": "exact_match_failed"
+          },
+          "temperature": 0.0,
+          "usage": {
+            "completion_tokens": 14,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 116,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 130
+          },
+          "weak_verifier": {
+            "answer": "289",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        }
+      ],
+      "condition_id": "C6",
+      "condition_name": "grounded verifier loop",
+      "model_calls": 3,
+      "passed": false,
+      "selected_answer": "289",
+      "selected_call_index": 3,
+      "task_class": "stress_deterministic",
+      "task_id": "ST4"
+    },
+    {
+      "candidates": [
+        {
+          "answer": "347",
+          "call_index": 1,
+          "latency_seconds": 0.674,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"347\"}",
+          "selected_by": "weak_verifier",
+          "strong_verifier": {
+            "answer": "347",
+            "expected_normalized": [
+              "299"
+            ],
+            "observed_normalized": "347",
+            "passed": false,
+            "reason": "exact_match_failed"
+          },
+          "temperature": 0.7,
+          "usage": {
+            "completion_tokens": 14,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 82,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 96
+          },
+          "weak_verifier": {
+            "answer": "347",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        },
+        {
+          "answer": "377",
+          "call_index": 2,
+          "latency_seconds": 0.809,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"377\"}",
+          "selected_by": "weak_verifier",
+          "strong_verifier": {
+            "answer": "377",
+            "expected_normalized": [
+              "299"
+            ],
+            "observed_normalized": "377",
+            "passed": false,
+            "reason": "exact_match_failed"
+          },
+          "temperature": 0.7,
+          "usage": {
+            "completion_tokens": 14,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 82,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 96
+          },
+          "weak_verifier": {
+            "answer": "377",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        },
+        {
+          "answer": "361",
+          "call_index": 3,
+          "latency_seconds": 0.98,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"361\"}",
+          "selected_by": "weak_verifier",
+          "strong_verifier": {
+            "answer": "361",
+            "expected_normalized": [
+              "299"
+            ],
+            "observed_normalized": "361",
+            "passed": false,
+            "reason": "exact_match_failed"
+          },
+          "temperature": 0.7,
+          "usage": {
+            "completion_tokens": 14,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 82,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 96
+          },
+          "weak_verifier": {
+            "answer": "361",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        }
+      ],
+      "condition_id": "C7",
+      "condition_name": "weak-verifier stress",
+      "model_calls": 3,
+      "passed": false,
+      "selected_answer": "347",
+      "selected_call_index": 1,
+      "task_class": "stress_deterministic",
+      "task_id": "ST4"
+    },
+    {
+      "candidates": [
+        {
+          "answer": "A",
+          "call_index": 1,
+          "latency_seconds": 0.804,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"A\"}",
+          "selected_by": "single",
+          "strong_verifier": {
+            "answer": "A",
+            "expected_normalized": [
+              "a"
+            ],
+            "observed_normalized": "a",
+            "passed": true,
+            "reason": "exact_match"
+          },
+          "temperature": 0.0,
+          "usage": {
+            "completion_tokens": 14,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 107,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 121
+          },
+          "weak_verifier": {
+            "answer": "A",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        }
+      ],
+      "condition_id": "C0",
+      "condition_name": "one-shot",
+      "model_calls": 1,
+      "passed": true,
+      "selected_answer": "A",
+      "selected_call_index": 1,
+      "task_class": "stress_deterministic",
+      "task_id": "ST5"
+    },
+    {
+      "candidates": [
+        {
+          "answer": "E",
+          "call_index": 1,
+          "latency_seconds": 0.745,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"E\"}",
+          "selected_by": "strong_verifier",
+          "strong_verifier": {
+            "answer": "E",
+            "expected_normalized": [
+              "a"
+            ],
+            "observed_normalized": "e",
+            "passed": false,
+            "reason": "exact_match_failed"
+          },
+          "temperature": 0.7,
+          "usage": {
+            "completion_tokens": 14,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 107,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 121
+          },
+          "weak_verifier": {
+            "answer": "E",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        },
+        {
+          "answer": "E",
+          "call_index": 2,
+          "latency_seconds": 0.63,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"E\"}",
+          "selected_by": "strong_verifier",
+          "strong_verifier": {
+            "answer": "E",
+            "expected_normalized": [
+              "a"
+            ],
+            "observed_normalized": "e",
+            "passed": false,
+            "reason": "exact_match_failed"
+          },
+          "temperature": 0.7,
+          "usage": {
+            "completion_tokens": 14,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 107,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 121
+          },
+          "weak_verifier": {
+            "answer": "E",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        },
+        {
+          "answer": "A",
+          "call_index": 3,
+          "latency_seconds": 0.665,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"A\"}",
+          "selected_by": "strong_verifier",
+          "strong_verifier": {
+            "answer": "A",
+            "expected_normalized": [
+              "a"
+            ],
+            "observed_normalized": "a",
+            "passed": true,
+            "reason": "exact_match"
+          },
+          "temperature": 0.7,
+          "usage": {
+            "completion_tokens": 14,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 107,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 121
+          },
+          "weak_verifier": {
+            "answer": "A",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        }
+      ],
+      "condition_id": "C3",
+      "condition_name": "best-of-n with strong verifier",
+      "model_calls": 3,
+      "passed": true,
+      "selected_answer": "A",
+      "selected_call_index": 3,
+      "task_class": "stress_deterministic",
+      "task_id": "ST5"
+    },
+    {
+      "candidates": [
+        {
+          "answer": "A",
+          "call_index": 1,
+          "latency_seconds": 0.868,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"A\"}",
+          "selected_by": "self_revision_seed",
+          "strong_verifier": {
+            "answer": "A",
+            "expected_normalized": [
+              "a"
+            ],
+            "observed_normalized": "a",
+            "passed": true,
+            "reason": "exact_match"
+          },
+          "temperature": 0.0,
+          "usage": {
+            "completion_tokens": 14,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 107,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 121
+          },
+          "weak_verifier": {
+            "answer": "A",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        },
+        {
+          "answer": "E",
+          "call_index": 2,
+          "latency_seconds": 0.616,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"E\"}",
+          "selected_by": "self_revision_final",
+          "strong_verifier": {
+            "answer": "E",
+            "expected_normalized": [
+              "a"
+            ],
+            "observed_normalized": "e",
+            "passed": false,
+            "reason": "exact_match_failed"
+          },
+          "temperature": 0.0,
+          "usage": {
+            "completion_tokens": 14,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 137,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 151
+          },
+          "weak_verifier": {
+            "answer": "E",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        }
+      ],
+      "condition_id": "C4",
+      "condition_name": "self-reflection loop",
+      "model_calls": 2,
+      "passed": false,
+      "selected_answer": "E",
+      "selected_call_index": 2,
+      "task_class": "stress_deterministic",
+      "task_id": "ST5"
+    },
+    {
+      "candidates": [
+        {
+          "answer": "E",
+          "call_index": 1,
+          "latency_seconds": 0.597,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"E\"}",
+          "selected_by": "strong_verifier_feedback",
+          "strong_verifier": {
+            "answer": "E",
+            "expected_normalized": [
+              "a"
+            ],
+            "observed_normalized": "e",
+            "passed": false,
+            "reason": "exact_match_failed"
+          },
+          "temperature": 0.0,
+          "usage": {
+            "completion_tokens": 14,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 107,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 121
+          },
+          "weak_verifier": {
+            "answer": "E",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        },
+        {
+          "answer": "A",
+          "call_index": 2,
+          "latency_seconds": 1.159,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"A\"}",
+          "selected_by": "strong_verifier_feedback",
+          "strong_verifier": {
+            "answer": "A",
+            "expected_normalized": [
+              "a"
+            ],
+            "observed_normalized": "a",
+            "passed": true,
+            "reason": "exact_match"
+          },
+          "temperature": 0.0,
+          "usage": {
+            "completion_tokens": 14,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 140,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 154
+          },
+          "weak_verifier": {
+            "answer": "A",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        }
+      ],
+      "condition_id": "C6",
+      "condition_name": "grounded verifier loop",
+      "model_calls": 2,
+      "passed": true,
+      "selected_answer": "A",
+      "selected_call_index": 2,
+      "task_class": "stress_deterministic",
+      "task_id": "ST5"
+    },
+    {
+      "candidates": [
+        {
+          "answer": "A",
+          "call_index": 1,
+          "latency_seconds": 0.704,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"A\"}",
+          "selected_by": "weak_verifier",
+          "strong_verifier": {
+            "answer": "A",
+            "expected_normalized": [
+              "a"
+            ],
+            "observed_normalized": "a",
+            "passed": true,
+            "reason": "exact_match"
+          },
+          "temperature": 0.7,
+          "usage": {
+            "completion_tokens": 14,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 107,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 121
+          },
+          "weak_verifier": {
+            "answer": "A",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        },
+        {
+          "answer": "E",
+          "call_index": 2,
+          "latency_seconds": 0.693,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"E\"}",
+          "selected_by": "weak_verifier",
+          "strong_verifier": {
+            "answer": "E",
+            "expected_normalized": [
+              "a"
+            ],
+            "observed_normalized": "e",
+            "passed": false,
+            "reason": "exact_match_failed"
+          },
+          "temperature": 0.7,
+          "usage": {
+            "completion_tokens": 14,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 107,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 121
+          },
+          "weak_verifier": {
+            "answer": "E",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        },
+        {
+          "answer": "A",
+          "call_index": 3,
+          "latency_seconds": 0.88,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"A\"}",
+          "selected_by": "weak_verifier",
+          "strong_verifier": {
+            "answer": "A",
+            "expected_normalized": [
+              "a"
+            ],
+            "observed_normalized": "a",
+            "passed": true,
+            "reason": "exact_match"
+          },
+          "temperature": 0.7,
+          "usage": {
+            "completion_tokens": 14,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 107,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 121
+          },
+          "weak_verifier": {
+            "answer": "A",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        }
+      ],
+      "condition_id": "C7",
+      "condition_name": "weak-verifier stress",
+      "model_calls": 3,
+      "passed": true,
+      "selected_answer": "A",
+      "selected_call_index": 1,
+      "task_class": "stress_deterministic",
+      "task_id": "ST5"
+    },
+    {
+      "candidates": [
+        {
+          "answer": "oegb",
+          "call_index": 1,
+          "latency_seconds": 0.873,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"oegb\"}",
+          "selected_by": "single",
+          "strong_verifier": {
+            "answer": "oegb",
+            "expected_normalized": [
+              "anfuli"
+            ],
+            "observed_normalized": "oegb",
+            "passed": false,
+            "reason": "exact_match_failed"
+          },
+          "temperature": 0.0,
+          "usage": {
+            "completion_tokens": 16,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 90,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 106
+          },
+          "weak_verifier": {
+            "answer": "oegb",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        }
+      ],
+      "condition_id": "C0",
+      "condition_name": "one-shot",
+      "model_calls": 1,
+      "passed": false,
+      "selected_answer": "oegb",
+      "selected_call_index": 1,
+      "task_class": "stress_deterministic",
+      "task_id": "ST6"
+    },
+    {
+      "candidates": [
+        {
+          "answer": "oafu",
+          "call_index": 1,
+          "latency_seconds": 0.804,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"oafu\"}",
+          "selected_by": "strong_verifier",
+          "strong_verifier": {
+            "answer": "oafu",
+            "expected_normalized": [
+              "anfuli"
+            ],
+            "observed_normalized": "oafu",
+            "passed": false,
+            "reason": "exact_match_failed"
+          },
+          "temperature": 0.7,
+          "usage": {
+            "completion_tokens": 16,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 90,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 106
+          },
+          "weak_verifier": {
+            "answer": "oafu",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        },
+        {
+          "answer": "oedbcu",
+          "call_index": 2,
+          "latency_seconds": 1.484,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"oedbcu\"}",
+          "selected_by": "strong_verifier",
+          "strong_verifier": {
+            "answer": "oedbcu",
+            "expected_normalized": [
+              "anfuli"
+            ],
+            "observed_normalized": "oedbcu",
+            "passed": false,
+            "reason": "exact_match_failed"
+          },
+          "temperature": 0.7,
+          "usage": {
+            "completion_tokens": 17,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 90,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 107
+          },
+          "weak_verifier": {
+            "answer": "oedbcu",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        },
+        {
+          "answer": "ougdcc",
+          "call_index": 3,
+          "latency_seconds": 0.753,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"ougdcc\"}",
+          "selected_by": "strong_verifier",
+          "strong_verifier": {
+            "answer": "ougdcc",
+            "expected_normalized": [
+              "anfuli"
+            ],
+            "observed_normalized": "ougdcc",
+            "passed": false,
+            "reason": "exact_match_failed"
+          },
+          "temperature": 0.7,
+          "usage": {
+            "completion_tokens": 16,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 90,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 106
+          },
+          "weak_verifier": {
+            "answer": "ougdcc",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        }
+      ],
+      "condition_id": "C3",
+      "condition_name": "best-of-n with strong verifier",
+      "model_calls": 3,
+      "passed": false,
+      "selected_answer": "oafu",
+      "selected_call_index": 1,
+      "task_class": "stress_deterministic",
+      "task_id": "ST6"
+    },
+    {
+      "candidates": [
+        {
+          "answer": "ooeeb",
+          "call_index": 1,
+          "latency_seconds": 0.711,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"ooeeb\"}",
+          "selected_by": "self_revision_seed",
+          "strong_verifier": {
+            "answer": "ooeeb",
+            "expected_normalized": [
+              "anfuli"
+            ],
+            "observed_normalized": "ooeeb",
+            "passed": false,
+            "reason": "exact_match_failed"
+          },
+          "temperature": 0.0,
+          "usage": {
+            "completion_tokens": 16,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 90,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 106
+          },
+          "weak_verifier": {
+            "answer": "ooeeb",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        },
+        {
+          "answer": "lggc",
+          "call_index": 2,
+          "latency_seconds": 0.748,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"lggc\"}",
+          "selected_by": "self_revision_final",
+          "strong_verifier": {
+            "answer": "lggc",
+            "expected_normalized": [
+              "anfuli"
+            ],
+            "observed_normalized": "lggc",
+            "passed": false,
+            "reason": "exact_match_failed"
+          },
+          "temperature": 0.0,
+          "usage": {
+            "completion_tokens": 16,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 122,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 138
+          },
+          "weak_verifier": {
+            "answer": "lggc",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        }
+      ],
+      "condition_id": "C4",
+      "condition_name": "self-reflection loop",
+      "model_calls": 2,
+      "passed": false,
+      "selected_answer": "lggc",
+      "selected_call_index": 2,
+      "task_class": "stress_deterministic",
+      "task_id": "ST6"
+    },
+    {
+      "candidates": [
+        {
+          "answer": "oaehbc",
+          "call_index": 1,
+          "latency_seconds": 0.723,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"oaehbc\"}",
+          "selected_by": "strong_verifier_feedback",
+          "strong_verifier": {
+            "answer": "oaehbc",
+            "expected_normalized": [
+              "anfuli"
+            ],
+            "observed_normalized": "oaehbc",
+            "passed": false,
+            "reason": "exact_match_failed"
+          },
+          "temperature": 0.0,
+          "usage": {
+            "completion_tokens": 11,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 90,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 101
+          },
+          "weak_verifier": {
+            "answer": "oaehbc",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        },
+        {
+          "answer": "lgnb",
+          "call_index": 2,
+          "latency_seconds": 0.724,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"lgnb\"}",
+          "selected_by": "strong_verifier_feedback",
+          "strong_verifier": {
+            "answer": "lgnb",
+            "expected_normalized": [
+              "anfuli"
+            ],
+            "observed_normalized": "lgnb",
+            "passed": false,
+            "reason": "exact_match_failed"
+          },
+          "temperature": 0.0,
+          "usage": {
+            "completion_tokens": 16,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 125,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 141
+          },
+          "weak_verifier": {
+            "answer": "lgnb",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        },
+        {
+          "answer": "lgnb",
+          "call_index": 3,
+          "latency_seconds": 0.941,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"lgnb\"}",
+          "selected_by": "strong_verifier_feedback",
+          "strong_verifier": {
+            "answer": "lgnb",
+            "expected_normalized": [
+              "anfuli"
+            ],
+            "observed_normalized": "lgnb",
+            "passed": false,
+            "reason": "exact_match_failed"
+          },
+          "temperature": 0.0,
+          "usage": {
+            "completion_tokens": 16,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 125,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 141
+          },
+          "weak_verifier": {
+            "answer": "lgnb",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        }
+      ],
+      "condition_id": "C6",
+      "condition_name": "grounded verifier loop",
+      "model_calls": 3,
+      "passed": false,
+      "selected_answer": "lgnb",
+      "selected_call_index": 3,
+      "task_class": "stress_deterministic",
+      "task_id": "ST6"
+    },
+    {
+      "candidates": [
+        {
+          "answer": "oeghbbh",
+          "call_index": 1,
+          "latency_seconds": 0.852,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"oeghbbh\"}",
+          "selected_by": "weak_verifier",
+          "strong_verifier": {
+            "answer": "oeghbbh",
+            "expected_normalized": [
+              "anfuli"
+            ],
+            "observed_normalized": "oeghbbh",
+            "passed": false,
+            "reason": "exact_match_failed"
+          },
+          "temperature": 0.7,
+          "usage": {
+            "completion_tokens": 17,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 90,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 107
+          },
+          "weak_verifier": {
+            "answer": "oeghbbh",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        },
+        {
+          "answer": "lpgfbc",
+          "call_index": 2,
+          "latency_seconds": 0.582,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"lpgfbc\"}",
+          "selected_by": "weak_verifier",
+          "strong_verifier": {
+            "answer": "lpgfbc",
+            "expected_normalized": [
+              "anfuli"
+            ],
+            "observed_normalized": "lpgfbc",
+            "passed": false,
+            "reason": "exact_match_failed"
+          },
+          "temperature": 0.7,
+          "usage": {
+            "completion_tokens": 17,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 90,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 107
+          },
+          "weak_verifier": {
+            "answer": "lpgfbc",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        },
+        {
+          "answer": "oenbcl",
+          "call_index": 3,
+          "latency_seconds": 0.899,
+          "model": "gpt-5.4-mini-2026-03-17",
+          "provider": "https://api.openai.com",
+          "raw_text": "{\"answer\":\"oenbcl\"}",
+          "selected_by": "weak_verifier",
+          "strong_verifier": {
+            "answer": "oenbcl",
+            "expected_normalized": [
+              "anfuli"
+            ],
+            "observed_normalized": "oenbcl",
+            "passed": false,
+            "reason": "exact_match_failed"
+          },
+          "temperature": 0.7,
+          "usage": {
+            "completion_tokens": 16,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": 0,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens": 90,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0
+            },
+            "total_tokens": 106
+          },
+          "weak_verifier": {
+            "answer": "oenbcl",
+            "passed": true,
+            "reason": "nonempty_short_answer"
+          }
+        }
+      ],
+      "condition_id": "C7",
+      "condition_name": "weak-verifier stress",
+      "model_calls": 3,
+      "passed": false,
+      "selected_answer": "oeghbbh",
+      "selected_call_index": 1,
+      "task_class": "stress_deterministic",
+      "task_id": "ST6"
+    }
+  ],
+  "source_manifest": "data/M4b-agent-loop-necessity-tiny-pilot-manifest.json",
+  "summary": {
+    "by_condition": {
+      "C0": {
+        "n": 12,
+        "success_rate": 0.75,
+        "total_model_calls": 12
+      },
+      "C3": {
+        "n": 12,
+        "success_rate": 0.75,
+        "total_model_calls": 36
+      },
+      "C4": {
+        "n": 12,
+        "success_rate": 0.416667,
+        "total_model_calls": 24
+      },
+      "C6": {
+        "n": 12,
+        "success_rate": 0.75,
+        "total_model_calls": 19
+      },
+      "C7": {
+        "n": 12,
+        "success_rate": 0.666667,
+        "total_model_calls": 36
+      }
+    },
+    "by_condition_and_task_class": {
+      "C0::medium_reasoning": {
+        "n": 3,
+        "success_rate": 1.0,
+        "total_model_calls": 3
+      },
+      "C0::short_deterministic": {
+        "n": 2,
+        "success_rate": 1.0,
+        "total_model_calls": 2
+      },
+      "C0::stress_deterministic": {
+        "n": 6,
+        "success_rate": 0.5,
+        "total_model_calls": 6
+      },
+      "C0::tiny_symbolic": {
+        "n": 1,
+        "success_rate": 1.0,
+        "total_model_calls": 1
+      },
+      "C3::medium_reasoning": {
+        "n": 3,
+        "success_rate": 1.0,
+        "total_model_calls": 9
+      },
+      "C3::short_deterministic": {
+        "n": 2,
+        "success_rate": 1.0,
+        "total_model_calls": 6
+      },
+      "C3::stress_deterministic": {
+        "n": 6,
+        "success_rate": 0.5,
+        "total_model_calls": 18
+      },
+      "C3::tiny_symbolic": {
+        "n": 1,
+        "success_rate": 1.0,
+        "total_model_calls": 3
+      },
+      "C4::medium_reasoning": {
+        "n": 3,
+        "success_rate": 0.666667,
+        "total_model_calls": 6
+      },
+      "C4::short_deterministic": {
+        "n": 2,
+        "success_rate": 1.0,
+        "total_model_calls": 4
+      },
+      "C4::stress_deterministic": {
+        "n": 6,
+        "success_rate": 0.0,
+        "total_model_calls": 12
+      },
+      "C4::tiny_symbolic": {
+        "n": 1,
+        "success_rate": 1.0,
+        "total_model_calls": 2
+      },
+      "C6::medium_reasoning": {
+        "n": 3,
+        "success_rate": 1.0,
+        "total_model_calls": 3
+      },
+      "C6::short_deterministic": {
+        "n": 2,
+        "success_rate": 1.0,
+        "total_model_calls": 2
+      },
+      "C6::stress_deterministic": {
+        "n": 6,
+        "success_rate": 0.5,
+        "total_model_calls": 13
+      },
+      "C6::tiny_symbolic": {
+        "n": 1,
+        "success_rate": 1.0,
+        "total_model_calls": 1
+      },
+      "C7::medium_reasoning": {
+        "n": 3,
+        "success_rate": 1.0,
+        "total_model_calls": 9
+      },
+      "C7::short_deterministic": {
+        "n": 2,
+        "success_rate": 1.0,
+        "total_model_calls": 6
+      },
+      "C7::stress_deterministic": {
+        "n": 6,
+        "success_rate": 0.333333,
+        "total_model_calls": 18
+      },
+      "C7::tiny_symbolic": {
+        "n": 1,
+        "success_rate": 1.0,
+        "total_model_calls": 3
+      }
+    },
+    "predeclared_contrasts": {
+      "C3_minus_C0_all": 0.0,
+      "C3_minus_C0_nonshort": 0.0,
+      "C4_minus_C0_all": -0.333333,
+      "C6_minus_C0_all": 0.0,
+      "C6_minus_C0_medium_reasoning": 0.0,
+      "C6_minus_C0_stress_deterministic": 0.0,
+      "C6_minus_C0_tiny_symbolic": 0.0,
+      "C7_minus_C0_all": -0.083333
+    }
+  },
+  "task_count": 12
+}

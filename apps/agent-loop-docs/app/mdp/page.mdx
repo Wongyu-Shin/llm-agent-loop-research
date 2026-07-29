@@ -1,0 +1,145 @@
+import {
+  ArticlePage,
+  ComparisonTable,
+  DocHero,
+  LeadStatement,
+  ModelCheckpoint,
+  Note,
+  PageNav,
+  Section,
+  SourceLink,
+  TermGrid,
+} from "@/components/doc-ui"
+import { MdpPlayground } from "@/components/visualizations/mdp-playground"
+import { MdpObservabilityBoundary } from "@/components/visualizations/mdp-observability-boundary"
+import { MdpStructureExplorer } from "@/components/visualizations/mdp-structure-explorer"
+
+export const metadata = {
+  title: "MDP로 다음 행동의 장기 결과 비교하기",
+  description: "결제 API 수정 workflow에서 state, action, transition, reward와 Bellman equation의 역할을 설명합니다.",
+}
+
+<ArticlePage
+  toc={[
+    { id: "checkpoint", label: "작업 state 정의" },
+    { id: "lab", label: "행동의 장기 가치" },
+    { id: "markov", label: "Markov 조건" },
+    { id: "formal-model", label: "MDP와 Bellman 식" },
+    { id: "agent-boundary", label: "Code agent의 관측 한계" },
+    { id: "sources", label: "근거 문헌" },
+  ]}
+>
+  <DocHero
+    index="01"
+    acronym="MDP · NEXT ACTION"
+    title="MDP는 현재 작업 상태에서 다음 행동의 장기 결과를 비교하는 모형입니다"
+    lead="계약을 먼저 읽을지, 바로 patch할지를 정하려면 당장의 비용과 이후 회귀 위험을 함께 봐야 합니다. 결제 API 사례로 state, transition, reward가 행동 가치 계산에 어떻게 들어가는지 살펴봅니다."
+  />
+
+  <ModelCheckpoint
+    label="결제 API · checkpoint 1"
+    question="계약을 읽을까, 바로 clamp patch를 적용할까?"
+    known="실패 요청, 현재 코드, 실행 가능한 단위 테스트와 contract test"
+    unknown="각 행동 뒤 어떤 결과가 나올지는 transition model로만 예측한다고 가정합니다."
+  />
+
+  <Section id="checkpoint" title="MDP state에는 다음 행동을 고르는 데 필요한 작업 정보를 담습니다">
+    MDP를 적용하려면 의사결정에 필요한 정보를 state에 담아야 합니다. 결제 API 사례를 다음 TypeScript 타입으로 적어 봅니다.
+
+    ```ts
+    type WorkState = {
+      failureReproduced: boolean
+      contractRead: boolean
+      patchApplied: boolean
+      unitTestsPassing: boolean
+      contractTestsPassing: boolean
+    }
+
+    type Action = "inspect-contract" | "apply-patch" | "run-tests"
+    ```
+
+    <MdpStructureExplorer />
+
+    실제 harness가 이 타입을 쓰지 않아도 괜찮습니다. 중요한 점은 state가 다음 결과와 행동 가치를 예측하는 데 필요한 과거를 충분히 요약하느냐입니다.
+
+    <ComparisonTable
+      columns={["MDP 요소", "결제 API workflow"]}
+      rows={[
+        ["State", "재현 여부, 읽은 계약, 현재 diff, test 상태"],
+        ["Action", "명세 조회, patch 적용, test 실행, rollback"],
+        ["Transition", "action 뒤 repository와 test 상태가 바뀔 확률"],
+        ["Reward", "성공, 실행 비용, 회귀 위험, 지연 시간을 합친 평가"],
+      ]}
+    />
+  </Section>
+
+  <Section id="lab" title="계약 확인 비용과 성급한 patch의 회귀 위험을 함께 비교합니다">
+    <MdpPlayground />
+
+    이 실습은 결제 API 작업을 네 state로 줄였습니다. `Bellman 1회`를 누르면 현재 value를 이용해 각 action의 expected return을 계산하고, 가장 큰 값을 새 state value로 저장합니다. discount factor $\gamma$가 커질수록 당장 드는 조사 비용보다 이후의 회귀 위험과 성공 보상이 더 크게 반영됩니다.
+
+    <LeadStatement>
+      이 실습에서 중요한 것은 반복 횟수가 아닙니다. 서로 다른 action의 transition과 장기 결과를 비교하는 일입니다.
+    </LeadStatement>
+  </Section>
+
+  <Section id="markov" title="현재 state만으로 다음 전이를 예측할 수 있어야 Markov 조건을 만족합니다">
+    Markov property는 과거를 버리라는 규칙이 아닙니다. 더 오래된 history 없이도 현재 state만으로 다음 state의 분포를 계산할 수 있다고 가정합니다.
+
+    $$
+    P(S_{t+1}=s'\mid S_0,A_0,\ldots,S_t=s,A_t=a)
+    = P(S_{t+1}=s'\mid S_t=s,A_t=a)
+    $$
+
+    예를 들어 `contractTestsPassing: false`만 기록하고 어떤 입력에서 왜 실패했는지 지워 버리면 state가 부족할 수 있습니다. 같은 boolean state라도 실패 입력에 따라 다음 patch가 달라지기 때문입니다. history를 state에 더 넣거나, 실제 state를 직접 볼 수 없다고 보고 POMDP로 넘어가야 합니다.
+  </Section>
+
+  <Section id="formal-model" title="결제 API 작업을 MDP 요소와 Bellman 식으로 표현합니다">
+    유한 MDP는 보통 $\langle S,A,P,R,\gamma\rangle$로 적습니다.
+
+    <TermGrid
+      items={[
+        { symbol: "S", term: "State space", description: "의사결정에 필요한 작업 상태의 집합" },
+        { symbol: "A", term: "Action space", description: "agent가 고를 수 있는 도구 호출과 변경 작업" },
+        { symbol: "P", term: "Transition model", description: "P(s'|s,a), action 뒤 다음 state의 확률" },
+        { symbol: "R", term: "Reward model", description: "성공, 비용, 지연, 위험을 반영한 즉시 평가" },
+        { symbol: "γ", term: "Discount factor", description: "0 이상 1 미만, 미래 결과를 현재 선택에 반영하는 비율" },
+      ]}
+    />
+
+    정책 $\pi(a\mid s)$를 따를 때 state value는 discounted return의 기댓값입니다.
+
+    $$
+    V^\pi(s)=\mathbb{E}_\pi\left[\sum_{k=0}^{\infty}\gamma^k R_{t+k+1}\mid S_t=s\right]
+    $$
+
+    최적 value는 Bellman optimality equation으로 적을 수 있습니다.
+
+    $$
+    V^*(s)=\max_a\sum_{s'}P(s'\mid s,a)\left[R(s,a,s')+\gamma V^*(s')\right]
+    $$
+
+    <Note label="MDP와 동적계획법" tone="neutral">
+      <p>MDP는 문제 모형입니다. Value iteration과 policy iteration은 transition과 reward model이 주어졌을 때 policy를 구하는 해법입니다. `observe → act → observe`를 반복한다는 이유만으로 agent가 동적계획법을 수행한다고 부를 수는 없습니다.</p>
+    </Note>
+  </Section>
+
+  <Section id="agent-boundary" title="Code agent는 실제 작업 state를 로그와 파일 일부로만 관찰합니다">
+    MDP 설명은 repository state, 사용자 의도, 외부 API와 hidden test를 충분히 안다는 가정에서 출발합니다. 현실의 agent는 test log와 파일 일부만 보고 원인을 추정합니다. context에 적힌 state가 실제 시스템 state와 다를 수도 있습니다.
+
+    <MdpObservabilityBoundary />
+
+    다음 페이지에서는 state와 observation을 분리합니다. 실행 결과가 숨은 원인에 대한 belief를 어떻게 바꾸는지 POMDP로 살펴봅니다.
+  </Section>
+
+  <Section id="sources" title="근거 문헌">
+    <SourceLink href="https://incompleteideas.net/book/RLbook2020.pdf">
+      Sutton &amp; Barto (2018), Reinforcement Learning: An Introduction, 2nd edition
+    </SourceLink>
+    <SourceLink href="https://doi.org/10.1016/S0004-3702(98)00023-X">
+      Kaelbling, Littman &amp; Cassandra (1998), Planning and Acting in Partially Observable Stochastic Domains
+    </SourceLink>
+  </Section>
+
+  <PageNav next="/pomdp" />
+</ArticlePage>

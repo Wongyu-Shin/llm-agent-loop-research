@@ -1,0 +1,462 @@
+{
+  "artifact_version": "1.0",
+  "schema_version": "1.0",
+  "skill_version": "0.1.0",
+  "run_id": "2026-07-29-163449",
+  "command": "polish",
+  "workflow_preset": "full-report",
+  "quality": "strict",
+  "created_at": "2026-07-29T07:34:49.514547+00:00",
+  "artifacts": [
+    {
+      "path": "acceptance_decision_record.json",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command polish with workflow_preset full-report does not run acceptance"
+    },
+    {
+      "path": "acceptance_decision_record.md",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command polish with workflow_preset full-report does not run acceptance"
+    },
+    {
+      "path": "changed_files.json",
+      "status": "produced",
+      "retention_class": "debug",
+      "reason": "",
+      "sha256": "3480ba83384326c3df052df812374645285593ea1c99d77e21f7cb8776bc1b7f",
+      "bytes": 271
+    },
+    {
+      "path": "cleanup_report.json",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command polish with workflow_preset full-report does not run cleanup"
+    },
+    {
+      "path": "discovery_report.json",
+      "status": "produced",
+      "retention_class": "debug",
+      "reason": "",
+      "sha256": "01a59456aac7779c09b13d74ab6b8aa2d81ba55e019c743e83aef25e481933b2",
+      "bytes": 723
+    },
+    {
+      "path": "environment_manifest.json",
+      "status": "produced",
+      "retention_class": "debug",
+      "reason": "",
+      "sha256": "80be3a0ae46761e2ef014e50a7f0a4a39bf38fe3862a92a6b8b6b0c2a9d044b9",
+      "bytes": 779
+    },
+    {
+      "path": "evidence_ledger.json",
+      "status": "produced",
+      "retention_class": "debug",
+      "reason": "",
+      "sha256": "8b8d59da90c7176f939c76b58da3cff8674af36d6558c72be42cf612411bab5e",
+      "bytes": 387
+    },
+    {
+      "path": "install_check.json",
+      "status": "produced",
+      "retention_class": "debug",
+      "reason": "",
+      "sha256": "17116792211ce980f1f2748010769b8fec81e9c7567ae62d69b1b6fb00e70e05",
+      "bytes": 1413
+    },
+    {
+      "path": "mdx/01_input.mdx",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command polish with workflow_preset full-report does not run draft"
+    },
+    {
+      "path": "mdx/01_input_digest.json",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command polish with workflow_preset full-report does not run draft"
+    },
+    {
+      "path": "mdx/01_protected_spans.json",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command polish with workflow_preset full-report does not run draft"
+    },
+    {
+      "path": "mdx/01_rewrite_spans.json",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command polish with workflow_preset full-report does not run draft"
+    },
+    {
+      "path": "mdx/02_draft.mdx",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command polish with workflow_preset full-report does not run draft"
+    },
+    {
+      "path": "mdx/final.diff",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command polish with workflow_preset full-report does not run draft"
+    },
+    {
+      "path": "polish/00_metrics.json",
+      "status": "produced",
+      "retention_class": "debug",
+      "reason": "",
+      "sha256": "132920e66a784f5724b1f84503d4a0f1fc7440399337c527f4738f2943476c67",
+      "bytes": 604
+    },
+    {
+      "path": "polish/01_input.mdx",
+      "status": "produced",
+      "retention_class": "debug",
+      "reason": "",
+      "sha256": "507a023b9526e4b278fd4648130b8719c9ae15d8296d3868f262a1dabd3d7c44",
+      "bytes": 342
+    },
+    {
+      "path": "polish/01_input_with_metrics.txt",
+      "status": "produced",
+      "retention_class": "debug",
+      "reason": "",
+      "sha256": "507a023b9526e4b278fd4648130b8719c9ae15d8296d3868f262a1dabd3d7c44",
+      "bytes": 342
+    },
+    {
+      "path": "polish/01_protected_map.json",
+      "status": "produced",
+      "retention_class": "debug",
+      "reason": "",
+      "sha256": "ffd667400dacb82599524da19fbe7799b2ddc95fac89d54853171a0ffa261cf2",
+      "bytes": 571
+    },
+    {
+      "path": "polish/01_protected_spans.json",
+      "status": "produced",
+      "retention_class": "debug",
+      "reason": "",
+      "sha256": "e4b8a6e46409ad608310d061e6241595be4f6514176887f27a8934c68da38056",
+      "bytes": 1602
+    },
+    {
+      "path": "polish/01_rewrite_bundle.jsonl",
+      "status": "produced",
+      "retention_class": "debug",
+      "reason": "",
+      "sha256": "7df67ab1b57dfc28d6a901e088b7a08b1988219891632aa0f4f5d4eccb325f68",
+      "bytes": 674
+    },
+    {
+      "path": "polish/01_rewrite_spans.json",
+      "status": "produced",
+      "retention_class": "debug",
+      "reason": "",
+      "sha256": "1e292937433b280a3d2cff755bb32161c14c1f55348e4650f2f1e6cd7393999f",
+      "bytes": 1593
+    },
+    {
+      "path": "polish/02_detection.json",
+      "status": "produced",
+      "retention_class": "debug",
+      "reason": "",
+      "sha256": "4d8117062885d75c47faa2eb1201a55e211f604c3f73a4724371bf41f796f042",
+      "bytes": 338
+    },
+    {
+      "path": "polish/02_do_not_ledger.json",
+      "status": "produced",
+      "retention_class": "debug",
+      "reason": "",
+      "sha256": "7004faa9f4b2654a0fa19e50be43fe5d039e1f0385b8f2d570c4c80b08cdcf21",
+      "bytes": 516
+    },
+    {
+      "path": "polish/03_edit_plan.json",
+      "status": "produced",
+      "retention_class": "debug",
+      "reason": "",
+      "sha256": "a84d9d6eae7525154ea1cee33bfeb01a353a08eec9f45aa5fd49f2e4e05693fd",
+      "bytes": 329
+    },
+    {
+      "path": "polish/03_rewrite.mdx",
+      "status": "produced",
+      "retention_class": "debug",
+      "reason": "",
+      "sha256": "507a023b9526e4b278fd4648130b8719c9ae15d8296d3868f262a1dabd3d7c44",
+      "bytes": 342
+    },
+    {
+      "path": "polish/03_rewrite_diff.json",
+      "status": "produced",
+      "retention_class": "debug",
+      "reason": "",
+      "sha256": "c2eaa04cc60328a999df856d29738463d1d389bd853dc3b591b3e576d40dbdee",
+      "bytes": 373
+    },
+    {
+      "path": "polish/04_fidelity_audit.json",
+      "status": "produced",
+      "retention_class": "debug",
+      "reason": "",
+      "sha256": "e8b54196acc5f1e919a50bf9f0e6ec79db1dcabeb0c73d531c64220341001736",
+      "bytes": 322
+    },
+    {
+      "path": "polish/04_fidelity_audit.llm.json",
+      "status": "produced",
+      "retention_class": "debug",
+      "reason": "",
+      "sha256": "e8b54196acc5f1e919a50bf9f0e6ec79db1dcabeb0c73d531c64220341001736",
+      "bytes": 322
+    },
+    {
+      "path": "polish/04_fidelity_audit.machine.json",
+      "status": "produced",
+      "retention_class": "debug",
+      "reason": "",
+      "sha256": "e8b54196acc5f1e919a50bf9f0e6ec79db1dcabeb0c73d531c64220341001736",
+      "bytes": 322
+    },
+    {
+      "path": "polish/05_naturalness_review.json",
+      "status": "produced",
+      "retention_class": "debug",
+      "reason": "",
+      "sha256": "188f74d60d980450cb7f993683afb29f3ae3e47bebe7bb2d76d366bd1a3567a8",
+      "bytes": 407
+    },
+    {
+      "path": "polish/final.mdx",
+      "status": "produced",
+      "retention_class": "source",
+      "reason": "",
+      "sha256": "507a023b9526e4b278fd4648130b8719c9ae15d8296d3868f262a1dabd3d7c44",
+      "bytes": 342
+    },
+    {
+      "path": "polish/llm_input_audit.json",
+      "status": "produced",
+      "retention_class": "debug",
+      "reason": "",
+      "sha256": "aaed20145a95caca3affd7c952ba2f3eed7588b557c4f9ba1c74c585105de751",
+      "bytes": 551
+    },
+    {
+      "path": "polish/offset_roundtrip_report.json",
+      "status": "produced",
+      "retention_class": "debug",
+      "reason": "",
+      "sha256": "4fc8a148ed227bfeddf74d74e0dfa5709adae288e070474530e45c98bf63f3ec",
+      "bytes": 444
+    },
+    {
+      "path": "polish/post_rollback_fidelity_check.json",
+      "status": "produced",
+      "retention_class": "debug",
+      "reason": "",
+      "sha256": "93399bba008cd952266b5412a118a4d90a43fbc31802cd9fe773faa3fc0a5db7",
+      "bytes": 327
+    },
+    {
+      "path": "polish/prompt_bundle.redacted.jsonl",
+      "status": "produced",
+      "retention_class": "debug",
+      "reason": "",
+      "sha256": "7df67ab1b57dfc28d6a901e088b7a08b1988219891632aa0f4f5d4eccb325f68",
+      "bytes": 674
+    },
+    {
+      "path": "polish/prompt_bundle.sha256",
+      "status": "produced",
+      "retention_class": "debug",
+      "reason": "",
+      "sha256": "2fa9e3052ba6047f77200ef499bc57cc71b08f1432414ae18512ffaa32115b7b",
+      "bytes": 65
+    },
+    {
+      "path": "polish/summary.json",
+      "status": "produced",
+      "retention_class": "debug",
+      "reason": "",
+      "sha256": "53438b19a62de8589c8a05fc032282fac1296464524431c0fb9b367a7a2dac94",
+      "bytes": 544
+    },
+    {
+      "path": "privacy_scan.json",
+      "status": "produced",
+      "retention_class": "sensitive",
+      "reason": "",
+      "sha256": "18d8dc63467ee4759c0d003b533d165c7607008e6e438c1a9b0a7df4aea9ec18",
+      "bytes": 292
+    },
+    {
+      "path": "report_input.resolved.json",
+      "status": "produced",
+      "retention_class": "debug",
+      "reason": "",
+      "sha256": "ccae64af763c18c08ba219ede44a11ab95d6e6a0a383253c66027353fc9ba2f7",
+      "bytes": 416
+    },
+    {
+      "path": "run_manifest.json",
+      "status": "produced",
+      "retention_class": "permanent",
+      "reason": "",
+      "sha256": "5cd1ab6eef87566009b323fee99f06a490479c130e13acd926e41db9dfb121be",
+      "bytes": 12859
+    },
+    {
+      "path": "run_report.json",
+      "status": "produced",
+      "retention_class": "debug",
+      "reason": "",
+      "sha256": "00613ab698e06f51e5c543aa47370ec34c52e6585585e22d35e6e486cccc3d58",
+      "bytes": 1697
+    },
+    {
+      "path": "run_report.md",
+      "status": "produced",
+      "retention_class": "debug",
+      "reason": "",
+      "sha256": "8dc5654004f8f353327deac86cddf4286599e2a38a7aad371052118a75ba874a",
+      "bytes": 43
+    },
+    {
+      "path": "validation/browser_component_probe.json",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command polish with workflow_preset full-report does not run validate"
+    },
+    {
+      "path": "validation/browser_trace.zip",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command polish with workflow_preset full-report does not run validate"
+    },
+    {
+      "path": "validation/claim_trace_report.json",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command polish with workflow_preset full-report does not run validate"
+    },
+    {
+      "path": "validation/component_inventory.json",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command polish with workflow_preset full-report does not run validate"
+    },
+    {
+      "path": "validation/component_probe_action_matrix.json",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command polish with workflow_preset full-report does not run validate"
+    },
+    {
+      "path": "validation/console.ndjson",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command polish with workflow_preset full-report does not run validate"
+    },
+    {
+      "path": "validation/engineering_judge.json",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command polish with workflow_preset full-report does not run validate"
+    },
+    {
+      "path": "validation/fixture_matrix.json",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command polish with workflow_preset full-report does not run validate"
+    },
+    {
+      "path": "validation/judge_decision.json",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command polish with workflow_preset full-report does not run validate"
+    },
+    {
+      "path": "validation/judge_decision_trace.json",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command polish with workflow_preset full-report does not run validate"
+    },
+    {
+      "path": "validation/judge_results.json",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command polish with workflow_preset full-report does not run validate"
+    },
+    {
+      "path": "validation/mdx_contract_check.json",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command polish with workflow_preset full-report does not run validate"
+    },
+    {
+      "path": "validation/mdx_contract_negative_cases.json",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command polish with workflow_preset full-report does not run validate"
+    },
+    {
+      "path": "validation/nav_check.json",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command polish with workflow_preset full-report does not run validate"
+    },
+    {
+      "path": "validation/network.har",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command polish with workflow_preset full-report does not run validate"
+    },
+    {
+      "path": "validation/pedagogy_judge.json",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command polish with workflow_preset full-report does not run validate"
+    },
+    {
+      "path": "validation/render_probe.jsonl",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command polish with workflow_preset full-report does not run validate"
+    },
+    {
+      "path": "validation/route_manifest.json",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command polish with workflow_preset full-report does not run validate"
+    },
+    {
+      "path": "validation/route_source_diff.json",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command polish with workflow_preset full-report does not run validate"
+    },
+    {
+      "path": "validation/screenshot_manifest.json",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command polish with workflow_preset full-report does not run validate"
+    },
+    {
+      "path": "validation/static_check.json",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command polish with workflow_preset full-report does not run validate"
+    },
+    {
+      "path": "validation/visual_judge.json",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command polish with workflow_preset full-report does not run validate"
+    }
+  ]
+}

@@ -1,0 +1,124 @@
+{
+  "deckTitle": "LLM Agent Loop",
+  "subtitle": "What closes the loop?",
+  "cards": [
+    {
+      "number": 1,
+      "eyebrow": "LLM Agent Engineering",
+      "headline": "무엇이 loop를 닫는가?",
+      "body": [
+        "질문은 “agent가 loop인가?”가 아니다.",
+        "verifier, feedback, tool, state가 다음 행동을 바꾸는가?"
+      ],
+      "footer": "verifier · feedback · tools · state",
+      "alt": "LLM agent loop의 핵심 질문을 “무엇이 loop를 닫는가?”로 재정의하는 첫 카드."
+    },
+    {
+      "number": 2,
+      "eyebrow": "Conditional Necessity",
+      "headline": "모든 작업에 loop가 필요하진 않다",
+      "body": [
+        "외부 관찰·검증·수정·rollback이 필요한 장기 작업에서 조건부로 필요해질 수 있다.",
+        "내부 점수만으로 실제 성공 기준을 대신하기 어렵기 때문이다."
+      ],
+      "footer": "objective mismatch -> control surface",
+      "alt": "LLM agent loop가 모든 작업의 필수 구조가 아니라 objective mismatch가 큰 작업에서 생기는 조건부 구조라는 카드."
+    },
+    {
+      "number": 3,
+      "eyebrow": "Core Argument",
+      "headline": "모델 점수 ≠ 실제 성공",
+      "body": [
+        "next-token objective",
+        "sequence likelihood",
+        "task utility",
+        "그럴듯함은 성공이 아니다."
+      ],
+      "footer": "likelihood is not utility",
+      "alt": "next-token, sequence likelihood, task utility가 서로 다른 목적함수임을 보여주는 카드."
+    },
+    {
+      "number": 4,
+      "eyebrow": "System Boundary",
+      "headline": "텍스트 문제는 시스템 문제가 된다",
+      "body": [
+        "agent가 파일, source, API 상태를 바꾸면 문제는 답변 생성이 아니다.",
+        "state -> action -> observation -> verification -> update/rollback의 폐루프가 된다."
+      ],
+      "footer": "state -> action -> observe -> verify -> update",
+      "alt": "장기 LLM agent 작업이 단순 텍스트 생성에서 폐루프 시스템 문제로 바뀌는 카드."
+    },
+    {
+      "number": 5,
+      "eyebrow": "Pilot Lesson",
+      "headline": "작은 pilot은 증명이 아니다",
+      "body": [
+        "12개 합성 과제, 단일 실행, 통계적 결론 불가.",
+        "효과 추정이 아니라 실패 모드 관찰이다.",
+        "이 설정에서는 반복만으로 개선을 확인하지 못했다."
+      ],
+      "footer": "proof가 아니라 failure mode",
+      "alt": "작은 파일럿에서 단순 반복만으로는 성능 개선을 보장하지 못했다는 카드."
+    },
+    {
+      "number": 6,
+      "eyebrow": "Control Surface 1",
+      "headline": "Verifier: 판정, 아니면 echo",
+      "body": [
+        "정의: utility proxy에 비춘 판정.",
+        "체크: false positive/negative를 줄이는가?",
+        "실패: false positive."
+      ],
+      "footer": "prevent false success",
+      "alt": "verifier의 독립성, calibration, task utility 정렬이 중요하다는 카드."
+    },
+    {
+      "number": 7,
+      "eyebrow": "Control Surface 2",
+      "headline": "Feedback: 거절이 아니라 수리",
+      "body": [
+        "정의: 다음 수정 위치를 주는 오류 구조.",
+        "체크: diff / counterexample / source mismatch?",
+        "실패: pass/fail-only."
+      ],
+      "footer": "turn rejection into repair",
+      "alt": "단순 실패 판정보다 수리 가능한 diagnostic feedback이 중요하다는 카드."
+    },
+    {
+      "number": 8,
+      "eyebrow": "Control Surface 3",
+      "headline": "Tool: 추측을 깨는 관찰",
+      "body": [
+        "정의: prompt 밖을 관찰하고 바꾸는 행동.",
+        "체크: 가정을 반증하거나 상태를 확인하는가?",
+        "실패: correlated guessing, 같은 오류 공간 반복."
+      ],
+      "footer": "break internal correlation",
+      "alt": "tool access가 LLM의 내부 추측을 외부 관측으로 검증하게 만든다는 카드."
+    },
+    {
+      "number": 9,
+      "eyebrow": "Control Surface 4",
+      "headline": "State: drift를 막는 경계",
+      "body": [
+        "정의: 보존, 폐기, rollback, stop.",
+        "체크: ownership / provenance / rollback boundary?",
+        "실패: irreversible commit."
+      ],
+      "footer": "own · trace · rollback · stop",
+      "alt": "state ownership, provenance, rollback, stopping rule이 agent loop에 필요하다는 카드."
+    },
+    {
+      "number": 10,
+      "eyebrow": "Design Review",
+      "headline": "좋은 loop는 신호로 닫힌다",
+      "body": [
+        "더 오래 말하는 것이 아니라, 더 좋은 신호가 다음 행동을 바꾸는가?",
+        "마지막 질문: 어떤 feedback이 어떤 state를 어떻게 바꾸는가?",
+        "stop rule은 success, latency, risk를 함께 보는 종료 정책이다."
+      ],
+      "footer": "what changes the next action?",
+      "alt": "좋은 LLM agent loop는 더 오래 말하는 것이 아니라 더 좋은 신호로 행동을 바꾸는 시스템이라는 결론 카드."
+    }
+  ]
+}

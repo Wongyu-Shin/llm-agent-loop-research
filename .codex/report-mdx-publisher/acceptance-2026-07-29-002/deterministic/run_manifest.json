@@ -1,0 +1,342 @@
+{
+  "artifact_version": "1.0",
+  "schema_version": "1.0",
+  "skill_version": "0.1.0",
+  "run_id": "2026-07-29-163504",
+  "command": "validate",
+  "workflow_preset": "full-report",
+  "quality": "fast",
+  "created_at": "2026-07-29T07:35:04.209625+00:00",
+  "input_paths": {
+    "config": "/Users/wongyushin/personal/llm-agent-loop-research/.codex/report-mdx-publisher/acceptance-2026-07-29-002/resume-pass.json"
+  },
+  "output_paths": {
+    "run_dir": "/Users/wongyushin/personal/llm-agent-loop-research/.codex/report-mdx-publisher/acceptance-2026-07-29-002/deterministic"
+  },
+  "repo_root": "/Users/wongyushin/.codex/skills/report-mdx-publisher",
+  "repo_commit": "",
+  "upstream_manifest_version": "1.0",
+  "command_results": [
+    {
+      "phase": "resume",
+      "status": "loaded",
+      "detail": "loaded 8 prior artifact entries",
+      "timestamp": "2026-07-29T07:35:04.211440+00:00"
+    },
+    {
+      "phase": "validate",
+      "status": "started",
+      "detail": "",
+      "timestamp": "2026-07-29T07:35:07.066591+00:00"
+    },
+    {
+      "phase": "validate",
+      "status": "passed",
+      "detail": "",
+      "timestamp": "2026-07-29T07:35:08.054883+00:00"
+    }
+  ],
+  "artifact_paths": [
+    "artifact_index.json",
+    "changed_files.json",
+    "discovery_report.json",
+    "environment_manifest.json",
+    "evidence_ledger.json",
+    "install_check.json",
+    "privacy_scan.json",
+    "report_input.resolved.json",
+    "run_manifest.json",
+    "run_report.json",
+    "run_report.md",
+    "validation/browser_component_probe.json",
+    "validation/browser_trace.zip",
+    "validation/claim_trace_report.json",
+    "validation/component_inventory.json",
+    "validation/component_probe_action_matrix.json",
+    "validation/console.ndjson",
+    "validation/engineering_judge.json",
+    "validation/fixture_matrix.json",
+    "validation/judge_decision.json",
+    "validation/judge_decision_trace.json",
+    "validation/judge_results.json",
+    "validation/mdx_contract_check.json",
+    "validation/mdx_contract_negative_cases.json",
+    "validation/nav_check.json",
+    "validation/network.har",
+    "validation/pedagogy_judge.json",
+    "validation/render_probe.jsonl",
+    "validation/route_manifest.json",
+    "validation/route_source_diff.json",
+    "validation/screenshot_manifest.json",
+    "validation/static_check.json",
+    "validation/visual_judge.json"
+  ],
+  "skipped_artifacts": [
+    {
+      "path": "failure_report.json",
+      "status": "resumed",
+      "retention_class": "debug",
+      "reason": "preserved from resume source /Users/wongyushin/personal/llm-agent-loop-research/.codex/report-mdx-publisher/acceptance-2026-07-29-002/deterministic",
+      "sha256": "f8b69e0ba38005504353de687efd32f9e2e3a6451aae177ec8391ed9da967626",
+      "bytes": 844
+    },
+    {
+      "path": "failure_report.md",
+      "status": "resumed",
+      "retention_class": "debug",
+      "reason": "preserved from resume source /Users/wongyushin/personal/llm-agent-loop-research/.codex/report-mdx-publisher/acceptance-2026-07-29-002/deterministic",
+      "sha256": "a59c3a71665e6678bb035446ad1e9096ccd59ce1c69ab941ee0c81359aa08ba8",
+      "bytes": 81
+    },
+    {
+      "path": "mdx/01_input_digest.json",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command validate with workflow_preset full-report does not run draft"
+    },
+    {
+      "path": "mdx/01_input.mdx",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command validate with workflow_preset full-report does not run draft"
+    },
+    {
+      "path": "mdx/01_rewrite_spans.json",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command validate with workflow_preset full-report does not run draft"
+    },
+    {
+      "path": "mdx/01_protected_spans.json",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command validate with workflow_preset full-report does not run draft"
+    },
+    {
+      "path": "mdx/02_draft.mdx",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command validate with workflow_preset full-report does not run draft"
+    },
+    {
+      "path": "mdx/final.diff",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command validate with workflow_preset full-report does not run draft"
+    },
+    {
+      "path": "polish/00_metrics.json",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command validate with workflow_preset full-report does not run polish"
+    },
+    {
+      "path": "polish/01_input.mdx",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command validate with workflow_preset full-report does not run polish"
+    },
+    {
+      "path": "polish/01_input_with_metrics.txt",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command validate with workflow_preset full-report does not run polish"
+    },
+    {
+      "path": "polish/01_rewrite_spans.json",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command validate with workflow_preset full-report does not run polish"
+    },
+    {
+      "path": "polish/01_protected_spans.json",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command validate with workflow_preset full-report does not run polish"
+    },
+    {
+      "path": "polish/01_protected_map.json",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command validate with workflow_preset full-report does not run polish"
+    },
+    {
+      "path": "polish/01_rewrite_bundle.jsonl",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command validate with workflow_preset full-report does not run polish"
+    },
+    {
+      "path": "polish/llm_input_audit.json",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command validate with workflow_preset full-report does not run polish"
+    },
+    {
+      "path": "polish/prompt_bundle.redacted.jsonl",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command validate with workflow_preset full-report does not run polish"
+    },
+    {
+      "path": "polish/prompt_bundle.sha256",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command validate with workflow_preset full-report does not run polish"
+    },
+    {
+      "path": "polish/offset_roundtrip_report.json",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command validate with workflow_preset full-report does not run polish"
+    },
+    {
+      "path": "polish/02_detection.json",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command validate with workflow_preset full-report does not run polish"
+    },
+    {
+      "path": "polish/02_do_not_ledger.json",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command validate with workflow_preset full-report does not run polish"
+    },
+    {
+      "path": "polish/03_edit_plan.json",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command validate with workflow_preset full-report does not run polish"
+    },
+    {
+      "path": "polish/03_rewrite.mdx",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command validate with workflow_preset full-report does not run polish"
+    },
+    {
+      "path": "polish/03_rewrite_diff.json",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command validate with workflow_preset full-report does not run polish"
+    },
+    {
+      "path": "polish/04_fidelity_audit.machine.json",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command validate with workflow_preset full-report does not run polish"
+    },
+    {
+      "path": "polish/04_fidelity_audit.llm.json",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command validate with workflow_preset full-report does not run polish"
+    },
+    {
+      "path": "polish/04_fidelity_audit.json",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command validate with workflow_preset full-report does not run polish"
+    },
+    {
+      "path": "polish/post_rollback_fidelity_check.json",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command validate with workflow_preset full-report does not run polish"
+    },
+    {
+      "path": "polish/05_naturalness_review.json",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command validate with workflow_preset full-report does not run polish"
+    },
+    {
+      "path": "polish/final.mdx",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command validate with workflow_preset full-report does not run polish"
+    },
+    {
+      "path": "polish/summary.json",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command validate with workflow_preset full-report does not run polish"
+    },
+    {
+      "path": "cleanup_report.json",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command validate with workflow_preset full-report does not run cleanup"
+    },
+    {
+      "path": "acceptance_decision_record.json",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command validate with workflow_preset full-report does not run acceptance"
+    },
+    {
+      "path": "acceptance_decision_record.md",
+      "status": "not_applicable",
+      "retention_class": "debug",
+      "reason": "command validate with workflow_preset full-report does not run acceptance"
+    }
+  ],
+  "skipped_artifact_reasons": {
+    "failure_report.json": "preserved from resume source /Users/wongyushin/personal/llm-agent-loop-research/.codex/report-mdx-publisher/acceptance-2026-07-29-002/deterministic",
+    "failure_report.md": "preserved from resume source /Users/wongyushin/personal/llm-agent-loop-research/.codex/report-mdx-publisher/acceptance-2026-07-29-002/deterministic",
+    "mdx/01_input_digest.json": "command validate with workflow_preset full-report does not run draft",
+    "mdx/01_input.mdx": "command validate with workflow_preset full-report does not run draft",
+    "mdx/01_rewrite_spans.json": "command validate with workflow_preset full-report does not run draft",
+    "mdx/01_protected_spans.json": "command validate with workflow_preset full-report does not run draft",
+    "mdx/02_draft.mdx": "command validate with workflow_preset full-report does not run draft",
+    "mdx/final.diff": "command validate with workflow_preset full-report does not run draft",
+    "polish/00_metrics.json": "command validate with workflow_preset full-report does not run polish",
+    "polish/01_input.mdx": "command validate with workflow_preset full-report does not run polish",
+    "polish/01_input_with_metrics.txt": "command validate with workflow_preset full-report does not run polish",
+    "polish/01_rewrite_spans.json": "command validate with workflow_preset full-report does not run polish",
+    "polish/01_protected_spans.json": "command validate with workflow_preset full-report does not run polish",
+    "polish/01_protected_map.json": "command validate with workflow_preset full-report does not run polish",
+    "polish/01_rewrite_bundle.jsonl": "command validate with workflow_preset full-report does not run polish",
+    "polish/llm_input_audit.json": "command validate with workflow_preset full-report does not run polish",
+    "polish/prompt_bundle.redacted.jsonl": "command validate with workflow_preset full-report does not run polish",
+    "polish/prompt_bundle.sha256": "command validate with workflow_preset full-report does not run polish",
+    "polish/offset_roundtrip_report.json": "command validate with workflow_preset full-report does not run polish",
+    "polish/02_detection.json": "command validate with workflow_preset full-report does not run polish",
+    "polish/02_do_not_ledger.json": "command validate with workflow_preset full-report does not run polish",
+    "polish/03_edit_plan.json": "command validate with workflow_preset full-report does not run polish",
+    "polish/03_rewrite.mdx": "command validate with workflow_preset full-report does not run polish",
+    "polish/03_rewrite_diff.json": "command validate with workflow_preset full-report does not run polish",
+    "polish/04_fidelity_audit.machine.json": "command validate with workflow_preset full-report does not run polish",
+    "polish/04_fidelity_audit.llm.json": "command validate with workflow_preset full-report does not run polish",
+    "polish/04_fidelity_audit.json": "command validate with workflow_preset full-report does not run polish",
+    "polish/post_rollback_fidelity_check.json": "command validate with workflow_preset full-report does not run polish",
+    "polish/05_naturalness_review.json": "command validate with workflow_preset full-report does not run polish",
+    "polish/final.mdx": "command validate with workflow_preset full-report does not run polish",
+    "polish/summary.json": "command validate with workflow_preset full-report does not run polish",
+    "cleanup_report.json": "command validate with workflow_preset full-report does not run cleanup",
+    "acceptance_decision_record.json": "command validate with workflow_preset full-report does not run acceptance",
+    "acceptance_decision_record.md": "command validate with workflow_preset full-report does not run acceptance"
+  },
+  "resume_source": "/Users/wongyushin/personal/llm-agent-loop-research/.codex/report-mdx-publisher/acceptance-2026-07-29-002/deterministic",
+  "resume_source_exit_code": 1,
+  "resume_source_final_status": "failed",
+  "resumed_artifact_count": 8,
+  "recomputed_phases": [
+    "validate",
+    "validate"
+  ],
+  "source_snapshot": {
+    "repo_commit": "",
+    "skill_version": "0.1.0",
+    "input_files": [
+      {
+        "path": "/Users/wongyushin/personal/llm-agent-loop-research/.codex/report-mdx-publisher/acceptance-2026-07-29-002/resume-pass.json",
+        "sha256": "d7167f76db93d88f0a303b13db507e485821ca78a0aa39244a7d0c7d8fca6a8e",
+        "bytes": 53
+      }
+    ],
+    "digest": "4c0dd14b60dbaa6f3ddfb15c8bbfee74ba011b49c34b99a7d31ab1ca28253c8c"
+  },
+  "exit_code": 0,
+  "final_status": "passed"
+}

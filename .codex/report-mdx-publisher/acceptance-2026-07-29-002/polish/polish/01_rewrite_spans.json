@@ -1,0 +1,56 @@
+{
+  "artifact_version": "1.0",
+  "schema_version": "1.0",
+  "skill_version": "0.1.0",
+  "run_id": "2026-07-29-163449",
+  "command": "polish",
+  "workflow_preset": "full-report",
+  "quality": "strict",
+  "created_at": "2026-07-29T07:34:49.514547+00:00",
+  "spans": [
+    {
+      "rewrite_span_id": "span-001",
+      "start_offset": 25,
+      "end_offset": 61,
+      "start_line": 2,
+      "start_column": 1,
+      "end_line": 2,
+      "end_column": 37,
+      "sha256": "78b8c9cb792cc3180e768e912b89552be88fb92ebe399b43cce9ccc27e3816f8",
+      "compiler_config_hash": "python-line-prose-v2"
+    },
+    {
+      "rewrite_span_id": "span-002",
+      "start_offset": 62,
+      "end_offset": 84,
+      "start_line": 3,
+      "start_column": 1,
+      "end_line": 3,
+      "end_column": 23,
+      "sha256": "5bc31c56f1379d34046598618dbd1c27fab59d909681eb8def13f4e370da4dc2",
+      "compiler_config_hash": "python-line-prose-v2"
+    },
+    {
+      "rewrite_span_id": "span-003",
+      "start_offset": 85,
+      "end_offset": 95,
+      "start_line": 4,
+      "start_column": 1,
+      "end_line": 4,
+      "end_column": 11,
+      "sha256": "ffdfcd72794bd5dea96c7259783919a40691f512370e7aae423da7a96984630e",
+      "compiler_config_hash": "python-line-prose-v2"
+    },
+    {
+      "rewrite_span_id": "span-004",
+      "start_offset": 127,
+      "end_offset": 179,
+      "start_line": 9,
+      "start_column": 1,
+      "end_line": 9,
+      "end_column": 53,
+      "sha256": "c3b4f09a0ea80540d2b2ab868cb41d8ab5378466f1377f8611c805bb9e054112",
+      "compiler_config_hash": "python-line-prose-v2"
+    }
+  ]
+}

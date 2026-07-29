@@ -1,0 +1,42 @@
+{
+  "run_id": "2026-07-23-003",
+  "scope": "새 프로젝트 README의 설명 문단",
+  "options": {
+    "strength": "기본",
+    "minimum_severity": "S2"
+  },
+  "protected_spans": [
+    "LLM agent",
+    "token",
+    "loop",
+    "feedback",
+    "LinkedIn",
+    "M4b"
+  ],
+  "findings": [
+    {
+      "id": "A-1-001",
+      "category": "A-1 번역투",
+      "severity": "S1",
+      "span": "이유에 대해서 조사하는 독립 프로젝트입니다",
+      "reason": "'~에 대해서'와 명사 중심 서술이 문장을 늘인다.",
+      "suggested_fix": "이유를 조사합니다"
+    },
+    {
+      "id": "A-2-001",
+      "category": "A-2 '~를 통해' 남발",
+      "severity": "S1",
+      "span": "그 정보를 다음 선택에 반영하는 구조를 통해 유용해질 수 있습니다",
+      "reason": "수단 표현과 가능형이 핵심 조건을 흐린다.",
+      "suggested_fix": "그 정보를 다음 선택에 반영할 수 있을 때 유용합니다"
+    },
+    {
+      "id": "A-10-001",
+      "category": "A-10 '~할 수 있다' 남발",
+      "severity": "S2",
+      "span": "반복만으로 성능을 높일 수 없습니다",
+      "reason": "가능 여부보다 관찰된 주장 범위를 직접 쓰는 편이 분명하다.",
+      "suggested_fix": "반복만으로 성능이 좋아지지는 않습니다"
+    }
+  ]
+}
