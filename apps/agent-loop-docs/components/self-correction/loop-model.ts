@@ -19,68 +19,26 @@ export type ClaimProvenance =
   | "engineering-transfer"
   | "synthetic-example";
 
-export type TheoryTransferRow = {
-  id:
-    | "state"
-    | "judgment"
-    | "accounting"
-    | "revision"
-    | "history"
-    | "stationary-rates"
-    | "fixed-point";
-  paper: string;
-  transferCondition: string;
-  engineering: string;
-  scalarAlternative?: string;
+export type VerifierMode = "none" | "external" | "gate";
+
+/**
+ * Scene 5 — 외부 verifier가 훼손 전이(정답 → 오답)를 차단하는 비율.
+ * 논문 측정치가 아니라 엔지니어링 예시값이다. "external"의 80%는
+ * 불완전한 자동 판정을, "gate"의 100%는 KEEP 전에는 채택 상태가
+ * 후퇴하지 않는 이상적 acceptance gate를 나타낸다.
+ */
+export const VERIFIER_BLOCK_RATES: Record<VerifierMode, number> = {
+  none: 0,
+  external: 0.8,
+  gate: 1,
 };
 
-/** Wireframe §7.2 — 가져올 것, 번역할 것, 가져오지 않을 것. */
-export const THEORY_TRANSFER_ROWS: TheoryTransferRow[] = [
-  {
-    id: "state",
-    paper: "정답/오답 상태",
-    transferCondition: "사례별 pass/fail criterion이 있어야 함",
-    engineering: "criterion별 보존·훼손·복구 전이",
-  },
-  {
-    id: "judgment",
-    paper: "외부 정답 판정",
-    transferCondition: "evaluator가 agent 제안과 분리돼야 함",
-    engineering: "Frozen harness, metric, guards, gold check",
-  },
-  {
-    id: "accounting",
-    paper: "CLₜ/CSₜ 회계",
-    transferCondition: "같은 평가 단위와 조건을 유지해야 함",
-    engineering: "Candidate와 system-after-gate를 별도 측정",
-    scalarAlternative:
-      "연속형 scalar metric 하나면 CLₜ/CSₜ를 만들지 않고 metric delta, uncertainty, guard regression, gold/holdout을 직접 비교",
-  },
-  {
-    id: "revision",
-    paper: "같은 답의 수정",
-    transferCondition: "수정 범위와 baseline을 명시해야 함",
-    engineering: "Isolated challenger와 incumbent 비교",
-  },
-  {
-    id: "history",
-    paper: "라운드별 결과",
-    transferCondition: "모든 결과가 관찰 가능해야 함",
-    engineering: "Append-only experiment ledger",
-  },
-  {
-    id: "stationary-rates",
-    paper: "고정 CL/CS",
-    transferCondition: "Adaptive proposal에서는 대체로 깨짐",
-    engineering: "라운드별 CLₜ/CSₜ 또는 직접 transition history",
-  },
-  {
-    id: "fixed-point",
-    paper: "고정점 Upp",
-    transferCondition: "Stationary policy에서만 해석 가능",
-    engineering: "Campaign utility나 stop target으로 직접 사용하지 않음",
-  },
-];
+/** Scene 5 기본 예시값 — Upp = 0.7 / (0.4 + 0.7) ≈ 63.6%. */
+export const TANK_DEFAULTS = {
+  critiqueScore: 0.7,
+  damage: 0.4,
+  initialAccuracy: 0.9,
+} as const;
 
 export type OfficialExampleFact = {
   id:

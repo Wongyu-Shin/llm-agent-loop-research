@@ -14,7 +14,7 @@ import {
 } from "@/components/self-correction/scene-02-transition-lab"
 import { RepairDamageLab } from "@/components/self-correction/scene-03-repair-damage-lab"
 import { ScalingEvidenceExplorer } from "@/components/self-correction/scene-04-scaling-evidence"
-import { TheoryToLoopBridge } from "@/components/self-correction/scene-05-theory-bridge"
+import { EquilibriumTank } from "@/components/self-correction/scene-05-equilibrium-tank"
 import {
   AutoresearchLoopMap,
   OfficialExampleStrip,
@@ -170,23 +170,40 @@ export const metadata = {
   <StoryScene
     id="scene-05"
     part="bridge"
-    eyebrow="적용 경계"
-    title="고정 곡선이 아니라 복구와 훼손을 묻는 습관을 옮긴다"
-    visual={<TheoryToLoopBridge />}
+    eyebrow="평형과 천장"
+    title="외부 검증 없는 반복은 낮은 천장의 평형에 갇힌다"
+    visual={<EquilibriumTank />}
     boundary={<PartBoundary />}
   >
-    <ProvenanceBadge kind="critical-reading">여기부터 엔지니어링 적용</ProvenanceBadge>
+    <ProvenanceBadge kind="paper-mathematical-consequence">평형 조건 · 천장</ProvenanceBadge>
+    <ProvenanceBadge kind="engineering-transfer">여기부터 엔지니어링 적용</ProvenanceBadge>
 
-    논문이 분석하는 단위는 같은 응답을 다시 고치는 한 라운드입니다. 반면 실무
-    loop가 다루는 단위는 격리된 artifact experiment입니다. 그러므로
-    정답·오답을 challenger와 incumbent에 바로 대응시켜서는 안 됩니다. 사례별
-    pass/fail 기준이 있을 때만 $CL_t$와 $CS_t$를 계산할 수 있습니다. 연속형
-    metric 하나뿐이라면 metric delta·불확실성·guard·holdout을 직접 비교해야
-    합니다.
+    실행 로그, 웹 서치, 휴먼 피드백 같은 외부 검증이 없는 loop는 논문이 직접
+    다룬 intrinsic self-correction 설정 그 자체입니다. 이 설정에서 반복을
+    아무리 늘려도 정확도는 복구 유입과 훼손 유출이 같아지는 수위, 즉 천장
+    $Upp$에서 평형을 이룹니다.
 
-    <PersistentConclusion badge="critical-reading">
-      candidate가 만든 변화와 evidence gate를 통과한 뒤의 system state 변화를
-      분리한다.
+    <div
+      className="scene-formula"
+      role="math"
+      aria-label="평형 조건은 오답률 곱하기 CS가 정확도 곱하기 1 빼기 CL과 같아지는 것이며, 그 수위가 천장 Upp. 예시로 CS 0.70, 1 빼기 CL 0.40이면 Upp는 약 63.6퍼센트."
+    >
+      <span className="scene-formula-label">평형 조건 · 수치는 전이식에 값을 넣은 수학적 예시</span>
+      <span className="scene-equation">$\displaystyle (1 - Acc_t) \times CS = Acc_t \times (1 - CL)$</span>
+      <span className="scene-equation">$\displaystyle Upp = \frac{CS}{1 - CL + CS} = \frac{0.70}{0.40 + 0.70} \approx 63.6\%$</span>
+    </div>
+
+    복구율 70%라는 나쁘지 않아 보이는 값에서도 훼손율이 40%면 천장은
+    63.6%에 그칩니다. 천장은 시작 정확도와 무관해서 90%에서 시작하면 반복이
+    오히려 수위를 끌어내리고, 평형에서도 흐름은 멈추지 않아 매 라운드 응답의
+    약 4분의 1이 자리만 바꿉니다. 그 이후의 토큰은 수위를 올리지 못하는
+    비용입니다. 천장을 올리는 지렛대는 반복 횟수가 아니라 $CS$를 높이고 $1 -
+    CL$을 낮추는 구조이며, 정오를 자동 판정하는 외부 verifier가 훼손 유출을
+    막으면 천장이 올라가고 완전한 gate는 천장을 없앱니다.
+
+    <PersistentConclusion badge="engineering-transfer">
+      토큰 예산을 늘리기 전에, 정오를 판정할 verifier와 훼손을 막는 gate를
+      먼저 설계한다.
     </PersistentConclusion>
 
     <PresenterNotes sceneId="scene-05" />

@@ -233,7 +233,7 @@ test("자기수정 deck은 논문에서 실무 loop까지 8개 인터랙티브 S
   expect(renderedText).not.toMatch(
     /(^|[\s([{:])(R|I_t|C_t|L_t|M_t|O_t|V_t)(?=$|[\s)\]},.:])/m,
   );
-  await expect(deck.locator(".scene-formula .katex")).toHaveCount(9);
+  await expect(deck.locator(".scene-formula .katex")).toHaveCount(11);
   const svgText = (await deck.locator("svg").allTextContents()).join(" ");
   expect(svgText).toContain("Accₜ");
   expect(svgText).toContain("CLₜ");
@@ -367,6 +367,44 @@ test("궤적 explorer는 세 view를 전환하며 6라운드 × 3곡선 표를 �
   await expect(fallback.locator("[data-experiment-table]")).toContainText(
     "64개 조합 전체는 아님",
   );
+});
+
+test("평형 수조는 어떤 시작 수위에서도 천장 Upp로 수렴하고 완전 gate는 천장을 없앤다", async ({
+  page,
+}) => {
+  await page.goto("/self-correction-scaling/");
+  const lab = page.locator("[data-scene-id='scene-05'] .lab");
+  const tank = page.locator(
+    "[data-scene-id='scene-05'] [data-equilibrium-tank]",
+  );
+  const fallback = lab.locator("[data-visual-fallback]");
+
+  const rows = fallback.locator("[data-ceiling-table] tbody tr");
+  await expect(rows).toHaveCount(3);
+  await expect(rows.nth(0)).toContainText("63.6%");
+  await expect(rows.nth(1)).toContainText("89.7%");
+  await expect(rows.nth(2)).toContainText("100.0%");
+
+  await lab.scrollIntoViewIfNeeded();
+  await expect(tank).toHaveAttribute("data-flowing", "true");
+  await expect(tank).toHaveAttribute("data-settled", "true", {
+    timeout: 20_000,
+  });
+  await expect(lab.locator(".lab-statusbar")).toContainText("63.6%");
+
+  const surface = lab.getByRole("slider", { name: "정답 수위 Accₜ" });
+  await surface.press("End");
+  await expect(tank).toHaveAttribute("data-settled", "false");
+  await expect(tank).toHaveAttribute("data-settled", "true", {
+    timeout: 20_000,
+  });
+
+  await lab.getByRole("button", { name: "완전 gate" }).click();
+  await expect(tank).toHaveAttribute("data-verifier", "gate");
+  await expect(lab.locator(".lab-statusbar")).toContainText("100.0%");
+  await expect(tank).toHaveAttribute("data-settled", "true", {
+    timeout: 20_000,
+  });
 });
 
 test("loop map은 lens 전환과 상태 객체 선택으로 owner·rollback 속성을 보여 준다", async ({
@@ -520,15 +558,17 @@ test("자기수정 시각화는 viewport 진입 뒤 재생하고 모션 축소�
   await staticFader.press("Home");
   await expect(drum).toHaveAttribute("data-condition", "훼손");
 
-  const bridge = page.locator("[data-scene-id='scene-05'] .lab");
-  await bridge.scrollIntoViewIfNeeded();
-  await expect(
-    bridge.getByRole("button", { name: "재생", exact: true }),
-  ).toBeDisabled();
-  await expect(bridge.getByRole("button", { name: "이전 단계" })).toBeEnabled();
-  await expect(
-    page.locator("[data-scene-id='scene-05'] [data-theory-bridge]"),
-  ).toHaveAttribute("data-stage", "warning");
+  const tankLab = page.locator("[data-scene-id='scene-05'] .lab");
+  const tank = page.locator(
+    "[data-scene-id='scene-05'] [data-equilibrium-tank]",
+  );
+  await tankLab.scrollIntoViewIfNeeded();
+  await expect(tank).toHaveAttribute("data-flowing", "false");
+  await expect(tank).toHaveAttribute("data-settled", "true");
+  await expect(tankLab).toContainText(
+    "모션 감소 설정으로 흐름을 멈추고 평형 수위를 표시합니다",
+  );
+  await expect(tankLab.locator(".lab-statusbar")).toContainText("63.6%");
 });
 
 test("자기수정 발표 모드는 발표자 노트를 새 창에 열고 읽기 복귀 시 닫는다", async ({

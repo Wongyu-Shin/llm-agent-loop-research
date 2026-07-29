@@ -3,95 +3,127 @@
    (deck gold) / --fg-done (deck lavender); verdict colors reuse
    --viz-correct / --viz-incorrect from Part I. */
 
-/* ---------- Scene 5 · TheoryToLoopBridge ---------- */
+/* ---------- Scene 5 · EquilibriumTank ---------- */
 
-.columnHeading {
-  font-family: var(--font-mono);
-  font-size: 12.5px;
-  font-weight: 740;
-  letter-spacing: 0.1em;
+.tankChamber {
+  fill: none;
+  stroke: color-mix(in srgb, var(--fg-default) 42%, transparent);
+  stroke-width: 1.6;
 }
 
-.columnHeading[data-side="paper"] {
-  fill: var(--fg-accent);
-}
-
-.columnHeading[data-side="loop"] {
-  fill: var(--fg-attention);
-}
-
-.bridgeNode rect {
-  fill: color-mix(in srgb, var(--fg-default) 5%, transparent);
-  stroke-width: 1.4;
-}
-
-.bridgeNode[data-side="paper"] rect {
-  stroke: color-mix(in srgb, var(--fg-accent) 55%, transparent);
-}
-
-.bridgeNode[data-side="loop"] rect {
-  stroke: color-mix(in srgb, var(--fg-attention) 55%, transparent);
-}
-
-.nodeTitle {
+.tankLabel {
   fill: var(--fg-default);
   font-family: var(--font-mono);
-  font-size: 13.5px;
+  font-size: 13px;
   font-weight: 730;
 }
 
-.nodeDetail {
+.tankSubLabel {
   fill: var(--fg-muted);
   font-size: 11px;
 }
 
-.chainLink {
-  stroke: color-mix(in srgb, var(--fg-default) 35%, transparent);
+/* 소등된 오답 물: Scene 1 오답 구간과 같은 검정 + 점선 수면. */
+.tankWaterDark {
+  fill: #0d0d0d;
+}
+
+.tankSurfaceDark {
+  stroke: color-mix(in srgb, var(--fg-default) 40%, transparent);
+  stroke-dasharray: 7 5;
   stroke-width: 1.6;
 }
 
-.loopColumn {
-  opacity: 0;
-  transition: opacity 1.2s ease;
+/* 천장 위 도달 불가 구역: 미도달 실루엣과 같은 시각 언어. */
+.tankSilhouette {
+  fill: color-mix(in srgb, var(--fg-default) 3%, transparent);
+  stroke: color-mix(in srgb, var(--fg-default) 34%, transparent);
+  stroke-dasharray: 7 5;
+  stroke-width: 1.4;
 }
 
-.loopColumn[data-visible="true"] {
-  opacity: 1;
+.unreachableLabel {
+  fill: var(--fg-muted);
+  font-size: 10.5px;
+  letter-spacing: 0.08em;
 }
 
-.morphLink {
+.pipeWall {
   fill: none;
-  stroke: color-mix(in srgb, var(--fg-attention) 65%, transparent);
-  stroke-dasharray: 6 5;
-  stroke-width: 1.8;
-  opacity: 0;
-  transition: opacity 0.9s ease;
+  stroke: color-mix(in srgb, var(--fg-default) 30%, transparent);
+  stroke-width: 1.4;
 }
 
-.loopColumn[data-visible="true"] .morphLink {
-  opacity: 1;
+.valveWedge {
+  fill: color-mix(in srgb, var(--fg-default) 38%, transparent);
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .loopColumn,
-  .morphLink {
-    transition: none;
-  }
+.pipeCaption {
+  fill: var(--fg-muted);
+  font-size: 11px;
 }
 
-.bridgeWarning text {
+.pipeValue {
+  fill: var(--fg-default);
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+}
+
+/* 논문 세계(cyan) 위에 얹히는 유일한 논문 파생선 — 천장 Upp. */
+.ceilingLine {
+  stroke: var(--fg-accent);
+  stroke-width: 2;
+}
+
+.ceilingLabel {
+  fill: var(--fg-accent);
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  font-weight: 700;
+}
+
+.ceilingGhost {
+  stroke: color-mix(in srgb, var(--fg-default) 45%, transparent);
+  stroke-dasharray: 5 6;
+  stroke-width: 1.4;
+}
+
+.ceilingGhostLabel {
+  fill: var(--fg-muted);
+  font-size: 10.5px;
+}
+
+/* verifier gate: 엔지니어링 적용은 gold(--fg-attention)로만 표시. */
+.gateBar {
+  stroke: color-mix(in srgb, var(--fg-default) 40%, transparent);
+  stroke-width: 2;
+}
+
+.gateSymbol[data-active="true"] .gateBar {
+  stroke: var(--fg-attention);
+}
+
+.gateCaption {
+  fill: var(--fg-muted);
+  font-size: 10.5px;
+}
+
+.gateSymbol[data-active="true"] .gateCaption {
   fill: var(--fg-attention);
-  font-size: 12.5px;
-  font-style: italic;
 }
 
-.bridgeWarning {
-  opacity: 0;
-  transition: opacity 0.8s ease;
+.roundCounter {
+  fill: var(--fg-muted);
+  font-family: var(--font-mono);
+  font-size: 12px;
 }
 
-.bridgeWarning[data-visible="true"] {
-  opacity: 1;
+.surfaceHandle {
+  cursor: ns-resize;
+}
+
+.surfaceHandle:focus-visible {
+  outline: 2px solid var(--fg-accent);
 }
 
 .transferTable {

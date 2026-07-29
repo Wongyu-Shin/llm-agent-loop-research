@@ -16,7 +16,8 @@ import {
   formatMetricValue,
   INITIAL_CAMPAIGN_STATE,
   reduceExperiment,
-  THEORY_TRANSFER_ROWS,
+  TANK_DEFAULTS,
+  VERIFIER_BLOCK_RATES,
   type StopInputs,
 } from "../components/self-correction/loop-model";
 import {
@@ -220,11 +221,23 @@ test.describe("실험 loop 모델 (wireframe §9, §12.4)", () => {
     expect(example.systemPassAfterGate).toBe(example.incumbentPass);
   });
 
-  test("전환 표는 §7.2의 일곱 행이며 scalar 대안은 회계 행에만 있다", () => {
-    expect(THEORY_TRANSFER_ROWS).toHaveLength(7);
-    const withScalar = THEORY_TRANSFER_ROWS.filter(
-      (row) => row.scalarAlternative,
+  test("평형 수조의 verifier별 천장은 63.6% · 89.7% · 100%다", () => {
+    const { critiqueScore, damage } = TANK_DEFAULTS;
+    const ceilingFor = (blockRate: number) => {
+      const ceiling = stationaryUpperBound(
+        1 - damage * (1 - blockRate),
+        critiqueScore,
+      );
+      expect(ceiling).not.toBeNull();
+      return ceiling as number;
+    };
+
+    expect(ceilingFor(VERIFIER_BLOCK_RATES.none)).toBeCloseTo(0.6364, 4);
+    expect(ceilingFor(VERIFIER_BLOCK_RATES.external)).toBeCloseTo(0.8974, 4);
+    expect(ceilingFor(VERIFIER_BLOCK_RATES.gate)).toBe(1);
+    // 기본 시작 수위는 천장보다 높아야 "끌려 내려오는" 수렴이 보인다.
+    expect(TANK_DEFAULTS.initialAccuracy).toBeGreaterThan(
+      ceilingFor(VERIFIER_BLOCK_RATES.none),
     );
-    expect(withScalar.map((row) => row.id)).toEqual(["accounting"]);
   });
 });
