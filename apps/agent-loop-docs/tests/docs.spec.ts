@@ -549,6 +549,37 @@ test("자기수정 발표 모드는 발표자 노트를 새 창에 열고 읽기
   ).toHaveCount(21);
   await expect(consolePanel).toContainText("S02.01");
 
+  // 대본이 긴 Scene에서도 하단 액션 버튼은 스크롤 없이 항상 보인다.
+  await expect(
+    consolePanel.getByRole("button", { name: "문장 완료" }),
+  ).toBeInViewport();
+  const notesScrollable = await consolePanel
+    .locator("section ol")
+    .evaluate((list) => list.scrollHeight > list.clientHeight);
+  expect(notesScrollable).toBe(true);
+
+  // console의 Scene 이동 버튼으로 이전/다음 Scene을 오간다.
+  await expect(
+    consolePanel.getByRole("button", { name: "이전 Scene으로 이동" }),
+  ).toBeEnabled();
+  await consolePanel
+    .getByRole("button", { name: "이전 Scene으로 이동" })
+    .click();
+  await expect(
+    presenterWindow.locator("[data-popup-presenter-note]"),
+  ).toHaveCount(8);
+  await expect(consolePanel).toContainText("S01.01");
+  await expect(
+    consolePanel.getByRole("button", { name: "이전 Scene으로 이동" }),
+  ).toBeDisabled();
+  await consolePanel
+    .getByRole("button", { name: "다음 Scene으로 이동" })
+    .click();
+  await expect(
+    presenterWindow.locator("[data-popup-presenter-note]"),
+  ).toHaveCount(21);
+  await expect(consolePanel).toContainText("S02.01");
+
   await deck.getByRole("button", { name: "발표 타이머 시작" }).click();
   const elapsed = deck
     .getByText("elapsed", { exact: true })

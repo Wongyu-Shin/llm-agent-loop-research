@@ -5,6 +5,8 @@ import {
   ChevronDown,
   ChevronLeft,
   ChevronRight,
+  ChevronsLeft,
+  ChevronsRight,
   Gauge,
   Pause,
   Play,
@@ -704,6 +706,19 @@ export function ResearchDeck({ children }: { children: ReactNode }) {
     [activeSceneId, currentNoteId, goToScene],
   );
 
+  const moveScene = useCallback(
+    (delta: -1 | 1) => {
+      const currentIndex = SCENE_TIMINGS.findIndex(
+        (scene) => scene.id === activeSceneId,
+      );
+      const target = SCENE_TIMINGS[currentIndex + delta];
+      if (!target) return;
+      goToScene(target.id);
+      setAnnouncement(`${target.index}번 Scene으로 이동했습니다.`);
+    },
+    [activeSceneId, goToScene],
+  );
+
   function markSentenceComplete(event: MouseEvent<HTMLButtonElement>) {
     const now = event.timeStamp;
     const measuredSeconds =
@@ -1246,6 +1261,14 @@ export function ResearchDeck({ children }: { children: ReactNode }) {
               </button>
               <button
                 type="button"
+                onClick={() => moveScene(-1)}
+                disabled={activeTiming.index <= 1}
+                aria-label="이전 Scene으로 이동"
+              >
+                <ChevronsLeft aria-hidden="true" size={16} />
+              </button>
+              <button
+                type="button"
                 onClick={() => moveNote(-1)}
                 aria-label="이전 발표자 노트"
               >
@@ -1257,6 +1280,14 @@ export function ResearchDeck({ children }: { children: ReactNode }) {
                 aria-label="다음 발표자 노트"
               >
                 <ChevronRight aria-hidden="true" size={16} />
+              </button>
+              <button
+                type="button"
+                onClick={() => moveScene(1)}
+                disabled={activeTiming.index >= SCENE_TIMINGS.length}
+                aria-label="다음 Scene으로 이동"
+              >
+                <ChevronsRight aria-hidden="true" size={16} />
               </button>
             </div>
 

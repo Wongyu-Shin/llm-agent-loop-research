@@ -324,6 +324,9 @@
   background: transparent;
   color: var(--deck-text-muted);
   opacity: 0.58;
+  transition:
+    color 0.35s ease,
+    opacity 0.35s ease;
 }
 
 .sceneRail button[data-state="done"] {
@@ -343,6 +346,10 @@
   background: var(--scene-color);
   content: "";
   opacity: 0.4;
+  transition:
+    height 0.35s ease,
+    opacity 0.35s ease,
+    box-shadow 0.35s ease;
 }
 
 .sceneRail button[data-part="paper"] {
@@ -387,6 +394,7 @@
     color-mix(in srgb, var(--deck-paper) 9%, transparent)
   );
   pointer-events: none;
+  transition: width 0.3s linear;
 }
 
 .deckBody {
@@ -1209,7 +1217,9 @@
   z-index: 80;
   right: 18px;
   bottom: 18px;
+  display: flex;
   width: min(560px, calc(100vw - 36px));
+  flex-direction: column;
   max-height: min(72svh, 680px);
   border: 1px solid var(--deck-line-strong);
   border-radius: 14px;
@@ -1217,6 +1227,12 @@
   box-shadow: 0 26px 90px rgb(0 0 0 / 54%);
   overflow-y: auto;
   backdrop-filter: blur(22px) saturate(130%);
+}
+
+/* 대본 목록(.presenterWindowNotes)만 남은 높이를 흡수해 스크롤되고,
+   타이머·액션 버튼 같은 나머지 구획은 항상 화면에 남는다. */
+.presenterConsole > :not(.presenterWindowNotes) {
+  flex-shrink: 0;
 }
 
 .presenterWindowRoot {
@@ -1231,6 +1247,7 @@
 .presenterWindowRoot .presenterConsole {
   position: static;
   width: 100%;
+  height: calc(100svh - 36px);
   max-height: none;
   border-radius: 12px;
   box-shadow: none;
@@ -1352,6 +1369,10 @@
 }
 
 .presenterWindowNotes {
+  display: flex;
+  min-height: 0;
+  flex: 1 1 auto;
+  flex-direction: column;
   border-top: 1px solid var(--deck-line);
   border-bottom: 1px solid var(--deck-line);
   background: rgb(255 255 255 / 1.5%);
@@ -1359,6 +1380,7 @@
 
 .presenterWindowNotes > header {
   display: flex;
+  flex-shrink: 0;
   min-height: 54px;
   align-items: center;
   justify-content: space-between;
@@ -1387,9 +1409,17 @@
 }
 
 .presenterWindowNotes ol {
+  flex: 1 1 auto;
   margin: 0;
-  padding: 0;
+  min-height: 120px;
+  padding: 0 0 8px;
   list-style: none;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.presenterWindowNotes li {
+  scroll-margin-block: 8px;
 }
 
 .presenterWindowNotes li + li {
@@ -1468,7 +1498,7 @@
   color: var(--deck-paper);
 }
 
-.consoleActions button:nth-last-child(-n + 2) {
+.consoleActions button:nth-last-child(-n + 4) {
   width: 44px;
   padding: 0;
 }
