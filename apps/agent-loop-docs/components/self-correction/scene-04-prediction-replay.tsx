@@ -391,7 +391,7 @@ export function PredictionReplayLab() {
                   <th scope="col">시리즈</th>
                   {Array.from({ length: REPLAY_ROUND_COUNT + 1 }, (_, round) => (
                     <th key={round} scope="col">
-                      r{round}
+                      라운드 {round}
                     </th>
                   ))}
                 </tr>

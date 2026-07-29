@@ -537,13 +537,26 @@ export function ConvergenceMapLab() {
                 <text
                   className={styles.mapHoverLabel}
                   x={Math.min(
-                    Math.max(mapX(hover.confidenceLevel), MAP_LEFT + 48),
-                    mapX(1) - 48,
+                    Math.max(mapX(hover.confidenceLevel), MAP_LEFT + 78),
+                    mapX(1) - 78,
                   )}
-                  y={Math.max(mapY(hover.critiqueScore) - 14, MAP_TOP + 16)}
+                  y={Math.max(mapY(hover.critiqueScore) - 30, MAP_TOP + 16)}
                   textAnchor="middle"
                 >
-                  Upp {formatPercent(hoverUpp)}
+                  <tspan>
+                    CL {formatPercent(hover.confidenceLevel)} · CS{" "}
+                    {formatPercent(hover.critiqueScore)}
+                  </tspan>
+                  <tspan
+                    className={styles.mapHoverLabelStrong}
+                    x={Math.min(
+                      Math.max(mapX(hover.confidenceLevel), MAP_LEFT + 78),
+                      mapX(1) - 78,
+                    )}
+                    dy="16"
+                  >
+                    Upp {formatPercent(hoverUpp)}
+                  </tspan>
                 </text>
               </g>
             ) : null}
