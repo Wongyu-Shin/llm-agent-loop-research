@@ -49,10 +49,11 @@ const LEFT_X1 = 226;
 const RIGHT_X0 = 444;
 const RIGHT_X1 = 612;
 const WALL_INSET = 4;
-const REPAIR_TOP = 96;
-const REPAIR_BOTTOM = 120;
-const DAMAGE_TOP = 288;
-const DAMAGE_BOTTOM = 312;
+const REPAIR_CENTER = 108;
+const DAMAGE_CENTER = 300;
+/** 파이프 단면 높이는 비율 컨트롤에 연동된다: 8px(0%) ~ 32px(100%). */
+const PIPE_MIN_HEIGHT = 8;
+const PIPE_HEIGHT_RANGE = 24;
 const GATE_X = 404;
 const HANDLE_HALF = 28;
 
@@ -276,7 +277,14 @@ export function EquilibriumTank() {
   const formatSigned = (value: number) =>
     `${value >= 0 ? "+" : "−"}${Math.abs(value * 100).toFixed(1)}%p`;
 
-  // 밸브 개방도는 비율(컨트롤), 흐름 선의 굵기·속도는 유량(상태)이다.
+  // 파이프 단면과 밸브 개방도는 비율(컨트롤), 흐름 선의 굵기·속도는
+  // 유량(상태)이다. 유량 ≤ 비율이므로 흐름 선은 항상 파이프 안에 담긴다.
+  const repairHeight = PIPE_MIN_HEIGHT + critiqueScore * PIPE_HEIGHT_RANGE;
+  const damageHeight = PIPE_MIN_HEIGHT + damage * PIPE_HEIGHT_RANGE;
+  const repairTop = REPAIR_CENTER - repairHeight / 2;
+  const repairBottom = REPAIR_CENTER + repairHeight / 2;
+  const damageTop = DAMAGE_CENTER - damageHeight / 2;
+  const damageBottom = DAMAGE_CENTER + damageHeight / 2;
   const repairOpening = 5 + critiqueScore * 14;
   const damageOpening = 5 + damage * 14;
   const repairStroke = 1.5 + inflow * 14;
@@ -614,23 +622,23 @@ export function EquilibriumTank() {
             <line
               className={styles.pipeWall}
               x1={LEFT_X1}
-              y1={REPAIR_TOP}
+              y1={repairTop}
               x2={RIGHT_X0}
-              y2={REPAIR_TOP}
+              y2={repairTop}
             />
             <line
               className={styles.pipeWall}
               x1={LEFT_X1}
-              y1={REPAIR_BOTTOM}
+              y1={repairBottom}
               x2={RIGHT_X0}
-              y2={REPAIR_BOTTOM}
+              y2={repairBottom}
             />
             {inflow > 0.001 ? (
               <line
                 x1={LEFT_X1 + 2}
-                y1={(REPAIR_TOP + REPAIR_BOTTOM) / 2}
+                y1={REPAIR_CENTER}
                 x2={RIGHT_X0 - 2}
-                y2={(REPAIR_TOP + REPAIR_BOTTOM) / 2}
+                y2={REPAIR_CENTER}
                 stroke={`url(#${idPrefix}-repair)`}
                 strokeWidth={repairStroke}
                 strokeDasharray="4 9"
@@ -642,20 +650,20 @@ export function EquilibriumTank() {
             {/* 밸브 개방도 = CS (컨트롤), 흐름 굵기 = 실제 유량 (상태) */}
             <path
               className={styles.valveWedge}
-              d={`M ${327} ${REPAIR_TOP} H ${343} L ${335} ${
-                (REPAIR_TOP + REPAIR_BOTTOM) / 2 - repairOpening / 2
+              d={`M ${327} ${repairTop} H ${343} L ${335} ${
+                REPAIR_CENTER - repairOpening / 2
               } Z`}
             />
             <path
               className={styles.valveWedge}
-              d={`M ${327} ${REPAIR_BOTTOM} H ${343} L ${335} ${
-                (REPAIR_TOP + REPAIR_BOTTOM) / 2 + repairOpening / 2
+              d={`M ${327} ${repairBottom} H ${343} L ${335} ${
+                REPAIR_CENTER + repairOpening / 2
               } Z`}
             />
             <text
               className={styles.pipeCaption}
               x={(LEFT_X1 + RIGHT_X0) / 2}
-              y={REPAIR_TOP - 22}
+              y={repairTop - 22}
               textAnchor="middle"
             >
               복구 (1−Accₜ) × CS ▶
@@ -663,7 +671,7 @@ export function EquilibriumTank() {
             <text
               className={styles.pipeValue}
               x={(LEFT_X1 + RIGHT_X0) / 2}
-              y={REPAIR_TOP - 8}
+              y={repairTop - 8}
               textAnchor="middle"
             >
               {formatPercent(inflow)} / round
@@ -673,23 +681,23 @@ export function EquilibriumTank() {
             <line
               className={styles.pipeWall}
               x1={LEFT_X1}
-              y1={DAMAGE_TOP}
+              y1={damageTop}
               x2={RIGHT_X0}
-              y2={DAMAGE_TOP}
+              y2={damageTop}
             />
             <line
               className={styles.pipeWall}
               x1={LEFT_X1}
-              y1={DAMAGE_BOTTOM}
+              y1={damageBottom}
               x2={RIGHT_X0}
-              y2={DAMAGE_BOTTOM}
+              y2={damageBottom}
             />
             {attemptedOutflow > 0.001 ? (
               <line
                 x1={GATE_X + 6}
-                y1={(DAMAGE_TOP + DAMAGE_BOTTOM) / 2}
+                y1={DAMAGE_CENTER}
                 x2={RIGHT_X0 - 2}
-                y2={(DAMAGE_TOP + DAMAGE_BOTTOM) / 2}
+                y2={DAMAGE_CENTER}
                 stroke={`url(#${idPrefix}-damage)`}
                 strokeWidth={attemptedStroke}
                 strokeDasharray="4 9"
@@ -701,9 +709,9 @@ export function EquilibriumTank() {
             {passedOutflow > 0.001 ? (
               <line
                 x1={LEFT_X1 + 2}
-                y1={(DAMAGE_TOP + DAMAGE_BOTTOM) / 2}
+                y1={DAMAGE_CENTER}
                 x2={GATE_X - 6}
-                y2={(DAMAGE_TOP + DAMAGE_BOTTOM) / 2}
+                y2={DAMAGE_CENTER}
                 stroke={`url(#${idPrefix}-damage)`}
                 strokeWidth={passedStroke}
                 strokeDasharray="4 9"
@@ -714,20 +722,20 @@ export function EquilibriumTank() {
             ) : null}
             <path
               className={styles.valveWedge}
-              d={`M ${292} ${DAMAGE_TOP} H ${308} L ${300} ${
-                (DAMAGE_TOP + DAMAGE_BOTTOM) / 2 - damageOpening / 2
+              d={`M ${292} ${damageTop} H ${308} L ${300} ${
+                DAMAGE_CENTER - damageOpening / 2
               } Z`}
             />
             <path
               className={styles.valveWedge}
-              d={`M ${292} ${DAMAGE_BOTTOM} H ${308} L ${300} ${
-                (DAMAGE_TOP + DAMAGE_BOTTOM) / 2 + damageOpening / 2
+              d={`M ${292} ${damageBottom} H ${308} L ${300} ${
+                DAMAGE_CENTER + damageOpening / 2
               } Z`}
             />
             <text
               className={styles.pipeCaption}
               x={(LEFT_X1 + RIGHT_X0) / 2}
-              y={DAMAGE_BOTTOM + 20}
+              y={damageBottom + 20}
               textAnchor="middle"
             >
               ◀ 훼손 Accₜ × (1−CL)
@@ -735,7 +743,7 @@ export function EquilibriumTank() {
             <text
               className={styles.pipeValue}
               x={(LEFT_X1 + RIGHT_X0) / 2}
-              y={DAMAGE_BOTTOM + 34}
+              y={damageBottom + 34}
               textAnchor="middle"
             >
               {verifier === "none"
@@ -760,16 +768,16 @@ export function EquilibriumTank() {
                     key={x}
                     className={styles.gateBar}
                     x1={x}
-                    y1={DAMAGE_TOP - 5}
+                    y1={damageTop - 5}
                     x2={x}
-                    y2={DAMAGE_BOTTOM + 5}
+                    y2={damageBottom + 5}
                   />
                 ))}
               </g>
               <text
                 className={styles.gateCaption}
                 x={GATE_X}
-                y={DAMAGE_TOP - 12}
+                y={damageTop - 12}
                 textAnchor="middle"
               >
                 verifier gate · 엔지니어링
