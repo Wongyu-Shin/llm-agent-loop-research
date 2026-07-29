@@ -751,6 +751,66 @@
   font-style: italic;
 }
 
+/* 전체 개형 스트립 — 선택/그룹/기타 3단 강조 */
+.stripTitle {
+  fill: var(--fg-muted);
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  font-weight: 700;
+}
+
+.stripCurve {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.2;
+}
+
+.stripCurve[data-state="other"] {
+  stroke: color-mix(in srgb, var(--fg-default) 18%, transparent);
+}
+
+.stripCurve[data-state="group"] {
+  stroke: color-mix(in srgb, var(--fg-accent) 45%, transparent);
+  stroke-width: 1.6;
+}
+
+.stripCurve[data-state="selected"] {
+  stroke: var(--fg-accent);
+  stroke-width: 2.4;
+}
+
+.stripDestination {
+  stroke: var(--fg-attention);
+  stroke-dasharray: 6 5;
+  stroke-width: 1.6;
+}
+
+.stripBaseline {
+  stroke: color-mix(in srgb, var(--fg-default) 25%, transparent);
+  stroke-width: 1;
+}
+
+.stripFade {
+  animation: strip-fade 0.5s ease;
+}
+
+@keyframes strip-fade {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stripFade {
+    animation: none;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .replaySeries[data-role="theory"] .replayLine {
     animation: none;

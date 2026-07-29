@@ -385,6 +385,14 @@ test("예측 리플레이는 선반 40케이스를 전환하고 보정·예측 �
   await lab.locator("[data-case-id='fan-gsm8k']").click();
   await expect(fallback.locator("[data-replay-table] tbody tr")).toHaveCount(6);
 
+  await expect(lab.locator("[data-overview-strip] polyline")).toHaveCount(37);
+  await lab.getByRole("button", { name: "수렴 진행도" }).click();
+  await expect(
+    page.locator("[data-scene-id='scene-04'] [data-prediction-replay]"),
+  ).toHaveAttribute("data-strip-mode", "progress");
+  await expect(lab.locator("[data-overview-strip] polyline")).toHaveCount(28);
+  await expect(fallback.locator("[data-strip-summary]")).toContainText("9개");
+
   await lab.getByRole("button", { name: "주장 경계 3열 보기" }).click();
   await expect(lab.locator("[data-claim-overlay]")).toContainText("아직 미검증");
   await expect(fallback.locator("[data-claim-boundary]")).toContainText(

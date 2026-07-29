@@ -2,7 +2,11 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 
-import { LabShell, useSvgIdPrefix } from "@/components/visualizations/viz-shell";
+import {
+  LabShell,
+  SegmentedControl,
+  useSvgIdPrefix,
+} from "@/components/visualizations/viz-shell";
 import {
   ALPHA_COMPARISON_CASES,
   ARE_YOU_SURE_CASE,
@@ -25,18 +29,19 @@ import { useScenePlayback, type PlaybackStep } from "./use-scene-playback";
 import styles from "./paper-scenes.module.css";
 
 const STEPS: PlaybackStep[] = [
-  { id: "stage-intro", durationMs: 8000, label: "무대 소개 — 보정과 예측 구간" },
-  { id: "case-gsm8k", durationMs: 10000, label: "GSM8k 상승·포화 리플레이" },
-  { id: "case-are-you-sure", durationMs: 8000, label: "Are you sure 하락 리플레이" },
-  { id: "case-oracle", durationMs: 6000, label: "CL=1 oracle 리플레이" },
-  { id: "claim-boundary", durationMs: 4000, label: "주장 경계 3열" },
-  { id: "handoff", durationMs: 4000, label: "Part I 종료 전환" },
+  { id: "stage-intro", durationMs: 6000, label: "무대 소개 — 보정과 예측 구간" },
+  { id: "group-rise", durationMs: 8000, label: "상승·포화 그룹 — GSM8k 대표" },
+  { id: "group-decline", durationMs: 7000, label: "하락 그룹 — Are you sure 대표" },
+  { id: "group-oracle", durationMs: 6000, label: "CL=1 돌파 — oracle 대표" },
+  { id: "family-view", durationMs: 7000, label: "수렴 진행도 — 모든 곡선이 한 가족" },
+  { id: "claim-boundary", durationMs: 3000, label: "주장 경계 3열" },
+  { id: "handoff", durationMs: 3000, label: "Part I 종료 전환" },
 ];
 
 const AUTOPLAY_CASE_BY_STEP: Record<string, string> = {
-  "case-gsm8k": "gsm8k-llama3",
-  "case-are-you-sure": "are-you-sure-gsm8k",
-  "case-oracle": "oracle-gsm8k",
+  "group-rise": "gsm8k-llama3",
+  "group-decline": "are-you-sure-gsm8k",
+  "group-oracle": "oracle-gsm8k",
 };
 
 type StageCase =
@@ -56,29 +61,55 @@ const DATASET_CASE_BY_ID = new Map(
   ].map((caseData) => [caseData.id, caseData]),
 );
 
+/** 개형(행동) 기준 그루핑 — 출처 그림 번호는 그룹 라벨에 병기한다. */
+type BehaviorGroupId = "rise" | "decline" | "oracle" | "corollary";
+
+const DECLINE_CASE_IDS = new Set(["ifeval-glm4", "boolq-deepseek", "boolq-gpt4"]);
+
+const RISE_CASES = [
+  ...LLAMA3_DATASET_CASES,
+  ...GLM4_DATASET_CASES,
+  ...BOOLQ_MODEL_CASES,
+].filter((caseData) => !DECLINE_CASE_IDS.has(caseData.id));
+
+const DECLINE_CASES = [
+  ...GLM4_DATASET_CASES.filter((caseData) => DECLINE_CASE_IDS.has(caseData.id)),
+  ...BOOLQ_MODEL_CASES.filter((caseData) => DECLINE_CASE_IDS.has(caseData.id)),
+  ARE_YOU_SURE_CASE,
+];
+
+function behaviorGroupOf(stageCase: StageCase): BehaviorGroupId {
+  if (stageCase.kind !== "dataset") return "corollary";
+  if (stageCase.data.group === "corollary") return "oracle";
+  if (stageCase.data.group === "failure" || DECLINE_CASE_IDS.has(stageCase.data.id)) {
+    return "decline";
+  }
+  return "rise";
+}
+
 const SHELF_GROUPS: ShelfGroup[] = [
   {
-    id: "llama3-datasets",
-    label: "Llama3-8B × 8 데이터셋 · Figure 1",
-    cases: LLAMA3_DATASET_CASES.map((data) => ({
+    id: "rise",
+    label: "상승·포화 — Upp를 향해 오르다 멈춘다 · Figure 1·7·8",
+    cases: RISE_CASES.map((data) => ({
       kind: "dataset" as const,
       id: data.id,
       data,
     })),
   },
   {
-    id: "glm4-datasets",
-    label: "GLM4-9B × 8 데이터셋 · Figure 7",
-    cases: GLM4_DATASET_CASES.map((data) => ({
+    id: "decline",
+    label: "하락 — Upp가 시작점 아래 · Figure 6·7·8",
+    cases: DECLINE_CASES.map((data) => ({
       kind: "dataset" as const,
       id: data.id,
       data,
     })),
   },
   {
-    id: "boolq-models",
-    label: "모델 × BoolQ · Figure 8",
-    cases: BOOLQ_MODEL_CASES.map((data) => ({
+    id: "oracle",
+    label: "CL=1 돌파 — 외부 verifier가 천장을 없앤다 · Figure 5·10",
+    cases: ORACLE_CASES.map((data) => ({
       kind: "dataset" as const,
       id: data.id,
       data,
@@ -86,7 +117,7 @@ const SHELF_GROUPS: ShelfGroup[] = [
   },
   {
     id: "corollary",
-    label: "따름정리 검증 · Figure 3·4·5·9·10",
+    label: "따름정리 — 시작점 무관 수렴과 α 속도 · Figure 3·4·9",
     cases: [
       ...FAN_CASES.map((data) => ({ kind: "fan" as const, id: data.id, data })),
       ...ALPHA_COMPARISON_CASES.map((data) => ({
@@ -94,18 +125,6 @@ const SHELF_GROUPS: ShelfGroup[] = [
         id: data.id,
         data,
       })),
-      ...ORACLE_CASES.map((data) => ({
-        kind: "dataset" as const,
-        id: data.id,
-        data,
-      })),
-    ],
-  },
-  {
-    id: "failure",
-    label: "실패 사례 · Figure 6",
-    cases: [
-      { kind: "dataset" as const, id: ARE_YOU_SURE_CASE.id, data: ARE_YOU_SURE_CASE },
     ],
   },
 ];
@@ -119,15 +138,83 @@ const ALL_STAGE_CASES = new Map<string, StageCase>(
 
 const SHELF_CASE_COUNT = ALL_STAGE_CASES.size;
 
+const MODEL_SHORT_NAMES: Record<string, string> = {
+  "Llama3-8B-Instruct": "Llama3",
+  "GLM4-9B-Chat": "GLM4",
+  "DeepSeek-LLM-7B-Chat": "DeepSeek",
+  "Mistral-7B-Instruct-v3": "Mistral",
+  "Qwen2.5-7B-Chat": "Qwen2.5",
+};
+
 function chipLabel(stageCase: StageCase) {
   if (stageCase.kind === "fan") return `팬차트 ${stageCase.data.dataset}`;
   if (stageCase.kind === "alpha") return `α 비교 ${stageCase.data.dataset}`;
   const { data } = stageCase;
-  if (data.group === "boolq-models") return data.model;
   if (data.group === "corollary") return `CL=1 ${data.dataset}`;
   if (data.group === "failure") return "Are you sure?";
-  return data.dataset;
+  return `${data.dataset} · ${MODEL_SHORT_NAMES[data.model] ?? data.model}`;
 }
+
+/**
+ * 전체 개형 스트립 곡선: 팬차트(초기 정확도 인위 조작)를 제외한 실측
+ * 곡선 전부. 수렴 진행도 (Accₜ − Acc₀)/(Upp − Acc₀)에서는 상승·하락·CL=1이
+ * 모두 0→1로 접근하는 한 가족이 된다.
+ */
+const STRIP_SPAN_MIN_PERCENT = 3;
+
+type StripCurve = {
+  key: string;
+  caseIds: string[];
+  behaviorGroup: BehaviorGroupId;
+  valuesPercent: number[];
+  uppPercent: number;
+};
+
+const STRIP_CURVES: StripCurve[] = [
+  ...[
+    ...LLAMA3_DATASET_CASES,
+    ...GLM4_DATASET_CASES,
+    ...BOOLQ_MODEL_CASES,
+    ...ORACLE_CASES,
+    ARE_YOU_SURE_CASE,
+  ].map((caseData) => ({
+    key: caseData.id,
+    caseIds: [caseData.id],
+    behaviorGroup: behaviorGroupOf({
+      kind: "dataset",
+      id: caseData.id,
+      data: caseData,
+    }),
+    valuesPercent: caseData.empiricalPercentByRound,
+    uppPercent: caseData.uppPercent,
+  })),
+  ...ALPHA_COMPARISON_CASES.map((alphaCase) => ({
+    key: `${alphaCase.id}-slower`,
+    caseIds: [alphaCase.id],
+    behaviorGroup: "corollary" as const,
+    valuesPercent: alphaCase.slower.empiricalPercentByRound,
+    uppPercent: alphaCase.slower.uppPercent,
+  })),
+];
+
+// α 비교 선택 시 빠른 쪽(기존 dataset 곡선)도 함께 하이라이트한다.
+for (const alphaCase of ALPHA_COMPARISON_CASES) {
+  STRIP_CURVES.find((curve) => curve.key === alphaCase.fasterCaseId)?.caseIds.push(
+    alphaCase.id,
+  );
+}
+
+function stripSpanPercent(curve: StripCurve) {
+  return curve.uppPercent - curve.valuesPercent[0];
+}
+
+function stripEligibleForProgress(curve: StripCurve) {
+  return Math.abs(stripSpanPercent(curve)) >= STRIP_SPAN_MIN_PERCENT;
+}
+
+const STRIP_PROGRESS_EXCLUDED_COUNT = STRIP_CURVES.filter(
+  (curve) => !stripEligibleForProgress(curve),
+).length;
 
 function chipValues(stageCase: StageCase) {
   if (stageCase.kind === "fan") {
@@ -168,6 +255,8 @@ const PLOT_LEFT = 90;
 const PLOT_RIGHT = 600;
 const PLOT_TOP = 40;
 const PLOT_BOTTOM = 330;
+const STRIP_TOP = 500;
+const STRIP_BOTTOM = 608;
 
 const roundX = (round: number) =>
   PLOT_LEFT + (round / REPLAY_ROUND_COUNT) * (PLOT_RIGHT - PLOT_LEFT);
@@ -185,6 +274,7 @@ export function PredictionReplayLab() {
 
   const [activeCaseId, setActiveCaseId] = useState("gsm8k-llama3");
   const [showClaimBoundary, setShowClaimBoundary] = useState(false);
+  const [stripMode, setStripMode] = useState<"percent" | "progress">("percent");
 
   const stage =
     state.status === "idle"
@@ -202,6 +292,7 @@ export function PredictionReplayLab() {
       const target = stepId ? AUTOPLAY_CASE_BY_STEP[stepId] : undefined;
       if (target) setActiveCaseId(target);
       setShowClaimBoundary(stepId === "claim-boundary");
+      if (stepId === "family-view") setStripMode("progress");
     }, 0);
     return () => window.clearTimeout(timer);
   }, [state.status, state.step, state.hasUserInteracted]);
@@ -337,8 +428,15 @@ export function PredictionReplayLab() {
         ? `${activeCase.data.sourceFigure} · α 원문 명시값`
         : `${activeCase.data.sourceFigure} · 눈읽기 근사`;
 
+  const activeBehaviorGroup = behaviorGroupOf(activeCase);
+
   return (
-    <div ref={containerRef} data-prediction-replay data-stage={stage}>
+    <div
+      ref={containerRef}
+      data-prediction-replay
+      data-stage={stage}
+      data-strip-mode={stripMode}
+    >
       <LabShell
         title="예측 리플레이"
         subtitle="이론이 먼저 긋고, 실측이 라운드마다 도착해 채점받는다"
@@ -356,6 +454,18 @@ export function PredictionReplayLab() {
               stepCount={STEPS.length}
               stepLabel={STEPS[Math.min(state.step, STEPS.length - 1)].label}
               markUserInteraction={markUserInteraction}
+            />
+            <SegmentedControl
+              label="전체 개형 좌표"
+              value={stripMode}
+              options={[
+                { value: "percent", label: "실측 %" },
+                { value: "progress", label: "수렴 진행도" },
+              ]}
+              onChange={(value) => {
+                markUserInteraction();
+                setStripMode(value);
+              }}
             />
             <button
               type="button"
@@ -414,7 +524,17 @@ export function PredictionReplayLab() {
             </p>
             <p data-shelf-summary>
               데이터 선반에는 원문 그림의 곡선 {SHELF_CASE_COUNT}개 케이스가
-              그룹별로 있습니다. {FIXTURE_APPROXIMATION_NOTE}
+              개형(상승·포화 / 하락 / CL=1 돌파 / 따름정리) 기준 그룹으로
+              있습니다. {FIXTURE_APPROXIMATION_NOTE}
+            </p>
+            <p data-strip-summary>
+              전체 개형 스트립은 팬차트(초기 정확도 인위 조작 실험)를 제외한
+              실측 {STRIP_CURVES.length}개 곡선을 겹쳐 보여 줍니다. 수렴
+              진행도 좌표 (Accₜ − Acc₀)/(Upp − Acc₀)에서는 상승·하락·CL=1
+              곡선이 모두 0에서 1로 접근하는 한 가족이 되며, |Upp − Acc₀|가{" "}
+              {STRIP_SPAN_MIN_PERCENT}%p 미만이라 정규화 노이즈만 증폭되는{" "}
+              {STRIP_PROGRESS_EXCLUDED_COUNT}개 케이스는 진행도 뷰에서
+              제외합니다.
             </p>
             <div data-claim-boundary>
               <h4>직접 도출</h4>
@@ -443,7 +563,7 @@ export function PredictionReplayLab() {
         >
           <svg
             className="viz-svg viz-compact"
-            viewBox="0 0 680 470"
+            viewBox="0 0 680 640"
             role="group"
             aria-labelledby={titleId}
             aria-describedby={descId}
@@ -451,7 +571,9 @@ export function PredictionReplayLab() {
             <title id={titleId}>논문 실측 곡선의 예측 리플레이 무대</title>
             <desc id={descId}>
               선택한 케이스의 목적지 Upp 수평선, 보정 구간, 이론 예측 곡선
-              위로 실측 점이 라운드 순서대로 착지하는 모습을 보여 준다.
+              위로 실측 점이 라운드 순서대로 착지하고, 아래의 전체 개형
+              스트립이 실측 곡선 전부를 실측 퍼센트 또는 수렴 진행도
+              좌표로 겹쳐 보여 준다.
             </desc>
             <defs>
               <filter id={glowId} x="-40%" y="-40%" width="180%" height="180%">
@@ -614,6 +736,119 @@ export function PredictionReplayLab() {
             <text className={styles.replayProvenance} x={PLOT_RIGHT} y={452} textAnchor="end">
               {provenanceText} · 눈읽기 근사 포함
             </text>
+
+            {/* 전체 개형 스트립 — 팬차트 제외 실측 곡선 전부를 겹친다 */}
+            <g data-overview-strip>
+              <text className={styles.stripTitle} x={PLOT_LEFT} y={STRIP_TOP - 14}>
+                {stripMode === "progress"
+                  ? `전체 개형 · 수렴 진행도 (Accₜ − Acc₀)/(Upp − Acc₀) — ${
+                      STRIP_CURVES.length - STRIP_PROGRESS_EXCLUDED_COUNT
+                    }곡선`
+                  : `전체 개형 · 실측 % — ${STRIP_CURVES.length}곡선 (팬차트 제외)`}
+              </text>
+              {stripMode === "progress" ? (
+                <>
+                  <line
+                    className={styles.stripDestination}
+                    x1={PLOT_LEFT}
+                    y1={STRIP_BOTTOM - (1.15 / 1.3) * (STRIP_BOTTOM - STRIP_TOP)}
+                    x2={PLOT_RIGHT}
+                    y2={STRIP_BOTTOM - (1.15 / 1.3) * (STRIP_BOTTOM - STRIP_TOP)}
+                  />
+                  <text
+                    className={styles.mapAxisTick}
+                    x={PLOT_RIGHT}
+                    y={STRIP_BOTTOM - (1.15 / 1.3) * (STRIP_BOTTOM - STRIP_TOP) - 6}
+                    textAnchor="end"
+                  >
+                    목적지 도착 = 1
+                  </text>
+                  <line
+                    className={styles.stripBaseline}
+                    x1={PLOT_LEFT}
+                    y1={STRIP_BOTTOM - (0.15 / 1.3) * (STRIP_BOTTOM - STRIP_TOP)}
+                    x2={PLOT_RIGHT}
+                    y2={STRIP_BOTTOM - (0.15 / 1.3) * (STRIP_BOTTOM - STRIP_TOP)}
+                  />
+                  <text
+                    className={styles.mapAxisTick}
+                    x={PLOT_LEFT - 8}
+                    y={STRIP_BOTTOM - (0.15 / 1.3) * (STRIP_BOTTOM - STRIP_TOP) + 4}
+                    textAnchor="end"
+                  >
+                    0
+                  </text>
+                </>
+              ) : (
+                [0, 50, 100].map((tick) => (
+                  <text
+                    key={tick}
+                    className={styles.mapAxisTick}
+                    x={PLOT_LEFT - 8}
+                    y={
+                      STRIP_BOTTOM -
+                      (tick / 100) * (STRIP_BOTTOM - STRIP_TOP) +
+                      4
+                    }
+                    textAnchor="end"
+                  >
+                    {tick}%
+                  </text>
+                ))
+              )}
+              <g key={stripMode} className={styles.stripFade}>
+                {STRIP_CURVES.filter(
+                  (curve) =>
+                    stripMode === "percent" || stripEligibleForProgress(curve),
+                ).map((curve) => {
+                  const stateAttr = curve.caseIds.includes(activeCase.id)
+                    ? "selected"
+                    : curve.behaviorGroup === activeBehaviorGroup
+                      ? "group"
+                      : "other";
+                  const points = curve.valuesPercent
+                    .map((value, round) => {
+                      const y =
+                        stripMode === "progress"
+                          ? STRIP_BOTTOM -
+                            ((Math.min(
+                              1.15,
+                              Math.max(
+                                -0.15,
+                                (value - curve.valuesPercent[0]) /
+                                  stripSpanPercent(curve),
+                              ),
+                            ) +
+                              0.15) /
+                              1.3) *
+                              (STRIP_BOTTOM - STRIP_TOP)
+                          : STRIP_BOTTOM -
+                            (value / 100) * (STRIP_BOTTOM - STRIP_TOP);
+                      return `${roundX(round)},${y}`;
+                    })
+                    .join(" ");
+                  return (
+                    <polyline
+                      key={curve.key}
+                      className={styles.stripCurve}
+                      data-state={stateAttr}
+                      points={points}
+                    />
+                  );
+                })}
+              </g>
+              {Array.from({ length: REPLAY_ROUND_COUNT + 1 }, (_, round) => (
+                <text
+                  key={round}
+                  className={styles.mapAxisTick}
+                  x={roundX(round)}
+                  y={STRIP_BOTTOM + 18}
+                  textAnchor="middle"
+                >
+                  {round}
+                </text>
+              ))}
+            </g>
           </svg>
         </div>
 
