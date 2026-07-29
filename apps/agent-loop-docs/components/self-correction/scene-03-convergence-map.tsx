@@ -519,8 +519,10 @@ export function ConvergenceMapLab() {
               onPointerMove={handleHoverMove}
               onPointerLeave={() => setHover(null)}
             />
+            {/* 인디케이터의 레이는 정의상 커서를 지나므로 pointer-events를
+                끄지 않으면 오버레이의 pointerleave를 유발해 무한 깜빡인다 */}
             {hover && hoverUpp !== null ? (
-              <g data-hover-indicator aria-hidden="true">
+              <g data-hover-indicator aria-hidden="true" pointerEvents="none">
                 <line
                   className={styles.mapHoverRay}
                   x1={cornerX}
