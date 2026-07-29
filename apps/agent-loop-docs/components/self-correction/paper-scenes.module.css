@@ -369,15 +369,9 @@
   stroke-width: 1.2;
 }
 
-.mapHatchLine {
-  stroke: color-mix(in srgb, var(--fg-default) 16%, transparent);
-  stroke-width: 1;
-}
-
-.mapGainRegion {
-  fill: color-mix(in srgb, var(--viz-correct) 9%, transparent);
+/* Upp 히트맵 쐐기 — 채움 값은 컴포넌트가 color-mix로 인라인 지정 */
+.mapWedge {
   stroke: none;
-  transition: opacity 0.4s ease;
 }
 
 .mapContour {
@@ -385,13 +379,69 @@
   stroke: color-mix(in srgb, var(--fg-attention) 70%, transparent);
   stroke-width: 1.4;
   stroke-dasharray: 6 6;
-  animation: contour-drift 14s linear infinite;
 }
 
-@keyframes contour-drift {
-  to {
-    stroke-dashoffset: -120;
+/* 경계선(시작 수위)에서 각 방향의 목적지로 퍼지는 수렴 파동 */
+.mapFlowWave {
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  opacity: 0;
+  animation: flow-wave 2.8s ease-out infinite;
+}
+
+.mapFlowWave[data-side="gain"] {
+  stroke: color-mix(in srgb, var(--viz-correct) 80%, transparent);
+}
+
+.mapFlowWave[data-side="loss"] {
+  stroke: color-mix(in srgb, var(--fg-default) 38%, transparent);
+}
+
+@keyframes flow-wave {
+  0% {
+    opacity: 0;
   }
+
+  18% {
+    opacity: 0.55;
+  }
+
+  70% {
+    opacity: 0.12;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+.mapHoverOverlay {
+  cursor: crosshair;
+}
+
+.mapHoverRay {
+  stroke: var(--fg-default);
+  stroke-width: 1.4;
+  stroke-dasharray: 4 4;
+  opacity: 0.75;
+}
+
+.mapHoverDot {
+  fill: none;
+  stroke: var(--fg-default);
+  stroke-width: 1.6;
+}
+
+.mapHoverLabel {
+  fill: var(--fg-default);
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  font-weight: 720;
+  paint-order: stroke;
+  stroke: var(--deck-bg, #0d0d0d);
+  stroke-width: 4px;
+  stroke-linejoin: round;
 }
 
 .mapContourLabel {
@@ -401,17 +451,22 @@
   font-weight: 700;
 }
 
+/* 경계선은 게이지의 Acc₀ 마커와 같은 시안 — 네온 그린 히트맵과 분리 */
 .mapBoundary {
-  stroke: var(--viz-correct);
+  stroke: var(--fg-accent);
   stroke-width: 2.4;
   stroke-linecap: round;
 }
 
 .mapBoundaryLabel {
-  fill: var(--viz-correct);
+  fill: var(--fg-accent);
   font-family: var(--font-mono);
   font-size: 11.5px;
   font-weight: 720;
+  paint-order: stroke;
+  stroke: var(--deck-bg, #0d0d0d);
+  stroke-width: 3px;
+  stroke-linejoin: round;
 }
 
 .mapOracleEdge {
@@ -448,8 +503,8 @@
 }
 
 .mapPoint[data-lit="true"] .mapPointDot {
-  fill: color-mix(in srgb, var(--fg-accent) 30%, transparent);
-  stroke: var(--fg-accent);
+  fill: color-mix(in srgb, var(--fg-default) 85%, transparent);
+  stroke: var(--fg-default);
   stroke-dasharray: none;
 }
 
@@ -459,7 +514,7 @@
 
 .mapPointGlow {
   fill: none;
-  stroke: var(--fg-accent);
+  stroke: var(--fg-default);
   stroke-width: 1.4;
 }
 
@@ -540,8 +595,9 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .mapContour {
+  .mapFlowWave {
     animation: none;
+    opacity: 0.2;
   }
 
   .mapPoint {

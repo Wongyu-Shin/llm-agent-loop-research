@@ -356,6 +356,9 @@ test("수렴 지도는 실측 8점의 방향을 Acc₀에 따라 뒤집고 개�
     .first()
     .click();
   await expect(lab.locator(".lab-statusbar")).toContainText("47.5");
+
+  await lab.locator("[data-map-hover-overlay]").hover();
+  await expect(lab.locator("[data-hover-indicator]")).toContainText("Upp");
 });
 
 test("예측 리플레이는 선반 40케이스를 전환하고 보정·예측 구분과 주장 경계를 제공한다", async ({

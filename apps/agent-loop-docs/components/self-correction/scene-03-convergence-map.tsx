@@ -6,6 +6,7 @@ import {
   useRef,
   useState,
   type CSSProperties,
+  type PointerEvent as ReactPointerEvent,
 } from "react";
 
 import {
@@ -62,6 +63,34 @@ function contourTopConfidenceLevel(uppTarget: number) {
   return 1 - 1 / slope;
 }
 
+/** Upp=c 등고선이 지도 가장자리와 만나는 점. c=1은 CL=1 변의 꼭대기다. */
+function contourEdgePoint(uppTarget: number) {
+  if (uppTarget >= 1) return { x: mapX(1), y: mapY(1) };
+  const slope = uppTarget / (1 - uppTarget);
+  return slope >= 1
+    ? { x: mapX(1 - 1 / slope), y: mapY(1) }
+    : { x: mapX(0), y: mapY(slope) };
+}
+
+/**
+ * Upp 히트맵 쐐기 팬. Upp는 (1,0) 모서리 기준 각도만의 함수이므로
+ * Upp 등간격 밴드가 정확한 히트맵이 된다 — 고Upp 밴드가 모서리 옆에서
+ * 얇게 압축되는 모습 자체가 "좁은 쐐기" 메시지다.
+ */
+const UPP_BAND_STEP = 0.025;
+const HEAT_WEDGES = Array.from({ length: 40 }, (_, index) => {
+  const from = index * UPP_BAND_STEP;
+  const to = index === 39 ? 1 : from + UPP_BAND_STEP;
+  const edgeFrom = contourEdgePoint(from);
+  const edgeTo = contourEdgePoint(to);
+  const corner = `${mapX(1)},${mapY(0)}`;
+  return {
+    key: from,
+    points: `${corner} ${edgeFrom.x},${edgeFrom.y} ${edgeTo.x},${edgeTo.y}`,
+    midUpp: (from + to) / 2,
+  };
+});
+
 export function ConvergenceMapLab() {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const { state, controls, markUserInteraction, reachedStep } = useScenePlayback(
@@ -72,7 +101,7 @@ export function ConvergenceMapLab() {
   const titleId = `${idPrefix}-title`;
   const descId = `${idPrefix}-desc`;
   const glowId = `${idPrefix}-glow`;
-  const hatchId = `${idPrefix}-hatch`;
+  const clipId = `${idPrefix}-map-clip`;
 
   const points = useMemo(() => llama3GridPoints(), []);
 
@@ -82,6 +111,10 @@ export function ConvergenceMapLab() {
   );
   const [selectedCaseId, setSelectedCaseId] = useState(points[0].caseId);
   const [oracleEdge, setOracleEdge] = useState(false);
+  const [hover, setHover] = useState<{
+    confidenceLevel: number;
+    critiqueScore: number;
+  } | null>(null);
 
   const stage =
     state.status === "idle"
@@ -121,6 +154,28 @@ export function ConvergenceMapLab() {
     points.find((point) => point.caseId === selectedCaseId) ?? points[0];
   const selectedUppFraction = selectedPoint.uppPercent / 100;
 
+  const hoverUpp = (() => {
+    if (!hover) return null;
+    const denominator = 1 - hover.confidenceLevel + hover.critiqueScore;
+    return denominator <= 0 ? null : hover.critiqueScore / denominator;
+  })();
+  const gaugeUppFraction =
+    hoverUpp ?? (oracleEdge ? 1 : selectedUppFraction);
+
+  const handleHoverMove = (event: ReactPointerEvent<SVGRectElement>) => {
+    const bounds = event.currentTarget.getBoundingClientRect();
+    if (bounds.width === 0 || bounds.height === 0) return;
+    const confidenceLevel = Math.min(
+      1,
+      Math.max(0, (event.clientX - bounds.left) / bounds.width),
+    );
+    const critiqueScore = Math.min(
+      1,
+      Math.max(0, 1 - (event.clientY - bounds.top) / bounds.height),
+    );
+    setHover({ confidenceLevel, critiqueScore });
+  };
+
   const litCount = points.filter(
     (point) => point.uppPercent / 100 > accuracy0,
   ).length;
@@ -158,10 +213,6 @@ export function ConvergenceMapLab() {
       : { x: mapX(0), y: mapY(boundarySlope) };
   const cornerX = mapX(1);
   const cornerY = mapY(0);
-  const gainPolygon =
-    boundarySlope >= 1
-      ? `${cornerX},${cornerY} ${boundaryEnd.x},${boundaryEnd.y} ${mapX(1)},${mapY(1)}`
-      : `${cornerX},${cornerY} ${boundaryEnd.x},${boundaryEnd.y} ${mapX(0)},${mapY(1)} ${mapX(1)},${mapY(1)}`;
 
   const pointsVisible = state.status === "idle" || reachedStep("points-land");
 
@@ -180,9 +231,9 @@ export function ConvergenceMapLab() {
         title="수렴 지도"
         subtitle="CL × CS 조건 공간 — 어떤 조합이 어디로 수렴하는가"
         legend={[
-          { label: "개선 구간", tone: "success" },
-          { label: "훼손 구간(소등)", tone: "neutral" },
-          { label: "실측 데이터셋", tone: "accent" },
+          { label: "수렴 정확도 0→100%", tone: "success" },
+          { label: "경계선 Upp = Acc₀", tone: "accent" },
+          { label: "실측 데이터셋", tone: "neutral" },
           { label: "목적지 등고선", tone: "attention" },
         ]}
         stageLabel="경계선 Upp = Acc₀이 개선과 훼손을 가른다"
@@ -238,10 +289,13 @@ export function ConvergenceMapLab() {
           <div data-visual-fallback>
             <p>
               목적지 Upp = c인 (CL, CS) 조합은 (CL=1, CS=0) 모서리를 지나는
-              직선이며, 개선 경계선은 Upp = Acc₀ 등고선입니다. 현재 Acc₀{" "}
-              {formatPercent(accuracy0)}에서 개선 조합의 넓이는{" "}
+              직선이며, 개선 경계선은 Upp = Acc₀ 등고선입니다. 지도 배경은
+              수렴 정확도를 밝기로 표시합니다(어두울수록 0%, 네온 그린일수록
+              100%). 현재 Acc₀ {formatPercent(accuracy0)}에서 개선 조합의
+              넓이는{" "}
               <output data-improvement-area>{formatArea(areaFraction)}</output>
-              입니다.
+              입니다. 임의 지점의 Upp는 마우스 호버 인디케이터 외에도 목적지
+              등고선과 아래 표로 읽을 수 있습니다.
             </p>
             <table className={styles.transitionTable} data-area-table>
               <caption>기대별 (CL, CS) 조합 넓이</caption>
@@ -308,9 +362,10 @@ export function ConvergenceMapLab() {
           >
             <title id={titleId}>CL과 CS 조건 공간의 수렴 지도</title>
             <desc id={descId}>
-              목적지 등고선이 CL 1, CS 0 모서리에서 방사되고, Acc₀ 경계선이
-              개선 영역과 훼손 영역을 가르며, Llama3-8B 실측 8점의 점등
-              여부와 목적지 게이지를 보여 준다.
+              CL과 CS 조건 공간을 수렴 정확도 Upp에 따라 어두운 색부터 네온
+              그린까지 칠하고, Acc₀ 경계선에서 각 방향으로 수렴해 가는
+              파동, Llama3-8B 실측 8점의 점등 여부, 호버 위치의 Upp
+              인디케이터와 목적지 게이지를 보여 준다.
             </desc>
             <defs>
               <filter id={glowId} x="-40%" y="-40%" width="180%" height="180%">
@@ -324,18 +379,18 @@ export function ConvergenceMapLab() {
                   <feMergeNode in="SourceGraphic" />
                 </feMerge>
               </filter>
-              <pattern
-                id={hatchId}
-                width="8"
-                height="8"
-                patternTransform="rotate(45)"
-                patternUnits="userSpaceOnUse"
-              >
-                <line x1="0" y1="0" x2="0" y2="8" className={styles.mapHatchLine} />
-              </pattern>
+              <clipPath id={clipId}>
+                <rect
+                  x={MAP_LEFT}
+                  y={MAP_TOP}
+                  width={MAP_SIZE}
+                  height={MAP_SIZE}
+                  rx="6"
+                />
+              </clipPath>
             </defs>
 
-            {/* 지도 바탕: 훼손(소등) 빗금 위에 개선 영역을 점등한다 */}
+            {/* Upp 히트맵: 어두울수록 0%, 네온 그린에 가까울수록 100%에 수렴 */}
             <rect
               className={styles.mapField}
               x={MAP_LEFT}
@@ -344,15 +399,16 @@ export function ConvergenceMapLab() {
               height={MAP_SIZE}
               rx="6"
             />
-            <rect
-              x={MAP_LEFT}
-              y={MAP_TOP}
-              width={MAP_SIZE}
-              height={MAP_SIZE}
-              fill={`url(#${hatchId})`}
-              opacity="0.5"
-            />
-            <polygon className={styles.mapGainRegion} points={gainPolygon} />
+            <g clipPath={`url(#${clipId})`} aria-hidden="true">
+              {HEAT_WEDGES.map((wedge) => (
+                <polygon
+                  key={wedge.key}
+                  className={styles.mapWedge}
+                  points={wedge.points}
+                  fill={`color-mix(in srgb, var(--viz-correct) ${(4 + wedge.midUpp * 76).toFixed(1)}%, transparent)`}
+                />
+              ))}
+            </g>
 
             {/* 목적지 등고선 부챗살 */}
             <g>
@@ -416,6 +472,80 @@ export function ConvergenceMapLab() {
               >
                 CL=1 변: CS가 조금만 있어도 Upp=100%
               </text>
+            ) : null}
+
+            {/* 상시 애니메이션: 경계선(시작 수위)에서 각 방향의 목적지로
+                퍼져 나가는 수렴 파동 — 점등 쪽은 위로, 소등 쪽은 아래로 */}
+            <g clipPath={`url(#${clipId})`} aria-hidden="true">
+              {[0.18, 0.42, 0.66, 0.9].map((step, index) => {
+                const gainEdge = contourEdgePoint(
+                  accuracy0 + (1 - accuracy0) * step,
+                );
+                const lossEdge = contourEdgePoint(accuracy0 * (1 - step));
+                return (
+                  <g key={step}>
+                    <line
+                      className={styles.mapFlowWave}
+                      data-side="gain"
+                      x1={cornerX}
+                      y1={cornerY}
+                      x2={gainEdge.x}
+                      y2={gainEdge.y}
+                      style={{ animationDelay: `${index * 0.4}s` }}
+                    />
+                    <line
+                      className={styles.mapFlowWave}
+                      data-side="loss"
+                      x1={cornerX}
+                      y1={cornerY}
+                      x2={lossEdge.x}
+                      y2={lossEdge.y}
+                      style={{ animationDelay: `${index * 0.4}s` }}
+                    />
+                  </g>
+                );
+              })}
+            </g>
+
+            {/* 호버 인디케이터: 위치의 수렴 정확도와 그 등고선을 표시 */}
+            <rect
+              className={styles.mapHoverOverlay}
+              data-map-hover-overlay
+              x={MAP_LEFT}
+              y={MAP_TOP}
+              width={MAP_SIZE}
+              height={MAP_SIZE}
+              fill="transparent"
+              onPointerMove={handleHoverMove}
+              onPointerLeave={() => setHover(null)}
+            />
+            {hover && hoverUpp !== null ? (
+              <g data-hover-indicator aria-hidden="true">
+                <line
+                  className={styles.mapHoverRay}
+                  x1={cornerX}
+                  y1={cornerY}
+                  x2={contourEdgePoint(hoverUpp).x}
+                  y2={contourEdgePoint(hoverUpp).y}
+                />
+                <circle
+                  className={styles.mapHoverDot}
+                  cx={mapX(hover.confidenceLevel)}
+                  cy={mapY(hover.critiqueScore)}
+                  r="5"
+                />
+                <text
+                  className={styles.mapHoverLabel}
+                  x={Math.min(
+                    Math.max(mapX(hover.confidenceLevel), MAP_LEFT + 48),
+                    mapX(1) - 48,
+                  )}
+                  y={Math.max(mapY(hover.critiqueScore) - 14, MAP_TOP + 16)}
+                  textAnchor="middle"
+                >
+                  Upp {formatPercent(hoverUpp)}
+                </text>
+              </g>
             ) : null}
 
             {/* 실측 8점 */}
@@ -531,15 +661,15 @@ export function ConvergenceMapLab() {
               <line
                 className={styles.gaugeUppMarker}
                 x1={GAUGE_X - 14}
-                y1={gaugeY(oracleEdge ? 1 : selectedUppFraction)}
+                y1={gaugeY(gaugeUppFraction)}
                 x2={GAUGE_X + 8}
-                y2={gaugeY(oracleEdge ? 1 : selectedUppFraction)}
+                y2={gaugeY(gaugeUppFraction)}
                 filter={`url(#${glowId})`}
               />
               <text
                 className={styles.gaugeUppLabel}
                 x={GAUGE_X - 18}
-                y={gaugeY(oracleEdge ? 1 : selectedUppFraction) - 8}
+                y={gaugeY(gaugeUppFraction) - 8}
                 textAnchor="end"
               >
                 Upp
@@ -551,7 +681,7 @@ export function ConvergenceMapLab() {
                 style={
                   {
                     "--pulse-from": `${gaugeY(accuracy0)}px`,
-                    "--pulse-to": `${gaugeY(oracleEdge ? 1 : selectedUppFraction)}px`,
+                    "--pulse-to": `${gaugeY(gaugeUppFraction)}px`,
                   } as CSSProperties
                 }
               />
