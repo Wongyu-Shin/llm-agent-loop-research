@@ -77,15 +77,30 @@ const PART_START_SECONDS: Record<ResearchPart, number> = {
   practice: 800,
 };
 
+/**
+ * Wireframe §12.1 ClaimProvenance. Badges spell out the source layer in
+ * text (`논문`, `해석`, `실무 권고`) so color is never the only channel
+ * that distinguishes provenance (§2.3).
+ */
 const provenanceLabels = {
-  paper: "논문",
-  interpretation: "해석",
-  practice: "실무 권고",
-  official: "공식 Autoresearch 사례",
-  synthetic: "합성 예시",
+  "paper-definition": { layer: "논문", label: "논문 정의" },
+  "paper-mathematical-consequence": { layer: "논문", label: "수학적 귀결" },
+  "paper-observation": { layer: "논문", label: "실험 관찰" },
+  "critical-reading": { layer: "해석", label: "비판적 읽기" },
+  "official-autoresearch-example": {
+    layer: "실무 권고",
+    label: "공식 Autoresearch 사례",
+  },
+  "engineering-transfer": { layer: "실무 권고", label: "엔지니어링 적용" },
+  "synthetic-example": { layer: "실무 권고", label: "합성 예시" },
 } as const;
 
 export type ProvenanceKind = keyof typeof provenanceLabels;
+
+export function provenanceText(kind: ProvenanceKind) {
+  const entry = provenanceLabels[kind];
+  return `${entry.layer} · ${entry.label}`;
+}
 
 function clamp(value: number, minimum: number, maximum: number) {
   return Math.min(maximum, Math.max(minimum, value));
@@ -224,11 +239,47 @@ export function ProvenanceBadge({
   kind: ProvenanceKind;
   children?: ReactNode;
 }) {
+  const entry = provenanceLabels[kind];
   return (
     <span className={styles.provenanceBadge} data-provenance={kind}>
       <span className={styles.provenanceDot} aria-hidden="true" />
-      {children ?? provenanceLabels[kind]}
+      <span className={styles.provenanceLayer}>{entry.layer}</span>
+      {children ?? entry.label}
     </span>
+  );
+}
+
+/**
+ * 항상 보이는 결론 (wireframe §3–10). Rendered inside the narrative column
+ * so the takeaway stays on screen while the visual animates.
+ */
+export function PersistentConclusion({
+  badge,
+  children,
+}: {
+  badge: ProvenanceKind;
+  children: ReactNode;
+}) {
+  return (
+    <div className={styles.persistentConclusion} data-provenance={badge}>
+      <ProvenanceBadge kind={badge} />
+      <div className={styles.persistentConclusionBody}>{children}</div>
+    </div>
+  );
+}
+
+/** Wireframe §7.1 — 논문 범위와 엔지니어링 적용 사이의 full-width 경계. */
+export function PartBoundary() {
+  return (
+    <div
+      className={styles.partBoundary}
+      role="separator"
+      aria-label="논문 범위와 엔지니어링 적용의 경계"
+      data-part-boundary
+    >
+      <p>여기까지는 논문의 직접 범위다.</p>
+      <p>여기부터는 이 발표의 엔지니어링 적용이다.</p>
+    </div>
   );
 }
 
@@ -279,6 +330,7 @@ export function StoryScene({
   eyebrow,
   title,
   visual,
+  boundary,
   children,
 }: {
   id: SceneId;
@@ -286,6 +338,7 @@ export function StoryScene({
   eyebrow: string;
   title: string;
   visual?: ReactNode;
+  boundary?: ReactNode;
   children: ReactNode;
 }) {
   const context = useContext(DeckContext);
@@ -313,6 +366,7 @@ export function StoryScene({
     >
       <div className={styles.sceneBackdrop} aria-hidden="true" />
       <div className={styles.sceneInner}>
+        {boundary}
         <header className={styles.sceneHeader}>
           <div>
             <div className={styles.sceneEyebrow}>
@@ -989,19 +1043,46 @@ export function ResearchDeck({ children }: { children: ReactNode }) {
           </div>
 
           <nav className={styles.sceneRail} aria-label="발표 Scene">
-            {SCENE_TIMINGS.map((scene) => (
-              <button
-                key={scene.id}
-                type="button"
-                data-part={scene.part}
-                data-active={activeSceneId === scene.id ? "true" : "false"}
-                aria-current={activeSceneId === scene.id ? "step" : undefined}
-                aria-label={`${scene.index}번 Scene, ${PART_LABELS[scene.part]}, ${formatClock(scene.totalSeconds)}`}
-                style={{ flexGrow: scene.totalSeconds }}
-                onClick={() => goToScene(scene.id)}
+            {(["paper", "bridge", "practice"] as const).map((part) => (
+              <div
+                key={part}
+                className={styles.railGroup}
+                data-part-group={part}
+                style={{ flexGrow: PART_TOTAL_SECONDS[part] }}
               >
-                <span>{String(scene.index).padStart(2, "0")}</span>
-              </button>
+                <span className={styles.railGroupLabel}>
+                  {part === "paper" ? "논문" : part === "bridge" ? "전환" : "적용"}
+                </span>
+                <div className={styles.railGroupScenes}>
+                  {SCENE_TIMINGS.filter((scene) => scene.part === part).map(
+                    (scene) => {
+                      const state =
+                        activeSceneId === scene.id
+                          ? "current"
+                          : scene.index < activeTiming.index
+                            ? "done"
+                            : "upcoming";
+                      return (
+                        <button
+                          key={scene.id}
+                          type="button"
+                          data-part={scene.part}
+                          data-state={state}
+                          data-active={state === "current" ? "true" : "false"}
+                          aria-current={
+                            state === "current" ? "step" : undefined
+                          }
+                          aria-label={`${scene.index}번 Scene, ${PART_LABELS[scene.part]}, ${formatClock(scene.totalSeconds)}`}
+                          style={{ flexGrow: scene.totalSeconds }}
+                          onClick={() => goToScene(scene.id)}
+                        >
+                          <span>{String(scene.index).padStart(2, "0")}</span>
+                        </button>
+                      );
+                    },
+                  )}
+                </div>
+              </div>
             ))}
             <span
               className={styles.timerProgress}

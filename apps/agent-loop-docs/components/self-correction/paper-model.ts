@@ -1,3 +1,14 @@
+/** Wireframe §12.3 paper model state — 긴 필드명, 축약 별칭 금지. */
+export type PaperModelState = {
+  accuracyAtRound: number; // UI notation: Acc_t
+  confidenceLevelAtRound: number; // UI notation: CL_t
+  critiqueScoreAtRound: number; // UI notation: CS_t
+  round: number;
+  stationary: boolean;
+};
+
+export type NetChangeVerdict = "BENEFICIAL" | "BREAK_EVEN" | "HARMFUL";
+
 export type TransitionBreakdown = {
   preservedCorrect: number;
   damagedCorrect: number;
@@ -79,6 +90,35 @@ export function transitionBreakdown(
     nextAccuracy,
     netChange: recoveredCorrect - damagedCorrect,
   };
+}
+
+/**
+ * Break-even CL_t for one round: recovery gain equals damage loss when
+ * CL_t = 1 - ((1 - Acc_t) × CS_t) / Acc_t. Undefined at Acc_t = 0
+ * (no correct answers to damage), so null is returned there.
+ * With Acc_t = 0.99, CS_t = 0.5 this is ≈ 0.994949 (약 99.49%).
+ */
+export function breakEvenConfidenceLevel(accT: number, critiqueScoreT: number) {
+  assertProbability(accT, "Acc_t");
+  assertProbability(critiqueScoreT, "CS_t");
+
+  if (accT === 0) return null;
+  return 1 - ((1 - accT) * critiqueScoreT) / accT;
+}
+
+/**
+ * Verdict for the sign of one round's net change. The epsilon absorbs
+ * floating-point noise from slider values so exact break-even presets
+ * report BREAK_EVEN instead of oscillating between the other two.
+ */
+export const NET_CHANGE_EPSILON = 1e-6;
+
+export function verdictForNetChange(netChange: number): NetChangeVerdict {
+  if (!Number.isFinite(netChange)) {
+    throw new RangeError("netChange must be finite.");
+  }
+  if (Math.abs(netChange) <= NET_CHANGE_EPSILON) return "BREAK_EVEN";
+  return netChange > 0 ? "BENEFICIAL" : "HARMFUL";
 }
 
 /**

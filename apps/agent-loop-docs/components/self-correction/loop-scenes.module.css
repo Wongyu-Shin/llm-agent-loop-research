@@ -1,0 +1,701 @@
+/* Shared visual grammar for the bridge and Part II scenes (wireframe §7–10).
+   Paper side = --fg-accent (deck cyan), engineering side = --fg-attention
+   (deck gold) / --fg-done (deck lavender); verdict colors reuse
+   --viz-correct / --viz-incorrect from Part I. */
+
+/* ---------- Scene 5 · TheoryToLoopBridge ---------- */
+
+.columnHeading {
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  font-weight: 740;
+  letter-spacing: 0.1em;
+}
+
+.columnHeading[data-side="paper"] {
+  fill: var(--fg-accent);
+}
+
+.columnHeading[data-side="loop"] {
+  fill: var(--fg-attention);
+}
+
+.bridgeNode rect {
+  fill: color-mix(in srgb, var(--fg-default) 5%, transparent);
+  stroke-width: 1.4;
+}
+
+.bridgeNode[data-side="paper"] rect {
+  stroke: color-mix(in srgb, var(--fg-accent) 55%, transparent);
+}
+
+.bridgeNode[data-side="loop"] rect {
+  stroke: color-mix(in srgb, var(--fg-attention) 55%, transparent);
+}
+
+.nodeTitle {
+  fill: var(--fg-default);
+  font-family: var(--font-mono);
+  font-size: 13.5px;
+  font-weight: 730;
+}
+
+.nodeDetail {
+  fill: var(--fg-muted);
+  font-size: 11px;
+}
+
+.chainLink {
+  stroke: color-mix(in srgb, var(--fg-default) 35%, transparent);
+  stroke-width: 1.6;
+}
+
+.loopColumn {
+  opacity: 0;
+  transition: opacity 1.2s ease;
+}
+
+.loopColumn[data-visible="true"] {
+  opacity: 1;
+}
+
+.morphLink {
+  fill: none;
+  stroke: color-mix(in srgb, var(--fg-attention) 65%, transparent);
+  stroke-dasharray: 6 5;
+  stroke-width: 1.8;
+  opacity: 0;
+  transition: opacity 0.9s ease;
+}
+
+.loopColumn[data-visible="true"] .morphLink {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loopColumn,
+  .morphLink {
+    transition: none;
+  }
+}
+
+.bridgeWarning text {
+  fill: var(--fg-attention);
+  font-size: 12.5px;
+  font-style: italic;
+}
+
+.bridgeWarning {
+  opacity: 0;
+  transition: opacity 0.8s ease;
+}
+
+.bridgeWarning[data-visible="true"] {
+  opacity: 1;
+}
+
+.transferTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 12px 0;
+  font-size: 0.82rem;
+}
+
+.transferTable caption {
+  margin-bottom: 6px;
+  color: var(--fg-muted);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  text-align: left;
+}
+
+.transferTable th,
+.transferTable td {
+  border: 1px solid color-mix(in srgb, var(--fg-default) 14%, transparent);
+  padding: 6px 10px;
+  text-align: left;
+  vertical-align: top;
+}
+
+/* ---------- Scene 6 · OfficialExampleStrip + AutoresearchLoopMap ---------- */
+
+.officialStrip {
+  display: grid;
+  gap: 12px;
+  margin: 20px 0;
+  border: 1px solid color-mix(in srgb, var(--fg-done) 42%, transparent);
+  border-radius: 12px;
+  padding: 16px 18px;
+}
+
+.officialStrip dl {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px 18px;
+  margin: 0;
+}
+
+.officialStrip dl > div {
+  display: grid;
+  gap: 2px;
+}
+
+.officialStrip dt {
+  color: var(--fg-done);
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  font-weight: 730;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.officialStrip dd {
+  margin: 0;
+  color: var(--fg-muted);
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+
+.officialStrip dd small {
+  display: block;
+  margin-top: 2px;
+  color: var(--fg-attention);
+  font-size: 0.72rem;
+}
+
+@media (width < 640px) {
+  .officialStrip dl {
+    grid-template-columns: 1fr;
+  }
+}
+
+.phaseList {
+  display: grid;
+  gap: 6px;
+  margin: 10px 0;
+  padding-left: 20px;
+  font-size: 0.82rem;
+}
+
+.objectDetail {
+  margin: 12px 0;
+  border: 1px solid color-mix(in srgb, var(--fg-default) 14%, transparent);
+  border-radius: 10px;
+  padding: 12px 14px;
+}
+
+.objectDetail h4 {
+  margin: 0 0 8px;
+  font-size: 0.9rem;
+}
+
+.objectDetail dl {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px 16px;
+  margin: 0;
+}
+
+.objectDetail dt {
+  color: var(--fg-muted);
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  text-transform: uppercase;
+}
+
+.objectDetail dd {
+  margin: 2px 0 0;
+  font-size: 0.8rem;
+}
+
+.pseudocode {
+  overflow-x: auto;
+  margin: 12px 0;
+  border: 1px solid color-mix(in srgb, var(--fg-default) 12%, transparent);
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--fg-default) 4%, transparent);
+  padding: 12px 14px;
+  font-size: 0.72rem;
+  line-height: 1.55;
+}
+
+.contractBand rect {
+  fill: color-mix(in srgb, var(--fg-attention) 8%, transparent);
+  stroke: color-mix(in srgb, var(--fg-attention) 55%, transparent);
+  stroke-width: 1.4;
+}
+
+.contractTitle {
+  fill: var(--fg-attention);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 740;
+}
+
+.contractFields {
+  fill: var(--fg-muted);
+  font-size: 11.5px;
+}
+
+.loopNode rect,
+.verdictNode rect,
+.branchNode rect {
+  fill: color-mix(in srgb, var(--fg-default) 5%, transparent);
+  stroke: color-mix(in srgb, var(--fg-default) 26%, transparent);
+  stroke-width: 1.4;
+  transition: stroke 0.5s ease, fill 0.5s ease;
+}
+
+.loopNode[data-active="true"] rect,
+.verdictNode[data-active="true"] rect {
+  fill: color-mix(in srgb, var(--fg-accent) 10%, transparent);
+  stroke: color-mix(in srgb, var(--fg-accent) 70%, transparent);
+}
+
+.branchNode[data-branch="keep"][data-active="true"] rect {
+  fill: color-mix(in srgb, var(--viz-correct) 14%, transparent);
+  stroke: var(--viz-correct);
+}
+
+.branchNode[data-branch="discard"] rect {
+  stroke: color-mix(in srgb, var(--viz-incorrect) 40%, transparent);
+}
+
+.verdictValue {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 760;
+}
+
+.verdictValue[data-verdict="KEEP"] {
+  fill: var(--viz-correct);
+}
+
+.verdictValue[data-verdict="PENDING"] {
+  fill: var(--fg-muted);
+}
+
+.loopArrows path {
+  fill: none;
+  stroke: color-mix(in srgb, var(--fg-default) 26%, transparent);
+  stroke-width: 1.8;
+  transition: stroke 0.5s ease;
+}
+
+.loopArrows path[data-active="true"] {
+  stroke: color-mix(in srgb, var(--fg-accent) 80%, transparent);
+}
+
+.loopArrows path[data-return="true"] {
+  stroke-dasharray: 4 5;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loopNode rect,
+  .verdictNode rect,
+  .branchNode rect,
+  .loopArrows path {
+    transition: none;
+  }
+}
+
+/* Lens dimming: non-target groups fade when a lens is chosen. */
+[data-loop-map][data-lens="contract"] .loopNode,
+[data-loop-map][data-lens="roles"] .contractBand,
+[data-loop-map][data-lens="state"] .contractBand,
+[data-loop-map][data-lens="memory"] .contractBand {
+  opacity: 0.45;
+}
+
+[data-loop-map][data-lens="contract"] .contractBand,
+[data-loop-map] .loopNode[data-lens-target="roles"],
+[data-loop-map] .loopNode[data-lens-target="state"],
+[data-loop-map] .loopNode[data-lens-target="memory"] {
+  opacity: 1;
+}
+
+[data-loop-map][data-lens="roles"] .loopNode:not([data-lens-target="roles"]),
+[data-loop-map][data-lens="state"] .loopNode:not([data-lens-target="state"]),
+[data-loop-map][data-lens="memory"] .loopNode:not([data-lens-target="memory"]) {
+  opacity: 0.45;
+}
+
+.objectHotspot {
+  cursor: pointer;
+  outline-offset: 2px;
+}
+
+.objectHotspot[aria-pressed="true"] {
+  stroke: var(--fg-accent);
+  stroke-width: 2;
+}
+
+/* ---------- Scene 7 · LoopControlWorkbench ---------- */
+
+.modeTabs {
+  display: flex;
+  gap: 6px;
+}
+
+.modeTabs button {
+  min-height: 44px;
+  border: 1px solid color-mix(in srgb, var(--fg-default) 16%, transparent);
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--fg-default) 4%, transparent);
+  padding: 0 16px;
+  color: var(--fg-default);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 680;
+}
+
+.modeTabs button[aria-selected="true"] {
+  border-color: var(--fg-accent);
+  color: var(--fg-accent);
+}
+
+.stopControls {
+  display: grid;
+  gap: 10px;
+}
+
+.stopToggleRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.stopToggleRow button {
+  min-height: 44px;
+  border: 1px solid color-mix(in srgb, var(--fg-default) 16%, transparent);
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--fg-default) 4%, transparent);
+  padding: 0 12px;
+  color: var(--fg-muted);
+  font-size: 0.76rem;
+}
+
+.stopToggleRow button[aria-pressed="true"] {
+  border-color: var(--fg-attention);
+  color: var(--fg-attention);
+}
+
+.stopSlider {
+  display: grid;
+  gap: 4px;
+  color: var(--fg-muted);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+}
+
+.stopSlider input {
+  min-height: 44px;
+}
+
+.laneTitle {
+  fill: var(--fg-default);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 720;
+}
+
+.laneLine {
+  stroke: color-mix(in srgb, var(--fg-default) 30%, transparent);
+  stroke-width: 2;
+}
+
+.laneNode circle {
+  stroke-width: 2;
+}
+
+.laneNode[data-verdict="KEEP"] circle {
+  fill: color-mix(in srgb, var(--viz-correct) 35%, transparent);
+  stroke: var(--viz-correct);
+}
+
+.laneNode[data-verdict="DISCARD"] circle {
+  fill: color-mix(in srgb, var(--viz-incorrect) 22%, transparent);
+  stroke: var(--viz-incorrect);
+}
+
+.laneNode[data-verdict="CRASH"] circle {
+  fill: color-mix(in srgb, var(--fg-default) 10%, transparent);
+  stroke: var(--viz-incorrect);
+  stroke-dasharray: 3 3;
+}
+
+.laneNodeLabel {
+  fill: var(--fg-default);
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  font-weight: 700;
+}
+
+.laneNodeSub {
+  fill: var(--fg-muted);
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+}
+
+.branchLine {
+  stroke: color-mix(in srgb, var(--viz-incorrect) 55%, transparent);
+  stroke-dasharray: 4 4;
+  stroke-width: 1.6;
+}
+
+.laneAdvance {
+  stroke: var(--viz-correct);
+  stroke-width: 2.4;
+}
+
+.laneCaption {
+  fill: var(--fg-muted);
+  font-size: 12px;
+}
+
+.gateChip rect {
+  fill: color-mix(in srgb, var(--fg-default) 5%, transparent);
+  stroke: color-mix(in srgb, var(--fg-done) 45%, transparent);
+  stroke-width: 1.2;
+}
+
+.gateChip[data-provenance="engineering-transfer"] rect {
+  stroke: color-mix(in srgb, var(--fg-attention) 60%, transparent);
+  stroke-dasharray: 4 3;
+}
+
+.gateChip text {
+  fill: var(--fg-default);
+  font-size: 11px;
+}
+
+.gateChipTag {
+  fill: var(--fg-attention);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.08em;
+}
+
+.compareCell rect {
+  fill: color-mix(in srgb, var(--fg-default) 5%, transparent);
+  stroke-width: 1.4;
+}
+
+.compareCell[data-tone="good"] rect {
+  stroke: color-mix(in srgb, var(--viz-correct) 55%, transparent);
+}
+
+.compareCell[data-tone="danger"] rect {
+  stroke: color-mix(in srgb, var(--viz-incorrect) 50%, transparent);
+}
+
+.compareCell[data-tone="muted"] rect {
+  stroke: color-mix(in srgb, var(--fg-default) 26%, transparent);
+}
+
+.compareLabel {
+  fill: var(--fg-default);
+  font-size: 13px;
+  font-weight: 720;
+}
+
+.compareValue {
+  fill: var(--fg-default);
+  font-family: var(--font-mono);
+  font-size: 17px;
+  font-weight: 740;
+}
+
+.systemPanel rect {
+  fill: color-mix(in srgb, var(--viz-correct) 8%, transparent);
+  stroke: color-mix(in srgb, var(--viz-correct) 55%, transparent);
+  stroke-width: 1.4;
+}
+
+.disabledPanel {
+  fill: color-mix(in srgb, var(--fg-default) 4%, transparent);
+  stroke: color-mix(in srgb, var(--fg-default) 24%, transparent);
+  stroke-dasharray: 5 4;
+  stroke-width: 1.4;
+}
+
+.conditionRow rect {
+  fill: color-mix(in srgb, var(--fg-default) 4%, transparent);
+  stroke-width: 1.3;
+}
+
+.conditionRow[data-ok="true"] rect {
+  stroke: color-mix(in srgb, var(--viz-correct) 45%, transparent);
+}
+
+.conditionRow[data-ok="false"] rect {
+  stroke: color-mix(in srgb, var(--viz-incorrect) 55%, transparent);
+}
+
+.conditionRow text {
+  fill: var(--fg-default);
+  font-size: 11.5px;
+}
+
+.conditionRow[data-ok="false"] text {
+  fill: var(--viz-incorrect);
+}
+
+.stopVerdictPanel rect {
+  fill: color-mix(in srgb, var(--viz-correct) 8%, transparent);
+  stroke: color-mix(in srgb, var(--viz-correct) 55%, transparent);
+  stroke-width: 1.5;
+}
+
+.stopVerdictPanel[data-stopped="true"] rect {
+  fill: color-mix(in srgb, var(--fg-attention) 10%, transparent);
+  stroke: var(--fg-attention);
+}
+
+.stopVerdictPanel text {
+  fill: var(--fg-default);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 720;
+}
+
+.rawDrawer {
+  margin: 10px 0;
+  border: 1px solid color-mix(in srgb, var(--fg-default) 12%, transparent);
+  border-radius: 10px;
+  padding: 8px 12px;
+}
+
+.rawDrawer summary {
+  cursor: pointer;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  color: var(--fg-muted);
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+}
+
+.rawDrawer pre {
+  overflow-x: auto;
+  margin: 8px 0 4px;
+  font-size: 0.7rem;
+}
+
+/* ---------- Scene 8 · LoopPolicyCard ---------- */
+
+.copyButton {
+  min-height: 44px;
+  border: 1px solid color-mix(in srgb, var(--fg-accent) 55%, transparent);
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--fg-accent) 8%, transparent);
+  padding: 0 16px;
+  color: var(--fg-accent);
+  font-size: 0.8rem;
+  font-weight: 680;
+}
+
+.copyToast {
+  align-self: center;
+  color: var(--viz-correct);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+}
+
+.policyList {
+  display: grid;
+  gap: 10px;
+  margin: 12px 0;
+}
+
+.policyList > div {
+  display: grid;
+  gap: 3px;
+}
+
+.policyList dt {
+  color: var(--fg-default);
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.policyList dd {
+  margin: 0;
+  color: var(--fg-muted);
+  font-size: 0.8rem;
+}
+
+.policyFrame {
+  fill: color-mix(in srgb, var(--fg-default) 3%, transparent);
+  stroke: color-mix(in srgb, var(--fg-default) 26%, transparent);
+  stroke-width: 1.5;
+}
+
+.policyTitle {
+  fill: var(--fg-default);
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 740;
+}
+
+.policyZone rect {
+  fill: color-mix(in srgb, var(--fg-default) 4%, transparent);
+  stroke: color-mix(in srgb, var(--fg-default) 18%, transparent);
+  stroke-width: 1.2;
+  transition: stroke 0.5s ease, fill 0.5s ease;
+}
+
+.policyZone[data-active="true"] rect {
+  stroke: color-mix(in srgb, var(--fg-accent) 70%, transparent);
+}
+
+.policyZone[data-filled="true"] rect {
+  fill: color-mix(in srgb, var(--fg-attention) 7%, transparent);
+  stroke: color-mix(in srgb, var(--fg-attention) 50%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .policyZone rect {
+    transition: none;
+  }
+}
+
+.policyZoneLabel {
+  fill: var(--fg-default);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 730;
+}
+
+.policyZoneValue {
+  fill: var(--fg-muted);
+  font-size: 11px;
+}
+
+.policyFootnote {
+  fill: var(--fg-muted);
+  font-size: 11px;
+  font-style: italic;
+}
+
+/* <768px vertical-stepper 재배치 (§12.6). */
+@media (width < 768px) {
+  .transferTable {
+    display: block;
+    overflow-x: auto;
+    font-size: 0.76rem;
+  }
+
+  .objectDetail dl {
+    grid-template-columns: 1fr;
+  }
+
+  .modeTabs {
+    flex-wrap: wrap;
+  }
+
+  .stopToggleRow {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+}

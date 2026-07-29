@@ -1,0 +1,46 @@
+.bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 14px;
+}
+
+.transport {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.transport button {
+  display: inline-flex;
+  min-width: 44px;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid color-mix(in srgb, var(--fg-default) 14%, transparent);
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--fg-default) 4%, transparent);
+  color: var(--fg-default);
+}
+
+.transport button:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--fg-default) 9%, transparent);
+}
+
+.transport button:disabled {
+  opacity: 0.4;
+}
+
+.stepLabel {
+  color: var(--fg-muted);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 640;
+  letter-spacing: 0.02em;
+}
+
+.reducedNote {
+  flex-basis: 100%;
+  color: var(--fg-muted);
+  font-size: 0.78rem;
+}

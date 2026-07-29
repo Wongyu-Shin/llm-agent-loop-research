@@ -1,22 +1,26 @@
 import {
+  PartBoundary,
+  PersistentConclusion,
   PresenterNotes,
   ProvenanceBadge,
   ResearchDeck,
   ResearchHero,
   StoryScene,
 } from "@/components/self-correction/presentation-shell"
+import { IterationDrum } from "@/components/self-correction/scene-01-iteration-drum"
 import {
-  QuestionFlowLab,
-  RepairDamageLab,
-  ScalingEvidenceExplorer,
+  PaperScopeBand,
   TwoStateTransitionLab,
-} from "@/components/self-correction/paper-visuals"
+} from "@/components/self-correction/scene-02-transition-lab"
+import { RepairDamageLab } from "@/components/self-correction/scene-03-repair-damage-lab"
+import { ScalingEvidenceExplorer } from "@/components/self-correction/scene-04-scaling-evidence"
+import { TheoryToLoopBridge } from "@/components/self-correction/scene-05-theory-bridge"
 import {
   AutoresearchLoopMap,
-  LoopControlWorkbench,
-  LoopPolicyStudio,
-  TheoryToLoopBridge,
-} from "@/components/self-correction/loop-visuals"
+  OfficialExampleStrip,
+} from "@/components/self-correction/scene-06-loop-map"
+import { LoopControlWorkbench } from "@/components/self-correction/scene-07-control-workbench"
+import { LoopPolicyCard } from "@/components/self-correction/scene-08-policy-card"
 
 export const metadata = {
   title: "LLM 자기수정을 위한 확률적 추론 스케일링 이론",
@@ -30,18 +34,22 @@ export const metadata = {
   <StoryScene
     id="scene-01"
     part="paper"
-    eyebrow="Part I · 논문 이해 · 질문"
-    title="다시 생각하면, 언제 더 좋아집니까?"
-    visual={<QuestionFlowLab />}
+    eyebrow="질문"
+    title="논문은 “다시 생각하면 언제 좋아지는가”를 묻는다"
+    visual={<IterationDrum />}
   >
-    <ProvenanceBadge kind="paper">논문 질문</ProvenanceBadge>
+    <ProvenanceBadge kind="paper-definition">논문 질문</ProvenanceBadge>
 
-    같은 모델이 같은 답을 거듭 고친다고 해서 정확도가 늘 오르는 건 아닙니다. 좋아질 수도 있지만, 그대로이거나 오히려 나빠질 수도 있습니다. 논문은 이 차이를 두 흐름으로 나눠서 봅니다. 하나는 오답이 정답으로 들어오는 **복구 유입**이고, 다른 하나는 정답이 오답으로 빠져나가는 **훼손 유출**입니다.
+    같은 모델이 같은 답을 반복해서 수정할 때, 정확도는 왜 상승하기도 하고
+    정체하거나 하락하기도 할까요? 여기서 scaling은 모델을 더 크게 학습하는
+    일이 아니라 추론 시점의 수정 라운드를 늘리는 일입니다. 논문은 오답이
+    정답으로 들어오는 **복구 유입**과 정답이 오답으로 빠져나가는 **훼손
+    유출**을 따로 측정한 뒤, 두 흐름을 하나의 전이식으로 묶어 여러 라운드의
+    정확도 궤적을 설명합니다.
 
-    <div className="scene-callout">
-      <strong>먼저 붙잡을 결론</strong>
-      <span>몇 번 반복했는지만으로는 결과가 좋아질지 알 수 없습니다.</span>
-    </div>
+    <PersistentConclusion badge="paper-definition">
+      반복 횟수만으로는 개선 방향이 결정되지 않는다.
+    </PersistentConclusion>
 
     <PresenterNotes sceneId="scene-01" />
   </StoryScene>
@@ -49,13 +57,23 @@ export const metadata = {
   <StoryScene
     id="scene-02"
     part="paper"
-    eyebrow="Part I · 논문 이해 · 상태 전이"
-    title="두 조건부 전이율로 다음 정확도를 회계합니다"
+    eyebrow="상태 전이"
+    title="두 조건부 확률로 다음 정확도를 회계한다"
     visual={<TwoStateTransitionLab />}
   >
-    <ProvenanceBadge kind="paper">논문 정의 · Eq. 6 재인덱싱</ProvenanceBadge>
+    <ProvenanceBadge kind="paper-definition">Eq. 6 재인덱싱</ProvenanceBadge>
 
-    논문이 직접 다루는 것은 외부 정보 없이 같은 모델이 이전 응답을 다시 살펴보는 intrinsic self-correction입니다. 라운드 $t$의 정답 비율은 $Acc_t$입니다. 현재 정답이 다음에도 정답으로 남을 확률은 $CL_t$, 현재 오답이 정답으로 복구될 확률은 $CS_t$입니다. 이 값들은 모델이 스스로 말한 자신감이나 critique 점수가 아닙니다. 외부 판정이 끝난 뒤 응답 집단에서 계산한 조건부 전이율입니다.
+    논문이 직접 다루는 대상은 외부 정보 없이 같은 모델이 이전 응답을 다시
+    검토하는 intrinsic self-correction입니다.
+
+    <PaperScopeBand />
+
+    라운드 $t$의 정답 비율은 $Acc_t$입니다. 현재 정답이 수정 뒤에도 정답으로
+    남을 조건부 확률이 $CL_t$(정답 보존율), 현재 오답이 정답으로 바뀔 조건부
+    확률이 $CS_t$(오답 복구율)입니다. 원래 명칭은 Confidence Level과 Critique
+    Score이지만, 둘 다 모델이 말로 보고한 자신감이나 critique 품질 점수가
+    아닙니다. 외부 정답 판정이 끝난 뒤 응답 집단에서 계산한 조건부
+    전이율입니다.
 
     <div
       className="scene-formula"
@@ -66,10 +84,9 @@ export const metadata = {
       <span className="scene-equation">$\displaystyle Acc_{t+1} = Acc_t \times CL_t + (1 - Acc_t) \times CS_t$</span>
     </div>
 
-    <div className="scene-callout">
-      <strong>확률 회계</strong>
-      <span>다음 정확도는 살아남은 정답과 새로 복구된 정답의 합입니다.</span>
-    </div>
+    <PersistentConclusion badge="paper-definition">
+      다음 정확도는 살아남은 정답과 새로 복구된 정답의 합이다.
+    </PersistentConclusion>
 
     <PresenterNotes sceneId="scene-02" />
   </StoryScene>
@@ -77,27 +94,34 @@ export const metadata = {
   <StoryScene
     id="scene-03"
     part="paper"
-    eyebrow="Part I · 논문 이해 · 한 라운드의 손익"
-    title="복구 이득이 훼손 손실보다 커야 합니다"
+    eyebrow="한 라운드의 손익"
+    title="복구 이득이 훼손 손실보다 커야 한다"
     visual={<RepairDamageLab />}
   >
-    <ProvenanceBadge kind="paper">논문의 수학적 귀결</ProvenanceBadge>
+    <ProvenanceBadge kind="paper-mathematical-consequence">순변화식</ProvenanceBadge>
 
-    한 라운드에서 정확도가 얼마나 달라지는지는 두 항의 차이로 볼 수 있습니다. $(1 - Acc_t) \times CS_t$는 복구 이득이고, $Acc_t \times (1 - CL_t)$는 훼손 손실입니다. 현재 정확도가 99%이고 $CS_t=0.50$이면 손익분기 $CL_t$는 약 99.49%입니다. 따라서 남은 오답의 절반을 고쳐도 기존 정답을 약 0.51%보다 많이 훼손하면 전체 정확도는 오히려 내려갑니다.
+    한 라운드의 순변화는 복구 이득에서 훼손 손실을 뺀 값입니다. 초기 정확도가
+    높을수록 복구할 오답의 몫은 작아지고 보호해야 할 정답의 몫은 커집니다.
 
     <div
       className="scene-formula"
       role="math"
-      aria-label="정확도의 순변화는 복구 이득에서 훼손 손실을 뺀 값."
+      aria-label="정확도의 순변화는 복구 이득에서 훼손 손실을 뺀 값이며, 이득 조건은 복구 이득이 훼손 손실보다 큰 것."
     >
-      <span className="scene-formula-label">한 라운드의 순변화</span>
       <span className="scene-equation">$\displaystyle Acc_{t+1} - Acc_t = (1 - Acc_t) \times CS_t - Acc_t \times (1 - CL_t)$</span>
+      <span className="scene-equation">$\displaystyle (1 - Acc_t) \times CS_t > Acc_t \times (1 - CL_t)$</span>
     </div>
 
-    <div className="scene-callout">
-      <strong>위험 구조</strong>
-      <span>출발 정확도가 높을수록 작은 훼손률도 큰 비용이 됩니다.</span>
-    </div>
+    현재 정확도가 99%이고 $CS_t = 0.50$인 예에서, 남은 오답은 1%이고 그
+    절반을 복구한 이득은 0.5%포인트이며, 손익분기 $CL_t$는 약 99.49%입니다.
+    기존 정답의 약 0.51%보다 많이 훼손하면 남은 오답의 절반을 복구해도 전체
+    정확도는 내려갑니다. 이 수치는 논문 실험의 측정 결과가 아니라 전이식에
+    값을 넣어 얻은 수학적 예시입니다.
+
+    <PersistentConclusion badge="paper-mathematical-consequence">
+      수정은 CS_t가 높다는 이유만으로 유리하지 않으며, 현재 정확도에 가중된
+      훼손까지 이겨야 한다.
+    </PersistentConclusion>
 
     <PresenterNotes sceneId="scene-03" />
   </StoryScene>
@@ -105,13 +129,19 @@ export const metadata = {
   <StoryScene
     id="scene-04"
     part="paper"
-    eyebrow="Part I · 논문 이해 · 반복 궤적과 근거"
-    title="고정점은 예측 도구이지 보편적 성능 보장이 아닙니다"
+    eyebrow="반복 궤적과 근거"
+    title="고정점은 예측 도구이지 보편적 성능 보장이 아니다"
     visual={<ScalingEvidenceExplorer />}
   >
-    <ProvenanceBadge kind="paper">정지 전이 모형 · 실험 · 비판적 읽기</ProvenanceBadge>
+    <ProvenanceBadge kind="paper-observation">정지 전이 모형 · 실험</ProvenanceBadge>
+    <ProvenanceBadge kind="critical-reading">주장 강도</ProvenanceBadge>
 
-    수렴 궤적을 얻으려면 한 가지 가정이 필요합니다. 논문은 $CL_t$와 $CS_t$가 라운드와 무관한 상수 $CL$, $CS$라고 둡니다. 그런 다음 첫 전이에서 $Acc_0$, $CL$, $CS$를 추정해 2회차부터 5회차의 실제 곡선과 비교합니다. 하지만 가능한 모델·데이터셋 조합 전체나 RMSE·R²·신뢰구간은 보고하지 않았습니다. 따라서 이 결과를 모든 최신 agent에 통하는 장기 법칙으로 넓혀서는 안 됩니다.
+    여러 라운드의 닫힌식을 얻으려면 $CL_t$와 $CS_t$가 라운드와 무관한 상수
+    $CL$, $CS$라는 가정이 필요합니다. 논문은 질문마다 5개 응답을 샘플링해
+    5라운드 자기수정을 실행하고, 첫 전이에서 추정한 $Acc_0$, $CL$, $CS$로
+    2~5라운드 궤적을 예측해 실제 곡선과 비교했습니다. 8개 모델과 8개
+    데이터셋을 사용했지만 가능한 64개 조합 전체를 실행하지는 않았고,
+    RMSE·R²·신뢰구간 같은 정량 적합도 지표는 보고하지 않았습니다.
 
     <div
       className="scene-formula scene-formula-grid"
@@ -124,10 +154,15 @@ export const metadata = {
       <span className="scene-equation">$\displaystyle Acc_t = Upp - \alpha^t \times (Upp - Acc_0)$</span>
     </div>
 
-    <div className="scene-callout">
-      <strong>적용 한계</strong>
-      <span>$Upp$는 주어진 데이터·프롬프트·수정 절차가 만드는 점근적 고정점입니다. 빨리 수렴한다고 해서 정확도가 높다는 뜻은 아닙니다.</span>
-    </div>
+    $Upp$는 모델의 절대 능력 상한이 아니라 특정 데이터·프롬프트·수정 절차가
+    만드는 점근적 고정점입니다. $CL=1$, $CS=0$이면 분모가 0이어서 단일
+    고정점 공식을 적용하지 않고, 빠르게 수렴하는 것과 높은 정확도로 수렴하는
+    것은 같은 말이 아닙니다.
+
+    <PersistentConclusion badge="critical-reading">
+      논문은 제한된 intrinsic self-correction에서 유용한 최소 모형을 보였지만,
+      모든 최신 Agent가 같은 고정 곡선을 따른다고 입증하지 않았다.
+    </PersistentConclusion>
 
     <PresenterNotes sceneId="scene-04" />
   </StoryScene>
@@ -135,18 +170,24 @@ export const metadata = {
   <StoryScene
     id="scene-05"
     part="bridge"
-    eyebrow="전환 · 적용 경계"
-    title="고정 곡선이 아니라 복구와 훼손을 묻는 습관을 옮깁니다"
+    eyebrow="적용 경계"
+    title="고정 곡선이 아니라 복구와 훼손을 묻는 습관을 옮긴다"
     visual={<TheoryToLoopBridge />}
+    boundary={<PartBoundary />}
   >
-    <ProvenanceBadge kind="interpretation">여기부터 엔지니어링 적용</ProvenanceBadge>
+    <ProvenanceBadge kind="critical-reading">여기부터 엔지니어링 적용</ProvenanceBadge>
 
-    논문이 분석하는 단위는 같은 응답을 다시 고치는 한 라운드입니다. 반면 실무 loop가 다루는 단위는 격리된 artifact experiment입니다. 그러므로 정답·오답을 challenger와 incumbent에 바로 대응시켜서는 안 됩니다. 사례별 pass/fail 기준이 있을 때만 $CL_t$와 $CS_t$를 계산할 수 있습니다. 연속형 metric 하나뿐이라면 metric delta·불확실성·guard·holdout을 직접 비교해야 합니다.
+    논문이 분석하는 단위는 같은 응답을 다시 고치는 한 라운드입니다. 반면 실무
+    loop가 다루는 단위는 격리된 artifact experiment입니다. 그러므로
+    정답·오답을 challenger와 incumbent에 바로 대응시켜서는 안 됩니다. 사례별
+    pass/fail 기준이 있을 때만 $CL_t$와 $CS_t$를 계산할 수 있습니다. 연속형
+    metric 하나뿐이라면 metric delta·불확실성·guard·holdout을 직접 비교해야
+    합니다.
 
-    <div className="scene-callout">
-      <strong>전환 규칙</strong>
-      <span>candidate가 만든 변화와 evidence gate를 통과한 뒤의 system state 변화는 따로 봐야 합니다.</span>
-    </div>
+    <PersistentConclusion badge="critical-reading">
+      candidate가 만든 변화와 evidence gate를 통과한 뒤의 system state 변화를
+      분리한다.
+    </PersistentConclusion>
 
     <PresenterNotes sceneId="scene-05" />
   </StoryScene>
@@ -154,18 +195,28 @@ export const metadata = {
   <StoryScene
     id="scene-06"
     part="practice"
-    eyebrow="Part II · Autoresearch 적용 · 구조"
-    title="무엇을 고정하고, 무엇을 바꾸며, 누가 채택합니까?"
+    eyebrow="구조"
+    title="무엇을 고정하고, 무엇을 바꾸며, 누가 채택하는가"
     visual={<AutoresearchLoopMap />}
   >
-    <ProvenanceBadge kind="official">공식 Autoresearch 사례 + 엔지니어링 일반화</ProvenanceBadge>
+    <ProvenanceBadge kind="official-autoresearch-example">공식 사례</ProvenanceBadge>
+    <ProvenanceBadge kind="engineering-transfer">일반화</ProvenanceBadge>
 
-    공식 Autoresearch 예시에서는 `prepare.py`의 data·runtime utility·evaluator를 고정하고 `train.py` 하나만 바꿉니다. startup·compile을 제외한 5분 학습 뒤에는 낮을수록 좋은 `val_bpb`로 challenger를 비교합니다. 이 구조를 실무로 넓히려면 research contract, incumbent, isolated challenger, raw observation, verdict, append-only experiment ledger, derived memory를 별도 객체로 분리해 둬야 합니다. 그리고 KEEP 판정을 받은 challenger만 다음 incumbent가 되게 합니다.
+    아래 표는 공식 README와 `program.md`가 직접 명시한 기본 사례입니다.
 
-    <div className="scene-callout">
-      <strong>실험 단위</strong>
-      <span>Autoresearch형 loop의 한 번은 생각 한 번을 뜻하지 않습니다. 고정된 계약 아래 실행하고 되돌릴 수 있는 실험 한 건입니다.</span>
-    </div>
+    <OfficialExampleStrip />
+
+    이 구조를 실무로 넓히려면 research contract, incumbent, isolated
+    challenger, raw observation, verdict, append-only experiment ledger,
+    derived memory를 별도 객체로 분리해 둬야 합니다. 공식 에이전트 지침
+    문서(`program.md`)는 proposal policy이고 `results.tsv`는 raw ledger이므로
+    둘을 압축된 derived memory와 동일시하지 않습니다. 그리고 KEEP 판정을 받은
+    challenger만 다음 incumbent가 되게 합니다.
+
+    <PersistentConclusion badge="engineering-transfer">
+      Autoresearch형 loop의 단위는 생각 한 번이 아니라 고정된 계약 아래
+      실행하고 되돌릴 수 있는 실험 한 건이다.
+    </PersistentConclusion>
 
     <PresenterNotes sceneId="scene-06" />
   </StoryScene>
@@ -173,18 +224,24 @@ export const metadata = {
   <StoryScene
     id="scene-07"
     part="practice"
-    eyebrow="Part II · Autoresearch 적용 · 통제"
-    title="KEEP·DISCARD·CRASH 뒤에 무엇이 실제로 바뀝니까?"
+    eyebrow="통제"
+    title="KEEP·DISCARD·CRASH 뒤에 무엇이 실제로 바뀌는가"
     visual={<LoopControlWorkbench />}
   >
-    <ProvenanceBadge kind="practice">실무 권고 · replay, diagnose, stop</ProvenanceBadge>
+    <ProvenanceBadge kind="engineering-transfer">replay · diagnose · stop</ProvenanceBadge>
 
-    KEEP이면 challenger와 incumbent가 함께 전진합니다. DISCARD나 CRASH이면 incumbent는 그대로 두고 실패 증거만 ledger에 추가합니다. 이 구분을 먼저 지켜야 합니다. 그런 다음 proposer·executor·evaluator·controller의 경계를 나눠서 진단합니다. 한 trial의 timeout과 전체 campaign의 성공·안전·cycle·plateau·예산·human gate 종료도 서로 다른 시계로 관리해야 합니다. 그래야 마지막 candidate가 아니라 검증된 best-so-far를 반환할 수 있습니다.
+    KEEP이면 challenger와 incumbent가 함께 전진합니다. DISCARD나 CRASH이면
+    incumbent는 그대로 두고 실패 증거만 ledger에 추가합니다. 이 구분을 먼저
+    지켜야 합니다. 그런 다음 proposer·executor·evaluator·controller의 경계를
+    나눠서 진단합니다. 한 trial의 timeout과 전체 campaign의
+    성공·안전·cycle·plateau·예산·human gate 종료도 서로 다른 시계로 관리해야
+    합니다. 그래야 마지막 candidate가 아니라 검증된 best-so-far를 반환할 수
+    있습니다.
 
-    <div className="scene-callout">
-      <strong>시스템 보존</strong>
-      <span>candidate가 실패하면 ledger는 바뀝니다. 하지만 gate를 통과하기 전에는 incumbent를 후퇴시키지 않습니다.</span>
-    </div>
+    <PersistentConclusion badge="engineering-transfer">
+      candidate의 실패는 ledger를 바꾸지만, gate를 통과하기 전에는 incumbent를
+      후퇴시키지 않는다.
+    </PersistentConclusion>
 
     <PresenterNotes sceneId="scene-07" />
   </StoryScene>
@@ -192,18 +249,22 @@ export const metadata = {
   <StoryScene
     id="scene-08"
     part="practice"
-    eyebrow="Part II · Autoresearch 적용 · 정책"
-    title="목표·변경·증거·채택·기억·중단을 한 장에 씁니다"
-    visual={<LoopPolicyStudio />}
+    eyebrow="정책"
+    title="목표·변경·증거·채택·기억·중단을 한 장에 쓴다"
+    visual={<LoopPolicyCard />}
   >
-    <ProvenanceBadge kind="synthetic">편집 가능한 synthetic policy</ProvenanceBadge>
+    <ProvenanceBadge kind="synthetic-example">synthetic policy</ProvenanceBadge>
 
-    loop policy를 쓸 때는 실제 goal과 proxy metric, mutable artifact와 frozen harness, trial budget과 campaign budget, raw observation과 score, experiment ledger와 derived memory를 각각 분리합니다. 여기에 KEEP·DISCARD·CRASH·rollback, 구조화된 stop reason, 고위험 external action의 human gate를 명시합니다. 이 구성을 갖추면 복구 이득과 훼손 손실이라는 논문의 렌즈를 실무의 보수적인 acceptance policy로 옮길 수 있습니다.
+    loop policy를 쓸 때는 실제 goal과 proxy metric, mutable artifact와 frozen
+    harness, trial budget과 campaign budget, raw observation과 score,
+    experiment ledger와 derived memory를 각각 분리합니다. 여기에
+    KEEP·DISCARD·CRASH·rollback, 구조화된 stop reason, 고위험 external
+    action의 human gate를 명시합니다.
 
     <ol className="scene-final-takeaways">
-      <li>논문은 반복 횟수보다 정답 보존과 오답 복구의 균형을 먼저 보게 합니다.</li>
-      <li>실무에 적용할 때는 candidate의 전이와 system-after-gate의 전이를 따로 봐야 합니다.</li>
-      <li>좋은 agent loop는 많이 고치는 시스템이 아닙니다. 증거 없는 변경을 채택하지 않는 시스템입니다.</li>
+      <li>논문은 반복 횟수보다 정답 보존과 오답 복구의 균형을 보게 한다.</li>
+      <li>적용할 때는 candidate의 전이와 system-after-gate의 전이를 분리한다.</li>
+      <li>좋은 agent loop는 많이 고치는 시스템이 아니라 증거 없는 변경을 채택하지 않는 시스템이다.</li>
     </ol>
 
     <PresenterNotes sceneId="scene-08" />

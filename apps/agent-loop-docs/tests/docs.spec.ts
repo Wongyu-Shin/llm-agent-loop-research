@@ -233,7 +233,7 @@ test("자기수정 deck은 논문에서 실무 loop까지 8개 인터랙티브 S
   expect(renderedText).not.toMatch(
     /(^|[\s([{:])(R|I_t|C_t|L_t|M_t|O_t|V_t)(?=$|[\s)\]},.:])/m,
   );
-  await expect(deck.locator(".scene-formula .katex")).toHaveCount(8);
+  await expect(deck.locator(".scene-formula .katex")).toHaveCount(9);
   const svgText = (await deck.locator("svg").allTextContents()).join(" ");
   expect(svgText).toContain("Accₜ");
   expect(svgText).toContain("CLₜ");
@@ -244,131 +244,209 @@ test("자기수정 deck은 논문에서 실무 loop까지 8개 인터랙티브 S
   expect(consoleErrors).toEqual([]);
 });
 
-test("첫 장면은 포텐셔미터와 3D 원기둥으로 iteration의 개선·정체·악화를 재생한다", async ({
+test("첫 장면 네온 드럼은 회전으로 iteration을 진행하고 페이더가 조건을 바꾼다", async ({
   page,
 }) => {
   await page.goto("/self-correction-scaling/");
-  const lab = page
-    .locator("[data-scene-id='scene-01'] .lab")
-    .filter({
-      hasText:
-        "iteration이 늘어날 때 정답과 오답의 비중은 어떻게 바뀝니까?",
-    });
-  const svg = lab.locator("svg[data-easing='ease-in']");
-  const rows = svg.locator("[data-question-iteration]");
+  const scene = page.locator("[data-scene-id='scene-01']");
+  const drum = scene.locator("[data-iteration-drum]");
+  const lab = scene.locator(".lab");
+  const svg = lab.locator(".lab-stage svg[role='group']");
 
   await expect(svg).toBeVisible();
-  await expect(rows).toHaveCount(5);
-  await expect(
-    svg.locator("[data-question-iteration][data-phase='current']"),
-  ).toHaveCount(1);
-  await expect(
-    svg.locator("[data-question-iteration][data-phase='future']"),
-  ).toHaveCount(4);
-  const futureSilhouette = svg
-    .locator("[data-question-iteration][data-phase='future']")
-    .first()
-    .locator("[class*='futureCylinder']");
-  await expect(futureSilhouette).toBeVisible();
-  expect(
-    await futureSilhouette.evaluate(
-      (element) => getComputedStyle(element).strokeDasharray,
-    ),
-  ).not.toBe("none");
-
-  await lab.scrollIntoViewIfNeeded();
-  await expect(rows.last()).toHaveAttribute("data-phase", "current", {
-    timeout: 9_000,
-  });
-  await expect(
-    svg.locator("[data-question-iteration][data-phase='past']"),
-  ).toHaveCount(4);
-
-  const damageKnob = lab.getByRole("slider", { name: "정답 훼손률" });
-  await damageKnob.press("End");
-  await expect(damageKnob).toHaveValue("18");
-  await expect(lab.locator("[data-question-pattern='악화']")).toBeVisible();
-  await expect(lab.locator(".lab-statusbar")).toContainText("18% · 악화");
-  const decreasing = await rows.evaluateAll((iterationRows) =>
-    iterationRows.map((row) => Number((row as SVGGElement).dataset.correct)),
-  );
-  expect(
-    decreasing.slice(1).every((value, index) => value < decreasing[index]),
-  ).toBe(true);
-
-  const geometry = await rows.evaluateAll((iterationRows) =>
-    iterationRows.map((row) => {
-        const correct = Number((row as SVGGElement).dataset.correct);
-        const incorrect = Number((row as SVGGElement).dataset.incorrect);
-        return correct + incorrect;
-      }),
-  );
-  expect(geometry.every((total) => Math.abs(total - 1) < 0.000001)).toBe(true);
-  const easing = await rows
-    .first()
-    .evaluate((row) => {
-      const segment = row.querySelector<SVGRectElement>(
-        "[class*='correctSegment']",
-      );
-      return {
-        row: getComputedStyle(row).animationTimingFunction,
-        segment: segment
-          ? getComputedStyle(segment).transitionTimingFunction
-          : "",
-      };
-    });
-  expect(easing.row).toBe("ease-in");
-  expect(easing.segment).toContain("ease-in");
   await expect(svg.locator("filter feGaussianBlur")).toHaveCount(3);
   await expect(
-    svg
-      .locator("[data-question-iteration][data-phase='current']")
-      .locator("[class*='__correctSegment']"),
-  ).toHaveAttribute("filter", /neon-glow/);
+    svg.locator("[data-bar-state='future']").first(),
+  ).toBeVisible();
+  await expect(svg.locator("[data-bar-state='front']")).toHaveCount(1);
 
-  await lab.locator("[data-visual-fallback]").click();
-  await expect(lab.locator("[data-visual-fallback]")).toContainText(
-    "설명용 합성 trace",
+  await lab.scrollIntoViewIfNeeded();
+  await expect(drum).toHaveAttribute("data-spinning", "true");
+  const startIteration = Number(
+    await drum.getAttribute("data-front-iteration"),
   );
-  await expect(lab.locator("[data-visual-fallback] tbody tr")).toHaveCount(5);
+  await expect
+    .poll(
+      async () => Number(await drum.getAttribute("data-front-iteration")),
+      { timeout: 20_000 },
+    )
+    .toBeGreaterThan(startIteration);
+
+  const fader = lab.getByRole("slider", { name: "복구 비율 CSₜ" });
+  await fader.press("Home");
+  await expect(drum).toHaveAttribute("data-condition", "훼손");
+  await expect(lab.locator(".lab-statusbar")).toContainText("훼손");
+  await fader.press("End");
+  await expect(drum).toHaveAttribute("data-condition", "개선");
+  await expect(lab.locator(".lab-statusbar")).toContainText("개선");
+
+  const fallback = lab.locator("[data-visual-fallback]");
+  await expect(fallback.locator("[data-drum-table] caption")).toContainText(
+    "조건",
+  );
+  await expect(
+    fallback.locator("[data-drum-table] tbody tr").first(),
+  ).toBeVisible();
 });
 
-test("자기수정 deck의 수식과 loop policy는 조작 결과를 SVG와 DOM에 함께 반영한다", async ({ page }) => {
+test("전이 lab은 100개 점을 네 셀로 회계하고 population을 바꿔도 확률을 유지한다", async ({
+  page,
+}) => {
   await page.goto("/self-correction-scaling/");
+  const lab = page.locator("[data-scene-id='scene-02'] .lab");
+  const fallback = lab.locator("[data-visual-fallback]");
 
-  const transitionLab = page
-    .locator("[data-scene-id='scene-02'] .lab")
-    .filter({ hasText: "두 상태 전이를 확률 질량으로 회계합니다" });
-  const accuracy = transitionLab.getByLabel("현재 정확도 Accₜ");
+  await expect(lab.locator(".lab-stage svg circle")).toHaveCount(100);
+
+  const rows = fallback.locator("tbody tr");
+  await expect(rows).toHaveCount(4);
+  await expect(rows.nth(0)).toContainText("63");
+  await expect(rows.nth(2)).toContainText("12");
+
+  await lab.getByRole("button", { name: "1,000" }).click();
+  await expect(fallback.locator("caption")).toContainText("1000개");
+  await expect(rows.nth(0)).toContainText("630");
+  await expect(rows.nth(0)).toContainText("63.00%");
+
+  const accuracy = lab.getByLabel("Accₜ · 현재 정확도");
   await accuracy.press("Home");
   await expect(accuracy).toHaveValue("0");
-  await expect(transitionLab.locator(".lab-statusbar")).toContainText("40.00%");
-  await expect(transitionLab.locator("[data-visual-fallback]")).toContainText("40");
+  await expect(lab.locator(".lab-statusbar")).toContainText("40.00%");
+  await expect(fallback.locator("[data-committed-summary]")).toContainText(
+    "40.00%",
+  );
+});
 
-  const damageLab = page
-    .locator("[data-scene-id='scene-03'] .lab")
-    .filter({ hasText: "복구 이득과 훼손 손실의 손익분기를 찾습니다" });
-  await damageLab.getByRole("button", { name: "99% 정확도" }).click();
-  await expect(damageLab.getByLabel("현재 정확도 Accₜ")).toHaveValue("0.99");
-  await expect(damageLab.locator("[data-visual-fallback]")).toContainText(
-    "99.4949%",
+test("손익 lab은 99% preset에서 손익분기 CLₜ를 계산하고 훼손 preset은 HARMFUL로 판정한다", async ({
+  page,
+}) => {
+  await page.goto("/self-correction-scaling/");
+  const lab = page.locator("[data-scene-id='scene-03'] .lab");
+  const fallback = lab.locator("[data-visual-fallback]");
+
+  await lab.getByRole("button", { name: "99% 정확도" }).click();
+  await expect(lab.getByLabel("Accₜ · 현재 정확도")).toHaveValue("0.99");
+  await lab.getByRole("button", { name: "손익분기 CLₜ 계산" }).click();
+  await expect(fallback.locator("[data-break-even-output]")).toContainText(
+    "99.49",
+  );
+  await expect(fallback).toContainText("0.994949");
+  await expect(lab.locator(".lab-statusbar")).toContainText("BREAK-EVEN");
+
+  await lab.getByRole("button", { name: "복구보다 훼손이 큰 사례" }).click();
+  await expect(fallback).toContainText("HARMFUL");
+  await expect(lab.locator(".lab-statusbar")).toContainText("HARMFUL");
+});
+
+test("궤적 explorer는 세 view를 전환하며 6라운드 × 3곡선 표를 제공한다", async ({
+  page,
+}) => {
+  await page.goto("/self-correction-scaling/");
+  const lab = page.locator("[data-scene-id='scene-04'] .lab");
+  const fallback = lab.locator("[data-visual-fallback]");
+
+  await expect(
+    fallback.locator("[data-trajectory-table] tbody tr"),
+  ).toHaveCount(6);
+  await expect(fallback.locator("[data-trajectory-table] caption")).toContainText(
+    "Upp",
   );
 
-  const workbench = page
-    .locator("[data-scene-id='scene-07'] .lab")
-    .filter({ hasText: "같은 ledger로 replay, diagnose, stop을 전환하는 control workbench" });
-  await workbench.getByRole("button", { name: "Stop" }).click();
-  await expect(workbench.locator("[data-visual-fallback]")).toContainText(
-    /PLATEAU|중단/,
+  await lab.getByRole("button", { name: "claim-boundary" }).click();
+  await expect(lab.locator(".lab-stage svg")).toContainText("아직 미검증");
+
+  await lab.getByRole("button", { name: "experiment" }).click();
+  await expect(lab.locator(".lab-stage svg")).toContainText("2~5라운드");
+  await expect(fallback.locator("[data-experiment-table]")).toContainText(
+    "64개 조합 전체는 아님",
+  );
+});
+
+test("loop map은 lens 전환과 상태 객체 선택으로 owner·rollback 속성을 보여 준다", async ({
+  page,
+}) => {
+  await page.goto("/self-correction-scaling/");
+  const lab = page.locator("[data-scene-id='scene-06'] .lab");
+  const fallback = lab.locator("[data-visual-fallback]");
+
+  await expect(
+    page.locator("[data-official-example-strip] dl > div"),
+  ).toHaveCount(10);
+  await expect(fallback.locator("ol li")).toHaveCount(7);
+
+  await lab.getByRole("button", { name: "memory" }).click();
+  await expect(
+    page.locator("[data-scene-id='scene-06'] [data-loop-map]"),
+  ).toHaveAttribute("data-lens", "memory");
+
+  await lab.getByRole("button", { name: "Experiment ledger 속성 보기" }).click();
+  await expect(fallback.locator("[data-object-detail]")).toContainText(
+    "append-only",
+  );
+});
+
+test("control workbench는 replay ledger·전이 비교·stop reason을 한 reducer에서 파생한다", async ({
+  page,
+}) => {
+  await page.goto("/self-correction-scaling/");
+  const lab = page.locator("[data-scene-id='scene-07'] .lab");
+  const fallback = lab.locator("[data-visual-fallback]");
+
+  await lab.getByRole("tab", { name: "replay" }).click();
+  const rows = fallback.locator("[data-ledger-table] tbody tr");
+  await expect(rows).toHaveCount(4);
+  await expect(rows.nth(3)).toContainText("측정 없음");
+  await expect(rows.nth(3)).toContainText("b2c3d4e");
+  const tableText =
+    (await fallback.locator("[data-ledger-table]").textContent()) ?? "";
+  expect(tableText).not.toContain("0.000000");
+  await expect(fallback.locator("[data-raw-drawer] pre")).toContainText(
+    "0.000000",
   );
 
-  const policy = page
-    .locator("[data-scene-id='scene-08'] .lab")
-    .filter({ hasText: "목표·변경·증거·채택·기억·중단을 한 장에 고정하는 policy studio" });
-  await policy.getByRole("button", { name: /Synthetic|예시/ }).click();
-  await expect(policy.locator("[data-visual-fallback]")).toContainText(
-    "checkout",
+  await lab.getByRole("tab", { name: "diagnose" }).click();
+  await expect(fallback.locator("[data-transition-compare]")).toContainText(
+    "incumbent 보호됨",
   );
+  await lab.getByRole("button", { name: "연속형 scalar" }).click();
+  await expect(fallback.locator("[data-scalar-disabled]")).toContainText(
+    "CLₜ/CSₜ 표를 비활성화",
+  );
+
+  await lab.getByRole("tab", { name: "stop" }).click();
+  await expect(lab.locator(".lab-statusbar")).toContainText("계속 실행");
+  const plateau = lab.getByRole("slider", { name: /plateau/ });
+  await plateau.press("End");
+  await expect(lab.locator(".lab-statusbar")).toContainText("PLATEAU");
+  await expect(fallback.locator("[data-stop-summary]")).toContainText(
+    "PLATEAU",
+  );
+  await lab.getByRole("button", { name: "safety violation" }).click();
+  await expect(lab.locator(".lab-statusbar")).toContainText(
+    "SAFETY_VIOLATION",
+  );
+});
+
+test("policy card는 blank와 synthetic 탭을 전환하고 YAML 복사 토스트를 띄운다", async ({
+  page,
+}) => {
+  await page.goto("/self-correction-scaling/");
+  const lab = page.locator("[data-scene-id='scene-08'] .lab");
+  const fallback = lab.locator("[data-visual-fallback]");
+
+  await lab.getByRole("tab", { name: "synthetic 예시" }).click();
+  await expect(fallback.locator("[data-policy-yaml]")).toContainText(
+    "checkout_success_rate",
+  );
+  await expect(fallback.locator("[data-final-takeaways] li")).toHaveCount(3);
+
+  await lab.getByRole("tab", { name: "blank" }).click();
+  await expect(fallback.locator("[data-policy-yaml]")).toContainText(
+    "success_predicate:",
+  );
+
+  await lab.getByRole("button", { name: "YAML 복사" }).click();
+  await expect(lab.locator("[data-copy-toast]")).toContainText("복사됨");
 });
 
 test("자기수정 deck은 390px viewport에서 가로로 새지 않는다", async ({ page }) => {
@@ -410,35 +488,40 @@ test("자기수정 deck은 390px viewport에서 가로로 새지 않는다", asy
 test("자기수정 시각화는 viewport 진입 뒤 재생하고 모션 축소에서는 수동 단계만 남긴다", async ({ page }) => {
   await page.goto("/self-correction-scaling/");
 
-  const policy = page
-    .locator("[data-scene-id='scene-08'] .lab")
-    .filter({ hasText: "목표·변경·증거·채택·기억·중단을 한 장에 고정하는 policy studio" });
+  const policyScene = page.locator("[data-scene-id='scene-08']");
+  const policy = policyScene.locator(".lab");
+  const policyRoot = policyScene.locator("[data-policy-card]");
   await expect(policy).toContainText("BLANK CONTRACT");
+  await expect(policy).toContainText("대기 중");
   await page.waitForTimeout(1_500);
-  await expect(policy).toContainText("BLANK CONTRACT");
+  await expect(policy).toContainText("대기 중");
   await policy.scrollIntoViewIfNeeded();
-  await expect(policy).toContainText("SYNTHETIC CHECKOUT POLICY", {
-    timeout: 5_000,
+  await expect(policy).not.toContainText("대기 중", { timeout: 5_000 });
+  await expect(policyRoot).toHaveAttribute("data-tab", "synthetic", {
+    timeout: 32_000,
   });
+  await expect(policy).toContainText("SYNTHETIC CHECKOUT POLICY");
 
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.reload();
-  const paperPlay = page
-    .locator("[data-scene-id='scene-01'] .lab")
-    .getByRole("button", {
-      name: "모션 감소 설정으로 자동 재생을 사용할 수 없습니다",
-    });
-  await expect(paperPlay).toBeDisabled();
+  const drumLab = page.locator("[data-scene-id='scene-01'] .lab");
+  const drum = page.locator("[data-scene-id='scene-01'] [data-iteration-drum]");
+  await drumLab.scrollIntoViewIfNeeded();
+  await expect(drum).toHaveAttribute("data-spinning", "false");
+  await expect(drumLab).toContainText("모션 감소 설정으로 회전을 정지했습니다");
+  const staticFader = drumLab.getByRole("slider", { name: "복구 비율 CSₜ" });
+  await staticFader.press("Home");
+  await expect(drum).toHaveAttribute("data-condition", "훼손");
 
   const bridge = page.locator("[data-scene-id='scene-05'] .lab");
   await bridge.scrollIntoViewIfNeeded();
   await expect(
-    bridge.getByRole("button", {
-      name: "동작 줄이기 설정에서는 자동 재생을 사용할 수 없음",
-    }),
+    bridge.getByRole("button", { name: "재생", exact: true }),
   ).toBeDisabled();
   await expect(bridge.getByRole("button", { name: "이전 단계" })).toBeEnabled();
-  await expect(bridge.getByRole("button", { name: "다음 단계" })).toBeDisabled();
+  await expect(
+    page.locator("[data-scene-id='scene-05'] [data-theory-bridge]"),
+  ).toHaveAttribute("data-stage", "warning");
 });
 
 test("자기수정 발표 모드는 발표자 노트를 새 창에 열고 읽기 복귀 시 닫는다", async ({

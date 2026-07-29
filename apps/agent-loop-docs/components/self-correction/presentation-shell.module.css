@@ -273,6 +273,48 @@
   gap: 4px;
 }
 
+.railGroup {
+  display: flex;
+  min-width: 0;
+  align-items: stretch;
+  gap: 7px;
+}
+
+.railGroup + .railGroup {
+  border-left: 1px solid var(--deck-line);
+  padding-left: 7px;
+}
+
+.railGroupLabel {
+  align-self: center;
+  color: var(--deck-text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  font-weight: 730;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+}
+
+.railGroup[data-part-group="paper"] .railGroupLabel {
+  color: var(--deck-paper);
+}
+
+.railGroup[data-part-group="bridge"] .railGroupLabel {
+  color: var(--deck-bridge);
+}
+
+.railGroup[data-part-group="practice"] .railGroupLabel {
+  color: var(--deck-practice);
+}
+
+.railGroupScenes {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+  align-items: stretch;
+  gap: 4px;
+}
+
 .sceneRail button {
   position: relative;
   min-width: 28px;
@@ -282,6 +324,14 @@
   background: transparent;
   color: var(--deck-text-muted);
   opacity: 0.58;
+}
+
+.sceneRail button[data-state="done"] {
+  opacity: 0.86;
+}
+
+.sceneRail button[data-state="done"]::after {
+  opacity: 0.75;
 }
 
 .sceneRail button::after {
@@ -975,21 +1025,95 @@
   box-shadow: 0 0 10px currentcolor;
 }
 
-.provenanceBadge[data-provenance="paper"] {
+.provenanceLayer {
+  padding-right: 7px;
+  border-right: 1px solid color-mix(in srgb, currentcolor 40%, transparent);
+  opacity: 0.78;
+}
+
+.provenanceBadge[data-provenance="paper-definition"],
+.provenanceBadge[data-provenance="paper-mathematical-consequence"],
+.provenanceBadge[data-provenance="paper-observation"] {
   color: var(--deck-paper);
 }
 
-.provenanceBadge[data-provenance="interpretation"] {
+.provenanceBadge[data-provenance="critical-reading"] {
   color: var(--deck-bridge);
 }
 
-.provenanceBadge[data-provenance="practice"],
-.provenanceBadge[data-provenance="official"] {
+.provenanceBadge[data-provenance="official-autoresearch-example"],
+.provenanceBadge[data-provenance="engineering-transfer"],
+.provenanceBadge[data-provenance="synthetic-example"] {
   color: var(--deck-practice);
 }
 
-.provenanceBadge[data-provenance="synthetic"] {
-  color: var(--deck-practice);
+.persistentConclusion {
+  display: grid;
+  gap: 10px;
+  margin-top: 26px;
+  border: 1px solid var(--deck-line);
+  border-left: 3px solid var(--conclusion-color, var(--deck-paper));
+  border-radius: 12px;
+  background: rgb(255 255 255 / 3%);
+  padding: 16px 18px;
+  justify-items: start;
+}
+
+.persistentConclusionBody,
+.persistentConclusionBody p {
+  margin: 0;
+  color: var(--deck-text);
+  font-size: 1.02rem;
+  font-weight: 640;
+  line-height: 1.62;
+}
+
+.persistentConclusion[data-provenance="paper-definition"],
+.persistentConclusion[data-provenance="paper-mathematical-consequence"],
+.persistentConclusion[data-provenance="paper-observation"] {
+  --conclusion-color: var(--deck-paper);
+}
+
+.persistentConclusion[data-provenance="critical-reading"] {
+  --conclusion-color: var(--deck-bridge);
+}
+
+.persistentConclusion[data-provenance="official-autoresearch-example"],
+.persistentConclusion[data-provenance="engineering-transfer"],
+.persistentConclusion[data-provenance="synthetic-example"] {
+  --conclusion-color: var(--deck-practice);
+}
+
+.partBoundary {
+  display: grid;
+  gap: 6px;
+  margin-bottom: 34px;
+  border: 1px solid color-mix(in srgb, var(--deck-bridge) 42%, transparent);
+  border-radius: 14px;
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--deck-paper) 9%, transparent),
+    color-mix(in srgb, var(--deck-bridge) 14%, transparent) 50%,
+    color-mix(in srgb, var(--deck-practice) 9%, transparent)
+  );
+  padding: 20px 24px;
+}
+
+.partBoundary p {
+  margin: 0;
+  color: var(--deck-text);
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.partBoundary p:first-child {
+  color: var(--deck-paper);
+}
+
+.partBoundary p:last-child {
+  color: var(--deck-bridge);
 }
 
 .presenterNotes {
