@@ -289,30 +289,37 @@ test("첫 장면 네온 드럼은 회전으로 iteration을 진행하고 페이�
   ).toBeVisible();
 });
 
-test("전이 lab은 100개 점을 네 셀로 회계하고 population을 바꿔도 확률을 유지한다", async ({
+test("전이 lab은 네 전이 흐름을 회계하고 화면에 보이는 동안 반복 재생한다", async ({
   page,
 }) => {
   await page.goto("/self-correction-scaling/");
   const lab = page.locator("[data-scene-id='scene-02'] .lab");
+  const root = page.locator("[data-scene-id='scene-02'] [data-transition-lab]");
   const fallback = lab.locator("[data-visual-fallback]");
 
-  await expect(lab.locator(".lab-stage svg circle")).toHaveCount(100);
+  await expect(lab.locator("[data-flow-ribbon]")).toHaveCount(4);
 
   const rows = fallback.locator("tbody tr");
   await expect(rows).toHaveCount(4);
-  await expect(rows.nth(0)).toContainText("63");
-  await expect(rows.nth(2)).toContainText("12");
-
-  await lab.getByRole("button", { name: "1,000" }).click();
-  await expect(fallback.locator("caption")).toContainText("1000개");
-  await expect(rows.nth(0)).toContainText("630");
   await expect(rows.nth(0)).toContainText("63.00%");
+  await expect(rows.nth(2)).toContainText("12.00%");
+
+  await lab.scrollIntoViewIfNeeded();
+  await expect(root).toHaveAttribute("data-stage", "merge", {
+    timeout: 20_000,
+  });
+  await expect(root).toHaveAttribute("data-stage", "sources", {
+    timeout: 20_000,
+  });
+  await expect(root).toHaveAttribute("data-stage", "flow", {
+    timeout: 20_000,
+  });
 
   const accuracy = lab.getByLabel("Accₜ · 현재 정확도");
   await accuracy.press("Home");
   await expect(accuracy).toHaveValue("0");
   await expect(lab.locator(".lab-statusbar")).toContainText("40.00%");
-  await expect(fallback.locator("[data-committed-summary]")).toContainText(
+  await expect(fallback.locator("[data-next-accuracy-summary]")).toContainText(
     "40.00%",
   );
 });

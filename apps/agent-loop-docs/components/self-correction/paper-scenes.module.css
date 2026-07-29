@@ -4,22 +4,6 @@
 
 /* ---------- Scene 1 · IterationDrum ---------- */
 
-/* Kept for Scene 2 source stacks. */
-.stateBoxGood,
-.stateBoxDanger {
-  stroke-width: 1.5;
-}
-
-.stateBoxGood {
-  fill: color-mix(in srgb, var(--viz-correct) 14%, transparent);
-  stroke: color-mix(in srgb, var(--viz-correct) 60%, transparent);
-}
-
-.stateBoxDanger {
-  fill: color-mix(in srgb, var(--viz-incorrect) 12%, transparent);
-  stroke: color-mix(in srgb, var(--viz-incorrect) 55%, transparent);
-}
-
 .silhouetteBar {
   fill: color-mix(in srgb, var(--fg-default) 3%, transparent);
   stroke: color-mix(in srgb, var(--fg-default) 34%, transparent);
@@ -247,124 +231,71 @@
   }
 }
 
-.sourceLabel {
+/* ---------- Scene 2 · TwoStateTransitionLab (전이 흐름 Sankey) ---------- */
+
+.flowBarLabel {
   fill: var(--fg-default);
   font-family: var(--font-mono);
   font-size: 13px;
   font-weight: 700;
 }
 
-.gateRow rect {
-  fill: color-mix(in srgb, var(--fg-default) 7%, transparent);
-  stroke-width: 1.3;
-}
-
-.gateRow text {
-  fill: var(--fg-default);
-  font-family: var(--font-mono);
-  font-size: 12.5px;
-  font-weight: 700;
-}
-
-.gateRow g[data-tone="good"] rect {
-  stroke: color-mix(in srgb, var(--viz-correct) 62%, transparent);
-}
-
-.gateRow g[data-tone="danger"] rect {
-  stroke: color-mix(in srgb, var(--viz-incorrect) 55%, transparent);
-}
-
-.gateRow g[data-tone="muted"] rect {
-  stroke: color-mix(in srgb, var(--fg-default) 30%, transparent);
-}
-
-.transitionCell rect {
-  fill: color-mix(in srgb, var(--fg-default) 4%, transparent);
-  stroke-width: 1.4;
-  transition: stroke 0.6s ease, fill 0.6s ease;
-}
-
-.transitionCell[data-tone="good"] rect {
-  stroke: color-mix(in srgb, var(--viz-correct) 55%, transparent);
-}
-
-.transitionCell[data-tone="danger"] rect {
-  stroke: color-mix(in srgb, var(--viz-incorrect) 50%, transparent);
-}
-
-.transitionCell[data-tone="muted"] rect {
-  stroke: color-mix(in srgb, var(--fg-default) 26%, transparent);
-}
-
-.transitionCell[data-merged="true"] rect {
-  fill: color-mix(in srgb, var(--viz-correct) 16%, transparent);
-  stroke: var(--viz-correct);
-}
-
-.cellLabel {
-  fill: var(--fg-default);
-  font-size: 12.5px;
-  font-weight: 700;
-}
-
-.cellValue {
+.flowBarSub {
   fill: var(--fg-muted);
   font-family: var(--font-mono);
-  font-size: 12px;
-  font-weight: 680;
+  font-size: 11.5px;
+  font-weight: 640;
 }
 
-.transitionDot {
-  transition: transform 1.6s cubic-bezier(0.45, 0, 0.2, 1);
+/* 아직 흐름이 지나가지 않은 리본 경로 — Scene 1의 미도달 실루엣 언어. */
+.flowSilhouette {
+  fill: color-mix(in srgb, var(--fg-default) 2%, transparent);
+  stroke: color-mix(in srgb, var(--fg-default) 22%, transparent);
+  stroke-dasharray: 5 6;
+  stroke-width: 1.1;
 }
 
-.transitionDot[data-outcome="good"] {
-  fill: var(--viz-correct);
-}
-
-.transitionDot[data-outcome="danger"] {
-  fill: var(--viz-incorrect);
-}
-
-.transitionDot[data-outcome="muted"] {
-  fill: color-mix(in srgb, var(--fg-default) 38%, transparent);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .transitionDot,
-  .transitionCell rect {
-    transition: none;
-  }
-}
-
-.mergeGroup {
-  opacity: 0;
-  transition: opacity 0.9s ease;
-}
-
-.mergeGroup[data-visible="true"] {
-  opacity: 1;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .mergeGroup {
-    transition: none;
-  }
-}
-
-.mergeLabel {
+.flowGate text {
   fill: var(--fg-default);
   font-family: var(--font-mono);
-  font-size: 14px;
+  font-size: 11.5px;
+  font-weight: 700;
+  paint-order: stroke;
+  stroke: var(--bg-canvas);
+  stroke-width: 5px;
+  stroke-linejoin: round;
+}
+
+.flowBracketLabel {
+  fill: var(--fg-default);
+  font-family: var(--font-mono);
+  font-size: 13.5px;
+  font-weight: 730;
+  paint-order: stroke;
+  stroke: var(--bg-canvas);
+  stroke-width: 5px;
+  stroke-linejoin: round;
+}
+
+.flowAnnotationLabel {
+  fill: var(--fg-muted);
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+}
+
+.flowAnnotationValue {
+  fill: var(--fg-default);
+  font-family: var(--font-mono);
+  font-size: 12.5px;
   font-weight: 730;
 }
 
-.mergeTrack {
-  fill: color-mix(in srgb, var(--fg-default) 8%, transparent);
+.flowAnnotation[data-tone="good"] .flowAnnotationValue {
+  fill: var(--viz-correct);
 }
 
-.mergeFill {
-  fill: color-mix(in srgb, var(--viz-correct) 70%, transparent);
+.flowAnnotation[data-tone="danger"] .flowAnnotationValue {
+  fill: var(--viz-incorrect);
 }
 
 .transitionTable {
@@ -396,12 +327,6 @@
 
 .transitionTable tr[data-transition="damaged"] td:nth-child(2) {
   color: var(--viz-incorrect);
-}
-
-.matrixHint {
-  margin: 10px 0 0;
-  color: var(--fg-muted);
-  font-size: 0.8rem;
 }
 
 /* ---------- Scene 3 · RepairDamageLab ---------- */
