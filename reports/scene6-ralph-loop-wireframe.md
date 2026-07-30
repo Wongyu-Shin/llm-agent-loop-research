@@ -98,16 +98,25 @@ status: believed 12/12 "COMPLETE 선언" · actual 7/12
 ```
 
 - **좌측 loop ring**: 상시 회전하는 네온 dash(Scene 1·2 문법). PROMPT.md → agent →
-  working tree 순환. 매 바퀴가 우측 궤적의 iteration 한 칸과 대응.
+  working tree 순환. **ring과 궤적은 하나의 progress 클록(0..12 바퀴)을 공유한다** —
+  커서가 ring을 한 바퀴 돌 때마다 궤적이 iteration 한 칸 자라고, ring 중앙 카운터가
+  `n / 12`로 함께 오르며, 후퇴로 이어지는 바퀴에서는 커서가 소등된다.
+- **backpressure 검문소**: ring의 귀환 경로(working tree → PROMPT.md)에 `test`
+  검문소를 상주시킨다. `없음` 모드에서는 소등 점선 실루엣("없음"), `test` 모드에서는
+  점등("부분 verifier")되고, 훼손을 잡은 바퀴(`blocked`)에는 강조 점멸한다. 같은
+  바퀴의 궤적 위에도 `차단` 마크가 함께 표시되어 토글의 역할이 구조(ring)와
+  결과(궤적) 양쪽에서 읽힌다.
 - **두 곡선**: `believed`(agent 자기 평가, 네온 점등, 매끈히 상승해 12/12에서 COMPLETE
   선언)와 `actual`(실제 충족 수, 들쭉날쭉). 후퇴 이벤트에서는 이미 점등된 요구사항 점이
   **소등 실루엣으로 전환** — 훼손이 그대로 채택되는 순간의 시각화.
 - **천장 점선(Upp)**: `actual` 곡선이 정체하는 높이에 명시 표기 — Scene 5의 천장 선이
   실무 궤적 위에 재등장. `test` 모드에서 천장 선이 올라간다.
 - **backpressure 토글 2단** (완전 gate는 의도적으로 없음 — 이 장의 요지):
-  - `없음`: 괴리 최대(believed 12/12 vs actual 7/12), 후퇴 2회.
-  - `test`: actual 천장 상승(10/12), 괴리 축소, 그러나 test가 못 보는 훼손으로 후퇴 1회
-    잔존. 곡선은 crossfade로 연속 전환.
+  - `없음`: 괴리 최대(believed 12/12 vs actual 7/12), 후퇴 2회, 차단 0회.
+  - `test`: actual 천장 상승(10/12), 괴리 축소, 차단 2회(iteration 4·11), 그러나
+    test가 못 보는 훼손으로 후퇴 1회 잔존.
+  - 토글하면 캠페인을 처음부터 빠르게(3.6초) 다시 재생한다 — 곡선 crossfade와 함께
+    ring 커서·검문소가 새 모드의 바퀴를 다시 돈다.
 - 요구사항 총수 12는 Scene 7 fixture(`CRITERION_TRANSITION_EXAMPLE.totalCriteria = 12`)와
   일치. 궤적 수치는 synthetic 예시값(측정 아님).
 
@@ -116,7 +125,8 @@ status: believed 12/12 "COMPLETE 선언" · actual 7/12
 1. 8초 — loop ring 한 바퀴 강조: 같은 프롬프트 재투입, 파일만 남는 상태.
 2. 12초 — `없음` 모드 궤적 재생: 괴리 음영 확장 + 후퇴 2회(소등 전환).
 3. 4초 — COMPLETE 선언 vs actual 7/12 대비 정지.
-4. 12초 — `test` 모드로 crossfade: 천장 상승·괴리 축소, 후퇴 1회 잔존.
+4. 12초 — `test` 모드로 전환: 검문소 점등 후 캠페인 재재생 — 천장 상승·괴리 축소,
+   차단 2회 표시, 후퇴 1회 잔존.
 5. 4초 — 결론 문장 고정 + 다음 장 gate 실루엣이 점선으로 예고.
 
 ## 8. 접근성 DOM 대체

@@ -900,6 +900,8 @@ export type RalphTrajectory = {
   ceiling: number;
   /** actual이 직전보다 낮아지는 iteration — 훼손이 그대로 채택된 바퀴. */
   regressions: readonly number[];
+  /** backpressure(test)가 훼손 시도를 실행 단계에서 잡아낸 바퀴. */
+  blocked: readonly number[];
   /** believed가 12/12에 닿아 COMPLETE를 선언하는 iteration. */
   completeClaimIteration: number | null;
 };
@@ -915,6 +917,7 @@ export const RALPH_TRAJECTORIES: Record<RalphBackpressure, RalphTrajectory> = {
     actual: [0, 2, 3, 4, 3, 5, 6, 7, 5, 6, 7, 7, 7],
     ceiling: 7.4,
     regressions: [4, 8],
+    blocked: [],
     completeClaimIteration: 10,
   },
   test: {
@@ -922,6 +925,7 @@ export const RALPH_TRAJECTORIES: Record<RalphBackpressure, RalphTrajectory> = {
     actual: [0, 2, 4, 5, 6, 7, 8, 7, 8, 9, 10, 10, 10],
     ceiling: 10.4,
     regressions: [7],
+    blocked: [4, 11],
     completeClaimIteration: null,
   },
 };
@@ -939,7 +943,11 @@ export function ralphSummary(mode: RalphBackpressure) {
     trajectory.completeClaimIteration === null
       ? `believed ${believedFinal}/${RALPH_TOTAL_REQUIREMENTS}`
       : `believed ${believedFinal}/${RALPH_TOTAL_REQUIREMENTS} · COMPLETE 선언`;
-  return `${claim} · actual ${actualFinal}/${RALPH_TOTAL_REQUIREMENTS} · 후퇴 ${trajectory.regressions.length}회`;
+  const blocked =
+    trajectory.blocked.length > 0
+      ? ` · 차단 ${trajectory.blocked.length}회`
+      : "";
+  return `${claim} · actual ${actualFinal}/${RALPH_TOTAL_REQUIREMENTS} · 후퇴 ${trajectory.regressions.length}회${blocked}`;
 }
 
 /** Wireframe §10.4 최종 세 문장. */

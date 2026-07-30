@@ -252,6 +252,17 @@ test.describe("실험 loop 모델 (wireframe §9, §12.4)", () => {
     expect(RALPH_TRAJECTORIES.test.ceiling).toBeGreaterThan(
       RALPH_TRAJECTORIES.none.ceiling,
     );
+    // 차단(blocked)은 test 모드에만 있고 후퇴 바퀴와 겹치지 않는다.
+    expect(RALPH_TRAJECTORIES.none.blocked).toHaveLength(0);
+    expect(RALPH_TRAJECTORIES.test.blocked.length).toBeGreaterThan(0);
+    for (const iteration of RALPH_TRAJECTORIES.test.blocked) {
+      expect(iteration).toBeGreaterThan(0);
+      expect(iteration).toBeLessThanOrEqual(
+        RALPH_TRAJECTORIES.test.actual.length - 1,
+      );
+      expect(RALPH_TRAJECTORIES.test.regressions).not.toContain(iteration);
+    }
+    expect(ralphSummary("test")).toContain("차단 2회");
     expect(RALPH_TRAJECTORIES.test.regressions.length).toBeGreaterThan(0);
     expect(RALPH_TRAJECTORIES.test.regressions.length).toBeLessThan(
       RALPH_TRAJECTORIES.none.regressions.length,

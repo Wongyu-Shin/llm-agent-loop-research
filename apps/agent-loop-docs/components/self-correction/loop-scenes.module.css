@@ -765,7 +765,7 @@
   fill: color-mix(in srgb, var(--fg-accent) 70%, transparent);
 }
 
-.ralphStation {
+.ralphStationLabel {
   fill: var(--fg-default);
   font-family: var(--font-mono);
   font-size: 11.5px;
@@ -774,6 +774,64 @@
 .ralphStationSub {
   fill: var(--fg-muted);
   font-size: 10.5px;
+}
+
+/* Ring cursor — 한 바퀴 = iteration 한 칸. 후퇴 바퀴에서는 소등. */
+.ralphCursor {
+  fill: #5ee97d;
+  transition: fill 0.35s ease;
+}
+
+.ralphCursor[data-dim="true"] {
+  fill: color-mix(in srgb, var(--fg-default) 40%, transparent);
+}
+
+.ralphLapLabel {
+  fill: var(--fg-muted);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+}
+
+.ralphLapCount {
+  fill: var(--fg-default);
+  font-family: var(--font-mono);
+  font-size: 17px;
+  font-weight: 740;
+  font-variant-numeric: tabular-nums;
+}
+
+/* backpressure 검문소 — 귀환 경로의 부분 verifier. 없음이면 소등 실루엣,
+   test면 점등, 차단 바퀴에는 강조. */
+.ralphStation rect {
+  fill: color-mix(in srgb, var(--fg-default) 3%, transparent);
+  stroke: color-mix(in srgb, var(--fg-default) 30%, transparent);
+  stroke-width: 1.2;
+  stroke-dasharray: 3 4;
+  transition: fill 0.5s ease, stroke 0.5s ease;
+}
+
+.ralphStation text {
+  fill: var(--fg-muted);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  transition: fill 0.5s ease;
+}
+
+.ralphStation[data-station-mode="test"] rect {
+  fill: color-mix(in srgb, var(--fg-attention) 10%, transparent);
+  stroke: color-mix(in srgb, var(--fg-attention) 75%, transparent);
+  stroke-dasharray: none;
+}
+
+.ralphStation[data-station-mode="test"] text {
+  fill: var(--fg-attention);
+}
+
+.ralphStation[data-blocking="true"] rect {
+  fill: color-mix(in srgb, var(--fg-attention) 26%, transparent);
+  stroke: var(--fg-attention);
+  stroke-width: 2;
 }
 
 .ralphAxis {
@@ -797,21 +855,6 @@
   opacity: 1;
 }
 
-/* Progressive draw: hidden until curves are revealed, 11s linear during
-   the drift step so the trajectory grows while the ring keeps turning. */
-.ralphTraj {
-  stroke-dasharray: 1;
-  stroke-dashoffset: 1;
-}
-
-[data-ralph-loop][data-curves="on"] .ralphTraj {
-  stroke-dashoffset: 0;
-}
-
-[data-ralph-loop][data-curves="on"][data-ralph-stage="drift"] .ralphTraj {
-  transition: stroke-dashoffset 11s linear;
-}
-
 .ralphBelieved {
   fill: none;
   stroke: var(--fg-accent);
@@ -827,20 +870,32 @@
 .ralphGap {
   fill: color-mix(in srgb, var(--fg-accent) 9%, transparent);
   stroke: none;
-  opacity: 0;
-  transition: opacity 0.9s ease;
 }
 
+/* 마커는 progress 클록이 해당 바퀴를 지나는 순간 함께 점등된다. */
 .ralphRegression,
-.ralphComplete {
+.ralphComplete,
+.ralphBlockedMark {
   opacity: 0;
-  transition: opacity 0.9s ease;
+  transition: opacity 0.5s ease;
 }
 
-[data-ralph-loop][data-detail="on"] .ralphGap,
-[data-ralph-loop][data-detail="on"] .ralphRegression,
-[data-ralph-loop][data-detail="on"] .ralphComplete {
+.ralphRegression[data-visible="true"],
+.ralphComplete[data-visible="true"],
+.ralphBlockedMark[data-visible="true"] {
   opacity: 1;
+}
+
+.ralphBlockedMark circle {
+  fill: none;
+  stroke: var(--fg-attention);
+  stroke-width: 1.4;
+}
+
+.ralphBlockedMark text {
+  fill: var(--fg-attention);
+  font-family: var(--font-mono);
+  font-size: 9.5px;
 }
 
 .ralphCeiling {
@@ -940,11 +995,14 @@
     animation: none;
   }
 
-  .ralphTraj,
   .ralphModeGroup,
   .ralphGap,
   .ralphRegression,
   .ralphComplete,
+  .ralphBlockedMark,
+  .ralphCursor,
+  .ralphStation rect,
+  .ralphStation text,
   .ralphGate {
     transition: none;
   }

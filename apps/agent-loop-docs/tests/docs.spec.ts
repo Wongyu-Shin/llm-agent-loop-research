@@ -452,7 +452,7 @@ test("ralph loop lab은 backpressure 전환으로 천장·후퇴·괴리를 갱�
     page.locator("[data-ralph-correspondence] dl > div"),
   ).toHaveCount(4);
   await expect(fallback.locator("[data-ralph-table] tbody tr")).toHaveCount(13);
-  await expect(fallback.locator("[data-ralph-events] li")).toHaveCount(4);
+  await expect(fallback.locator("[data-ralph-events] li")).toHaveCount(6);
 
   const loop = page.locator("[data-scene-id='scene-06'] [data-ralph-loop]");
   await lab.getByRole("button", { name: "없음" }).click();
@@ -466,6 +466,8 @@ test("ralph loop lab은 backpressure 전환으로 천장·후퇴·괴리를 갱�
   await expect(loop).toHaveAttribute("data-mode", "test");
   await expect(lab.locator(".lab-statusbar")).toContainText("actual 10/12");
   await expect(lab.locator(".lab-statusbar")).toContainText("후퇴 1회");
+  await expect(lab.locator(".lab-statusbar")).toContainText("차단 2회");
+  await expect(lab.locator("[data-station-mode='test']")).toBeVisible();
   await expect(fallback.locator("[data-ralph-summary]")).toContainText(
     "천장 10.4/12",
   );
