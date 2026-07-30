@@ -794,6 +794,154 @@ stop:
   safety: true
   human_gate: true`;
 
+/**
+ * Scene 6 — Ralph loop (reports/scene6-ralph-loop-wireframe.md).
+ *
+ * 1차 출처: ghuntley.com/ralph (2025-07) + 공식 Claude 플러그인 ralph-loop
+ * README. 궤적 수치는 synthetic 예시값이며 측정치가 아니다.
+ */
+
+export type RalphFact = {
+  id:
+    | "definition"
+    | "state"
+    | "unit"
+    | "judgement"
+    | "failures"
+    | "missing"
+    | "source";
+  label: string;
+  value: string;
+};
+
+export const RALPH_FACTS: RalphFact[] = [
+  {
+    id: "definition",
+    label: "정의",
+    value:
+      "while :; do cat PROMPT.md | claude ; done — 같은 프롬프트 무한 재투입",
+  },
+  {
+    id: "state",
+    label: "상태",
+    value: "매 바퀴 컨텍스트 초기화, 지속되는 것은 파일과 git history뿐",
+  },
+  {
+    id: "unit",
+    label: "단위",
+    value: "한 바퀴에 한 작업, 우선순위는 agent가 스스로 결정",
+  },
+  {
+    id: "judgement",
+    label: "판정",
+    value:
+      "agent 자기 평가 + 스스로 돌리는 compile·test·정적 분석(backpressure)",
+  },
+  {
+    id: "failures",
+    label: "문서화된 실패",
+    value:
+      "컴파일 보상만 쫓는 placeholder 구현 · 깨진 codebase로 기상 → 수동 git reset",
+  },
+  {
+    id: "missing",
+    label: "없는 것",
+    value: "incumbent/challenger 분리, acceptance gate, append-only ledger",
+  },
+  {
+    id: "source",
+    label: "출처",
+    value:
+      "Geoffrey Huntley, 2025-07 (ghuntley.com/ralph) · 공식 Claude 플러그인 ralph-loop",
+  },
+];
+
+/** 논문 모형의 가정 ↔ Ralph 구조 대응 — engineering-transfer 해석. */
+export type RalphCorrespondenceRow = {
+  id: "policy" | "judge" | "state-chain" | "no-gate";
+  paper: string;
+  ralph: string;
+};
+
+export const RALPH_CORRESPONDENCE: RalphCorrespondenceRow[] = [
+  {
+    id: "policy",
+    paper: "같은 정책으로 매 라운드 재시도 (정지 가정, CS·CL 고정)",
+    ralph: "같은 PROMPT.md를 매 바퀴 재투입, 컨텍스트 초기화",
+  },
+  {
+    id: "judge",
+    paper: "판정자 없음 — 모델이 스스로 고치고 스스로 망가뜨림",
+    ralph: "agent 자기 평가가 유일한 판정, 외부 verifier 없음(기본형)",
+  },
+  {
+    id: "state-chain",
+    paper: "이전 답이 다음 라운드의 입력",
+    ralph: "working tree가 유일한 상태로 다음 바퀴에 상속",
+  },
+  {
+    id: "no-gate",
+    paper: "채택 gate 없음 — 전이가 그대로 상태가 됨",
+    ralph: "KEEP/DISCARD 분리 없음, 훼손도 즉시 채택",
+  },
+];
+
+export type RalphBackpressure = "none" | "test";
+
+/** Scene 7 fixture(CRITERION_TRANSITION_EXAMPLE)와 같은 12개 기준. */
+export const RALPH_TOTAL_REQUIREMENTS = 12;
+
+export type RalphTrajectory = {
+  /** agent가 스스로 믿는 충족 수 — 매끈히 상승하는 자기 평가. */
+  believed: readonly number[];
+  /** 실제 충족 수 — 훼손 채택으로 후퇴하는 궤적. */
+  actual: readonly number[];
+  /** actual이 정체하는 높이에 그리는 천장 Upp 점선(해석). */
+  ceiling: number;
+  /** actual이 직전보다 낮아지는 iteration — 훼손이 그대로 채택된 바퀴. */
+  regressions: readonly number[];
+  /** believed가 12/12에 닿아 COMPLETE를 선언하는 iteration. */
+  completeClaimIteration: number | null;
+};
+
+/**
+ * Synthetic 궤적 — 논문의 예측(자기평가 괴리·훼손 채택·천장)을 구조로
+ * 보여 주기 위한 예시값. backpressure(test)는 부분 external verifier라서
+ * 천장은 오르지만 후퇴가 완전히 사라지지는 않는다.
+ */
+export const RALPH_TRAJECTORIES: Record<RalphBackpressure, RalphTrajectory> = {
+  none: {
+    believed: [0, 2, 3, 5, 6, 7, 8, 9, 10, 11, 12, 12, 12],
+    actual: [0, 2, 3, 4, 3, 5, 6, 7, 5, 6, 7, 7, 7],
+    ceiling: 7.4,
+    regressions: [4, 8],
+    completeClaimIteration: 10,
+  },
+  test: {
+    believed: [0, 2, 4, 5, 6, 7, 8, 8, 9, 10, 10, 11, 11],
+    actual: [0, 2, 4, 5, 6, 7, 8, 7, 8, 9, 10, 10, 10],
+    ceiling: 10.4,
+    regressions: [7],
+    completeClaimIteration: null,
+  },
+};
+
+export const RALPH_BACKPRESSURE_LABELS: Record<RalphBackpressure, string> = {
+  none: "없음",
+  test: "test",
+};
+
+export function ralphSummary(mode: RalphBackpressure) {
+  const trajectory = RALPH_TRAJECTORIES[mode];
+  const believedFinal = trajectory.believed[trajectory.believed.length - 1];
+  const actualFinal = trajectory.actual[trajectory.actual.length - 1];
+  const claim =
+    trajectory.completeClaimIteration === null
+      ? `believed ${believedFinal}/${RALPH_TOTAL_REQUIREMENTS}`
+      : `believed ${believedFinal}/${RALPH_TOTAL_REQUIREMENTS} · COMPLETE 선언`;
+  return `${claim} · actual ${actualFinal}/${RALPH_TOTAL_REQUIREMENTS} · 후퇴 ${trajectory.regressions.length}회`;
+}
+
 /** Wireframe §10.4 최종 세 문장. */
 export const FINAL_TAKEAWAYS = [
   "논문은 반복 횟수보다 정답 보존과 오답 복구의 균형을 보게 한다.",

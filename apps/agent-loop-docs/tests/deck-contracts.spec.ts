@@ -15,6 +15,9 @@ import {
   foldCampaign,
   formatMetricValue,
   INITIAL_CAMPAIGN_STATE,
+  RALPH_TOTAL_REQUIREMENTS,
+  RALPH_TRAJECTORIES,
+  ralphSummary,
   reduceExperiment,
   TANK_DEFAULTS,
   VERIFIER_BLOCK_RATES,
@@ -34,10 +37,10 @@ import {
 test.describe("발표 시간 계약 (wireframe §1, §12.2)", () => {
   test("장면별 문장 수와 시간 예산이 와이어프레임과 일치한다", () => {
     expect(SCENE_TIMINGS.map((scene) => scene.sentenceBudget)).toEqual([
-      8, 21, 19, 25, 10, 22, 30, 15,
+      8, 21, 19, 25, 10, 14, 30, 15,
     ]);
     expect(SCENE_TIMINGS.map((scene) => scene.visualSeconds)).toEqual([
-      16, 32, 28, 40, 20, 64, 70, 30,
+      16, 32, 28, 40, 20, 40, 70, 30,
     ]);
     for (const scene of SCENE_TIMINGS) {
       expect(scene.speechSeconds).toBe(
@@ -50,13 +53,15 @@ test.describe("발표 시간 계약 (wireframe §1, §12.2)", () => {
   });
 
   test("전체·Part별 합계와 hard checkpoint가 계약과 일치한다", () => {
-    expect(TOTAL_SENTENCE_BUDGET).toBe(150);
-    expect(TOTAL_SPEECH_SECONDS).toBe(1200);
-    expect(TOTAL_VISUAL_SECONDS).toBe(300);
-    expect(TOTAL_DECK_SECONDS).toBe(1500);
-    expect(PART_TOTAL_SECONDS).toEqual({ paper: 700, bridge: 100, practice: 700 });
+    // 잠정 계약: Scene 6 재설계(Ralph loop)로 1500→1412초.
+    // Part II 재배분(25분 복원)은 별도 세션에서 진행한다.
+    expect(TOTAL_SENTENCE_BUDGET).toBe(142);
+    expect(TOTAL_SPEECH_SECONDS).toBe(1136);
+    expect(TOTAL_VISUAL_SECONDS).toBe(276);
+    expect(TOTAL_DECK_SECONDS).toBe(1412);
+    expect(PART_TOTAL_SECONDS).toEqual({ paper: 700, bridge: 100, practice: 612 });
     expect(HARD_CHECKPOINTS.map((checkpoint) => checkpoint.seconds)).toEqual([
-      700, 800, 1500,
+      700, 800, 1412,
     ]);
   });
 
@@ -67,7 +72,7 @@ test.describe("발표 시간 계약 (wireframe §1, §12.2)", () => {
       ["S03.07", "S03.10"],
       ["S04.05", "S04.11", "S04.13"],
       [],
-      ["S06.03", "S06.12"],
+      ["S06.02", "S06.09"],
       ["S07.07", "S07.20", "S07.25", "S07.28"],
       [],
     ];
@@ -219,6 +224,41 @@ test.describe("실험 loop 모델 (wireframe §9, §12.4)", () => {
     expect(example.candidatePass).toBeLessThan(example.incumbentPass);
     expect(example.verdict).toBe("DISCARD");
     expect(example.systemPassAfterGate).toBe(example.incumbentPass);
+  });
+
+  test("ralph 궤적 fixture는 후퇴·자기평가·천장 계약을 지킨다", () => {
+    expect(RALPH_TOTAL_REQUIREMENTS).toBe(
+      CRITERION_TRANSITION_EXAMPLE.totalCriteria,
+    );
+    for (const mode of ["none", "test"] as const) {
+      const { believed, actual, ceiling, regressions } =
+        RALPH_TRAJECTORIES[mode];
+      expect(believed).toHaveLength(actual.length);
+      // believed(자기 평가)는 매끈히 상승만 한다 — 후퇴를 보지 못한다.
+      for (let i = 1; i < believed.length; i += 1) {
+        expect(believed[i]).toBeGreaterThanOrEqual(believed[i - 1]);
+        expect(actual[i]).toBeLessThanOrEqual(believed[i]);
+      }
+      // regressions는 actual이 실제로 낮아지는 iteration과 정확히 일치한다.
+      const drops = actual
+        .map((value, i) => (i > 0 && value < actual[i - 1] ? i : null))
+        .filter((i): i is number => i !== null);
+      expect([...regressions]).toEqual(drops);
+      // actual은 천장 점선 아래에서 정체한다.
+      expect(Math.max(...actual)).toBeLessThanOrEqual(ceiling);
+    }
+    // 부분 verifier(test backpressure)는 천장을 올리고 후퇴를 줄이지만
+    // 없애지 못한다 — 완전 gate가 아니다.
+    expect(RALPH_TRAJECTORIES.test.ceiling).toBeGreaterThan(
+      RALPH_TRAJECTORIES.none.ceiling,
+    );
+    expect(RALPH_TRAJECTORIES.test.regressions.length).toBeGreaterThan(0);
+    expect(RALPH_TRAJECTORIES.test.regressions.length).toBeLessThan(
+      RALPH_TRAJECTORIES.none.regressions.length,
+    );
+    expect(RALPH_TRAJECTORIES.none.completeClaimIteration).not.toBeNull();
+    expect(ralphSummary("none")).toContain("COMPLETE 선언");
+    expect(ralphSummary("test")).not.toContain("COMPLETE 선언");
   });
 
   test("평형 수조의 verifier별 천장은 63.6% · 89.7% · 100%다", () => {
