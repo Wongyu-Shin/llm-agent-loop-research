@@ -125,8 +125,8 @@ test("자기수정 deck은 논문에서 실무 loop까지 8개 인터랙티브 S
   );
 
   const deck = page.locator("[data-research-deck]");
-  await expect(deck).toHaveAttribute("data-total-seconds", "1500");
-  await expect(deck).toHaveAttribute("data-speech-seconds", "1224");
+  await expect(deck).toHaveAttribute("data-total-seconds", "1492");
+  await expect(deck).toHaveAttribute("data-speech-seconds", "1216");
   await expect(deck).toHaveAttribute("data-visual-seconds", "276");
   await expect(page.locator(".site-header")).toHaveCount(0);
   const paletteContract = await deck.evaluate((root) => {
@@ -155,7 +155,7 @@ test("자기수정 deck은 논문에서 실무 loop까지 8개 인터랙티브 S
   await expect(scenes).toHaveCount(8);
   await expect(deck.locator(".lab")).toHaveCount(8);
   await expect(deck.locator("[data-visual-fallback]")).toHaveCount(8);
-  await expect(deck.locator("[data-presenter-note]")).toHaveCount(153);
+  await expect(deck.locator("[data-presenter-note]")).toHaveCount(152);
 
   const timingContract = await scenes.evaluateAll((items) => ({
     sentences: items.reduce(
@@ -182,11 +182,11 @@ test("자기수정 deck은 논문에서 실무 loop까지 8개 인터랙티브 S
     ),
   }));
   expect(timingContract).toEqual({
-    sentences: 153,
-    speech: 1224,
+    sentences: 152,
+    speech: 1216,
     visual: 276,
-    total: 1500,
-    sceneNotes: [8, 21, 19, 25, 10, 14, 37, 19],
+    total: 1492,
+    sceneNotes: [8, 21, 19, 22, 12, 14, 37, 19],
     proseHasVisual: [true, true, true, true, true, true, true, true],
   });
 

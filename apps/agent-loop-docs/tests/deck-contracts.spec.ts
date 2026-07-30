@@ -39,7 +39,7 @@ import {
 test.describe("발표 시간 계약 (wireframe §1, §12.2)", () => {
   test("장면별 문장 수와 시간 예산이 와이어프레임과 일치한다", () => {
     expect(SCENE_TIMINGS.map((scene) => scene.sentenceBudget)).toEqual([
-      8, 21, 19, 25, 10, 14, 37, 19,
+      8, 21, 19, 22, 12, 14, 37, 19,
     ]);
     expect(SCENE_TIMINGS.map((scene) => scene.visualSeconds)).toEqual([
       16, 32, 28, 40, 20, 40, 70, 30,
@@ -55,15 +55,15 @@ test.describe("발표 시간 계약 (wireframe §1, §12.2)", () => {
   });
 
   test("전체·Part별 합계와 hard checkpoint가 계약과 일치한다", () => {
-    // Scene 7·8 재설계(reports/scene7-8-autoresearch-wireframe.md)로
-    // Scene 6 회수분 88초를 재배분해 25분(1500초)을 복원했다.
-    expect(TOTAL_SENTENCE_BUDGET).toBe(153);
-    expect(TOTAL_SPEECH_SECONDS).toBe(1224);
+    // Scene 7·8 재설계(reports/scene7-8-autoresearch-wireframe.md)로 1500초를
+    // 복원했고, 2026-07-30 대본 윤문(scene-04 -24초, scene-05 +16초)으로 1492초.
+    expect(TOTAL_SENTENCE_BUDGET).toBe(152);
+    expect(TOTAL_SPEECH_SECONDS).toBe(1216);
     expect(TOTAL_VISUAL_SECONDS).toBe(276);
-    expect(TOTAL_DECK_SECONDS).toBe(1500);
-    expect(PART_TOTAL_SECONDS).toEqual({ paper: 700, bridge: 100, practice: 700 });
+    expect(TOTAL_DECK_SECONDS).toBe(1492);
+    expect(PART_TOTAL_SECONDS).toEqual({ paper: 676, bridge: 116, practice: 700 });
     expect(HARD_CHECKPOINTS.map((checkpoint) => checkpoint.seconds)).toEqual([
-      700, 800, 1500,
+      676, 792, 1492,
     ]);
   });
 
