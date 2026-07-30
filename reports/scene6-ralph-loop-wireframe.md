@@ -104,8 +104,9 @@ status: believed 12/12 "COMPLETE 선언" · actual 7/12
   시안에서 red로 전환**(dash·chevron·커서·카운터)되고, 궤적의 해당 하락 구간도
   red 세그먼트로 덧그려져 실패가 양쪽에서 확실히 인지된다.
 - **상시 반복 재생**: 별도 조작 없이 화면에 보이는 동안 캠페인이 계속 반복된다 —
-  draw(8초) → hold(2.6초) → 처음부터 다시 draw. 자동 재생의 drift·backpressure
-  진입과 토글은 이 사이클의 위상만 재정렬한다(각각 11초/3.6초 draw).
+  draw(10.8초) → hold(2.6초) → 처음부터 다시 draw. **모든 draw는 바퀴당 0.9초의
+  일정한 선형 속도**(Scene 5의 0.9 rounds/sec와 같은 리듬)를 쓰며, 자동 재생의
+  drift·backpressure 진입과 토글은 이 사이클의 위상만 재정렬한다.
 - **backpressure 검문소**: ring의 귀환 경로(working tree → PROMPT.md)에 `test`
   검문소를 상주시킨다. `없음` 모드에서는 소등 점선 실루엣("없음"), `test` 모드에서는
   점등("부분 verifier")되고, 훼손을 잡은 바퀴(`blocked`)에는 강조 점멸한다. 같은
@@ -120,8 +121,8 @@ status: believed 12/12 "COMPLETE 선언" · actual 7/12
   - `없음`: 괴리 최대(believed 12/12 vs actual 7/12), 후퇴 2회, 차단 0회.
   - `test`: actual 천장 상승(10/12), 괴리 축소, 차단 2회(iteration 4·11), 그러나
     test가 못 보는 훼손으로 후퇴 1회 잔존.
-  - 토글하면 캠페인을 처음부터 빠르게(3.6초) 다시 재생한다 — 곡선 crossfade와 함께
-    ring 커서·검문소가 새 모드의 바퀴를 다시 돈다.
+  - 토글하면 캠페인을 처음부터 같은 일정 속도로 다시 재생한다 — 곡선 crossfade와
+    함께 ring 커서·검문소가 새 모드의 바퀴를 다시 돈다.
 - 요구사항 총수 12는 Scene 7 fixture(`CRITERION_TRANSITION_EXAMPLE.totalCriteria = 12`)와
   일치. 궤적 수치는 synthetic 예시값(측정 아님).
 
