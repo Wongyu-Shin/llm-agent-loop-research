@@ -909,8 +909,13 @@ test("POMDP 정보 가치는 진단 분리도가 0이면 action flip과 EVSI가 
   await page.goto("/pomdp/");
   const lab = page.locator(".lab").filter({ hasText: "테스트가 최적 patch를 바꾸는 정보 가치" });
 
-  await lab.getByLabel("진단 분리도 d").fill("0");
-  await expect(lab.locator(".lab-statusbar")).toContainText("0 / 2 observation branches");
+  // 느린 CI에서는 hydration 전 fill 이벤트가 유실될 수 있어 상태 반영까지 재시도한다.
+  await expect(async () => {
+    await lab.getByLabel("진단 분리도 d").fill("0");
+    await expect(lab.locator(".lab-statusbar")).toContainText("0 / 2 observation branches", {
+      timeout: 2_000,
+    });
+  }).toPass();
   await expect(lab.locator(".lab-statusbar")).toContainText("EVSI / Net VOI");
   await expect(lab.locator(".lab-statusbar")).toContainText("+0.00 / -1.00");
   await expect(lab.locator(".lab-statusbar")).not.toContainText("V_info");
