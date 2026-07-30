@@ -100,7 +100,12 @@ status: believed 12/12 "COMPLETE 선언" · actual 7/12
 - **좌측 loop ring**: 상시 회전하는 네온 dash(Scene 1·2 문법). PROMPT.md → agent →
   working tree 순환. **ring과 궤적은 하나의 progress 클록(0..12 바퀴)을 공유한다** —
   커서가 ring을 한 바퀴 돌 때마다 궤적이 iteration 한 칸 자라고, ring 중앙 카운터가
-  `n / 12`로 함께 오르며, 후퇴로 이어지는 바퀴에서는 커서가 소등된다.
+  `n / 12`로 함께 오른다. **후퇴로 끝나는 바퀴(loop 실패)에서는 ring 전체가
+  시안에서 red로 전환**(dash·chevron·커서·카운터)되고, 궤적의 해당 하락 구간도
+  red 세그먼트로 덧그려져 실패가 양쪽에서 확실히 인지된다.
+- **상시 반복 재생**: 별도 조작 없이 화면에 보이는 동안 캠페인이 계속 반복된다 —
+  draw(8초) → hold(2.6초) → 처음부터 다시 draw. 자동 재생의 drift·backpressure
+  진입과 토글은 이 사이클의 위상만 재정렬한다(각각 11초/3.6초 draw).
 - **backpressure 검문소**: ring의 귀환 경로(working tree → PROMPT.md)에 `test`
   검문소를 상주시킨다. `없음` 모드에서는 소등 점선 실루엣("없음"), `test` 모드에서는
   점등("부분 verifier")되고, 훼손을 잡은 바퀴(`blocked`)에는 강조 점멸한다. 같은
