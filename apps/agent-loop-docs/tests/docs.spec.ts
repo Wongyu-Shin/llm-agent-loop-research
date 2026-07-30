@@ -458,6 +458,9 @@ test("ralph loop lab은 backpressure 전환으로 천장·후퇴·괴리를 갱�
   await lab.getByRole("button", { name: "없음" }).click();
   await expect(loop).toHaveAttribute("data-mode", "none");
   await expect(loop).toHaveAttribute("data-curves", "on");
+  await expect(
+    lab.locator("[data-trajectory='none'] [data-fail-segment]"),
+  ).toHaveCount(2);
   await expect(lab.locator(".lab-statusbar")).toContainText("actual 7/12");
   await expect(lab.locator(".lab-statusbar")).toContainText("COMPLETE 선언");
   await expect(lab.locator(".lab-statusbar")).toContainText("후퇴 2회");
@@ -468,6 +471,9 @@ test("ralph loop lab은 backpressure 전환으로 천장·후퇴·괴리를 갱�
   await expect(lab.locator(".lab-statusbar")).toContainText("후퇴 1회");
   await expect(lab.locator(".lab-statusbar")).toContainText("차단 2회");
   await expect(lab.locator("[data-station-mode='test']")).toBeVisible();
+  await expect(
+    lab.locator("[data-trajectory='test'] [data-fail-segment]"),
+  ).toHaveCount(1);
   await expect(fallback.locator("[data-ralph-summary]")).toContainText(
     "천장 10.4/12",
   );

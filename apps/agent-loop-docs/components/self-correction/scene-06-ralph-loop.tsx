@@ -96,6 +96,10 @@ const LAST_ITERATION = RALPH_TRAJECTORIES.none.actual.length - 1;
 const DRAW_MS_AUTO = 11000;
 /** 사용자가 backpressure를 직접 바꿨을 때의 빠른 재생. */
 const DRAW_MS_USER = 3600;
+/** 화면에 보이는 동안 별도 조작 없이 반복 재생되는 사이클의 draw 시간. */
+const DRAW_MS_LOOP = 8000;
+/** 완주한 궤적을 보여 주는 hold 시간 — 지나면 처음부터 다시 그린다. */
+const HOLD_MS = 2600;
 
 function chartX(iteration: number) {
   return CHART_X0 + (iteration / LAST_ITERATION) * (CHART_X1 - CHART_X0);
@@ -149,6 +153,24 @@ function linePath(values: readonly number[], progress: number) {
         `${index === 0 ? "M" : "L"} ${point.x.toFixed(1)} ${point.y.toFixed(1)}`,
     )
     .join(" ");
+}
+
+/** 후퇴 바퀴의 하락 구간 — actual 위에 red로 덧그린다. progress를 따라 자란다. */
+function failSegmentPath(
+  values: readonly number[],
+  iteration: number,
+  progress: number,
+) {
+  const start = iteration - 1;
+  if (progress <= start) return null;
+  const t = Math.min(1, progress - start);
+  const from = values[start];
+  const to = values[iteration];
+  const x0 = chartX(start);
+  const y0 = chartY(from);
+  const x1 = chartX(start + t);
+  const y1 = chartY(from + (to - from) * t);
+  return `M ${x0.toFixed(1)} ${y0.toFixed(1)} L ${x1.toFixed(1)} ${y1.toFixed(1)}`;
 }
 
 /** believed와 actual 사이의 괴리 음영 — progress까지만 채운다. */
@@ -260,6 +282,17 @@ function TrajectoryGroup({
       {actualPath ? (
         <path className={styles.ralphActual} d={actualPath} />
       ) : null}
+      {trajectory.regressions.map((iteration) => {
+        const failPath = failSegmentPath(trajectory.actual, iteration, progress);
+        return failPath ? (
+          <path
+            key={`fail-${iteration}`}
+            className={styles.ralphActualFail}
+            data-fail-segment={iteration}
+            d={failPath}
+          />
+        ) : null;
+      })}
       {trajectory.regressions.map((iteration) => (
         <g
           key={`regression-${iteration}`}
@@ -357,7 +390,9 @@ export function RalphLoopLab() {
   const [visible, setVisible] = useState(false);
   /** 진행 계획 — 상시 rAF 루프가 읽어서 progress를 갱신한다. */
   const drawPlanRef = useRef<
-    { start: number | null; duration: number } | { snapTo: number } | null
+    | { kind: "draw"; start: number | null; duration: number }
+    | { kind: "hold"; until: number }
+    | null
   >(null);
   const interactedRef = useRef(false);
 
@@ -385,22 +420,38 @@ export function RalphLoopLab() {
   }, []);
 
   // Scene 1·2·5 문법 — 화면에 보이는 동안 도는 상시 rAF 루프가 draw plan을
-  // 소비한다. setState는 rAF 콜백 안에서만 일어난다.
+  // 소비한다. setState는 rAF 콜백 안에서만 일어난다. plan이 비면 캠페인을
+  // 처음부터 다시 그리므로, 별도 설정 없이도 화면에 보이는 동안 계속
+  // 반복 재생된다 (draw → 잠깐 hold → 다시 draw).
   useEffect(() => {
     if (reducedMotion || !visible) return;
+    const pending = drawPlanRef.current;
+    if (pending?.kind === "draw") {
+      // 화면 밖에 있던 시간은 세지 않는다 — 복귀 시 현재 draw를 재시작.
+      pending.start = null;
+    }
     let frame = 0;
     const tick = (now: number) => {
-      const plan = drawPlanRef.current;
-      if (plan) {
-        if ("snapTo" in plan) {
-          drawPlanRef.current = null;
-          setProgress(plan.snapTo);
-        } else {
-          if (plan.start === null) plan.start = now;
-          const t = Math.min(1, (now - plan.start) / plan.duration);
-          if (t >= 1) drawPlanRef.current = null;
-          setProgress(smoothstep(t) * LAST_ITERATION);
+      let plan = drawPlanRef.current;
+      if (!plan) {
+        plan = { kind: "draw", start: null, duration: DRAW_MS_LOOP };
+        drawPlanRef.current = plan;
+      }
+      if (plan.kind === "hold") {
+        if (now >= plan.until) {
+          drawPlanRef.current = {
+            kind: "draw",
+            start: null,
+            duration: DRAW_MS_LOOP,
+          };
         }
+      } else {
+        if (plan.start === null) plan.start = now;
+        const t = Math.min(1, (now - plan.start) / plan.duration);
+        if (t >= 1) {
+          drawPlanRef.current = { kind: "hold", until: now + HOLD_MS };
+        }
+        setProgress(smoothstep(t) * LAST_ITERATION);
       }
       frame = requestAnimationFrame(tick);
     };
@@ -415,8 +466,9 @@ export function RalphLoopLab() {
         ? "handoff"
         : (STEPS[state.step]?.id ?? "ring");
 
-  // 재생 단계 전환이 progress 클록을 구동한다: drift·backpressure에서
-  // 캠페인을 다시 그리고, 요약 단계에서는 완주 상태로 스냅한다.
+  // 재생 단계 전환은 반복 사이클의 위상만 맞춘다: drift·backpressure 진입
+  // 시 캠페인을 처음부터 다시 그려 내레이션과 정렬하고, 나머지 단계에서는
+  // 상시 반복 사이클이 그대로 이어진다.
   const prevStageRef = useRef(stage);
   useEffect(() => {
     if (prevStageRef.current === stage) return;
@@ -424,13 +476,10 @@ export function RalphLoopLab() {
     if (reducedMotion) return;
     if (stage === "drift" || stage === "backpressure") {
       drawPlanRef.current = {
+        kind: "draw",
         start: null,
         duration: interactedRef.current ? DRAW_MS_USER : DRAW_MS_AUTO,
       };
-    } else if (stage === "gap" || stage === "handoff") {
-      drawPlanRef.current = { snapTo: LAST_ITERATION };
-    } else if (stage === "ring" && !interactedRef.current) {
-      drawPlanRef.current = { snapTo: 0 };
     }
   }, [stage, reducedMotion]);
 
@@ -438,7 +487,6 @@ export function RalphLoopLab() {
     ? "test"
     : "none";
   const mode = userMode ?? autoMode;
-  const curvesRevealed = state.hasUserInteracted || stage !== "ring";
 
   const trajectory = RALPH_TRAJECTORIES[mode];
   const summary = ralphSummary(mode);
@@ -448,19 +496,24 @@ export function RalphLoopLab() {
     setUserMode(value);
     if (!reducedMotion) {
       setProgress(0);
-      drawPlanRef.current = { start: null, duration: DRAW_MS_USER };
+      drawPlanRef.current = {
+        kind: "draw",
+        start: null,
+        duration: DRAW_MS_USER,
+      };
     }
   };
 
-  // Ring cursor: 한 바퀴 = iteration 한 칸. 후퇴로 이어지는 바퀴에서는
-  // 커서가 소등되고, test 모드의 차단 바퀴에서는 검문소가 점등된다.
+  // Ring cursor: 한 바퀴 = iteration 한 칸. 후퇴로 끝나는 바퀴(loop 실패)
+  // 에서는 ring 전체가 red로 전환되고, test 모드의 차단 바퀴에서는
+  // 검문소가 점등된다.
   const shownProgress = reducedMotion ? LAST_ITERATION : progress;
   const lap = Math.min(LAST_ITERATION, Math.floor(shownProgress));
   const arrivingIteration = Math.min(LAST_ITERATION, lap + 1);
   const drawing = shownProgress > 0 && shownProgress < LAST_ITERATION;
   const cursorAngle = -90 + shownProgress * 360;
   const cursorPoint = ringPoint(cursorAngle);
-  const cursorDim =
+  const failing =
     drawing && trajectory.regressions.includes(arrivingIteration);
   const stationBlocking =
     mode === "test" &&
@@ -474,7 +527,8 @@ export function RalphLoopLab() {
       data-ralph-loop
       data-ralph-stage={stage}
       data-mode={mode}
-      data-curves={curvesRevealed ? "on" : "off"}
+      data-failing={failing ? "true" : "false"}
+      data-curves="on"
     >
       <LabShell
         title="Ralph loop — 논문의 모형과 가장 가까운 실전 구조"
@@ -482,6 +536,7 @@ export function RalphLoopLab() {
         legend={[
           { label: "believed · 자기 평가", tone: "accent" },
           { label: "actual · 실제 충족", tone: "success" },
+          { label: "후퇴 · 훼손 채택", tone: "danger" },
           { label: "천장 Upp (해석)", tone: "attention" },
         ]}
         stageLabel={`backpressure: ${RALPH_BACKPRESSURE_LABELS[mode]}`}
@@ -631,7 +686,7 @@ export function RalphLoopLab() {
               {drawing && !reducedMotion ? (
                 <circle
                   className={styles.ralphCursor}
-                  data-dim={cursorDim ? "true" : "false"}
+                  data-failing={failing ? "true" : "false"}
                   cx={cursorPoint.x}
                   cy={cursorPoint.y}
                   r={5}

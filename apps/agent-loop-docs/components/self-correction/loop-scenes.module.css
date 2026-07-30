@@ -747,12 +747,26 @@
   stroke-linecap: round;
   stroke-dasharray: 8 18;
   opacity: 0.7;
-  transition: opacity 0.6s ease;
+  transition: opacity 0.6s ease, stroke 0.3s ease;
   animation: ralphSpin 1.5s linear infinite;
 }
 
 [data-ralph-loop][data-ralph-stage="ring"] .ralphRingDash {
   opacity: 1;
+}
+
+/* Loop 실패 — 후퇴로 끝나는 바퀴에서는 ring 전체가 red로 전환된다. */
+[data-ralph-loop][data-failing="true"] .ralphRingDash {
+  stroke: var(--viz-incorrect);
+  opacity: 1;
+}
+
+[data-ralph-loop][data-failing="true"] .ralphChevron {
+  fill: color-mix(in srgb, var(--viz-incorrect) 80%, transparent);
+}
+
+[data-ralph-loop][data-failing="true"] .ralphLapCount {
+  fill: var(--viz-incorrect);
 }
 
 @keyframes ralphSpin {
@@ -763,6 +777,7 @@
 
 .ralphChevron {
   fill: color-mix(in srgb, var(--fg-accent) 70%, transparent);
+  transition: fill 0.3s ease;
 }
 
 .ralphStationLabel {
@@ -776,14 +791,14 @@
   font-size: 10.5px;
 }
 
-/* Ring cursor — 한 바퀴 = iteration 한 칸. 후퇴 바퀴에서는 소등. */
+/* Ring cursor — 한 바퀴 = iteration 한 칸. 실패 바퀴에서는 red. */
 .ralphCursor {
   fill: #5ee97d;
-  transition: fill 0.35s ease;
+  transition: fill 0.3s ease;
 }
 
-.ralphCursor[data-dim="true"] {
-  fill: color-mix(in srgb, var(--fg-default) 40%, transparent);
+.ralphCursor[data-failing="true"] {
+  fill: var(--viz-incorrect);
 }
 
 .ralphLapLabel {
@@ -867,6 +882,14 @@
   stroke-width: 2.2;
 }
 
+/* 후퇴 바퀴의 하락 구간 — actual 위에 red로 덧그린다. */
+.ralphActualFail {
+  fill: none;
+  stroke: var(--viz-incorrect);
+  stroke-width: 2.6;
+  stroke-linecap: round;
+}
+
 .ralphGap {
   fill: color-mix(in srgb, var(--fg-accent) 9%, transparent);
   stroke: none;
@@ -910,7 +933,7 @@
   font-size: 10.5px;
 }
 
-/* 후퇴 = 점등돼 있던 자리가 소등되는 전환 (붉은 강조 대신 소등). */
+/* 후퇴 = 점등돼 있던 자리(ghost)는 소등되고, 하락은 red로 강조된다. */
 .ralphRegressionGhost {
   fill: none;
   stroke: color-mix(in srgb, var(--fg-default) 45%, transparent);
@@ -918,12 +941,12 @@
 }
 
 .ralphRegressionDrop {
-  stroke: color-mix(in srgb, var(--fg-default) 40%, transparent);
+  stroke: color-mix(in srgb, var(--viz-incorrect) 55%, transparent);
   stroke-dasharray: 2 3;
 }
 
 .ralphRegressionDot {
-  fill: color-mix(in srgb, var(--fg-default) 55%, transparent);
+  fill: var(--viz-incorrect);
 }
 
 .ralphComplete line {
