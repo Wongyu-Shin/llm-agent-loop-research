@@ -929,8 +929,17 @@ test("POMDP 정보 가치는 진단 분리도가 0이면 action flip과 EVSI가 
   await page.goto("/pomdp/");
   const lab = page.locator(".lab").filter({ hasText: "테스트가 최적 patch를 바꾸는 정보 가치" });
 
-  await lab.getByLabel("진단 분리도 d").fill("0");
-  await expect(lab.locator(".lab-statusbar")).toContainText("0 / 2 observation branches");
+  // hydration 전에 fill이 실행되면 React input value tracker가 "0"으로 초기화되어
+  // 같은 값의 재시도 fill이 전부 무시된다(느린 CI에서 결정적 실패). 다른 값을 거쳐
+  // "0"으로 내려 매 시도마다 change 이벤트를 강제한다.
+  await expect(async () => {
+    const slider = lab.getByLabel("진단 분리도 d");
+    await slider.fill("0.9");
+    await slider.fill("0");
+    await expect(lab.locator(".lab-statusbar")).toContainText("0 / 2 observation branches", {
+      timeout: 2_000,
+    });
+  }).toPass();
   await expect(lab.locator(".lab-statusbar")).toContainText("EVSI / Net VOI");
   await expect(lab.locator(".lab-statusbar")).toContainText("+0.00 / -1.00");
   await expect(lab.locator(".lab-statusbar")).not.toContainText("V_info");
