@@ -93,6 +93,10 @@ const provenanceLabels = {
     layer: "실무 권고",
     label: "공식 Autoresearch 사례",
   },
+  "community-practice": {
+    layer: "실무 사례",
+    label: "커뮤니티 관행 (Ralph loop)",
+  },
   "engineering-transfer": { layer: "실무 권고", label: "엔지니어링 적용" },
   "synthetic-example": { layer: "실무 권고", label: "합성 예시" },
 } as const;
@@ -296,7 +300,7 @@ export function ResearchHero() {
       <div className={styles.heroCopy}>
         <div className={styles.heroLabel}>
           <span>EMNLP 2025 · PAPER TO PRACTICE</span>
-          <span>25:00</span>
+          <span>{formatClock(TOTAL_DECK_SECONDS)}</span>
         </div>
         <h1>
           <span>{TITLE_KO}</span>
@@ -870,7 +874,9 @@ export function ResearchDeck({ children }: { children: ReactNode }) {
         accumulatedSecondsRef.current = TOTAL_DECK_SECONDS;
         timerStartedAtRef.current = null;
         setIsRunning(false);
-        setAnnouncement("25분 발표 예산에 도달했습니다.");
+        setAnnouncement(
+          `발표 예산 ${formatClock(TOTAL_DECK_SECONDS)}에 도달했습니다.`,
+        );
         return;
       }
       animationFrameRef.current = window.requestAnimationFrame(tick);

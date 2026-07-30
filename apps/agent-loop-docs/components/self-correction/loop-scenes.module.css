@@ -731,3 +731,228 @@
     grid-template-columns: 1fr 1fr;
   }
 }
+
+/* ── Scene 6 — Ralph loop (reports/scene6-ralph-loop-wireframe.md) ── */
+
+.ralphRingBase {
+  fill: none;
+  stroke: color-mix(in srgb, var(--fg-default) 22%, transparent);
+  stroke-width: 1.4;
+}
+
+.ralphRingDash {
+  fill: none;
+  stroke: var(--fg-accent);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-dasharray: 8 18;
+  opacity: 0.7;
+  transition: opacity 0.6s ease;
+  animation: ralphSpin 1.5s linear infinite;
+}
+
+[data-ralph-loop][data-ralph-stage="ring"] .ralphRingDash {
+  opacity: 1;
+}
+
+@keyframes ralphSpin {
+  to {
+    stroke-dashoffset: -26;
+  }
+}
+
+.ralphChevron {
+  fill: color-mix(in srgb, var(--fg-accent) 70%, transparent);
+}
+
+.ralphStation {
+  fill: var(--fg-default);
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+}
+
+.ralphStationSub {
+  fill: var(--fg-muted);
+  font-size: 10.5px;
+}
+
+.ralphAxis {
+  stroke: color-mix(in srgb, var(--fg-default) 30%, transparent);
+  stroke-width: 1;
+}
+
+.ralphAxisLabel {
+  fill: var(--fg-muted);
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+}
+
+/* Crossfade between the two backpressure trajectories. */
+.ralphModeGroup {
+  opacity: 0;
+  transition: opacity 0.8s ease;
+}
+
+.ralphModeGroup[data-active="true"] {
+  opacity: 1;
+}
+
+/* Progressive draw: hidden until curves are revealed, 11s linear during
+   the drift step so the trajectory grows while the ring keeps turning. */
+.ralphTraj {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+
+[data-ralph-loop][data-curves="on"] .ralphTraj {
+  stroke-dashoffset: 0;
+}
+
+[data-ralph-loop][data-curves="on"][data-ralph-stage="drift"] .ralphTraj {
+  transition: stroke-dashoffset 11s linear;
+}
+
+.ralphBelieved {
+  fill: none;
+  stroke: var(--fg-accent);
+  stroke-width: 2;
+}
+
+.ralphActual {
+  fill: none;
+  stroke: #5ee97d;
+  stroke-width: 2.2;
+}
+
+.ralphGap {
+  fill: color-mix(in srgb, var(--fg-accent) 9%, transparent);
+  stroke: none;
+  opacity: 0;
+  transition: opacity 0.9s ease;
+}
+
+.ralphRegression,
+.ralphComplete {
+  opacity: 0;
+  transition: opacity 0.9s ease;
+}
+
+[data-ralph-loop][data-detail="on"] .ralphGap,
+[data-ralph-loop][data-detail="on"] .ralphRegression,
+[data-ralph-loop][data-detail="on"] .ralphComplete {
+  opacity: 1;
+}
+
+.ralphCeiling {
+  stroke: var(--fg-attention);
+  stroke-width: 1.3;
+  stroke-dasharray: 5 6;
+}
+
+.ralphCeilingLabel {
+  fill: var(--fg-attention);
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+}
+
+/* 후퇴 = 점등돼 있던 자리가 소등되는 전환 (붉은 강조 대신 소등). */
+.ralphRegressionGhost {
+  fill: none;
+  stroke: color-mix(in srgb, var(--fg-default) 45%, transparent);
+  stroke-dasharray: 2 3;
+}
+
+.ralphRegressionDrop {
+  stroke: color-mix(in srgb, var(--fg-default) 40%, transparent);
+  stroke-dasharray: 2 3;
+}
+
+.ralphRegressionDot {
+  fill: color-mix(in srgb, var(--fg-default) 55%, transparent);
+}
+
+.ralphComplete line {
+  stroke: var(--fg-accent);
+  stroke-width: 1.2;
+}
+
+.ralphComplete text {
+  fill: var(--fg-accent);
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+}
+
+.ralphGate {
+  opacity: 0;
+  transition: opacity 0.8s ease;
+}
+
+[data-ralph-loop][data-ralph-stage="handoff"] .ralphGate {
+  opacity: 1;
+}
+
+.ralphGate line {
+  stroke: var(--fg-attention);
+  stroke-width: 1.4;
+  stroke-dasharray: 4 5;
+}
+
+.ralphGate text {
+  fill: var(--fg-attention);
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+}
+
+.ralphTable {
+  margin-block: 0.75rem;
+  border-collapse: collapse;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+}
+
+.ralphTable caption {
+  text-align: start;
+  color: var(--fg-muted);
+  font-size: 0.78rem;
+  margin-block-end: 0.4rem;
+}
+
+.ralphTable th,
+.ralphTable td {
+  border: 1px solid color-mix(in srgb, var(--fg-default) 14%, transparent);
+  padding: 0.28rem 0.55rem;
+  text-align: end;
+}
+
+.ralphEvents {
+  margin-block: 0.6rem;
+  padding-inline-start: 1.2rem;
+  color: var(--fg-muted);
+  font-size: 0.84rem;
+}
+
+.ralphEvents li + li {
+  margin-block-start: 0.3rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ralphRingDash {
+    animation: none;
+  }
+
+  .ralphTraj,
+  .ralphModeGroup,
+  .ralphGap,
+  .ralphRegression,
+  .ralphComplete,
+  .ralphGate {
+    transition: none;
+  }
+}
+
+@media (width < 768px) {
+  .ralphTable {
+    display: block;
+    overflow-x: auto;
+  }
+}

@@ -125,28 +125,20 @@ const notes = {
     { id: "S05.10", text: "그래서 토큰 예산을 늘리기 전에 verifier가 있는지, 그리고 훼손을 어떻게 줄일지를 먼저 설계해야 합니다." },
   ],
   "scene-06": [
-    { id: "S06.01", text: "공식 Autoresearch 저장소는 GPU(graphics processing unit) 한 개에서 작은 언어 모델 학습 코드를 에이전트가 반복 개선하도록 구성합니다." },
-    { id: "S06.02", text: "공식 구현에서 데이터 준비와 평가를 담은 prepare.py는 고정되고 에이전트는 train.py 하나만 수정합니다." },
-    { id: "S06.03", text: "이 제한은 탐색 범위를 작게 만들고 변경 차이를 검토 가능한 크기로 유지합니다." },
-    { id: "S06.04", text: "각 학습 실행에는 시작과 컴파일을 제외한 벽시계 기준 5분이 똑같이 주어집니다." },
-    { id: "S06.05", text: "공식 주 지표는 검증 데이터의 바이트당 비트 수인 val_bpb이며 값이 낮을수록 좋습니다." },
-    { id: "S06.06", text: "고정된 시간과 평가기는 서로 다른 구조와 하이퍼파라미터를 같은 시험대에서 비교하게 합니다." },
-    { id: "S06.07", text: "첫 실행은 수정하지 않은 코드의 baseline을 세워 비교 기준을 만듭니다." },
-    { id: "S06.08", text: "에이전트는 실험 아이디어로 코드를 바꾸고 변경을 commit한 뒤 같은 절차로 실행합니다." },
-    { id: "S06.09", text: "실행 뒤에는 metric과 peak memory와 상태와 시도 내용을 tab-separated ledger에 기록합니다." },
-    { id: "S06.10", text: "metric이 낮아지면 공식 규칙은 commit을 keep하고 branch를 새 incumbent로 전진시킵니다." },
-    { id: "S06.11", text: "metric이 같거나 나빠지면 candidate를 discard하고 시작했던 commit으로 되돌립니다." },
-    { id: "S06.12", text: "실행이 무너지면 쉬운 오류는 고쳐 다시 돌리고 근본적으로 깨진 아이디어는 crash로 기록합니다." },
-    { id: "S06.13", text: "공식 지침은 실험 loop가 시작되면 사람이 중단할 때까지 계속 실행하도록 요구합니다." },
-    { id: "S06.14", text: "여기까지가 저장소에 명시된 running example이고 지금부터는 이를 재사용 가능한 구조로 해부한 발표의 일반화입니다." },
-    { id: "S06.15", text: "첫 층인 research contract는 목표와 mutable scope와 frozen harness와 metric과 trial budget을 고정합니다." },
-    { id: "S06.16", text: "두 번째 층인 experiment loop는 incumbent에서 가설을 만들고 격리된 candidate를 실행해 observation을 얻습니다." },
-    { id: "S06.17", text: "proposer는 가능성을 만들고 executor는 실행하며 evaluator는 관측을 비교 가능한 evidence로 바꿉니다." },
-    { id: "S06.18", text: "controller는 evidence와 constraint를 읽고 keep이나 discard나 crash라는 verdict를 내립니다." },
-    { id: "S06.19", text: "keep일 때만 candidate가 다음 incumbent가 되고 나머지 판정에서는 기존 incumbent가 남습니다." },
-    { id: "S06.20", text: "모든 시도의 hypothesis와 diff와 observation과 verdict는 append-only ledger에 누적됩니다." },
-    { id: "S06.21", text: "공식 에이전트 지침 문서는 proposal policy이고 results.tsv는 experiment ledger이므로 둘 다 압축된 memory와는 다릅니다." },
-    { id: "S06.22", text: "이 contract와 역할 구분을 다시 정의하면 같은 구조를 코드와 문서와 데이터 탐색에도 적용할 수 있습니다." },
+    { id: "S06.01", text: "실무에서 가장 단순한 agent loop는 같은 프롬프트를 무한히 다시 넣는 bash 한 줄입니다." },
+    { id: "S06.02", text: "2025년 7월 Geoffrey Huntley가 이를 Ralph loop라 이름 붙였고 공식 Claude 플러그인으로도 구현되어 있습니다." },
+    { id: "S06.03", text: "매 바퀴 컨텍스트는 초기화되고, 같은 프롬프트가 다시 들어가며, 남는 상태는 파일뿐입니다." },
+    { id: "S06.04", text: "판정자도 agent 자신입니다 — 무엇이 끝났고 무엇이 좋아졌는지 스스로 판단하고, 걸러줄 gate가 없습니다." },
+    { id: "S06.05", text: "같은 정책의 반복, 자기 판정, gate 없음 — 이 세 가지가 논문의 두 상태 모형이 둔 가정과 정확히 겹칩니다." },
+    { id: "S06.06", text: "그래서 Ralph loop는 논문의 모형과 가장 가까운 실전 예시이고, 논문의 결론이 이 loop의 예측이 됩니다." },
+    { id: "S06.07", text: "첫 번째 예측: 성패를 정하는 것은 반복 횟수가 아니라 복구와 훼손의 균형입니다." },
+    { id: "S06.08", text: "두 번째 예측: 훼손이 gate 없이 채택됩니다 — 망가진 상태가 그대로 다음 바퀴의 출발점이 됩니다." },
+    { id: "S06.09", text: "실제 운용 기록의 \"아침에 깨진 codebase로 일어나 수동 git reset\"이 바로 그 실물입니다." },
+    { id: "S06.10", text: "세 번째 예측: 반복을 늘려도 천장이 있습니다 — 화면의 궤적이 천장 선 아래에서 정체하고 진동합니다." },
+    { id: "S06.11", text: "판정자가 자신뿐이면 관측도 흔들립니다 — agent가 믿는 진행과 실제 충족이 벌어지고 COMPLETE 선언은 자기 평가일 뿐입니다." },
+    { id: "S06.12", text: "test를 붙이면 부분 external verifier가 생겨 천장이 올라가고 괴리가 줄지만, test가 못 보는 훼손은 여전히 채택됩니다." },
+    { id: "S06.13", text: "그러므로 Ralph loop를 쓴다면 논문의 한계와 유의점이 그대로 설계 체크리스트가 됩니다." },
+    { id: "S06.14", text: "다음 장에서는 이 한계를 구조로 돌파한 공식 사례 autoresearch를 봅니다." },
   ],
   "scene-07": [
     { id: "S07.01", text: "재생 화면의 시작점은 baseline을 통과해 현재 비교 기준이 된 incumbent입니다." },
@@ -205,7 +197,7 @@ const cutCandidates = {
   "scene-03": ["S03.07", "S03.10"],
   "scene-04": ["S04.05", "S04.11", "S04.13"],
   "scene-05": [],
-  "scene-06": ["S06.03", "S06.12"],
+  "scene-06": ["S06.02", "S06.09"],
   "scene-07": ["S07.07", "S07.20", "S07.25", "S07.28"],
   "scene-08": [],
 } as const satisfies Record<SceneId, readonly string[]>;
@@ -216,7 +208,9 @@ const sceneBlueprints = [
   { id: "scene-03", part: "paper", speechSeconds: 152, visualSeconds: 28 },
   { id: "scene-04", part: "paper", speechSeconds: 200, visualSeconds: 40 },
   { id: "scene-05", part: "bridge", speechSeconds: 80, visualSeconds: 20 },
-  { id: "scene-06", part: "practice", speechSeconds: 176, visualSeconds: 64 },
+  // Scene 6 재설계(reports/scene6-ralph-loop-wireframe.md)로 240→152초.
+  // 감소분 88초의 Part II 재배분은 별도 세션에서 진행한다.
+  { id: "scene-06", part: "practice", speechSeconds: 112, visualSeconds: 40 },
   { id: "scene-07", part: "practice", speechSeconds: 240, visualSeconds: 70 },
   { id: "scene-08", part: "practice", speechSeconds: 120, visualSeconds: 30 },
 ] as const satisfies ReadonlyArray<{
@@ -256,22 +250,24 @@ export const PART_LABELS: Record<ResearchPart, string> = {
   practice: "Part II · Autoresearch 적용",
 };
 
+// 잠정 계약: Scene 6 재설계로 전체 1500→1412초. Part II 나머지 장을
+// 재배분해 25분으로 복원하는 작업은 별도 세션에서 진행한다.
 export const PART_TOTAL_SECONDS: Record<ResearchPart, number> = {
   paper: 700,
   bridge: 100,
-  practice: 700,
+  practice: 612,
 };
 
 export const HARD_CHECKPOINTS = [
   { afterScene: "scene-04", label: "Part I 종료", seconds: 700 },
   { afterScene: "scene-05", label: "전환 종료", seconds: 800 },
-  { afterScene: "scene-08", label: "전체 종료", seconds: 1500 },
+  { afterScene: "scene-08", label: "전체 종료", seconds: 1412 },
 ] as const;
 
-export const TOTAL_SENTENCE_BUDGET = 150;
-export const TOTAL_SPEECH_SECONDS = 1200;
-export const TOTAL_VISUAL_SECONDS = 300;
-export const TOTAL_DECK_SECONDS = 1500;
+export const TOTAL_SENTENCE_BUDGET = 142;
+export const TOTAL_SPEECH_SECONDS = 1136;
+export const TOTAL_VISUAL_SECONDS = 276;
+export const TOTAL_DECK_SECONDS = 1412;
 
 function assertPresentationTimingContract() {
   const sentenceBudget = SCENE_TIMINGS.reduce(

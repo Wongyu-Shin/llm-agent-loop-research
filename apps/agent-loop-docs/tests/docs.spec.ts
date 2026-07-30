@@ -125,9 +125,9 @@ test("자기수정 deck은 논문에서 실무 loop까지 8개 인터랙티브 S
   );
 
   const deck = page.locator("[data-research-deck]");
-  await expect(deck).toHaveAttribute("data-total-seconds", "1500");
-  await expect(deck).toHaveAttribute("data-speech-seconds", "1200");
-  await expect(deck).toHaveAttribute("data-visual-seconds", "300");
+  await expect(deck).toHaveAttribute("data-total-seconds", "1412");
+  await expect(deck).toHaveAttribute("data-speech-seconds", "1136");
+  await expect(deck).toHaveAttribute("data-visual-seconds", "276");
   await expect(page.locator(".site-header")).toHaveCount(0);
   const paletteContract = await deck.evaluate((root) => {
     const deckStyle = getComputedStyle(root);
@@ -155,7 +155,7 @@ test("자기수정 deck은 논문에서 실무 loop까지 8개 인터랙티브 S
   await expect(scenes).toHaveCount(8);
   await expect(deck.locator(".lab")).toHaveCount(8);
   await expect(deck.locator("[data-visual-fallback]")).toHaveCount(8);
-  await expect(deck.locator("[data-presenter-note]")).toHaveCount(150);
+  await expect(deck.locator("[data-presenter-note]")).toHaveCount(142);
 
   const timingContract = await scenes.evaluateAll((items) => ({
     sentences: items.reduce(
@@ -182,11 +182,11 @@ test("자기수정 deck은 논문에서 실무 loop까지 8개 인터랙티브 S
     ),
   }));
   expect(timingContract).toEqual({
-    sentences: 150,
-    speech: 1200,
-    visual: 300,
-    total: 1500,
-    sceneNotes: [8, 21, 19, 25, 10, 22, 30, 15],
+    sentences: 142,
+    speech: 1136,
+    visual: 276,
+    total: 1412,
+    sceneNotes: [8, 21, 19, 25, 10, 14, 30, 15],
     proseHasVisual: [true, true, true, true, true, true, true, true],
   });
 
@@ -438,7 +438,7 @@ test("평형 수조는 어떤 시작 수위에서도 천장 Upp로 수렴하고 
   });
 });
 
-test("loop map은 lens 전환과 상태 객체 선택으로 owner·rollback 속성을 보여 준다", async ({
+test("ralph loop lab은 backpressure 전환으로 천장·후퇴·괴리를 갱신한다", async ({
   page,
 }) => {
   await page.goto("/self-correction-scaling/");
@@ -446,18 +446,28 @@ test("loop map은 lens 전환과 상태 객체 선택으로 owner·rollback 속�
   const fallback = lab.locator("[data-visual-fallback]");
 
   await expect(
-    page.locator("[data-official-example-strip] dl > div"),
-  ).toHaveCount(10);
-  await expect(fallback.locator("ol li")).toHaveCount(7);
-
-  await lab.getByRole("button", { name: "memory" }).click();
+    page.locator("[data-ralph-facts-strip] dl > div"),
+  ).toHaveCount(7);
   await expect(
-    page.locator("[data-scene-id='scene-06'] [data-loop-map]"),
-  ).toHaveAttribute("data-lens", "memory");
+    page.locator("[data-ralph-correspondence] dl > div"),
+  ).toHaveCount(4);
+  await expect(fallback.locator("[data-ralph-table] tbody tr")).toHaveCount(13);
+  await expect(fallback.locator("[data-ralph-events] li")).toHaveCount(4);
 
-  await lab.getByRole("button", { name: "Experiment ledger 속성 보기" }).click();
-  await expect(fallback.locator("[data-object-detail]")).toContainText(
-    "append-only",
+  const loop = page.locator("[data-scene-id='scene-06'] [data-ralph-loop]");
+  await lab.getByRole("button", { name: "없음" }).click();
+  await expect(loop).toHaveAttribute("data-mode", "none");
+  await expect(loop).toHaveAttribute("data-curves", "on");
+  await expect(lab.locator(".lab-statusbar")).toContainText("actual 7/12");
+  await expect(lab.locator(".lab-statusbar")).toContainText("COMPLETE 선언");
+  await expect(lab.locator(".lab-statusbar")).toContainText("후퇴 2회");
+
+  await lab.getByRole("button", { name: "test" }).click();
+  await expect(loop).toHaveAttribute("data-mode", "test");
+  await expect(lab.locator(".lab-statusbar")).toContainText("actual 10/12");
+  await expect(lab.locator(".lab-statusbar")).toContainText("후퇴 1회");
+  await expect(fallback.locator("[data-ralph-summary]")).toContainText(
+    "천장 10.4/12",
   );
 });
 

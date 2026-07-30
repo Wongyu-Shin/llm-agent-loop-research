@@ -16,9 +16,10 @@ import { ConvergenceMapLab } from "@/components/self-correction/scene-03-converg
 import { PredictionReplayLab } from "@/components/self-correction/scene-04-prediction-replay"
 import { EquilibriumTank } from "@/components/self-correction/scene-05-equilibrium-tank"
 import {
-  AutoresearchLoopMap,
-  OfficialExampleStrip,
-} from "@/components/self-correction/scene-06-loop-map"
+  RalphCorrespondence,
+  RalphFactsStrip,
+  RalphLoopLab,
+} from "@/components/self-correction/scene-06-ralph-loop"
 import { LoopControlWorkbench } from "@/components/self-correction/scene-07-control-workbench"
 import { LoopPolicyCard } from "@/components/self-correction/scene-08-policy-card"
 
@@ -206,27 +207,32 @@ export const metadata = {
   <StoryScene
     id="scene-06"
     part="practice"
-    eyebrow="구조"
-    title="무엇을 고정하고, 무엇을 바꾸며, 누가 채택하는가"
-    visual={<AutoresearchLoopMap />}
+    eyebrow="체제"
+    title="논문의 모형과 가장 가까운 실전 loop"
+    visual={<RalphLoopLab />}
   >
-    <ProvenanceBadge kind="official-autoresearch-example">공식 사례</ProvenanceBadge>
-    <ProvenanceBadge kind="engineering-transfer">일반화</ProvenanceBadge>
+    <ProvenanceBadge kind="community-practice">커뮤니티 관행</ProvenanceBadge>
+    <ProvenanceBadge kind="engineering-transfer">해석</ProvenanceBadge>
 
-    아래 표는 공식 README와 `program.md`가 직접 명시한 기본 사례입니다.
+    실무에서 가장 단순한 agent loop는 같은 `PROMPT.md`를 무한히 재투입하는
+    bash 한 줄, Ralph loop입니다. 매 바퀴 컨텍스트가 초기화되고 남는 상태는
+    파일뿐이며, 무엇이 끝났는지 판정하는 것도 agent 자신입니다.
 
-    <OfficialExampleStrip />
+    <RalphFactsStrip />
 
-    이 구조를 실무로 넓히려면 research contract, incumbent, isolated
-    challenger, raw observation, verdict, append-only experiment ledger,
-    derived memory를 별도 객체로 분리해 둬야 합니다. 공식 에이전트 지침
-    문서(`program.md`)는 proposal policy이고 `results.tsv`는 raw ledger이므로
-    둘을 압축된 derived memory와 동일시하지 않습니다. 그리고 KEEP 판정을 받은
-    challenger만 다음 incumbent가 되게 합니다.
+    같은 정책의 반복, 자기 판정, gate 없음 — 이 세 구조가 논문의 두 상태
+    모형이 둔 가정과 겹치기 때문에, 논문의 결론이 그대로 이 loop의 예측이
+    됩니다. 성패는 반복 횟수가 아니라 복구·훼손의 균형이 정하고, 훼손은
+    gate 없이 그대로 채택되며, 반복을 늘려도 궤적은 천장 Upp 아래에서
+    정체합니다. test를 붙이면 부분 external verifier(backpressure)로 천장이
+    올라가지만, test가 못 보는 훼손은 여전히 채택되는 — 완전한 gate가 아닌 —
+    구조입니다.
+
+    <RalphCorrespondence />
 
     <PersistentConclusion badge="engineering-transfer">
-      Autoresearch형 loop의 단위는 생각 한 번이 아니라 고정된 계약 아래
-      실행하고 되돌릴 수 있는 실험 한 건이다.
+      Ralph loop는 논문의 두 상태 모형에 가장 가까운 실전 구조다. 그래서
+      천장과 훼손이라는 논문의 한계도 구조째 물려받는다.
     </PersistentConclusion>
 
     <PresenterNotes sceneId="scene-06" />
