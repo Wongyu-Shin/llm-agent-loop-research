@@ -125,8 +125,8 @@ test("자기수정 deck은 논문에서 실무 loop까지 8개 인터랙티브 S
   );
 
   const deck = page.locator("[data-research-deck]");
-  await expect(deck).toHaveAttribute("data-total-seconds", "1412");
-  await expect(deck).toHaveAttribute("data-speech-seconds", "1136");
+  await expect(deck).toHaveAttribute("data-total-seconds", "1500");
+  await expect(deck).toHaveAttribute("data-speech-seconds", "1224");
   await expect(deck).toHaveAttribute("data-visual-seconds", "276");
   await expect(page.locator(".site-header")).toHaveCount(0);
   const paletteContract = await deck.evaluate((root) => {
@@ -155,7 +155,7 @@ test("자기수정 deck은 논문에서 실무 loop까지 8개 인터랙티브 S
   await expect(scenes).toHaveCount(8);
   await expect(deck.locator(".lab")).toHaveCount(8);
   await expect(deck.locator("[data-visual-fallback]")).toHaveCount(8);
-  await expect(deck.locator("[data-presenter-note]")).toHaveCount(142);
+  await expect(deck.locator("[data-presenter-note]")).toHaveCount(153);
 
   const timingContract = await scenes.evaluateAll((items) => ({
     sentences: items.reduce(
@@ -182,11 +182,11 @@ test("자기수정 deck은 논문에서 실무 loop까지 8개 인터랙티브 S
     ),
   }));
   expect(timingContract).toEqual({
-    sentences: 142,
-    speech: 1136,
+    sentences: 153,
+    speech: 1224,
     visual: 276,
-    total: 1412,
-    sceneNotes: [8, 21, 19, 25, 10, 14, 30, 15],
+    total: 1500,
+    sceneNotes: [8, 21, 19, 25, 10, 14, 37, 19],
     proseHasVisual: [true, true, true, true, true, true, true, true],
   });
 
@@ -479,14 +479,21 @@ test("ralph loop lab은 backpressure 전환으로 천장·후퇴·괴리를 갱�
   );
 });
 
-test("control workbench는 replay ledger·전이 비교·stop reason을 한 reducer에서 파생한다", async ({
+test("gate replay는 훼손을 차단하고 gate를 끄면 Ralph 궤적이 재현된다", async ({
   page,
 }) => {
   await page.goto("/self-correction-scaling/");
-  const lab = page.locator("[data-scene-id='scene-07'] .lab");
+  const scene = page.locator("[data-scene-id='scene-07']");
+  const lab = scene.locator(".lab");
   const fallback = lab.locator("[data-visual-fallback]");
 
-  await lab.getByRole("tab", { name: "replay" }).click();
+  await expect(
+    scene.locator("[data-autoresearch-facts-strip] dl > div"),
+  ).toHaveCount(10);
+  await expect(
+    scene.locator("[data-structural-breakthroughs] dl > div"),
+  ).toHaveCount(4);
+
   const rows = fallback.locator("[data-ledger-table] tbody tr");
   await expect(rows).toHaveCount(4);
   await expect(rows.nth(3)).toContainText("측정 없음");
@@ -498,16 +505,25 @@ test("control workbench는 replay ledger·전이 비교·stop reason을 한 redu
     "0.000000",
   );
 
-  await lab.getByRole("tab", { name: "diagnose" }).click();
+  const replay = scene.locator("[data-gate-replay]");
+  await lab.getByRole("button", { name: "없음 (Ralph)" }).click();
+  await expect(replay).toHaveAttribute("data-mode", "off");
+  await expect(lab.locator(".lab-statusbar")).toContainText("훼손 채택 1회");
+  await expect(fallback.locator("[data-gate-off-table]")).toContainText(
+    "1.005000",
+  );
+
+  await lab.getByRole("button", { name: "완전 gate" }).click();
+  await expect(replay).toHaveAttribute("data-mode", "on");
+  await expect(lab.locator(".lab-statusbar")).toContainText("후퇴 0회");
+
   await expect(fallback.locator("[data-transition-compare]")).toContainText(
     "incumbent 보호됨",
   );
-  await lab.getByRole("button", { name: "연속형 scalar" }).click();
-  await expect(fallback.locator("[data-scalar-disabled]")).toContainText(
-    "CLₜ/CSₜ 표를 비활성화",
+  await expect(fallback.locator("[data-scalar-note]")).toContainText(
+    "CLₜ/CSₜ를 셀 수 없",
   );
 
-  await lab.getByRole("tab", { name: "stop" }).click();
   await expect(lab.locator(".lab-statusbar")).toContainText("계속 실행");
   const plateau = lab.getByRole("slider", { name: /plateau/ });
   await plateau.press("End");
@@ -525,8 +541,12 @@ test("policy card는 blank와 synthetic 탭을 전환하고 YAML 복사 토스�
   page,
 }) => {
   await page.goto("/self-correction-scaling/");
-  const lab = page.locator("[data-scene-id='scene-08'] .lab");
+  const scene = page.locator("[data-scene-id='scene-08']");
+  const lab = scene.locator(".lab");
   const fallback = lab.locator("[data-visual-fallback]");
+
+  await expect(scene.locator("[data-caution-band] li")).toHaveCount(6);
+  await expect(fallback).toContainText("여덟 구역");
 
   await lab.getByRole("tab", { name: "synthetic 예시" }).click();
   await expect(fallback.locator("[data-policy-yaml]")).toContainText(

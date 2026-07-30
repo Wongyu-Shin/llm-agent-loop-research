@@ -141,53 +141,64 @@ const notes = {
     { id: "S06.14", text: "다음 장에서는 이 한계를 구조로 돌파한 공식 사례 autoresearch를 봅니다." },
   ],
   "scene-07": [
-    { id: "S07.01", text: "재생 화면의 시작점은 baseline을 통과해 현재 비교 기준이 된 incumbent입니다." },
-    { id: "S07.02", text: "첫 candidate가 더 낮은 주 metric과 허용 가능한 peak memory 사용량을 보이면 gate는 keep을 선택합니다." },
-    { id: "S07.03", text: "이때 branch와 incumbent는 candidate revision으로 함께 전진합니다." },
-    { id: "S07.04", text: "두 번째 candidate가 실행에는 성공해도 metric이 나빠지면 verdict는 discard입니다." },
-    { id: "S07.05", text: "discard 뒤에는 코드를 이전 incumbent로 rollback하되 실패 기록은 ledger에 남깁니다." },
-    { id: "S07.06", text: "세 번째 candidate가 메모리 부족으로 실행되지 않으면 유효한 성능 측정 없이 crash로 분류합니다." },
-    { id: "S07.07", text: "공식 crash sentinel은 영이지만 화면에서는 최고 점수로 오해하지 않도록 측정 없음으로 표시합니다." },
-    { id: "S07.08", text: "세 결과의 공통점은 candidate의 운명과 incumbent의 상태를 별도로 기록한다는 것입니다." },
-    { id: "S07.09", text: "그러므로 campaign이 반환할 대상은 마지막 candidate가 아니라 검증된 best so far입니다." },
-    { id: "S07.10", text: "이제 논문의 CL_t와 CS_t를 적용하려면 먼저 평가 단위마다 통과와 실패를 판정할 수 있는지 확인합니다." },
-    { id: "S07.11", text: "candidate 수준 CL_t는 incumbent가 통과하던 기준 중 candidate에서도 계속 통과한 비율입니다." },
-    { id: "S07.12", text: "candidate 수준 CS_t는 incumbent가 실패하던 기준 중 candidate에서 새로 통과한 비율입니다." },
-    { id: "S07.13", text: "candidate가 새 실패를 많이 만들면 복구가 있어도 candidate 수준 훼손 손실이 커질 수 있습니다." },
-    { id: "S07.14", text: "gate가 그 candidate를 discard하면 채택된 system state는 바뀌지 않아 기존 통과 항목이 보호됩니다." },
-    { id: "S07.15", text: "반대로 keep된 candidate의 보존과 복구 전이만 다음 system state의 CL_t와 CS_t에 반영됩니다." },
-    { id: "S07.16", text: "이 구분은 생성 성능보다 acceptance policy가 시스템의 실현 성능을 결정한다는 점을 보여 줍니다." },
-    { id: "S07.17", text: "다만 연속형 metric 하나는 사례별 전이표를 제공하지 않으므로 CL_t와 CS_t를 계산할 충분한 정보가 아닙니다." },
-    { id: "S07.18", text: "또한 다음 제안이 ledger와 memory에 따라 달라지므로 고정된 CL과 CS의 고정점 Upp를 campaign 예측값으로 쓰지 않습니다." },
-    { id: "S07.19", text: "결과가 나쁘면 먼저 proposer와 executor와 evaluator와 controller 중 어느 경계가 실패했는지 국소화합니다." },
-    { id: "S07.20", text: "비슷한 candidate가 반복되면 proposer의 탐색 폭과 memory 입력을 점검합니다." },
-    { id: "S07.21", text: "crash가 몰리면 가설의 품질보다 실행 환경과 dependency와 자원 한도를 먼저 확인합니다." },
-    { id: "S07.22", text: "관측이 비거나 흔들리면 instrumentation과 평가 분산과 데이터 버전을 조사합니다." },
-    { id: "S07.23", text: "proxy metric만 좋아지고 gold 기준이 나빠지면 metric alignment 실패로 분류합니다." },
-    { id: "S07.24", text: "더 나쁜 candidate가 incumbent를 덮어쓰면 selector와 비교 기준이 고장 난 것입니다." },
-    { id: "S07.25", text: "폐기한 실험이 반복되면 raw ledger가 다음 proposal memory로 전달되는 경로를 추적합니다." },
-    { id: "S07.26", text: "candidate가 frozen harness까지 바꿀 수 있다면 개선보다 contract 무결성 위반을 먼저 의심합니다." },
-    { id: "S07.27", text: "공식 예시는 사람의 interrupt까지 계속 돌지만 실무 일반화에서는 한 trial의 timeout과 전체 campaign의 stopping budget을 분리합니다." },
-    { id: "S07.28", text: "campaign은 success와 safety와 cycle과 plateau와 budget과 human interrupt를 구조화된 stop reason으로 기록합니다." },
-    { id: "S07.29", text: "여러 종료 조건이 겹치면 안전과 하네스 무결성을 성능 개선보다 먼저 평가합니다." },
-    { id: "S07.30", text: "종료할 때는 검증된 best so far와 남은 불확실성과 stop reason을 함께 반환합니다." },
+    { id: "S07.01", text: "앞 장 Ralph loop의 한계는 게으름이 아니라 구조의 결과였습니다 — 같은 정책의 반복, 자기 판정, gate 없음." },
+    { id: "S07.02", text: "이번 장의 질문은 반대 방향입니다 — 구조를 바꾸면 그 한계가 실제로 사라지는가." },
+    { id: "S07.03", text: "공식 사례가 karpathy의 autoresearch입니다 — nanoGPT의 train.py를 밤새 홀로 개선하는 overnight research loop입니다." },
+    { id: "S07.04", text: "목표는 고정된 실행 시간 안에서 validation bits per byte, val_bpb를 낮추는 것 하나로 고정됩니다." },
+    { id: "S07.05", text: "agent가 바꿀 수 있는 것은 train.py 하나뿐이고, 데이터와 evaluator가 담긴 prepare.py는 frozen harness로 잠급니다." },
+    { id: "S07.06", text: "판정 규칙은 사람도 agent도 아닌 구조가 갖습니다 — 개선하면 keep, 같거나 나쁘면 discard와 revert, 실행 실패는 crash입니다." },
+    { id: "S07.07", text: "모든 시도는 results.tsv ledger에 append되어 성공과 실패가 똑같이 기억되고 다음 제안의 memory가 됩니다." },
+    { id: "S07.08", text: "Ralph에 없던 세 가지 — incumbent와 challenger의 분리, acceptance gate, append-only ledger — 가 정확히 이 지점에 들어와 있습니다." },
+    { id: "S07.09", text: "첫 번째 돌파는 훼손 채택의 구조적 차단입니다." },
+    { id: "S07.10", text: "재생 화면의 baseline은 수정하지 않은 train.py이고, 이를 통과한 revision이 비교 기준 incumbent가 됩니다." },
+    { id: "S07.11", text: "첫 candidate는 learning rate를 올려 val_bpb를 낮췄고, gate는 keep을 선택해 incumbent가 전진합니다." },
+    { id: "S07.12", text: "두 번째 candidate는 GELU 전환으로 metric이 나빠져 discard되고, 코드는 rollback되되 실패 기록은 ledger에 남습니다." },
+    { id: "S07.13", text: "세 번째 candidate는 메모리 부족으로 실행조차 못 해 crash로 분류됩니다 — 유효한 측정이 없기 때문입니다." },
+    { id: "S07.14", text: "공식 ledger는 crash를 영으로 기록하지만 화면에서는 최저 점수로 오해하지 않도록 측정 없음으로 표시합니다." },
+    { id: "S07.15", text: "Ralph에서라면 이 훼손과 crash가 그대로 다음 바퀴의 출발점이 됐을 것입니다." },
+    { id: "S07.16", text: "gate 토글을 꺼 보면 같은 네 시도가 걸러지지 않고 채택되어 궤적이 진동합니다 — 앞 장의 Ralph 궤적이 재현됩니다." },
+    { id: "S07.17", text: "두 번째 돌파는 자기평가 괴리의 소거입니다 — 판정 근거가 agent의 believed가 아니라 frozen harness의 측정이기 때문입니다." },
+    { id: "S07.18", text: "COMPLETE 선언 같은 자기 보고가 낄 자리가 없어, 앞 장에서 벌어졌던 believed와 actual 두 곡선이 하나로 합쳐집니다." },
+    { id: "S07.19", text: "세 번째 돌파는 후퇴 없는 ratchet입니다 — incumbent는 검증된 개선에서만 교체되므로 system 궤적은 단조입니다." },
+    { id: "S07.20", text: "campaign이 반환하는 것도 마지막 candidate가 아니라 검증된 best so far입니다." },
+    { id: "S07.21", text: "논문의 언어로 옮기면 gate는 system 수준의 훼손을 0으로 눌러 CL_t를 1로 만드는 장치입니다." },
+    { id: "S07.22", text: "수조 장면에서 본 완전 acceptance gate — 천장을 없애는 바로 그 구조가 여기서는 실제로 돌아갑니다." },
+    { id: "S07.23", text: "이 등식을 전이 회계로 확인해 봅니다." },
+    { id: "S07.24", text: "열두 기준 예시에서 candidate는 기존 통과 아홉 중 셋을 훼손하고 하나만 복구해 candidate 수준 CL_t는 9분의 6에 그칩니다." },
+    { id: "S07.25", text: "gate가 이 candidate를 discard하면 채택된 system state는 그대로라 통과 아홉 개가 전부 보호됩니다." },
+    { id: "S07.26", text: "생성 품질이 아니라 acceptance policy가 시스템의 실현 성능을 결정한다는 것이 이 표의 요지입니다." },
+    { id: "S07.27", text: "단 이 회계에는 전제가 있습니다 — 기준별 통과와 실패 판정이 있어야 하며, val_bpb 같은 스칼라 하나로는 CL_t와 CS_t를 셀 수 없습니다." },
+    { id: "S07.28", text: "네 번째 돌파는 끝의 구조화입니다." },
+    { id: "S07.29", text: "Ralph의 끝은 agent의 COMPLETE 선언이었고, 공식 예시조차 사람이 멈출 때까지 돈다는 운영 정책을 씁니다." },
+    { id: "S07.30", text: "실무 일반화에서는 한 trial의 timeout과 campaign 전체의 예산을 분리합니다." },
+    { id: "S07.31", text: "그리고 success, safety, cycle, plateau, budget, human interrupt를 구조화된 stop reason으로 기록합니다." },
+    { id: "S07.32", text: "여러 조건이 겹치면 안전과 harness 무결성이 성능 개선보다 먼저 평가됩니다." },
+    { id: "S07.33", text: "종료할 때는 검증된 best so far와 남은 불확실성과 stop reason을 함께 반환합니다." },
+    { id: "S07.34", text: "정리하면 Ralph의 네 한계 — 훼손 채택, 자기평가 괴리, 후퇴와 천장, 자의적 끝 — 이 구조물 하나씩으로 막혔습니다." },
+    { id: "S07.35", text: "이 대응 역시 engineering transfer 해석입니다 — 공식 사례가 논문의 dynamics를 측정했다는 주장이 아닙니다." },
+    { id: "S07.36", text: "그리고 이 구조 전체는 싸고 결정적이고 재현 가능한 외부 verifier 하나 위에 서 있습니다." },
+    { id: "S07.37", text: "다음 장에서는 그 전제가 무너지는 대부분의 실무에서 이 구조를 어떻게 주의해서 옮길지 봅니다." },
   ],
   "scene-08": [
-    { id: "S08.01", text: "최종 화면은 우리가 운영할 loop policy를 한 장의 contract card로 압축합니다." },
-    { id: "S08.02", text: "첫 줄에는 실제 목표와 그 목표를 대신 관측할 주 metric을 나란히 적습니다." },
-    { id: "S08.03", text: "목표와 metric이 다르다는 사실을 명시해야 proxy 개선을 최종 성공으로 오인하지 않습니다." },
-    { id: "S08.04", text: "다음 줄에는 바꿀 수 있는 artifact와 절대 바꾸지 않을 harness를 구분합니다." },
-    { id: "S08.05", text: "baseline과 incumbent의 revision과 score와 provenance를 함께 저장해 비교 기준을 고정합니다." },
-    { id: "S08.06", text: "proposal rule에는 사용할 evidence와 허용된 diff 범위와 금지된 변경을 적습니다." },
-    { id: "S08.07", text: "execution rule에는 격리 방식과 재현 조건과 trial timeout과 비용 한도를 적습니다." },
-    { id: "S08.08", text: "evaluation rule에는 raw observation과 metric 계산과 guard test와 gold regression check를 분리해 둡니다." },
-    { id: "S08.09", text: "selection rule에는 keep과 discard와 crash와 rollback의 정확한 조건을 적습니다." },
-    { id: "S08.10", text: "ledger schema에는 hypothesis와 revision과 observation과 verdict와 비용과 stop reason을 남깁니다." },
-    { id: "S08.11", text: "memory policy에는 어떤 기록을 압축하고 언제 원문 ledger로 돌아갈지 정합니다." },
-    { id: "S08.12", text: "campaign policy에는 성공과 안전과 반복과 정체와 예산과 human interrupt 종료를 둡니다." },
-    { id: "S08.13", text: "고위험 외부 변경에는 자동 keep 뒤에도 별도의 사람 승인을 요구합니다." },
-    { id: "S08.14", text: "논문의 멘탈 모델은 이 정책에서 복구 이득과 훼손 손실을 분리해 acceptance gate를 진단하게 합니다." },
-    { id: "S08.15", text: "실무형 agent loop의 지능은 후보 수보다 비교 가능한 실험과 보수적 채택과 실패의 기억에 있습니다." },
+    { id: "S08.01", text: "마지막 장은 경고에서 시작합니다 — autoresearch의 돌파는 구조의 승리이기 전에 verifier의 승리입니다." },
+    { id: "S08.02", text: "싸고 결정적이고 목표와 정렬된 스칼라 metric — 이 전제를 갖춘 실무 문제는 많지 않습니다." },
+    { id: "S08.03", text: "첫 번째 주의: metric은 목표의 대리입니다 — val_bpb가 내려가도 실제 목표가 좋아졌는지는 별도 확인이 필요합니다." },
+    { id: "S08.04", text: "proxy만 좋아지고 gold 기준이 나빠지는 metric alignment 실패는 gate가 있어도 잡히지 않습니다." },
+    { id: "S08.05", text: "두 번째 주의: 현실의 verifier는 oracle이 아닙니다 — 오탐과 미탐을 따로 측정하고 훼손 차단이 완전하다는 가정을 감사해야 합니다." },
+    { id: "S08.06", text: "세 번째 주의: CL_t와 CS_t와 천장은 같은 평가 집합의 집단 지표라 개별 요청의 성패를 말해 주지 않습니다." },
+    { id: "S08.07", text: "네 번째 주의: 손익분기 판단에 쓰는 고정점은 장기 수렴점이 아니라 그 순간의 스냅샷입니다." },
+    { id: "S08.08", text: "다섯 번째 주의: gate는 훼손을 막을 뿐 탐색을 만들어 주지 않습니다 — plateau와 반복 제안은 여전히 proposer의 문제입니다." },
+    { id: "S08.09", text: "여섯 번째 주의: 외부 세계를 바꾸는 변경은 자동 keep 뒤에도 사람의 승인을 거쳐야 합니다." },
+    { id: "S08.10", text: "이 주의들을 머리로 기억하는 대신 한 장의 loop policy card에 적어 둡니다." },
+    { id: "S08.11", text: "첫 구역에는 실제 목표와 성공 조건을 적고, metric이 목표의 대리라는 사실을 명시합니다." },
+    { id: "S08.12", text: "바꿀 artifact와 frozen harness를 분리하고, 한 trial과 campaign 전체의 예산을 따로 둡니다." },
+    { id: "S08.13", text: "증거 구역에는 raw observation과 주 metric과 불확실성과 guard와 holdout을 적습니다." },
+    { id: "S08.14", text: "채택 구역에는 keep과 discard와 crash와 rollback의 정확한 조건을 적습니다." },
+    { id: "S08.15", text: "ledger와 memory를 구분하고, 성공·안전·정체·예산·human gate의 중단 규칙과 네 역할의 책임 분리가 뒤를 잇습니다." },
+    { id: "S08.16", text: "synthetic 예시로 채워 보면 빈 구역이 곧 그 loop의 위험 목록이 됩니다." },
+    { id: "S08.17", text: "논문은 반복 횟수가 아니라 정답 보존과 오답 복구의 균형을 보게 합니다." },
+    { id: "S08.18", text: "Ralph에서 autoresearch까지의 거리는 모델이 아니라 verifier와 gate라는 구조가 만들었습니다." },
+    { id: "S08.19", text: "좋은 agent loop는 많이 고치는 시스템이 아니라 증거 없는 변경을 채택하지 않는 시스템입니다." },
   ],
 } as const satisfies Record<SceneId, readonly PresenterNote[]>;
 
@@ -198,7 +209,7 @@ const cutCandidates = {
   "scene-04": ["S04.05", "S04.11", "S04.13"],
   "scene-05": [],
   "scene-06": ["S06.02", "S06.09"],
-  "scene-07": ["S07.07", "S07.20", "S07.25", "S07.28"],
+  "scene-07": ["S07.02", "S07.14", "S07.29", "S07.35"],
   "scene-08": [],
 } as const satisfies Record<SceneId, readonly string[]>;
 
@@ -208,11 +219,11 @@ const sceneBlueprints = [
   { id: "scene-03", part: "paper", speechSeconds: 152, visualSeconds: 28 },
   { id: "scene-04", part: "paper", speechSeconds: 200, visualSeconds: 40 },
   { id: "scene-05", part: "bridge", speechSeconds: 80, visualSeconds: 20 },
-  // Scene 6 재설계(reports/scene6-ralph-loop-wireframe.md)로 240→152초.
-  // 감소분 88초의 Part II 재배분은 별도 세션에서 진행한다.
   { id: "scene-06", part: "practice", speechSeconds: 112, visualSeconds: 40 },
-  { id: "scene-07", part: "practice", speechSeconds: 240, visualSeconds: 70 },
-  { id: "scene-08", part: "practice", speechSeconds: 120, visualSeconds: 30 },
+  // Scene 7·8 재설계(reports/scene7-8-autoresearch-wireframe.md)로 Scene 6
+  // 회수분 88초를 재배분해 덱 25분(1500초)을 복원했다.
+  { id: "scene-07", part: "practice", speechSeconds: 296, visualSeconds: 70 },
+  { id: "scene-08", part: "practice", speechSeconds: 152, visualSeconds: 30 },
 ] as const satisfies ReadonlyArray<{
   id: SceneId;
   part: ResearchPart;
@@ -250,24 +261,22 @@ export const PART_LABELS: Record<ResearchPart, string> = {
   practice: "Part II · Autoresearch 적용",
 };
 
-// 잠정 계약: Scene 6 재설계로 전체 1500→1412초. Part II 나머지 장을
-// 재배분해 25분으로 복원하는 작업은 별도 세션에서 진행한다.
 export const PART_TOTAL_SECONDS: Record<ResearchPart, number> = {
   paper: 700,
   bridge: 100,
-  practice: 612,
+  practice: 700,
 };
 
 export const HARD_CHECKPOINTS = [
   { afterScene: "scene-04", label: "Part I 종료", seconds: 700 },
   { afterScene: "scene-05", label: "전환 종료", seconds: 800 },
-  { afterScene: "scene-08", label: "전체 종료", seconds: 1412 },
+  { afterScene: "scene-08", label: "전체 종료", seconds: 1500 },
 ] as const;
 
-export const TOTAL_SENTENCE_BUDGET = 142;
-export const TOTAL_SPEECH_SECONDS = 1136;
+export const TOTAL_SENTENCE_BUDGET = 153;
+export const TOTAL_SPEECH_SECONDS = 1224;
 export const TOTAL_VISUAL_SECONDS = 276;
-export const TOTAL_DECK_SECONDS = 1412;
+export const TOTAL_DECK_SECONDS = 1500;
 
 function assertPresentationTimingContract() {
   const sentenceBudget = SCENE_TIMINGS.reduce(

@@ -14,6 +14,8 @@ import {
   determineStopReason,
   foldCampaign,
   formatMetricValue,
+  GATE_OFF_ADOPTED_VALUES,
+  INCUMBENT_STAIRCASE_VALUES,
   INITIAL_CAMPAIGN_STATE,
   RALPH_TOTAL_REQUIREMENTS,
   RALPH_TRAJECTORIES,
@@ -37,7 +39,7 @@ import {
 test.describe("발표 시간 계약 (wireframe §1, §12.2)", () => {
   test("장면별 문장 수와 시간 예산이 와이어프레임과 일치한다", () => {
     expect(SCENE_TIMINGS.map((scene) => scene.sentenceBudget)).toEqual([
-      8, 21, 19, 25, 10, 14, 30, 15,
+      8, 21, 19, 25, 10, 14, 37, 19,
     ]);
     expect(SCENE_TIMINGS.map((scene) => scene.visualSeconds)).toEqual([
       16, 32, 28, 40, 20, 40, 70, 30,
@@ -53,15 +55,15 @@ test.describe("발표 시간 계약 (wireframe §1, §12.2)", () => {
   });
 
   test("전체·Part별 합계와 hard checkpoint가 계약과 일치한다", () => {
-    // 잠정 계약: Scene 6 재설계(Ralph loop)로 1500→1412초.
-    // Part II 재배분(25분 복원)은 별도 세션에서 진행한다.
-    expect(TOTAL_SENTENCE_BUDGET).toBe(142);
-    expect(TOTAL_SPEECH_SECONDS).toBe(1136);
+    // Scene 7·8 재설계(reports/scene7-8-autoresearch-wireframe.md)로
+    // Scene 6 회수분 88초를 재배분해 25분(1500초)을 복원했다.
+    expect(TOTAL_SENTENCE_BUDGET).toBe(153);
+    expect(TOTAL_SPEECH_SECONDS).toBe(1224);
     expect(TOTAL_VISUAL_SECONDS).toBe(276);
-    expect(TOTAL_DECK_SECONDS).toBe(1412);
-    expect(PART_TOTAL_SECONDS).toEqual({ paper: 700, bridge: 100, practice: 612 });
+    expect(TOTAL_DECK_SECONDS).toBe(1500);
+    expect(PART_TOTAL_SECONDS).toEqual({ paper: 700, bridge: 100, practice: 700 });
     expect(HARD_CHECKPOINTS.map((checkpoint) => checkpoint.seconds)).toEqual([
-      700, 800, 1412,
+      700, 800, 1500,
     ]);
   });
 
@@ -73,7 +75,7 @@ test.describe("발표 시간 계약 (wireframe §1, §12.2)", () => {
       ["S04.05", "S04.11", "S04.13"],
       [],
       ["S06.02", "S06.09"],
-      ["S07.07", "S07.20", "S07.25", "S07.28"],
+      ["S07.02", "S07.14", "S07.29", "S07.35"],
       [],
     ];
     SCENE_TIMINGS.forEach((scene, sceneIndex) => {
@@ -214,6 +216,22 @@ test.describe("실험 loop 모델 (wireframe §9, §12.4)", () => {
     expect(
       determineStopReason({ ...base, testableHypothesisAvailable: false }),
     ).toBe("BLOCKED");
+  });
+
+  test("gate replay 파생 fixture는 canonical 캠페인과 정합한다", () => {
+    // gate 없음 counterfactual은 관측 metric을 그대로 채택한 값이다.
+    expect(GATE_OFF_ADOPTED_VALUES).toEqual(
+      CANONICAL_AUTORESEARCH_CAMPAIGN.map(
+        (record) => record.metrics[0]?.value ?? null,
+      ),
+    );
+    // incumbent 계단은 KEEP에서만 내려가는 단조 ratchet이다.
+    expect(INCUMBENT_STAIRCASE_VALUES).toEqual([0.9979, 0.9932, 0.9932, 0.9932]);
+    for (let i = 1; i < INCUMBENT_STAIRCASE_VALUES.length; i += 1) {
+      expect(INCUMBENT_STAIRCASE_VALUES[i]).toBeLessThanOrEqual(
+        INCUMBENT_STAIRCASE_VALUES[i - 1],
+      );
+    }
   });
 
   test("candidate 전이 예시는 gate가 system state를 보호함을 보여 준다", () => {

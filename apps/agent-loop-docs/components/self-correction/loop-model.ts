@@ -3,9 +3,9 @@
  *
  * The record shape, canonical fixture, and pure reducer follow wireframe
  * §9.2 (canonical replay data), §9.5 (stop reasons), §9.6 (telemetry),
- * and §12.4 (loop experiment state). Scenes 6 and 7 must both derive
- * their SVG, ledger table, and live announcements from `reduceExperiment`
- * so verdict → incumbent logic exists in exactly one place.
+ * and §12.4 (loop experiment state). Scene 7 must derive its SVG, ledger
+ * table, and live announcements from `reduceExperiment` so verdict →
+ * incumbent logic exists in exactly one place.
  */
 
 export type CriterionMode = "binary" | "scalar";
@@ -101,7 +101,7 @@ export const OFFICIAL_EXAMPLE_FACTS: OfficialExampleFact[] = [
     label: "Campaign stop",
     value: "기본 지침은 사람이 중단할 때까지 계속 실행",
     caveat:
-      "overnight autonomous research 예시의 운영 정책이며 범용 loop의 불변식이 아니다 — Scene 7에서 bounded stopping으로 일반화",
+      "overnight autonomous research 예시의 운영 정책이며 범용 loop의 불변식이 아니다 — 이 장면 후반의 bounded stopping이 그 일반화다",
   },
 ];
 
@@ -422,6 +422,144 @@ export const GATE_ORDER: GateStep[] = [
   },
 ];
 
+/* ── Scene 7 — gate replay (reports/scene7-8-autoresearch-wireframe.md) ── */
+
+export type GateReplayMode = "on" | "off";
+
+export const GATE_REPLAY_LABELS: Record<GateReplayMode, string> = {
+  on: "완전 gate",
+  off: "없음 (Ralph)",
+};
+
+/**
+ * Scene 6이 보인 Ralph의 네 한계 ↔ autoresearch의 구조물 대응 —
+ * engineering-transfer 해석이며 동일 dynamics 주장이 아니다.
+ */
+export type StructuralBreakthroughRow = {
+  id: "damage" | "self-report" | "regression" | "ending";
+  ralphLimit: string;
+  structure: string;
+};
+
+export const STRUCTURAL_BREAKTHROUGHS: StructuralBreakthroughRow[] = [
+  {
+    id: "damage",
+    ralphLimit: "훼손이 gate 없이 즉시 채택",
+    structure: "acceptance gate — 개선만 keep, 훼손은 discard + revert",
+  },
+  {
+    id: "self-report",
+    ralphLimit: "자기평가 괴리 — COMPLETE 선언 vs actual",
+    structure: "frozen harness + 스칼라 metric — believed가 아니라 측정이 판정",
+  },
+  {
+    id: "regression",
+    ralphLimit: "후퇴와 천장 — 궤적이 정체·진동",
+    structure: "incumbent/challenger 분리 — 검증된 개선에서만 교체되는 ratchet",
+  },
+  {
+    id: "ending",
+    ralphLimit: "끝이 자기 선언 — 깨진 아침과 수동 git reset",
+    structure: "append-only ledger + bounded stopping — 구조화된 stop reason",
+  },
+];
+
+/**
+ * gate를 껐을 때(Ralph counterfactual) 같은 네 시도가 걸러지지 않고 그대로
+ * system에 채택됐다면 갖게 될 iteration별 val_bpb — synthetic 예시. 각 값은
+ * canonical fixture의 관측 metric과 같고 crash는 측정 없음(null)이다.
+ */
+export const GATE_OFF_ADOPTED_VALUES: ReadonlyArray<number | null> =
+  CANONICAL_AUTORESEARCH_CAMPAIGN.map(
+    (record) => record.metrics[0]?.value ?? null,
+  );
+
+/** gate ON일 때 iteration별 incumbent(best-so-far)의 val_bpb 계단 값. */
+export const INCUMBENT_STAIRCASE_VALUES: readonly number[] =
+  CANONICAL_AUTORESEARCH_CAMPAIGN.map((_, index) => {
+    const state = foldCampaign(
+      CANONICAL_AUTORESEARCH_CAMPAIGN.slice(0, index + 1),
+    );
+    return state.bestSoFar?.metricValue ?? Number.NaN;
+  });
+
+export function gateReplaySummary(mode: GateReplayMode) {
+  const nonKeep = CANONICAL_AUTORESEARCH_CAMPAIGN.filter(
+    (record) => record.verdict !== "KEEP",
+  );
+  if (mode === "on") {
+    return `훼손 차단 ${nonKeep.length}회 · 후퇴 0회 · incumbent 단조 유지`;
+  }
+  const discarded = nonKeep.filter((record) => record.verdict === "DISCARD");
+  const crashed = nonKeep.filter((record) => record.verdict === "CRASH");
+  return `훼손 채택 ${discarded.length}회 · crash 채택 ${crashed.length}회 · Ralph 궤적 재현`;
+}
+
+/* ── Scene 8 — 여섯 주의 (wireframe §4.2) ── */
+
+/**
+ * autoresearch의 돌파를 실무로 옮길 때의 주의. cohort·snapshot은
+ * 논문 정리 문서가 명시한 제한(집단 지표·순간 손익분기점)을 보존한다.
+ */
+export type LoopCaution = {
+  id:
+    | "proxy"
+    | "oracle"
+    | "cohort"
+    | "snapshot"
+    | "exploration"
+    | "external";
+  title: string;
+  detail: string;
+  provenance: Extract<
+    ClaimProvenance,
+    "critical-reading" | "engineering-transfer"
+  >;
+};
+
+export const LOOP_CAUTIONS: LoopCaution[] = [
+  {
+    id: "proxy",
+    title: "metric은 목표의 대리",
+    detail:
+      "proxy 상승이 목표 달성을 보장하지 않는다 — gold 기준과 holdout으로 별도 확인한다.",
+    provenance: "engineering-transfer",
+  },
+  {
+    id: "oracle",
+    title: "verifier는 oracle이 아니다",
+    detail: "오탐과 미탐을 따로 측정하고, 훼손 차단이 완전하다는 가정을 감사한다.",
+    provenance: "engineering-transfer",
+  },
+  {
+    id: "cohort",
+    title: "집단 지표의 한계",
+    detail:
+      "CLₜ·CSₜ·천장은 같은 평가 집합의 집단 지표라 개별 요청의 성패를 말해 주지 않는다.",
+    provenance: "critical-reading",
+  },
+  {
+    id: "snapshot",
+    title: "고정점은 순간 스냅샷",
+    detail:
+      "손익분기 판단에 쓰는 고정점은 장기 수렴점이 아니라 그 라운드의 손익분기점이다.",
+    provenance: "critical-reading",
+  },
+  {
+    id: "exploration",
+    title: "gate는 탐색을 만들지 않는다",
+    detail:
+      "gate가 하는 일은 훼손 차단뿐이다 — plateau와 반복 제안은 여전히 proposer와 memory의 문제다.",
+    provenance: "engineering-transfer",
+  },
+  {
+    id: "external",
+    title: "외부 변경은 human gate",
+    detail: "외부 세계를 바꾸는 변경은 자동 keep 뒤에도 사람의 승인을 거친다.",
+    provenance: "engineering-transfer",
+  },
+];
+
 /**
  * Wireframe §9.4 — 사례별 pass/fail criterion이 있을 때만 쓰는 전이 비교
  * synthetic fixture. 훼손이 큰 candidate를 gate가 discard하면 candidate 수준
@@ -656,7 +794,7 @@ export type LoopPolicySection = {
   exampleValue: string[];
 };
 
-/** Wireframe §10.2 blank template + §10.3 synthetic example의 일곱 구역. */
+/** Wireframe §10.2 blank template + §10.3 synthetic example의 여덟 구역. */
 export const LOOP_POLICY_SECTIONS: LoopPolicySection[] = [
   {
     id: "goal",
@@ -952,7 +1090,7 @@ export function ralphSummary(mode: RalphBackpressure) {
 
 /** Wireframe §10.4 최종 세 문장. */
 export const FINAL_TAKEAWAYS = [
-  "논문은 반복 횟수보다 정답 보존과 오답 복구의 균형을 보게 한다.",
-  "적용할 때는 candidate의 전이와 system-after-gate의 전이를 분리한다.",
+  "논문은 반복 횟수가 아니라 정답 보존과 오답 복구의 균형을 보게 한다.",
+  "Ralph에서 autoresearch까지의 거리는 모델이 아니라 verifier와 gate라는 구조가 만들었다.",
   "좋은 agent loop는 많이 고치는 시스템이 아니라 증거 없는 변경을 채택하지 않는 시스템이다.",
 ] as const;

@@ -6,12 +6,38 @@ import { LabShell, useSvgIdPrefix } from "@/components/visualizations/viz-shell"
 import {
   BLANK_POLICY_YAML,
   FINAL_TAKEAWAYS,
+  LOOP_CAUTIONS,
   LOOP_POLICY_SECTIONS,
   SYNTHETIC_POLICY_YAML,
 } from "./loop-model";
+import { ProvenanceBadge } from "./presentation-shell";
 import { PlaybackBar } from "./playback-bar";
 import { useScenePlayback, type PlaybackStep } from "./use-scene-playback";
 import styles from "./loop-scenes.module.css";
+
+/**
+ * 와이어프레임 §4.2 — 여섯 주의. autoresearch의 돌파를 verifier 전제가
+ * 무너지는 실무로 옮길 때의 경고를 서사 컬럼에 상시 노출한다. cohort·
+ * snapshot 항목은 논문 정리 문서의 명시적 제한(critical-reading)이다.
+ */
+export function CautionBand() {
+  return (
+    <div className={styles.cautionBand} data-caution-band>
+      <div className={styles.officialStripHeading}>
+        <ProvenanceBadge kind="critical-reading" />
+        <ProvenanceBadge kind="engineering-transfer" />
+      </div>
+      <ol>
+        {LOOP_CAUTIONS.map((caution) => (
+          <li key={caution.id} data-caution={caution.id}>
+            <strong>{caution.title}</strong>
+            <span>{caution.detail}</span>
+          </li>
+        ))}
+      </ol>
+    </div>
+  );
+}
 
 const SECTION_STEPS: PlaybackStep[] = LOOP_POLICY_SECTIONS.map((section) => ({
   id: `section-${section.id}`,
@@ -28,10 +54,10 @@ const STEPS: PlaybackStep[] = [
 type PolicyTab = "blank" | "synthetic";
 
 /**
- * Scene 8 visual (wireframe §10). The one-page loop policy card: seven
- * zones highlighted top-to-bottom, then the synthetic checkout example
- * fills the same zones. YAML is copyable; the values are synthetic, not
- * operational numbers.
+ * Scene 8 visual (wireframe §10 + reports/scene7-8-autoresearch-wireframe.md
+ * §4). The one-page loop policy card: eight zones highlighted top-to-bottom,
+ * then the synthetic checkout example fills the same zones. YAML is
+ * copyable; the values are synthetic, not operational numbers.
  */
 export function LoopPolicyCard() {
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -141,7 +167,7 @@ export function LoopPolicyCard() {
         ]}
         explanation={
           <div data-visual-fallback>
-            <p>일곱 구역의 정의와 synthetic 예시 값입니다.</p>
+            <p>여덟 구역의 정의와 synthetic 예시 값입니다.</p>
             <dl className={styles.policyList}>
               {LOOP_POLICY_SECTIONS.map((section) => (
                 <div key={section.id} data-section={section.id}>
@@ -181,7 +207,7 @@ export function LoopPolicyCard() {
             aria-labelledby={titleId}
             aria-describedby={descId}
           >
-            <title id={titleId}>일곱 구역의 loop policy 카드</title>
+            <title id={titleId}>여덟 구역의 loop policy 카드</title>
             <desc id={descId}>
               goal, scope, budget, evidence, transition, memory, stop, owners
               구역이 위에서 아래로 강조되고, synthetic checkout 예시가 각
@@ -194,7 +220,8 @@ export function LoopPolicyCard() {
             </text>
 
             {LOOP_POLICY_SECTIONS.map((section, index) => {
-              const y = 78 + index * 47;
+              // 여덟 구역이 y=446 footnote와 겹치지 않도록 45px 간격.
+              const y = 74 + index * 45;
               const active =
                 highlightedSection === section.id ||
                 (highlightedSection === null && state.status !== "idle");
@@ -205,7 +232,7 @@ export function LoopPolicyCard() {
                   data-active={active ? "true" : "false"}
                   data-filled={tab === "synthetic" ? "true" : "false"}
                 >
-                  <rect x="52" y={y} width="576" height="41" rx="8" />
+                  <rect x="52" y={y} width="576" height="40" rx="8" />
                   <text className={styles.policyZoneLabel} x="68" y={y + 26}>
                     {section.shortLabel}
                   </text>

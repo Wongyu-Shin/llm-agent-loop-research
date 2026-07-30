@@ -20,8 +20,15 @@ import {
   RalphFactsStrip,
   RalphLoopLab,
 } from "@/components/self-correction/scene-06-ralph-loop"
-import { LoopControlWorkbench } from "@/components/self-correction/scene-07-control-workbench"
-import { LoopPolicyCard } from "@/components/self-correction/scene-08-policy-card"
+import {
+  AutoresearchFactsStrip,
+  GateReplayLab,
+  StructuralBreakthroughs,
+} from "@/components/self-correction/scene-07-gate-replay"
+import {
+  CautionBand,
+  LoopPolicyCard,
+} from "@/components/self-correction/scene-08-policy-card"
 
 export const metadata = {
   title: "LLM 자기수정을 위한 확률적 추론 스케일링 이론",
@@ -241,23 +248,34 @@ export const metadata = {
   <StoryScene
     id="scene-07"
     part="practice"
-    eyebrow="통제"
-    title="KEEP·DISCARD·CRASH 뒤에 무엇이 실제로 바뀌는가"
-    visual={<LoopControlWorkbench />}
+    eyebrow="돌파"
+    title="Ralph의 한계를 구조로 돌파한 공식 사례"
+    visual={<GateReplayLab />}
   >
-    <ProvenanceBadge kind="engineering-transfer">replay · diagnose · stop</ProvenanceBadge>
+    <ProvenanceBadge kind="official-autoresearch-example">공식 사례</ProvenanceBadge>
+    <ProvenanceBadge kind="engineering-transfer">구조 대응</ProvenanceBadge>
 
-    KEEP이면 challenger와 incumbent가 함께 전진합니다. DISCARD나 CRASH이면
-    incumbent는 그대로 두고 실패 증거만 ledger에 추가합니다. 이 구분을 먼저
-    지켜야 합니다. 그런 다음 proposer·executor·evaluator·controller의 경계를
-    나눠서 진단합니다. 한 trial의 timeout과 전체 campaign의
-    성공·안전·cycle·plateau·예산·human gate 종료도 서로 다른 시계로 관리해야
-    합니다. 그래야 마지막 candidate가 아니라 검증된 best-so-far를 반환할 수
-    있습니다.
+    karpathy의 autoresearch는 nanoGPT의 `train.py`를 밤새 홀로 개선하는
+    overnight research loop입니다. 목표는 `val_bpb` 하나로 고정되고, 데이터와
+    evaluator가 담긴 `prepare.py`는 frozen harness로 잠기며, 판정은 사람도
+    agent도 아닌 구조가 갖습니다 — 개선하면 keep, 나빠지면 discard와 revert,
+    실행 실패는 crash. 모든 시도는 `results.tsv` ledger에 append됩니다.
+
+    <AutoresearchFactsStrip />
+
+    Ralph에 없던 세 가지 — incumbent/challenger 분리, acceptance gate,
+    append-only ledger — 가 정확히 이 지점에 들어와, 앞 장에서 확인한 네
+    한계를 구조물 하나씩으로 막습니다. gate는 system 수준의 훼손을 0으로
+    눌러 정답 보존율을 1로 만드는 장치이고, 수조 장면의 완전 acceptance
+    gate — 천장을 없애는 그 구조 — 가 실제로 돌아가는 사례입니다. gate
+    토글을 끄면 같은 네 시도가 걸러지지 않고 채택되는 Ralph 궤적이
+    재현됩니다.
+
+    <StructuralBreakthroughs />
 
     <PersistentConclusion badge="engineering-transfer">
-      candidate의 실패는 ledger를 바꾸지만, gate를 통과하기 전에는 incumbent를
-      후퇴시키지 않는다.
+      gate는 system 수준 훼손을 0으로 눌러 CL을 1로 만든다. candidate의
+      실패는 ledger를 바꾸지만, incumbent를 후퇴시키지 않는다.
     </PersistentConclusion>
 
     <PresenterNotes sceneId="scene-07" />
@@ -266,23 +284,30 @@ export const metadata = {
   <StoryScene
     id="scene-08"
     part="practice"
-    eyebrow="정책"
-    title="목표·변경·증거·채택·기억·중단을 한 장에 쓴다"
+    eyebrow="용법"
+    title="autoresearch도 만능이 아니다 — 주의해서 쓰는 용법"
     visual={<LoopPolicyCard />}
   >
+    <ProvenanceBadge kind="critical-reading">적용 한계</ProvenanceBadge>
     <ProvenanceBadge kind="synthetic-example">synthetic policy</ProvenanceBadge>
 
-    loop policy를 쓸 때는 실제 goal과 proxy metric, mutable artifact와 frozen
-    harness, trial budget과 campaign budget, raw observation과 score,
-    experiment ledger와 derived memory를 각각 분리합니다. 여기에
-    KEEP·DISCARD·CRASH·rollback, 구조화된 stop reason, 고위험 external
-    action의 human gate를 명시합니다.
+    autoresearch의 돌파는 구조의 승리이기 전에 verifier의 승리입니다 — 싸고
+    결정적이고 목표와 정렬된 스칼라 metric이 있었기에 frozen harness도
+    gate도 가능했습니다. 이 전제를 갖춘 실무 문제는 많지 않으므로, 옮길
+    때는 여섯 가지 주의를 한 장의 loop policy card에 명시합니다.
+
+    <CautionBand />
 
     <ol className="scene-final-takeaways">
-      <li>논문은 반복 횟수보다 정답 보존과 오답 복구의 균형을 보게 한다.</li>
-      <li>적용할 때는 candidate의 전이와 system-after-gate의 전이를 분리한다.</li>
+      <li>논문은 반복 횟수가 아니라 정답 보존과 오답 복구의 균형을 보게 한다.</li>
+      <li>Ralph에서 autoresearch까지의 거리는 모델이 아니라 verifier와 gate라는 구조가 만들었다.</li>
       <li>좋은 agent loop는 많이 고치는 시스템이 아니라 증거 없는 변경을 채택하지 않는 시스템이다.</li>
     </ol>
+
+    <PersistentConclusion badge="engineering-transfer">
+      좋은 agent loop는 많이 고치는 시스템이 아니라, 증거 없는 변경을
+      채택하지 않는 시스템이다.
+    </PersistentConclusion>
 
     <PresenterNotes sceneId="scene-08" />
   </StoryScene>
