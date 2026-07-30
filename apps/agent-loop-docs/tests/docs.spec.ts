@@ -752,6 +752,44 @@ test("발표 모드 제목은 sticky 상단바 아래의 안전 영역에 놓인
   await expect.poll(() => presenterWindow.isClosed()).toBe(true);
 });
 
+test("발표 모드 장거리 Scene 점프는 목표 Scene을 활성화하고 제목을 노출한다", async ({
+  page,
+}) => {
+  await page.goto("/self-correction-scaling/");
+  const deck = page.locator("[data-research-deck]");
+  const [presenterWindow] = await Promise.all([
+    page.waitForEvent("popup"),
+    deck.getByRole("button", { name: "발표", exact: true }).click(),
+  ]);
+
+  // scene-01 → scene-07 장거리 점프: smooth scroll이 중간 snap 지점에
+  // 끊기거나 stale observer 값이 남아도 active와 제목이 목표를 따라간다.
+  await deck.getByRole("button", { name: /7번 Scene/ }).click();
+  await expect(deck).toHaveAttribute("data-active-scene", "scene-07", {
+    timeout: 10_000,
+  });
+  const topBar = deck.locator(":scope > header");
+  const title = deck.locator("[data-scene-id='scene-07'] h2");
+  await expect(title).toBeInViewport();
+  const safeOffset = await Promise.all([
+    topBar.boundingBox(),
+    title.boundingBox(),
+  ]);
+  expect(safeOffset[1]!.y).toBeGreaterThanOrEqual(
+    safeOffset[0]!.y + safeOffset[0]!.height + 8,
+  );
+
+  // 되돌아오는 장거리 점프도 같은 계약을 지킨다.
+  await deck.getByRole("button", { name: /1번 Scene/ }).click();
+  await expect(deck).toHaveAttribute("data-active-scene", "scene-01", {
+    timeout: 10_000,
+  });
+  await expect(deck.locator("[data-scene-id='scene-01'] h2")).toBeInViewport();
+
+  await deck.getByRole("button", { name: "읽기", exact: true }).click();
+  await expect.poll(() => presenterWindow.isClosed()).toBe(true);
+});
+
 test("MDP는 Bellman backup으로 value와 iteration을 갱신한다", async ({ page }) => {
   await page.goto("/mdp/");
 

@@ -478,6 +478,8 @@ export function ResearchDeck({ children }: { children: ReactNode }) {
   const restoredSceneRef = useRef<SceneId | null>(null);
   const presenterWindowRef = useRef<Window | null>(null);
   const presenterRootRef = useRef<HTMLElement | null>(null);
+  const navigationTargetRef = useRef<SceneId | null>(null);
+  const navigationWatchRef = useRef<number | null>(null);
 
   const activeTiming = getSceneTiming(activeSceneId);
   const currentNoteIndex = Math.max(
@@ -560,20 +562,53 @@ export function ResearchDeck({ children }: { children: ReactNode }) {
     setAnnouncement("발표 타이머를 시작했습니다.");
   }, [mode]);
 
+  const stopNavigationWatch = useCallback(() => {
+    if (navigationWatchRef.current !== null) {
+      window.clearInterval(navigationWatchRef.current);
+      navigationWatchRef.current = null;
+    }
+  }, []);
+
   const goToScene = useCallback(
     (sceneId: SceneId, behavior?: ScrollBehavior) => {
       const scene = deckRef.current?.querySelector<HTMLElement>(
         `[data-scene-id="${sceneId}"]`,
       );
-      scene?.scrollIntoView({
-        behavior: behavior ?? (reducedMotion ? "auto" : "smooth"),
-        block: "start",
-      });
       setActiveSceneId(sceneId);
       setCurrentNoteId(getSceneTiming(sceneId).notes[0].id);
       sentenceStartedAtRef.current = performance.now();
+      if (!scene) return;
+
+      stopNavigationWatch();
+      navigationTargetRef.current = sceneId;
+      scene.scrollIntoView({
+        behavior: behavior ?? (reducedMotion ? "auto" : "smooth"),
+        block: "start",
+      });
+
+      // scroll-snap-stop: always는 긴 smooth scroll을 목표 앞 snap 지점에서
+      // 끊을 수 있다. 스크롤이 잦아들 때까지 지켜본 뒤 목표 Scene에 정확히
+      // 착지시키고, 그동안 observer의 active 갱신은 잠근다.
+      let lastTop = Number.NaN;
+      let stableTicks = 0;
+      let totalTicks = 0;
+      navigationWatchRef.current = window.setInterval(() => {
+        if (navigationTargetRef.current !== sceneId) {
+          stopNavigationWatch();
+          return;
+        }
+        const top = scene.getBoundingClientRect().top;
+        totalTicks += 1;
+        stableTicks = Math.abs(top - lastTop) < 1 ? stableTicks + 1 : 0;
+        lastTop = top;
+        if (stableTicks >= 2 || totalTicks >= 20) {
+          stopNavigationWatch();
+          navigationTargetRef.current = null;
+          scene.scrollIntoView({ behavior: "auto", block: "start" });
+        }
+      }, 140);
     },
-    [reducedMotion],
+    [reducedMotion, stopNavigationWatch],
   );
 
   const resetDeck = useCallback(() => {
@@ -907,39 +942,64 @@ export function ResearchDeck({ children }: { children: ReactNode }) {
   useEffect(() => {
     const deck = deckRef.current;
     if (!deck) return;
-    const ratios = new Map<SceneId, number>();
-    const observer = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          const candidate = (entry.target as HTMLElement).dataset.sceneId;
-          if (candidate && isSceneId(candidate)) {
-            ratios.set(candidate, entry.isIntersecting ? entry.intersectionRatio : 0);
-          }
-        }
-        const visible = [...ratios.entries()]
-          .filter(([, ratio]) => ratio > 0)
-          .sort((left, right) => right[1] - left[1])[0];
-        if (!visible) return;
-        setActiveSceneId((current) => {
-          if (current === visible[0]) return current;
-          const nextTiming = getSceneTiming(visible[0]);
-          setCurrentNoteId(nextTiming.notes[0].id);
-          sentenceStartedAtRef.current = performance.now();
-          return visible[0];
-        });
-      },
-      {
-        root: mode === "presentation" ? deck : null,
-        rootMargin: mode === "presentation" ? "-18% 0px -22% 0px" : "-22% 0px -58% 0px",
-        threshold: [0, 0.2, 0.4, 0.6, 0.8],
-      },
-    );
+    const scenes = [
+      ...deck.querySelectorAll<HTMLElement>("[data-scene-id]"),
+    ];
+    const topBar = deck.querySelector<HTMLElement>(":scope > header");
 
-    deck
-      .querySelectorAll<HTMLElement>("[data-scene-id]")
-      .forEach((scene) => observer.observe(scene));
-    return () => observer.disconnect();
+    // entry ratio를 캐시해 두고 최댓값을 고르면, threshold를 넘지 않은
+    // Scene의 stale 값이 남아 장거리 점프 뒤 active가 이전 Scene에
+    // 고착된다. 매 콜백마다 전체 Scene의 실측 geometry로 상단바 아래
+    // focus line에 걸린 Scene을 고른다.
+    const syncActiveScene = () => {
+      if (navigationTargetRef.current) return;
+      const barBottom = topBar?.getBoundingClientRect().bottom ?? 0;
+      const focusY = barBottom + (window.innerHeight - barBottom) * 0.35;
+      const candidate = scenes.find((scene) => {
+        const rect = scene.getBoundingClientRect();
+        return rect.top <= focusY && rect.bottom > focusY;
+      })?.dataset.sceneId;
+      if (!candidate || !isSceneId(candidate)) return;
+      setActiveSceneId((current) => {
+        if (current === candidate) return current;
+        const nextTiming = getSceneTiming(candidate);
+        setCurrentNoteId(nextTiming.notes[0].id);
+        sentenceStartedAtRef.current = performance.now();
+        return candidate;
+      });
+    };
+
+    const observer = new IntersectionObserver(syncActiveScene, {
+      root: mode === "presentation" ? deck : null,
+      rootMargin: mode === "presentation" ? "-18% 0px -22% 0px" : "-22% 0px -58% 0px",
+      threshold: [0, 0.2, 0.4, 0.6, 0.8],
+    });
+    scenes.forEach((scene) => observer.observe(scene));
+
+    const scroller: HTMLElement | Window =
+      mode === "presentation" ? deck : window;
+    scroller.addEventListener("scrollend", syncActiveScene);
+    return () => {
+      observer.disconnect();
+      scroller.removeEventListener("scrollend", syncActiveScene);
+    };
   }, [mode]);
+
+  useEffect(() => {
+    // 이동 중 사용자가 직접 스크롤을 시작하면 보정 착지가 조작을
+    // 되돌리지 않도록 navigation lock을 즉시 푼다.
+    const cancelNavigation = () => {
+      navigationTargetRef.current = null;
+      stopNavigationWatch();
+    };
+    window.addEventListener("wheel", cancelNavigation, { passive: true });
+    window.addEventListener("touchstart", cancelNavigation, { passive: true });
+    return () => {
+      window.removeEventListener("wheel", cancelNavigation);
+      window.removeEventListener("touchstart", cancelNavigation);
+      cancelNavigation();
+    };
+  }, [stopNavigationWatch]);
 
   const context = useMemo<DeckContextValue>(
     () => ({
