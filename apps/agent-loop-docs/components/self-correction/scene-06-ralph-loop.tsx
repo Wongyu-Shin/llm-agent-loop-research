@@ -92,12 +92,13 @@ const CHART_Y1 = 356;
 
 const LAST_ITERATION = RALPH_TRAJECTORIES.none.actual.length - 1;
 
-/** 자동 재생에서 한 궤적을 그리는 시간 — 바퀴당 약 0.9초. */
-const DRAW_MS_AUTO = 11000;
-/** 사용자가 backpressure를 직접 바꿨을 때의 빠른 재생. */
-const DRAW_MS_USER = 3600;
-/** 화면에 보이는 동안 별도 조작 없이 반복 재생되는 사이클의 draw 시간. */
-const DRAW_MS_LOOP = 8000;
+/**
+ * 모든 draw가 공유하는 일정한 바퀴 속도 — 바퀴당 0.9초, 선형.
+ * 자동 재생 진입·토글 재정렬·상시 반복 사이클이 전부 같은 속도를 쓰므로
+ * 반복될 때마다 ring 회전과 궤적 성장 속도가 일정하게 유지된다.
+ */
+const LAP_MS = 900;
+const CAMPAIGN_DRAW_MS = LAP_MS * LAST_ITERATION;
 /** 완주한 궤적을 보여 주는 hold 시간 — 지나면 처음부터 다시 그린다. */
 const HOLD_MS = 2600;
 
@@ -109,10 +110,6 @@ function chartY(value: number) {
   return (
     CHART_Y1 - (value / RALPH_TOTAL_REQUIREMENTS) * (CHART_Y1 - CHART_Y0)
   );
-}
-
-function smoothstep(t: number) {
-  return t * t * (3 - 2 * t);
 }
 
 function subscribeReducedMotion(callback: () => void) {
@@ -390,7 +387,7 @@ export function RalphLoopLab() {
   const [visible, setVisible] = useState(false);
   /** 진행 계획 — 상시 rAF 루프가 읽어서 progress를 갱신한다. */
   const drawPlanRef = useRef<
-    | { kind: "draw"; start: number | null; duration: number }
+    | { kind: "draw"; start: number | null }
     | { kind: "hold"; until: number }
     | null
   >(null);
@@ -434,24 +431,20 @@ export function RalphLoopLab() {
     const tick = (now: number) => {
       let plan = drawPlanRef.current;
       if (!plan) {
-        plan = { kind: "draw", start: null, duration: DRAW_MS_LOOP };
+        plan = { kind: "draw", start: null };
         drawPlanRef.current = plan;
       }
       if (plan.kind === "hold") {
         if (now >= plan.until) {
-          drawPlanRef.current = {
-            kind: "draw",
-            start: null,
-            duration: DRAW_MS_LOOP,
-          };
+          drawPlanRef.current = { kind: "draw", start: null };
         }
       } else {
         if (plan.start === null) plan.start = now;
-        const t = Math.min(1, (now - plan.start) / plan.duration);
+        const t = Math.min(1, (now - plan.start) / CAMPAIGN_DRAW_MS);
         if (t >= 1) {
           drawPlanRef.current = { kind: "hold", until: now + HOLD_MS };
         }
-        setProgress(smoothstep(t) * LAST_ITERATION);
+        setProgress(t * LAST_ITERATION);
       }
       frame = requestAnimationFrame(tick);
     };
@@ -475,11 +468,7 @@ export function RalphLoopLab() {
     prevStageRef.current = stage;
     if (reducedMotion) return;
     if (stage === "drift" || stage === "backpressure") {
-      drawPlanRef.current = {
-        kind: "draw",
-        start: null,
-        duration: interactedRef.current ? DRAW_MS_USER : DRAW_MS_AUTO,
-      };
+      drawPlanRef.current = { kind: "draw", start: null };
     }
   }, [stage, reducedMotion]);
 
@@ -496,11 +485,7 @@ export function RalphLoopLab() {
     setUserMode(value);
     if (!reducedMotion) {
       setProgress(0);
-      drawPlanRef.current = {
-        kind: "draw",
-        start: null,
-        duration: DRAW_MS_USER,
-      };
+      drawPlanRef.current = { kind: "draw", start: null };
     }
   };
 
